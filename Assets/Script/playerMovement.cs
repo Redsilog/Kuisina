@@ -16,7 +16,7 @@ public class playerMovement : MonoBehaviour
 
     public int add()
     {
-        int x = 0;
+        int x = 1;
         return x + 1;
     }
 }

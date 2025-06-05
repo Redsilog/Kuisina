@@ -3,10 +3,10 @@ using UnityEngine;
 public class IngredientBoxSpawner : MonoBehaviour
 {
     public GameObject ingredientPrefab;  // The object to spawn
-    public Transform holdPoint;          // The transform under camera where held object is attached
+    public Transform spawnPoint;         // Where to spawn the ingredient (optional)
 
     private bool playerInRange = false;
-    private GameObject heldObject = null;
+    private GameObject spawnedObject = null;
 
     void OnTriggerEnter(Collider other)
     {
@@ -28,14 +28,14 @@ public class IngredientBoxSpawner : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (playerInRange && Input.GetKeyDown(KeyCode.E) && spawnedObject == null)
         {
             Debug.Log("E pressed in interaction range. Attempting to spawn ingredient.");
-            SpawnAndHold();
+            SpawnIngredient();
         }
     }
 
-    void SpawnAndHold()
+    void SpawnIngredient()
     {
         if (ingredientPrefab == null)
         {
@@ -43,19 +43,14 @@ public class IngredientBoxSpawner : MonoBehaviour
             return;
         }
 
-        if (heldObject != null)
-        {
-            Debug.Log("Already holding an object.");
-            return; // Optional: prevent spawning multiple held objects
-        }
+        // Spawn the ingredient at the spawn point or box position
+        spawnedObject = Instantiate(ingredientPrefab, spawnPoint.position, spawnPoint.rotation);
 
-        // Instantiate at holdPoint position and rotation, parented to holdPoint
-        heldObject = Instantiate(ingredientPrefab, holdPoint.position, holdPoint.rotation, holdPoint);
+        Debug.Log("Ingredient spawned.");
+    }
 
-        // Reset local position and rotation to zero so it sits exactly at holdPoint
-        heldObject.transform.localPosition = Vector3.zero;
-        heldObject.transform.localRotation = Quaternion.identity;
-
-        Debug.Log("Spawned and holding the ingredient.");
+    public GameObject GetSpawnedObject()
+    {
+        return spawnedObject;
     }
 }

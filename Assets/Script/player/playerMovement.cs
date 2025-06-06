@@ -19,16 +19,12 @@ public class playerMovement : MonoBehaviour
 
     private GameObject heldObject = null;
     private Rigidbody heldObjectRb = null;
-    private IngredientBoxSpawner boxSpawner;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        // Find the IngredientBoxSpawner script in the scene
-        boxSpawner = Object.FindFirstObjectByType<IngredientBoxSpawner>();
     }
 
     void Update()
@@ -75,10 +71,12 @@ public class playerMovement : MonoBehaviour
 
     void HandleObjectInteraction()
     {
+        // If not holding an object and the player presses pickup key, try to pick up
         if (heldObject == null && Input.GetKeyDown(pickupKey))
         {
             TryPickup();
         }
+        // If holding an object, pressing drop key will drop it
         else if (heldObject != null && Input.GetKeyDown(dropKey))
         {
             DropObject();
@@ -87,35 +85,33 @@ public class playerMovement : MonoBehaviour
 
     void TryPickup()
     {
-        if (boxSpawner == null)
+        RaycastHit hit;
+        // Perform raycast to detect if player is close to an interactable object
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, pickupRange))
         {
-            Debug.LogWarning("IngredientBoxSpawner not found!");
-            return;
-        }
-
-        // Get the spawned object from the box
-        heldObject = boxSpawner.GetSpawnedObject();
-
-        if (heldObject != null)
-        {
-            // Parent the object to the player's camera for holding
-            heldObject.transform.SetParent(playerCamera);
-
-            // Position the object in front of the camera
-            heldObject.transform.localPosition = new Vector3(0f, 0f, 1f); // Adjust if needed
-            heldObject.transform.localRotation = Quaternion.identity;
-
-            // Get the Rigidbody component to disable physics while holding it
-            heldObjectRb = heldObject.GetComponent<Rigidbody>();
-
-            if (heldObjectRb == null)
+            if (hit.collider.CompareTag("Interactable"))
             {
-                heldObjectRb = heldObject.AddComponent<Rigidbody>(); // Add Rigidbody if it doesn't exist
+                heldObject = hit.collider.gameObject;
+                heldObjectRb = heldObject.GetComponent<Rigidbody>();
+
+                // If the object doesn't have a Rigidbody, add one
+                if (heldObjectRb == null)
+                {
+                    heldObjectRb = heldObject.AddComponent<Rigidbody>();
+                }
+
+                // Disable physics and set it to kinematic while holding it
+                heldObjectRb.isKinematic = true;
+
+                // Parent the object to the player's camera for holding
+                heldObject.transform.SetParent(playerCamera);
+
+                // Position the object in front of the camera
+                heldObject.transform.localPosition = new Vector3(0f, 0f, 1f); // Adjust as needed
+                heldObject.transform.localRotation = Quaternion.identity;
+
+                Debug.Log("Picked up " + heldObject.name);
             }
-
-            heldObjectRb.isKinematic = true;
-
-            Debug.Log("Picked up " + heldObject.name);
         }
     }
 
@@ -127,7 +123,7 @@ public class playerMovement : MonoBehaviour
             heldObject.transform.SetParent(null);
             heldObjectRb.isKinematic = false;
 
-            // Optionally, apply a force when dropping
+            // Apply force to the object to simulate a drop
             heldObjectRb.AddForce(playerCamera.forward * 2f, ForceMode.Impulse);
 
             heldObject = null;
@@ -135,5 +131,10 @@ public class playerMovement : MonoBehaviour
 
             Debug.Log("Dropped object.");
         }
+    }
+
+    public GameObject GetHeldObject()
+    {
+        return heldObject;  // Returns the currently held object (if any)
     }
 }

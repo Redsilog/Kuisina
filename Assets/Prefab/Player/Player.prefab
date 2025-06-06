@@ -154,12 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b897603c598323d459b4b4db0cab1175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gameobject: {fileID: 0}
   moveSpeed: 5
   mouseSensitivity: 100
   gravity: -9.81
   jumpHeight: 1.5
   playerCamera: {fileID: 641519884571844769}
+  pickupRange: 3
+  pickupKey: 101
+  dropKey: 114
 --- !u!143 &1878048443459841073
 CharacterController:
   m_ObjectHideFlags: 0
@@ -180,7 +182,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 40
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

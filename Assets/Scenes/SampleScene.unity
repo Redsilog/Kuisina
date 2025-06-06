@@ -254,6 +254,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placePoint: {fileID: 170931117}
+  allowedIngredientNames:
+  - Bun
+  - Meat
+  - Cheese
+  - Bottom Bun
+  placedIngredientNames: []
+  placedIngredients: []
+  recipes: []
 --- !u!1 &259286462
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +329,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placePoint: {fileID: 259286463}
+  allowedIngredientNames:
+  - Bun
+  - Meat
+  - Cheese
+  - Bottom Bun
+  placedIngredientNames: []
+  placedIngredients: []
+  recipes:
+  - recipeName: Burger
+    ingredients:
+    - Bun
+    - Meat
+    - Cheese
+    - Bottom Bun
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,6 +2025,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placePoint: {fileID: 2001176368}
+  allowedIngredientNames:
+  - Bun
+  - Meat
+  - Cheese
+  - Bottom Bun
+  placedIngredientNames: []
+  placedIngredients: []
+  recipes:
+  - recipeName: Burger
+    ingredients:
+    - Bun
+    - Meat
+    - Cheese
+    - Bottom Bun
 --- !u!1 &2057410840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,6 +2106,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placePoint: {fileID: 2057410841}
+  allowedIngredientNames:
+  - Bun
+  - Meat
+  - Cheese
+  - Bottom Bun
+  placedIngredientNames: []
+  placedIngredients: []
+  recipes: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

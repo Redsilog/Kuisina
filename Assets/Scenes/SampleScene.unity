@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb7af6e4354ad14486e612f02343772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientPrefab: {fileID: 5763050831939545580, guid: a32f7c80f0c4d2044b1e8a93c28344b9, type: 3}
+  ingredientPrefab: {fileID: 5763050831939545580, guid: fdb13e6b0a5d00e4ba0f36d9d0791c42, type: 3}
   spawnPoint: {fileID: 785887495}
 --- !u!65 &151510886
 BoxCollider:
@@ -596,7 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb7af6e4354ad14486e612f02343772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientPrefab: {fileID: 5763050831939545580, guid: a32f7c80f0c4d2044b1e8a93c28344b9, type: 3}
+  ingredientPrefab: {fileID: 5763050831939545580, guid: 86947a3df9ec8344c9f1f4714706ae09, type: 3}
   spawnPoint: {fileID: 785887495}
 --- !u!65 &575995057
 BoxCollider:
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb7af6e4354ad14486e612f02343772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientPrefab: {fileID: 5763050831939545580, guid: a32f7c80f0c4d2044b1e8a93c28344b9, type: 3}
+  ingredientPrefab: {fileID: 5763050831939545580, guid: 7311447e7e61be44a8e701a3ec6b5873, type: 3}
   spawnPoint: {fileID: 785887495}
 --- !u!1 &1230641714
 GameObject:
@@ -1245,7 +1245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7860668837661315110, guid: f2f1d94224aa5fd40a832315dba5b5eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.54343
+      value: -0.65
       objectReference: {fileID: 0}
     - target: {fileID: 7860668837661315110, guid: f2f1d94224aa5fd40a832315dba5b5eb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1769,7 +1769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb7af6e4354ad14486e612f02343772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientPrefab: {fileID: 5763050831939545580, guid: a32f7c80f0c4d2044b1e8a93c28344b9, type: 3}
+  ingredientPrefab: {fileID: 5763050831939545580, guid: e76fe719b6479534e8235ace8d47c040, type: 3}
   spawnPoint: {fileID: 785887495}
 --- !u!65 &1614159705
 BoxCollider:

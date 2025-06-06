@@ -133,6 +133,15 @@ public class playerMovement : MonoBehaviour
         }
     }
 
+    public void RemoveHeldObject(GameObject obj)
+    {
+        if (heldObject == obj)
+        {
+            heldObject = null;
+            heldObjectRb = null;
+            Debug.Log("Held object cleared by cooking station.");
+        }
+    }
     public GameObject GetHeldObject()
     {
         return heldObject;  // Returns the currently held object (if any)

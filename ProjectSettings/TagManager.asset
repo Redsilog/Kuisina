@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Interactable
+  - Ground
+  - Tapa
+  - Sinangag
+  - Itlog
+  - Stove
+  - Hotdog
+  - CookedTapsilog
   layers:
   - Default
   - TransparentFX

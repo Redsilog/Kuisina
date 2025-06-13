@@ -5,17 +5,37 @@ public class IngredientBox : MonoBehaviour
     public string ingredientName;
     public GameObject ingredientPrefab;
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.Space))
-        {
-            var inventory = other.GetComponent<PlayerInventory>();
+    private bool playerInRange = false;
+    private PlayerInventory playerInventory;
 
-            if (inventory != null && !inventory.HasIngredient())
+    void Update()
+    {
+        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (playerInventory != null && !playerInventory.HasIngredient())
             {
-                inventory.PickUpIngredient(ingredientName, ingredientPrefab);
+                playerInventory.PickUpIngredient(ingredientName, ingredientPrefab);
                 Debug.Log("Dinampot ang " + ingredientName);
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+            playerInventory = other.GetComponent<PlayerInventory>();
+            Debug.Log("Abot");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            playerInventory = null;
         }
     }
 }

@@ -1,29 +1,80 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Stove : MonoBehaviour
 {
-    public List<string> addedIngredients = new List<string>();
-    public GameObject cookedTapsilog;
     public Transform cookedFoodPoint;
+
+    public GameObject cookedHotsilog;
+    public GameObject cookedTocilog;
+    public GameObject cookedTapsilog;
+
+    private List<string> addedIngredients = new List<string>();
+
+    private Dictionary<string, List<string>> recipeBook;
+
+    private Dictionary<string, GameObject> cookedPrefabs;
+
+    private bool playerInRange = false;
+    private PlayerInventory playerInventory;
+    private GameObject currentCookedFood;
+
+    void Start()
+    {
+        recipeBook = new Dictionary<string, List<string>>()
+        {
+            { "Hotsilog", new List<string> { "Hotdog", "Sinangag", "Itlog" } },
+            { "Tocilog", new List<string> { "Tocino", "Sinangag", "Itlog" } },
+            { "Tapsilog", new List<string> { "Tapa", "Sinangag", "Itlog" } }
+        };
+
+        cookedPrefabs = new Dictionary<string, GameObject>()
+        {
+            { "Hotsilog", cookedHotsilog },
+            { "Tocilog", cookedTocilog },
+            { "Tapsilog", cookedTapsilog }
+        };
+    }
 
     void Update()
     {
+        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (playerInventory != null && playerInventory.HasIngredient())
+            {
+                AddIngredient(playerInventory);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             resetStove();
         }
+
+        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null)
+        {
+            Destroy(currentCookedFood);
+            currentCookedFood = null;
+            Debug.Log("Served na boss");
+        }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.Space))
+        if (other.CompareTag("Player"))
         {
-            PlayerInventory inventory = other.GetComponent<PlayerInventory>();
-            if (inventory != null && inventory.HasIngredient())
-            {
-                AddIngredient(inventory);
-            }
+            playerInRange = true;
+            playerInventory = other.GetComponent<PlayerInventory>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            playerInventory = null;
         }
     }
 
@@ -31,38 +82,39 @@ public class Stove : MonoBehaviour
     {
         addedIngredients.Add(player.heldIngredient);
         player.PlaceIngredient();
-
-        CheckRecipe();
+        CheckRecipes();
     }
 
-    private void CheckRecipe()
+    private void CheckRecipes()
     {
-        List<string> tapsilogRecipe = new List<string> { "Hotdog", "Sinangag", "Itlog" };
-
-        if (tapsilogRecipe.Count == addedIngredients.Count)
+        foreach (var recipe in recipeBook)
         {
-            bool allMatch = true;
-            foreach (string item in tapsilogRecipe)
-            {
-                if (!addedIngredients.Contains(item))
-                {
-                    allMatch = false;
-                    break;
-                }
-            }
+            var expected = recipe.Value.OrderBy(i => i).ToList();
+            var actual = addedIngredients.OrderBy(i => i).ToList();
 
-            if (allMatch)
+            if (expected.SequenceEqual(actual))
             {
-                Debug.Log("Serving Tapsilog");
-                Instantiate(cookedTapsilog, cookedFoodPoint.position, cookedFoodPoint.rotation);
+                Debug.Log("Serving " + recipe.Key);
+
+                if (cookedPrefabs.TryGetValue(recipe.Key, out GameObject foodPrefab))
+                {
+                    currentCookedFood = Instantiate(foodPrefab, cookedFoodPoint.position, cookedFoodPoint.rotation);
+                }
+
                 addedIngredients.Clear();
+                return;
             }
+        }
+
+        if (addedIngredients.Count >= 3)
+        {
+            Debug.Log("Walang ganyan boss");
         }
     }
 
     public void resetStove()
     {
         addedIngredients.Clear();
-        Debug.Log("Food Discarded");
+        Debug.Log("Nagaksaya ng pagkain ba");
     }
 }

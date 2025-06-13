@@ -12,6 +12,7 @@ TagManager:
   - Stove
   - Hotdog
   - CookedTapsilog
+  - Tocino
   layers:
   - Default
   - TransparentFX

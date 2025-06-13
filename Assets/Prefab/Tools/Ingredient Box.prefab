@@ -122,9 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5391c2ce02c34f47bf14a9e652624c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HotdogPrefab: {fileID: 6349633538358869473, guid: 67029afc37625a24d976e06526b22348, type: 3}
-  sinangagPrefab: {fileID: 5324250071375890889, guid: 5515d257147ee4d439e27f2099ce21fd, type: 3}
-  itlogPrefab: {fileID: 2480031338953664293, guid: 034343024307b3f4eb7f79e6251b14b1, type: 3}
+  ingredientName: 
+  ingredientPrefab: {fileID: 0}
 --- !u!65 &-9077794031689612278
 BoxCollider:
   m_ObjectHideFlags: 0

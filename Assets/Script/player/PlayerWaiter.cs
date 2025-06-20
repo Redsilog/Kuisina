@@ -38,4 +38,5 @@ public class PlayerWaiter : MonoBehaviour
 
         rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
     }
+
 }

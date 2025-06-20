@@ -69,11 +69,24 @@ public class Stove : MonoBehaviour
             playerInventory = other.GetComponent<PlayerInventory>();
             Debug.Log("Touching Stove");
         }
+        //Remove if not needed just for testing 
+        if (other.CompareTag("Waiter"))
+        {
+            playerInRange = true;
+            playerInventory = other.GetComponent<PlayerInventory>();
+            Debug.Log("Touching Stove");
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            playerInventory = null;
+        }
+        //Remove if not needed just for testing 
+        if (other.CompareTag("Waiter"))
         {
             playerInRange = false;
             playerInventory = null;

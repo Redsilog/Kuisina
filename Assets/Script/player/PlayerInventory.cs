@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -34,32 +35,18 @@ public class PlayerInventory : MonoBehaviour
         heldDish = dishName;
         heldVisual = dishObject;
 
+        // Move the object to the hold point
         heldVisual.transform.SetParent(holdPoint);
         heldVisual.transform.localPosition = Vector3.zero;
         heldVisual.transform.localRotation = Quaternion.identity;
 
+        // Disable collider to prevent pushing the player
         Collider col = heldVisual.GetComponent<Collider>();
+        if (col) col.enabled = false;
+
+        // If it has a Rigidbody, make it kinematic while held
         Rigidbody rb = heldVisual.GetComponent<Rigidbody>();
-
-        if (col)
-        {
-            col.enabled = false;
-            Debug.Log("Dish collider disabled.");
-        }
-        else
-        {
-            Debug.LogWarning("Dish has no collider.");
-        }
-
-        if (rb)
-        {
-            rb.isKinematic = true;
-            Debug.Log("Dish rigidbody set to kinematic.");
-        }
-        else
-        {
-            Debug.LogWarning("Dish has no Rigidbody.");
-        }
+        if (rb) rb.isKinematic = true;
     }
 
     public void PlaceDish(Vector3 position)
@@ -67,13 +54,16 @@ public class PlayerInventory : MonoBehaviour
         if (heldVisual != null)
         {
             heldVisual.transform.SetParent(null);
+
             heldVisual.transform.position = position;
+
+            heldVisual.transform.rotation = Quaternion.identity;
 
             Collider col = heldVisual.GetComponent<Collider>();
             if (col) col.enabled = true;
 
             Rigidbody rb = heldVisual.GetComponent<Rigidbody>();
-            if (rb) rb.isKinematic = false;
+            if (rb) rb.isKinematic = true;
         }
 
         heldDish = "";

@@ -7,16 +7,19 @@ public class FoodServing : MonoBehaviour
 
     public Transform servingSpot;
 
-    private void Update()
+    void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.Space))
         {
             if (playerInventory != null && playerInventory.HasDish())
             {
-                // Place the dish at the serving spot
-                Vector3 placePosition = servingSpot != null ? servingSpot.position : transform.position + Vector3.up;
-                playerInventory.PlaceDish(placePosition);
+                // 🟢 Use the correct serving position with small Y offset
+                Vector3 placePosition = servingSpot != null
+                    ? servingSpot.position + Vector3.up * 0.05f
+                    : transform.position + Vector3.up;
 
+                playerInventory.PlaceDish(placePosition);
+                Debug.Log("Serving spot world position: " + servingSpot.position);
                 Debug.Log("Dish served!");
             }
         }

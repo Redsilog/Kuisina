@@ -52,11 +52,12 @@ public class Stove : MonoBehaviour
             resetStove();
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null)
+        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null && playerInventory != null && !playerInventory.HasDish())
         {
-            Destroy(currentCookedFood);
+            string cookedName = currentCookedFood.name.Replace("(Clone)", "");
+            playerInventory.PickUpDish(cookedName, currentCookedFood);
             currentCookedFood = null;
-            Debug.Log("Served na boss");
+            Debug.Log("Kinuha ni boss ang pagkain");
         }
     }
 
@@ -66,6 +67,7 @@ public class Stove : MonoBehaviour
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
+            Debug.Log("Touching Stove");
         }
     }
 

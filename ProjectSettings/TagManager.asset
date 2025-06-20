@@ -13,6 +13,7 @@ TagManager:
   - Hotdog
   - CookedTapsilog
   - Tocino
+  - Waiter
   layers:
   - Default
   - TransparentFX

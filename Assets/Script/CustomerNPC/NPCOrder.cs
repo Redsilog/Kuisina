@@ -26,7 +26,7 @@ public class NPCOrder : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Waiters"))
+        if (other.CompareTag("Waiter"))
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
@@ -45,22 +45,31 @@ public class NPCOrder : MonoBehaviour
     void Update()
     {
         if (!playerInRange || playerInventory == null) return;
+        if (!Input.GetKeyDown(interactKey)) return;
 
-        if (Input.GetKeyDown(interactKey))
+        if (currentOrder < 0)
         {
-            if (currentOrder < 0)
-            {
-                AskForRandomOrder();
-            }
-            else
-            {
-                // **Try** to fulfill if the player has the right thing
-                if (PlayerHasRequestedItem())
-                    FulfillOrder();
-                else
-                    Debug.Log("NPC: You already have an order. Bring it back!");
-            }
+            AskForRandomOrder();
         }
+        else if (PlayerHasRequestedItem())
+        {
+            FulfillOrder();
+        }
+        else
+        {
+            Debug.Log("NPC: You already have an order. Bring it back!");
+        }
+    }
+
+    bool PlayerHasRequestedItem()
+    {
+        // no held object  can't fulfill
+        if (playerInventory.heldVisual == null)
+            return false;
+
+        // check both dish & ingredient slots
+        return playerInventory.heldDish == orderNames[currentOrder]
+            || playerInventory.heldIngredient == orderNames[currentOrder];
     }
 
     void AskForRandomOrder()
@@ -81,16 +90,6 @@ public class NPCOrder : MonoBehaviour
         }
     }
 
-    bool PlayerHasRequestedItem()
-    {
-        // adapt if you only use dishes or only ingredients
-        string held = playerInventory.HasDish()
-            ? playerInventory.heldDish
-            : playerInventory.HasIngredient()
-                ? playerInventory.heldIngredient
-                : "";
-        return held == orderNames[currentOrder];
-    }
 
     void FulfillOrder()
     {

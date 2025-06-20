@@ -1826,9 +1826,13 @@ PrefabInstance:
       value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 6574612833416748193, guid: 0007b45ccfa48d34ebf100da82981523, type: 3}
-      propertyPath: orderDisplayPoint
+      propertyPath: storagePoint
       value: 
       objectReference: {fileID: 1041243310}
+    - target: {fileID: 6574612833416748193, guid: 0007b45ccfa48d34ebf100da82981523, type: 3}
+      propertyPath: orderDisplayPoint
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6574612833416748193, guid: 0007b45ccfa48d34ebf100da82981523, type: 3}
       propertyPath: orderNames.Array.size
       value: 1

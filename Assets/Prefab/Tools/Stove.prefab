@@ -108,7 +108,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: -1}
 --- !u!114 &-5770656551731158418
 MonoBehaviour:
@@ -122,9 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa9ceb46c23bc046ae008ae49a63c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addedIngredients: []
-  cookedTapsilog: {fileID: 2058961354891543812, guid: 9d5b2bb6187eb754e8870666647a1b4d, type: 3}
   cookedFoodPoint: {fileID: 0}
+  cookedHotsilog: {fileID: 0}
+  cookedTocilog: {fileID: 0}
+  cookedTapsilog: {fileID: 2058961354891543812, guid: 9d5b2bb6187eb754e8870666647a1b4d, type: 3}
 --- !u!65 &4049455627490528545
 BoxCollider:
   m_ObjectHideFlags: 0

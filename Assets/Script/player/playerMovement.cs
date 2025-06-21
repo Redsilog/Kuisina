@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (cameraTransform == null && Camera.main != null)
             cameraTransform = Camera.main.transform;
+        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FixedUpdate()

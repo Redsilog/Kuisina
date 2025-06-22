@@ -1,43 +1,51 @@
-using UnityEngine;  
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float walkSpeed = 5f;
+    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float mouseSensitivity = 2f;
     [SerializeField] float runSpeed = 10f;
-    [SerializeField] float moveSpeed;
+    [SerializeField] float currentSpeed;
 
     public Transform cameraTransform;
 
     private Rigidbody rb;
+    private Vector3 inputDirection;
+    private float pitch;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        if (cameraTransform == null && Camera.main != null)
-            cameraTransform = Camera.main.transform;
-        
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    void Update()
+    {
+        //mouse input
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        //body horizontal look
+        transform.Rotate(Vector3.up * mouseX);
+
+        //camera vertical look
+        pitch -= mouseY;
+        pitch = Mathf.Clamp(pitch, -90f, 90f);
+        cameraTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+
+        // Movement
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        inputDirection = (transform.forward * v + transform.right * h).normalized;
+
+        //run
+        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
     }
 
     void FixedUpdate()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
-
-        forward.y = 0f;
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 direction = (forward * moveZ + right * moveX).normalized;
-
-        moveSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
-
-        rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+        Vector3 move = inputDirection * currentSpeed;
+        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
     }
 }

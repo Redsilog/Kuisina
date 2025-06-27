@@ -3,20 +3,18 @@ using UnityEngine;
 public class IngredientBox : MonoBehaviour
 {
     public string ingredientName;
-    public GameObject ingredientPrefab;
 
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (!playerInRange || playerInventory == null || !playerInventory.IsOwner) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) && !playerInventory.HasIngredient())
         {
-            if (playerInventory != null && !playerInventory.HasIngredient())
-            {
-                playerInventory.PickUpIngredient(ingredientName, ingredientPrefab);
-                Debug.Log("Dinampot ang " + ingredientName);
-            }
+            playerInventory.PickUpIngredient(ingredientName);
+            Debug.Log("Picked up " + ingredientName);
         }
     }
 
@@ -24,9 +22,8 @@ public class IngredientBox : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
-            Debug.Log("Abot");
+            if (playerInventory != null) playerInRange = true;
         }
     }
 

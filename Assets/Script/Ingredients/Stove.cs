@@ -1,8 +1,9 @@
 using UnityEngine;
+using Unity.Netcode;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Stove : MonoBehaviour
+public class Stove : NetworkBehaviour
 {
     public Transform cookedFoodPoint;
 
@@ -10,10 +11,8 @@ public class Stove : MonoBehaviour
     public GameObject cookedTocilog;
     public GameObject cookedTapsilog;
 
-    private List<string> addedIngredients = new List<string>();
-
+    private List<string> addedIngredients = new();
     private Dictionary<string, List<string>> recipeBook;
-
     private Dictionary<string, GameObject> cookedPrefabs;
 
     private bool playerInRange = false;
@@ -22,14 +21,14 @@ public class Stove : MonoBehaviour
 
     void Start()
     {
-        recipeBook = new Dictionary<string, List<string>>()
+        recipeBook = new()
         {
             { "Hotsilog", new List<string> { "Hotdog", "Sinangag", "Itlog" } },
             { "Tocilog", new List<string> { "Tocino", "Sinangag", "Itlog" } },
             { "Tapsilog", new List<string> { "Tapa", "Sinangag", "Itlog" } }
         };
 
-        cookedPrefabs = new Dictionary<string, GameObject>()
+        cookedPrefabs = new()
         {
             { "Hotsilog", cookedHotsilog },
             { "Tocilog", cookedTocilog },
@@ -39,53 +38,38 @@ public class Stove : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (!playerInRange || playerInventory == null || !playerInventory.IsOwner) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) && playerInventory.HasIngredient())
         {
-            if (playerInventory != null && playerInventory.HasIngredient())
-            {
-                AddIngredient(playerInventory);
-            }
+            AddIngredientServerRpc(playerInventory.NetworkObjectId);
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            resetStove();
+            ResetStoveServerRpc();
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            Destroy(currentCookedFood);
-            currentCookedFood = null;
-            Debug.Log("Served na boss");
+            ClearCookedFoodServerRpc();
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    [ServerRpc(RequireOwnership = false)]
+    void AddIngredientServerRpc(ulong playerId)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-            playerInventory = other.GetComponent<PlayerInventory>();
-        }
-    }
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(playerId, out var netObj)) return;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-            playerInventory = null;
-        }
-    }
+        PlayerInventory player = netObj.GetComponent<PlayerInventory>();
+        if (player == null || !player.HasIngredient()) return;
 
-    public void AddIngredient(PlayerInventory player)
-    {
-        addedIngredients.Add(player.heldIngredient);
+        addedIngredients.Add(player.heldIngredient.Value.ToString());
         player.PlaceIngredient();
         CheckRecipes();
     }
 
-    private void CheckRecipes()
+    void CheckRecipes()
     {
         foreach (var recipe in recipeBook)
         {
@@ -94,27 +78,58 @@ public class Stove : MonoBehaviour
 
             if (expected.SequenceEqual(actual))
             {
-                Debug.Log("Serving " + recipe.Key);
-
-                if (cookedPrefabs.TryGetValue(recipe.Key, out GameObject foodPrefab))
+                if (cookedPrefabs.TryGetValue(recipe.Key, out GameObject prefab))
                 {
-                    currentCookedFood = Instantiate(foodPrefab, cookedFoodPoint.position, cookedFoodPoint.rotation);
+                    GameObject cooked = Instantiate(prefab, cookedFoodPoint.position, cookedFoodPoint.rotation);
+                    cooked.GetComponent<NetworkObject>().Spawn();
+                    currentCookedFood = cooked;
                 }
 
                 addedIngredients.Clear();
+                Debug.Log("Cooked " + recipe.Key);
                 return;
             }
         }
 
         if (addedIngredients.Count >= 3)
         {
-            Debug.Log("Walang ganyan boss");
+            Debug.Log("Invalid recipe");
+            addedIngredients.Clear();
         }
     }
 
-    public void resetStove()
+    [ServerRpc(RequireOwnership = false)]
+    void ResetStoveServerRpc()
     {
         addedIngredients.Clear();
-        Debug.Log("Nagaksaya ng pagkain ba");
+        Debug.Log("Stove reset");
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void ClearCookedFoodServerRpc()
+    {
+        if (currentCookedFood != null)
+        {
+            Destroy(currentCookedFood);
+            currentCookedFood = null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInventory = other.GetComponent<PlayerInventory>();
+            if (playerInventory != null) playerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInventory = null;
+            playerInRange = false;
+        }
     }
 }

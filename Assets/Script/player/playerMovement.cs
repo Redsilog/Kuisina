@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float mouseSensitivity = 2f;
@@ -16,36 +17,40 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
+        if (IsOwner)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     void Update()
     {
-        //mouse input
+        if (!IsOwner) return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        //body horizontal look
         transform.Rotate(Vector3.up * mouseX);
 
-        //camera vertical look
         pitch -= mouseY;
         pitch = Mathf.Clamp(pitch, -90f, 90f);
         cameraTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
 
-        // Movement
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         inputDirection = (transform.forward * v + transform.right * h).normalized;
 
-        //run
         currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
     }
 
     void FixedUpdate()
     {
+        if (!IsOwner) return;
+
         Vector3 move = inputDirection * currentSpeed;
-        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+        rb.linearVelocity= new Vector3(move.x, rb.linearVelocity.y, move.z);
     }
 }
+

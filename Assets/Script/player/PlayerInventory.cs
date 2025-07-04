@@ -3,23 +3,26 @@ using TMPro;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [Header("Movement + Camera")]
+    // We'll grab this from your playerMovement script
+    private Transform cameraTransform;
 
-    [Header("Inventory State")]
-    [Tooltip("Name of the held ingredient (empty if none)")]
+    [Header("Held Item State")]
+    [Tooltip("Name of held ingredient (empty if none)")]
     public string heldIngredient = "";
-    [Tooltip("Name of the held dish (empty if none)")]
+    [Tooltip("Name of held dish (empty if none)")]
     public string heldDish = "";
     [Tooltip("Visual GameObject of whatever is held")]
     public GameObject heldVisual;
     [Tooltip("Transform under which held items are parented")]
     public Transform holdPoint;
 
-    [Header("Interaction UI")]
-    [Tooltip("Maximum distance for interaction raycasts")]
+    [Header("Interaction Prompt UI")]
+    [Tooltip("How far you can look to interact")]
     public float interactionDistance = 2f;
-    [Tooltip("Panel root for the interaction prompt UI")]
+    [Tooltip("Root panel GameObject for the prompt")]
     public GameObject interactionUI;
-    [Tooltip("TMP text component showing the interaction key")]
+    [Tooltip("TMP text component showing the required key")]
     public TextMeshProUGUI keyText;
     [Tooltip("TMP text component showing the action description")]
     public TextMeshProUGUI descriptionText;
@@ -29,29 +32,60 @@ public class PlayerInventory : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        // 1) Try to get camera from your playerMovement component
+        var pm = GetComponent<playerMovement>();
+        if (pm != null && pm.cameraTransform != null)
+        {
+            cameraTransform = pm.cameraTransform;
+        }
+        else if (Camera.main != null)
+        {
+            // 2) Fallback to Camera.main
+            cameraTransform = Camera.main.transform;
+        }
+        else
+        {
+            Debug.LogError("PlayerInventory: No cameraTransform found on playerMovement and no MainCamera in scene.");
+        }
+
         if (interactionUI != null)
             interactionUI.SetActive(false);
     }
 
     void Update()
     {
+        HandleMovement();        // optional: if you still want to move here
         HandleInteractionRay();
+    }
+
+    private void HandleMovement()
+    {
+        // If you're using playerMovement for movement, you can remove this entirely.
+        // Otherwise, keep your movement code here.
     }
 
     private void HandleInteractionRay()
     {
+        if (cameraTransform == null)
+            return; // no camera to cast from
+
         bool show = false;
         string desc = "";
         KeyCode key = KeyCode.E;
 
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        // cast from center of your cameraTransform
+        Ray ray = cameraTransform.GetComponent<Camera>()
+                    .ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
         if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
         {
-            Interaction io = hit.collider.GetComponent<Interaction>();
+            var io = hit.collider.GetComponent<Interaction>();
             if (io != null)
             {
                 desc = io.GetDescription();
                 key = io.GetKey();
+
                 if (!string.IsNullOrEmpty(desc))
                 {
                     show = true;
@@ -66,16 +100,22 @@ public class PlayerInventory : MonoBehaviour
 
         if (show)
         {
-            if (keyText != null)
-                keyText.text = key.ToString();
-            if (descriptionText != null)
-                descriptionText.text = desc;
+            if (keyText != null) keyText.text = key.ToString();
+            if (descriptionText != null) descriptionText.text = desc;
         }
     }
 
-    /// <summary>
-    /// Clears and destroys any held ingredient.
-    /// </summary>
+    public void PickUpIngredient(string ingredientName, GameObject prefab)
+    {
+        PlaceIngredient();
+        heldDish = "";
+        heldIngredient = ingredientName;
+        heldVisual = Instantiate(prefab,
+                                      holdPoint.position,
+                                      Quaternion.identity,
+                                      holdPoint);
+    }
+
     public void PlaceIngredient()
     {
         heldIngredient = "";
@@ -86,24 +126,11 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void PickUpIngredient(string ingredientName, GameObject prefab)
-    {
-        // drop old ingredient if any
-        PlaceIngredient();
-
-        heldDish = "";
-        heldIngredient = ingredientName;
-        heldVisual = Instantiate(prefab, holdPoint.position, Quaternion.identity, holdPoint);
-    }
-
     public void PickUpDish(string dishName, GameObject dishObject)
     {
-        // drop old ingredient if any
         PlaceIngredient();
-
         heldDish = dishName;
         heldVisual = dishObject;
-
         heldVisual.transform.SetParent(holdPoint);
         heldVisual.transform.localPosition = Vector3.zero;
         heldVisual.transform.localRotation = Quaternion.identity;
@@ -115,7 +142,6 @@ public class PlayerInventory : MonoBehaviour
     public void PlaceDish(Vector3 position)
     {
         if (heldVisual == null) return;
-
         heldVisual.transform.SetParent(null);
         heldVisual.transform.position = position;
         heldVisual.transform.rotation = Quaternion.identity;
@@ -127,13 +153,6 @@ public class PlayerInventory : MonoBehaviour
         heldVisual = null;
     }
 
-    public bool HasIngredient()
-    {
-        return !string.IsNullOrEmpty(heldIngredient);
-    }
-
-    public bool HasDish()
-    {
-        return !string.IsNullOrEmpty(heldDish);
-    }
+    public bool HasIngredient() => !string.IsNullOrEmpty(heldIngredient);
+    public bool HasDish() => !string.IsNullOrEmpty(heldDish);
 }

@@ -29,13 +29,13 @@ public class IngredientBox : MonoBehaviour, Interaction
             playerInventory = other.GetComponent<PlayerInventory>();
             Debug.Log("Abot");
         }
-        //Remove if not needed just for testing 
+       /* //Remove if not needed just for testing 
         if (other.CompareTag("Waiter"))
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
             Debug.Log("Abot");
-        }
+        }*/
     }
 
     private void OnTriggerExit(Collider other)
@@ -46,11 +46,11 @@ public class IngredientBox : MonoBehaviour, Interaction
             playerInventory = null;
         }
         //Remove if not needed just for testing 
-        if (other.CompareTag("Waiter"))
+        /*if (other.CompareTag("Waiter"))
         {
             playerInRange = false;
             playerInventory = null;
-        }
+        }*/
     }
 
     public string GetDescription() => $"Pick up {ingredientName}";

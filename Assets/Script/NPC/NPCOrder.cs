@@ -26,7 +26,7 @@ public class NPCOrder : MonoBehaviour, Interaction
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Waiter"))
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
@@ -35,7 +35,7 @@ public class NPCOrder : MonoBehaviour, Interaction
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Waiter"))
+        if (other.CompareTag("Player"))
         {
             playerInRange = false;
             playerInventory = null;
@@ -93,16 +93,21 @@ public class NPCOrder : MonoBehaviour, Interaction
 
     void FulfillOrder()
     {
-        // grab the actual GameObject the player is holding
-        GameObject heldObj = playerInventory.heldVisual;
+        // 1) Find the active player inventory
+        var player = Object.FindFirstObjectByType<PlayerInventory>();
+        if (player == null)
+            return;
 
-        // remove from player
-        if (playerInventory.HasDish())
-            playerInventory.PlaceDish(transform.position);
+        // 2) Grab the actual GameObject the player is holding
+        GameObject heldObj = player.heldVisual;
+
+        // 3) Remove from player
+        if (player.HasDish())
+            player.PlaceDish(transform.position);
         else
-            playerInventory.PlaceIngredient();
+            player.PlaceIngredient();
 
-        // give to NPC
+        // 4) Give to NPC
         npcInventory.ReceiveItem(orderNames[currentOrder], heldObj);
 
         Debug.Log("NPC: Thank you!");

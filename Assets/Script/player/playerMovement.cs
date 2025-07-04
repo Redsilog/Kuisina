@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float runSpeed = 10f;
-    [SerializeField] float moveSpeed;
+    float moveSpeed;
 
-    public Transform cameraTransform;
+    [Header("Mouse Look")]
+    [SerializeField] float mouseSensitivity = 100f;
+    float xRotation = 0f;
+
+    [Header("References")]
+    public Transform cameraTransform; // drag your camera here or leave null to auto-assign
 
     private Rigidbody rb;
 
@@ -17,21 +23,38 @@ public class playerMovement : MonoBehaviour
         if (cameraTransform == null && Camera.main != null)
             cameraTransform = Camera.main.transform;
 
-        // Lock and hide the cursor on start
+        // initialize pitch so we don’t snap
+        xRotation = cameraTransform.localEulerAngles.x;
+
+        // lock & hide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
-        // Unlock cursor and make visible when pressing Escape
+        // ----- MOUSE LOOK -----
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+            // yaw player
+            transform.Rotate(Vector3.up * mouseX, Space.Self);
+
+            // pitch camera
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
+
+        // ----- CURSOR TOGGLE -----
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        // Lock cursor again and hide when clicking left mouse button
-        else if (Input.GetMouseButtonDown(0) && Cursor.lockState != CursorLockMode.Locked)
+        else if (Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -40,22 +63,14 @@ public class playerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // ----- MOVEMENT -----
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
-
-        forward.y = 0f;
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 direction = (forward * moveZ + right * moveX).normalized;
+        // now that the player’s rotated, transform.forward is your forward
+        Vector3 direction = (transform.forward * moveZ + transform.right * moveX).normalized;
 
         moveSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
-
         rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
     }
 }

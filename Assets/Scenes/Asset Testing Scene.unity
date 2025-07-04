@@ -912,7 +912,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b11952c04606b6048bd1a0a8f8e10007, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.65527
+      value: -0.418
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b11952c04606b6048bd1a0a8f8e10007, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1292,9 +1292,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e78dd4122e188047a27b674f0a8a38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeed: 5
+  runSpeed: 10
   heldIngredient: 
+  heldDish: 
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 1870672294}
+  interactionDistance: 2
+  interactionUI: {fileID: 0}
+  keyText: {fileID: 0}
+  descriptionText: {fileID: 0}
 --- !u!114 &1211795461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,10 +1314,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b897603c598323d459b4b4db0cab1175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  mouseSensitivity: 2
+  walkSpeed: 5
   runSpeed: 10
-  currentSpeed: 0
+  moveSpeed: 5
   cameraTransform: {fileID: 1049955696}
 --- !u!4 &1229435764 stripped
 Transform:
@@ -1334,9 +1340,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e78dd4122e188047a27b674f0a8a38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeed: 5
+  runSpeed: 10
   heldIngredient: 
+  heldDish: 
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 1870672294}
+  interactionDistance: 2
+  interactionUI: {fileID: 0}
+  keyText: {fileID: 0}
+  descriptionText: {fileID: 0}
 --- !u!1 &1315621824 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 13e1f21b7e5ecab4c9ee15e16961e294, type: 3}

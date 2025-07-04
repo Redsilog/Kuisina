@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Stove : MonoBehaviour
+public class Stove : MonoBehaviour, Interaction
 {
     public Transform cookedFoodPoint;
 
@@ -52,11 +52,12 @@ public class Stove : MonoBehaviour
             resetStove();
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null)
+        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null && playerInventory != null && !playerInventory.HasDish())
         {
-            Destroy(currentCookedFood);
+            string cookedName = currentCookedFood.name.Replace("(Clone)", "");
+            playerInventory.PickUpDish(cookedName, currentCookedFood);
             currentCookedFood = null;
-            Debug.Log("Served na boss");
+            Debug.Log("Kinuha ni boss ang pagkain");
         }
     }
 
@@ -66,12 +67,26 @@ public class Stove : MonoBehaviour
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
+            Debug.Log("Touching Stove");
+        }
+        //Remove if not needed just for testing 
+        if (other.CompareTag("Waiter"))
+        {
+            playerInRange = true;
+            playerInventory = other.GetComponent<PlayerInventory>();
+            Debug.Log("Touching Stove");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            playerInventory = null;
+        }
+        //Remove if not needed just for testing 
+        if (other.CompareTag("Waiter"))
         {
             playerInRange = false;
             playerInventory = null;
@@ -116,5 +131,22 @@ public class Stove : MonoBehaviour
     {
         addedIngredients.Clear();
         Debug.Log("Nagaksaya ng pagkain ba");
+    }
+
+    public string GetDescription()
+    {
+        var player = Object.FindFirstObjectByType<PlayerInventory>();
+        return (player != null && player.HasIngredient())
+            ? $"Add {player.heldIngredient} to stove"
+            : null;
+    }
+
+    public KeyCode GetKey() => KeyCode.E;
+
+    public void Interact()
+    {
+        var player = Object.FindFirstObjectByType<PlayerInventory>();
+        if (player != null && player.HasIngredient())
+            AddIngredient(player);
     }
 }

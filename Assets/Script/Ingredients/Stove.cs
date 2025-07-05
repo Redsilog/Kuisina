@@ -9,6 +9,7 @@ public class Stove : MonoBehaviour
     public GameObject cookedHotsilog;
     public GameObject cookedTocilog;
     public GameObject cookedTapsilog;
+    public GameObject cookedAdobongManok;
 
     private List<string> addedIngredients = new List<string>();
 
@@ -26,20 +27,23 @@ public class Stove : MonoBehaviour
         {
             { "Hotsilog", new List<string> { "Cooked Hotdog", "Cooked Sinangag", "Cooked Itlog" } },
             { "Tocilog", new List<string> { "Cooked Tocino", "Cooked Sinangag", "Cooked Itlog" } },
-            { "Tapsilog", new List<string> { "Cooked Tapa", "Cooked Sinangag", "Cooked Itlog" } }
+            { "Tapsilog", new List<string> { "Cooked Tapa", "Cooked Sinangag", "Cooked Itlog" } },
+            { "Adobong Manok", new List<string> { "Cooked Chicken", "Vinegar", "Soy Sauce", "Chopped Garlic" } }
+
         };
 
         cookedPrefabs = new Dictionary<string, GameObject>()
         {
             { "Hotsilog", cookedHotsilog },
             { "Tocilog", cookedTocilog },
-            { "Tapsilog", cookedTapsilog }
+            { "Tapsilog", cookedTapsilog },
+            { "Adobong Manok", cookedAdobongManok }
         };
     }
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (playerInRange && Input.GetKeyDown(KeyCode.Q))
         {
             if (playerInventory != null && playerInventory.HasIngredient())
             {

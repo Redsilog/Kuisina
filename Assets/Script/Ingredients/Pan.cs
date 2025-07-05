@@ -13,6 +13,8 @@ public class Pan : MonoBehaviour
     public GameObject cookedTapaPrefab;
     public GameObject cookedItlogPrefab;
     public GameObject cookedSinangagPrefab;
+    public GameObject cookedChickenPrefab;
+    public GameObject cookedGarlicPrefab;
 
     [Header("UI")]
     public Slider cookingProgressBar;
@@ -136,6 +138,8 @@ public class Pan : MonoBehaviour
             case "Cooked Tapa": return cookedTapaPrefab;
             case "Cooked Itlog": return cookedItlogPrefab;
             case "Cooked Sinangag": return cookedSinangagPrefab;
+            case "Cooked Chicken": return cookedChickenPrefab;
+            case "Cooked Garlic": return cookedGarlicPrefab;
             default: return null;
         }
     }

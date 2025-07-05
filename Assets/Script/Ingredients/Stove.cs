@@ -26,7 +26,8 @@ public class Stove : MonoBehaviour
         {
             { "Hotsilog", new List<string> { "Cooked Hotdog", "Cooked Sinangag", "Cooked Itlog" } },
             { "Tocilog", new List<string> { "Cooked Tocino", "Cooked Sinangag", "Cooked Itlog" } },
-            { "Tapsilog", new List<string> { "Cooked Tapa", "Cooked Sinangag", "Cooked Itlog" } }
+            { "Tapsilog", new List<string> { "Cooked Tapa", "Cooked Sinangag", "Cooked Itlog" } },
+            { "Chicken", new List<string> { "Cooked Chicken", "Tuyo", "Vinegar", "Cooked Garlic" } }
         };
 
         cookedPrefabs = new Dictionary<string, GameObject>()

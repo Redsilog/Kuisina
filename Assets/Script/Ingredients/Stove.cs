@@ -20,6 +20,9 @@ public class Stove : MonoBehaviour
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
     private GameObject currentCookedFood;
+    public GameObject plate;
+    private string currentDishName = "";
+
 
     void Start()
     {
@@ -28,7 +31,7 @@ public class Stove : MonoBehaviour
             { "Hotsilog", new List<string> { "Cooked Hotdog", "Cooked Sinangag", "Cooked Itlog" } },
             { "Tocilog", new List<string> { "Cooked Tocino", "Cooked Sinangag", "Cooked Itlog" } },
             { "Tapsilog", new List<string> { "Cooked Tapa", "Cooked Sinangag", "Cooked Itlog" } },
-            { "Adobong Manok", new List<string> { "Cooked Chicken", "Vinegar", "Soy Sauce", "Chopped Garlic" } }
+            { "Adobong Manok", new List<string> { "Rice", "Ulam" } }
 
         };
 
@@ -56,12 +59,20 @@ public class Stove : MonoBehaviour
             resetStove();
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null)
+        if (Input.GetKeyDown(KeyCode.P) && currentCookedFood != null && playerInventory != null)
         {
             Destroy(currentCookedFood);
             currentCookedFood = null;
-            Debug.Log("Served na boss");
+
+            if (cookedPrefabs.TryGetValue(currentDishName, out GameObject prefab))
+            {
+                GameObject dishInHand = Instantiate(prefab);
+                playerInventory.PickUpDish(currentDishName, dishInHand);
+                Debug.Log("Picked up " + currentDishName);
+                currentDishName = "";
+            }
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -102,7 +113,10 @@ public class Stove : MonoBehaviour
 
                 if (cookedPrefabs.TryGetValue(recipe.Key, out GameObject foodPrefab))
                 {
+                    plate.SetActive(false);
                     currentCookedFood = Instantiate(foodPrefab, cookedFoodPoint.position, cookedFoodPoint.rotation);
+                    currentDishName = recipe.Key;
+
                 }
 
                 addedIngredients.Clear();

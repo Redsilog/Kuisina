@@ -1,0 +1,204 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CookingSteps : MonoBehaviour
+{
+    [Header("Cooking Settings")]
+    public Transform cookPoint;
+    public float cookTime = 3f;
+
+    [Header("Cooked Ingredient Prefabs")]
+    public GameObject cookedHotdogPrefab;
+    public GameObject cookedTocinoPrefab;
+    public GameObject cookedTapaPrefab;
+    public GameObject cookedItlogPrefab;
+    public GameObject cookedSinangagPrefab;
+    public GameObject cookedChickenPrefab;
+    public GameObject cookedGarlicPrefab;
+
+    [Header("Cooked State GameObjects")]
+    public GameObject liquid1,liquid2;
+    public GameObject garlic;
+    public GameObject chicken1;
+    public GameObject chicken2;
+    public GameObject v1,v2;
+    private bool suka = false;
+
+    [Header("UI")]
+    public Slider cookingProgressBar;
+
+    private bool playerInRange = false;
+    private PlayerInventory playerInventory;
+
+    private bool isCooking = false;
+    private bool isCooked = false;
+    private float cookingTimer = 0f;
+
+    private string cookedIngredientName = "";
+    private GameObject foodVisualOnPan;
+    int adoboCounter = 0;
+
+    void Start()
+    {
+        if (cookingProgressBar != null)
+        {
+            cookingProgressBar.gameObject.SetActive(false);
+            cookingProgressBar.value = 0f;
+        }
+
+        chicken1.SetActive(false);
+        chicken2.SetActive(false);
+        garlic.SetActive(false);
+        liquid1.SetActive(false);
+        liquid2.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isCooking && !isCooked && playerInventory.HasIngredient())
+            {
+                StartCooking(playerInventory.heldIngredient, playerInventory.heldVisual);
+                playerInventory.PlaceIngredient();
+            }
+            else if (isCooked && !playerInventory.HasIngredient())
+            {
+                // No pick-up for now, so just prevent cooking again
+                Debug.Log("Cooked item is still in the pot.");
+            }
+        }
+
+        if (isCooking)
+        {
+            cookingTimer += Time.deltaTime;
+
+            if (cookingProgressBar != null)
+            {
+                cookingProgressBar.gameObject.SetActive(true);
+                cookingProgressBar.value = cookingTimer / cookTime;
+            }
+
+            if (cookingTimer >= cookTime)
+            {
+                FinishCooking();
+            }
+        }
+
+        if (adoboCounter == 4)
+        {
+            Debug.Log("Luto na!");
+            isCooked = true;
+        }
+    }
+
+    void StartCooking(string ingredient, GameObject rawVisual)
+    {
+        isCooking = true;
+        cookingTimer = 0f;
+        cookedIngredientName = "Cooked " + ingredient;
+
+        if (foodVisualOnPan != null)
+        {
+            Destroy(foodVisualOnPan);
+        }
+
+        if (ingredient == "Soy Sauce")
+        {
+            v1.SetActive(true);
+        }
+
+        else if (ingredient == "Vinegar")
+        {
+            v2.SetActive(true);
+        } 
+
+        else
+        {
+            foodVisualOnPan = Instantiate(rawVisual, cookPoint.position, cookPoint.rotation);
+        }
+    }
+
+    void FinishCooking()
+    {
+        if (v1.activeSelf)
+        {
+            v1.SetActive(false);
+        }
+
+        if (v2.activeSelf)
+        {
+            v2.SetActive(false);
+        }
+
+        isCooking = false;
+        cookingTimer = 0f;
+
+        if (cookingProgressBar != null)
+        {
+            cookingProgressBar.value = 0f;
+            cookingProgressBar.gameObject.SetActive(false);
+        }
+
+        if (foodVisualOnPan != null)
+        {
+            Destroy(foodVisualOnPan);
+        }
+
+        if (cookedIngredientName == "Cooked Chicken")
+        {
+            chicken1.SetActive(true);
+            chicken2.SetActive(true);
+            adoboCounter++;
+        }
+        else if (cookedIngredientName == "Cooked Chopped Garlic" || cookedIngredientName == "Cooked Garlic")
+        {
+            garlic.SetActive(true);
+            adoboCounter++;
+        }
+        else if (cookedIngredientName == "Cooked Soy Sauce")
+        {
+            liquid1.SetActive(true);
+            adoboCounter++;
+        }
+
+        else if (cookedIngredientName == "Cooked Vinegar")
+        {
+            liquid2.SetActive(true);
+            adoboCounter++;
+        }
+    }
+
+    GameObject GetCookedVisual(string name)
+    {
+        switch (name)
+        {
+            case "Cooked Hotdog": return cookedHotdogPrefab;
+            case "Cooked Tocino": return cookedTocinoPrefab;
+            case "Cooked Tapa": return cookedTapaPrefab;
+            case "Cooked Itlog": return cookedItlogPrefab;
+            case "Cooked Sinangag": return cookedSinangagPrefab;
+            case "Cooked Chicken": return cookedChickenPrefab;
+            case "Cooked Garlic": return cookedGarlicPrefab;
+            default: return null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+            playerInventory = other.GetComponent<PlayerInventory>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            playerInventory = null;
+        }
+    }
+}

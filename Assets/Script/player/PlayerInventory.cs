@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public GameObject rice, ulam;
     [Header("Inventory State")]
     [Tooltip("Name of the held ingredient (empty if none)")]
     public string heldIngredient = "";
@@ -14,13 +15,30 @@ public class PlayerInventory : MonoBehaviour
 
     public void PlaceIngredient()
     {
+        string temp = heldIngredient;
         heldIngredient = "";
+
         if (heldVisual != null)
         {
-            Destroy(heldVisual);
+            if (temp == "Rice")
+            {
+                rice.SetActive(true);
+                Destroy(heldVisual);
+            }
+            else if (temp == "Ulam")
+            {
+                ulam.SetActive(true);
+                Destroy(heldVisual);
+            }
+            else
+            {
+                Destroy(heldVisual);
+            }
+
             heldVisual = null;
         }
     }
+
 
     public void PickUpIngredient(string ingredientName, GameObject prefab)
     {

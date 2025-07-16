@@ -4,6 +4,7 @@ public class PanelOpener : MonoBehaviour
 {
     [Tooltip("Drag your panel GameObject here in the Inspector.")]
     [SerializeField] private GameObject panel;
+    public bool isPanelOpen = false;
 
     [Tooltip("Key used to open the panel.")]
     [SerializeField] private KeyCode openKey = KeyCode.E;
@@ -19,7 +20,18 @@ public class PanelOpener : MonoBehaviour
     {
         if (panel != null && Input.GetKeyDown(openKey))
         {
-            panel.SetActive(true);
+            if (isPanelOpen)
+            {
+                isPanelOpen = false;
+                panel.SetActive(false);
+                Debug.Log("Closing Recipe Book");
+            }
+            else
+            {
+                isPanelOpen = true;
+                panel.SetActive(true);
+                Debug.Log("Opening Recipe Book");
+            }
         }
     }
 }

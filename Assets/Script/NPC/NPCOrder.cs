@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NPCOrder : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class NPCOrder : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;
     public Transform orderDisplayPoint;    // optional ghost
     public Transform storagePoint;         // to parent delivered objects
+
+    // 2) declare the event here:
+    [Header("Events")]
+    public UnityEvent onOrderComplete;
 
     NPCInventory npcInventory;
     PlayerInventory playerInventory;
@@ -105,5 +110,8 @@ public class NPCOrder : MonoBehaviour
         // reset state
         currentOrder = -1;
         if (displayGhost) Destroy(displayGhost);
+
+        // 3) fire the event so your waypoint controller can react:
+        onOrderComplete?.Invoke();
     }
 }

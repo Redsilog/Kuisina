@@ -2390,7 +2390,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5297781003952579000, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: ingredientName
-      value: Raw Pork
+      value: Pork
       objectReference: {fileID: 0}
     - target: {fileID: -5297781003952579000, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: ingredientPrefab

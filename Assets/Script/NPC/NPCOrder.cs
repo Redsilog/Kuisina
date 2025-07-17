@@ -5,28 +5,29 @@ public class NPCOrder : MonoBehaviour
 {
     [Header("Order Data")]
     public GameObject[] orderPrefabs;
-    public string[] orderNames;
+    public string[]     orderNames;
 
     [Header("Settings")]
-    public KeyCode interactKey = KeyCode.E;
-    public Transform orderDisplayPoint;    // optional ghost
-    public Transform storagePoint;         // to parent delivered objects
+    public KeyCode   interactKey      = KeyCode.E;
+    public Transform orderDisplayPoint;
+    public Transform storagePoint;
 
-    // 2) declare the event here:
     [Header("Events")]
+    public UnityEvent onOrderRequested;
     public UnityEvent onOrderComplete;
 
-    NPCInventory npcInventory;
+    NPCInventory    npcInventory;
     PlayerInventory playerInventory;
-    bool playerInRange;
-    int currentOrder = -1;
-    GameObject displayGhost;
+    bool            playerInRange;
+    int             currentOrder    = -1;
+    GameObject      displayGhost;
 
     void Awake()
     {
-        // Make sure this collider is a trigger
+        // ensure this collider is a trigger
         var col = GetComponent<Collider>();
         col.isTrigger = true;
+
         npcInventory = GetComponent<NPCInventory>();
     }
 
@@ -34,7 +35,7 @@ public class NPCOrder : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
+            playerInRange   = true;
             playerInventory = other.GetComponent<PlayerInventory>();
         }
     }
@@ -43,15 +44,18 @@ public class NPCOrder : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
+            playerInRange   = false;
             playerInventory = null;
         }
     }
 
     void Update()
     {
-        if (!playerInRange || playerInventory == null) return;
-        if (!Input.GetKeyDown(interactKey)) return;
+        if (!playerInRange || playerInventory == null)
+            return;
+
+        if (!Input.GetKeyDown(interactKey))
+            return;
 
         if (currentOrder < 0)
         {
@@ -76,12 +80,17 @@ public class NPCOrder : MonoBehaviour
             || playerInventory.heldIngredient == orderNames[currentOrder];
     }
 
-    void AskForRandomOrder()
+    /// <summary>
+    /// Called to have the NPC request a new random order.
+    /// Fires onOrderRequested immediately.
+    /// </summary>
+    public void AskForRandomOrder()
     {
-        if (orderNames.Length == 0) return;
+        if (orderNames.Length == 0)
+            return;
 
         currentOrder = Random.Range(0, orderNames.Length);
-        string name = orderNames[currentOrder];
+        string name  = orderNames[currentOrder];
         Debug.Log($"NPC requests: «{name}»");
 
         if (orderDisplayPoint != null)
@@ -93,8 +102,14 @@ public class NPCOrder : MonoBehaviour
                 orderDisplayPoint
             );
         }
+
+        onOrderRequested?.Invoke();
     }
 
+    /// <summary>
+    /// Called when the player delivers the requested item.
+    /// Fires onOrderComplete at the end.
+    /// </summary>
     void FulfillOrder()
     {
         GameObject heldObj = playerInventory.heldVisual;
@@ -107,11 +122,10 @@ public class NPCOrder : MonoBehaviour
         npcInventory.ReceiveItem(orderNames[currentOrder], heldObj);
         Debug.Log("NPC: Thank you!");
 
-        // reset state
+        // clean up
         currentOrder = -1;
         if (displayGhost) Destroy(displayGhost);
 
-        // 3) fire the event so your waypoint controller can react:
         onOrderComplete?.Invoke();
     }
 }

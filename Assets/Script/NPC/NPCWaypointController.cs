@@ -107,7 +107,7 @@ public class NPCWaypointController : MonoBehaviour
             int secondsLeft = Mathf.CeilToInt(orderTimerRemaining);
             if (secondsLeft != lastLogged)
             {
-                Debug.Log($"Order timeout in: {secondsLeft}s");
+                //Debug.Log($"Order timeout in: {secondsLeft}s");
                 lastLogged = secondsLeft;
             }
             yield return null;

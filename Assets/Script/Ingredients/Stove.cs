@@ -161,7 +161,6 @@ public class Stove : MonoBehaviour
         {
             Debug.Log("Correct recipe made immediately!");
             CheckRecipes();
-            addedIngredients.Clear();
             isTimerRunning = false;
         }
         else

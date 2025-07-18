@@ -2,68 +2,66 @@ using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
 {
-    [Tooltip("NPC prefabs to spawn, in order")]
+    [Tooltip("Prefabs to spawn, in order")]
     public GameObject[] npcPrefabs;
 
-    [Tooltip("Where to spawn each NPC")]
+    [Tooltip("Where in the scene each NPC should appear")]
     public Transform spawnPoint;
 
     [Header("Patrol Settings")]
-    [Tooltip("The scene’s waypoints, in order")]
+    [Tooltip("Shared waypoint transforms")]
     public Transform[] patrolWaypoints;
 
-    [Tooltip("Which waypoint index each NPC should stop at for orders")]
-    public int[] orderStopIndices;  // length should match npcPrefabs.Length
+    [Tooltip("Which waypoint index each NPC stops at")]
+    public int[] stopIndices;  // match length of npcPrefabs
 
-    int currentIndex = 0;
-    GameObject currentNPC;
+    [Header("Order Display")]
+    [Tooltip("Drag the Transform where you want the order ghost to appear")]
+    public Transform displayPoint;
 
-    void Start()
-    {
-        SpawnNext();
-    }
+    int     cur;
+    GameObject current;
+
+    void Start() => SpawnNext();
 
     void SpawnNext()
     {
-        if (currentIndex >= npcPrefabs.Length)
-            return;
+        if (cur >= npcPrefabs.Length) return;
 
-        // Instantiate the next NPC
-        currentNPC = Instantiate(
-            npcPrefabs[currentIndex],
-            spawnPoint.position,
-            spawnPoint.rotation
-        );
+        // 1) Instantiate NPC
+        current = Instantiate(npcPrefabs[cur], spawnPoint.position, spawnPoint.rotation);
 
-        // Configure its waypoint controller
-        var wp = currentNPC.GetComponent<NPCWaypointController>();
+        // 2) Configure its waypoint controller
+        var wp = current.GetComponent<NPCWaypointController>();
         if (wp != null)
         {
-            // Inject the shared patrol waypoints
-            wp.waypoints = patrolWaypoints;
+            wp.waypoints      = patrolWaypoints;
+            wp.orderStopIndex = (cur < stopIndices.Length) ? stopIndices[cur] : 0;
+            wp.loop           = false;
+            wp.onPatrolComplete.AddListener(OnFinished);
+        }
 
-            // Determine and clamp which waypoint it should stop at
-            int stopIdx = 0;
-            if (orderStopIndices != null && currentIndex < orderStopIndices.Length)
-                stopIdx = orderStopIndices[currentIndex];
-            wp.orderStopIndex = Mathf.Clamp(stopIdx, 0, patrolWaypoints.Length - 1);
+        // 3) Wire up its inventory storage (optional)
+        var inv = current.GetComponent<NPCInventory>();
+        if (inv != null)
+        {
+            var sp = current.transform.Find("StoragePoint");
+            if (sp != null)
+                inv.storagePoint = sp;
+        }
 
-            // Do not loop—so it will fire onPatrolComplete at the last point
-            wp.loop = false;
-
-            // When that event fires, clean up and spawn the next NPC
-            wp.onPatrolComplete.AddListener(OnNPCFinishedPatrol);
+        // 4) Assign the display point for its order ghost
+        var order = current.GetComponent<NPCOrder>();
+        if (order != null && displayPoint != null)
+        {
+            order.orderDisplayPoint = displayPoint;
         }
     }
 
-    void OnNPCFinishedPatrol()
+    void OnFinished()
     {
-        // Destroy the finished NPC
-        if (currentNPC != null)
-            Destroy(currentNPC);
-
-        // Move to the next prefab in the list
-        currentIndex++;
+        Destroy(current);
+        cur++;
         SpawnNext();
     }
 }

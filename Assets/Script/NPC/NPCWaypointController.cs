@@ -3,155 +3,124 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(NavMeshAgent),typeof(NPCOrder),typeof(NPCInventory))]
 public class NPCWaypointController : MonoBehaviour
 {
-    [Header("Waypoints")]
+    [Header("Patrol")]
     public Transform[] waypoints;
-
-    [Header("Order Stop")]
+    [Tooltip("Zero-based index where NPC stops for its order")]
     public int orderStopIndex = 0;
-
-    [Header("Order Zone Settings")]
-    public float orderZoneMaxWait        = 20f;  // initial
-    public float postOrderDeliveredDelay = 5f;
-
-    [Header("Arrival Settings")]
-    public float arrivalTolerance = 0.5f;
-
-    [Header("Patrol Completion")]
+    [Tooltip("If false, stops at last and fires onPatrolComplete")]
     public bool loop = false;
+
+    [Header("Order Timing")]
+    public float maxWaitForOrder     = 20f;
+    public float postOrderDelay      = 5f;
+
+    [Header("Completion Event")]
     public UnityEvent onPatrolComplete;
 
     NavMeshAgent agent;
-    NPCOrder     npcOrder;
-    int          currentIndex        = 0;
-    bool         waitingForOrder     = false;
-    bool         patrolCompleteFired = false;
-    Coroutine    orderWaitCoroutine;
-    float        orderTimerRemaining;
+    NPCOrder     order;
+    NPCInventory inventory;
+    int          idx;
+    bool         waitingForOrder;
+    bool         firedComplete;
+    Coroutine    timeoutRoutine;
 
     void Start()
     {
-        agent    = GetComponent<NavMeshAgent>();
-        npcOrder = GetComponent<NPCOrder>();
+        agent     = GetComponent<NavMeshAgent>();
+        order     = GetComponent<NPCOrder>();
+        inventory = GetComponent<NPCInventory>();
 
-        if (npcOrder != null)
-        {
-            npcOrder.onOrderRequested.AddListener(OnOrderRequested);
-            npcOrder.onOrderComplete .AddListener(OnOrderComplete);
-        }
+        order.onOrderRequested.AddListener(OnOrderRequested);
+        order.onOrderComplete   .AddListener(OnOrderComplete);
 
-        if (waypoints == null || waypoints.Length == 0)
-        {
-            Debug.LogError("No waypoints assigned!");
-            enabled = false;
-            return;
-        }
-
-        orderStopIndex = Mathf.Clamp(orderStopIndex, 0, waypoints.Length - 1);
-        MoveTo(waypoints[currentIndex]);
+        // clamp index
+        orderStopIndex = Mathf.Clamp(orderStopIndex, 0, waypoints.Length-1);
+        MoveTo(0);
     }
 
     void Update()
     {
         if (waitingForOrder) return;
-        if (agent.pathPending || agent.remainingDistance > arrivalTolerance) return;
+        if (agent.pathPending || agent.remainingDistance > agent.stoppingDistance) return;
 
-        bool isLast = currentIndex == waypoints.Length - 1;
+        bool isLast = idx == waypoints.Length - 1;
 
-        if (currentIndex == orderStopIndex)
-        {
-            // stop and start timer
-            waitingForOrder = true;
-            agent.isStopped = true;
-            Debug.Log($"NPC: arrived at waypoint #{orderStopIndex}, waiting for your interact…");
-            orderWaitCoroutine = StartCoroutine(OrderZoneTimeout());
-        }
-        else if (isLast && !loop)
-        {
-            if (!patrolCompleteFired)
-            {
-                patrolCompleteFired = true;
-                agent.isStopped = true;
-                Debug.Log("NPC: patrol complete!");
-                onPatrolComplete?.Invoke();
-            }
-        }
+        if (idx == orderStopIndex)
+            BeginWaiting();
+        else if (!loop && isLast && !firedComplete)
+            FinishPatrol();
         else
-        {
-            AdvanceWaypoint();
-        }
+            MoveTo((idx+1)%waypoints.Length);
     }
 
-    void MoveTo(Transform wp)
+    void MoveTo(int i)
     {
+        idx = i;
+        firedComplete = false;
         agent.isStopped = false;
-        agent.SetDestination(wp.position);
+        agent.SetDestination(waypoints[idx].position);
     }
 
-    void AdvanceWaypoint()
+    void BeginWaiting()
     {
-        currentIndex = (currentIndex + 1) % waypoints.Length;
-        MoveTo(waypoints[currentIndex]);
+        waitingForOrder = true;
+        agent.isStopped = true;
+        timeoutRoutine = StartCoroutine(WaitForOrder());
     }
 
-    IEnumerator OrderZoneTimeout()
+    IEnumerator WaitForOrder()
     {
-        orderTimerRemaining = orderZoneMaxWait;
-        int lastLogged = Mathf.CeilToInt(orderTimerRemaining);
-        Debug.Log($"Order timeout starts: {lastLogged}s remaining");
-
-        while (orderTimerRemaining > 0f && waitingForOrder)
+        float t = maxWaitForOrder;
+        while (t>0f && waitingForOrder)
         {
-            orderTimerRemaining -= Time.deltaTime;
-            int secondsLeft = Mathf.CeilToInt(orderTimerRemaining);
-            if (secondsLeft != lastLogged)
-            {
-                //Debug.Log($"Order timeout in: {secondsLeft}s");
-                lastLogged = secondsLeft;
-            }
+            t -= Time.deltaTime;
             yield return null;
         }
-
-        if (waitingForOrder)
-        {
-            Debug.Log("NPC: no order delivered in time—resuming patrol.");
-            waitingForOrder = false;
-            AdvanceWaypoint();
-        }
-        orderWaitCoroutine = null;
+        if (waitingForOrder) // gave up
+            ResumePatrol();
+        timeoutRoutine = null;
     }
 
     void OnOrderRequested()
     {
-        // give player +10s when they first get the order
-        if (orderWaitCoroutine != null)
+        // reset the timer
+        if (timeoutRoutine != null)
         {
-            orderTimerRemaining += 10f;
-            Debug.Log($"NPC: timer extended by 10s → {Mathf.CeilToInt(orderTimerRemaining)}s remaining");
+            StopCoroutine(timeoutRoutine);
+            timeoutRoutine = StartCoroutine(WaitForOrder());
         }
     }
 
     void OnOrderComplete()
     {
-        // stop the timeout coroutine
-        if (orderWaitCoroutine != null)
+        if (timeoutRoutine != null)
         {
-            StopCoroutine(orderWaitCoroutine);
-            orderWaitCoroutine = null;
+            StopCoroutine(timeoutRoutine);
+            timeoutRoutine = null;
         }
-        // then wait a bit, then resume patrol
-        StartCoroutine(PostOrderDelay());
+        StartCoroutine(DelayedResume());
     }
 
-    IEnumerator PostOrderDelay()
+    IEnumerator DelayedResume()
     {
-        yield return new WaitForSeconds(postOrderDeliveredDelay);
-        if (waitingForOrder)
-        {
-            waitingForOrder = false;
-            Debug.Log("NPC: order delivered—resuming patrol.");
-            AdvanceWaypoint();
-        }
+        yield return new WaitForSeconds(postOrderDelay);
+        if (waitingForOrder) ResumePatrol();
+    }
+
+    void ResumePatrol()
+    {
+        waitingForOrder = false;
+        MoveTo((idx+1)%waypoints.Length);
+    }
+
+    void FinishPatrol()
+    {
+        firedComplete = true;
+        agent.isStopped = true;
+        onPatrolComplete?.Invoke();
     }
 }

@@ -603,6 +603,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2089147775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &301730440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 301730441}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &301730441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301730440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.191, y: 0.941, z: 6.822}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &318487127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4506,7 +4537,8 @@ MonoBehaviour:
   - {fileID: 540514793}
   - {fileID: 1979495495}
   - {fileID: 1430987755}
-  orderStopIndices: 01000000
+  stopIndices: 01000000
+  displayPoint: {fileID: 0}
 --- !u!4 &1445883634
 Transform:
   m_ObjectHideFlags: 0
@@ -6675,7 +6707,8 @@ MonoBehaviour:
   - {fileID: 1499719340}
   - {fileID: 960150777}
   - {fileID: 1111547481}
-  orderStopIndices: 01000000
+  stopIndices: 01000000
+  displayPoint: {fileID: 301730441}
 --- !u!4 &1988361416
 Transform:
   m_ObjectHideFlags: 0
@@ -8109,3 +8142,4 @@ SceneRoots:
   - {fileID: 1445883634}
   - {fileID: 1501365962}
   - {fileID: 76237090}
+  - {fileID: 301730441}

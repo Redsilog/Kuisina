@@ -9,6 +9,9 @@ public class ChoppingBoard : MonoBehaviour
     [Header("Chopped Prefabs")]
     public GameObject choppedGarlicPrefab;
     public GameObject choppedOnionPrefab;
+    public GameObject choppedPorkPrefab;
+    public GameObject choppedChickenPrefab;
+    public GameObject choppedBeefPrefab;
     //add dito
 
     private bool playerInRange = false;
@@ -112,6 +115,9 @@ public class ChoppingBoard : MonoBehaviour
         {
             case "Chopped Garlic": return choppedGarlicPrefab;
             case "Chopped Onion": return choppedOnionPrefab;
+            case "Chopped Pork": return choppedPorkPrefab;
+            case "Chopped Chicken": return choppedChickenPrefab;
+            case "Chopped Beef": return choppedBeefPrefab;
             //add dito
             default: return null;
         }

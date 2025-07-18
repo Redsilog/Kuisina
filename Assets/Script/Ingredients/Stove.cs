@@ -58,14 +58,12 @@ public class Stove : MonoBehaviour
 
             //Adobo
             //replace chicken with cooked version later
-            //replace onion with chopped onion later
-            { "Classic Adobo", new List<string> { "Chicken", "Soy Sauce", "Vinegar", "Onion"}},
+            { "Classic Adobo", new List<string> { "Chicken", "Soy Sauce", "Vinegar", "Chopped Onion"}},
             { "Adobong Puti", new List<string> { "Chicken", "Vinegar", "Garlic", "Salt"}},
 
             //Pancit
-            //replace beef and pork with chopped versions later
-            { "Pancit Malabon", new List<string> { "Noodles", "Pork", "Mussels", "Dried Fish"}},
-            { "Pancit Batil Patung", new List<string> { "Beef", "Pork", "Noodles", "Chicharon"}},
+            { "Pancit Malabon", new List<string> { "Noodles", "Chopped Pork", "Mussels", "Dried Fish"}},
+            { "Pancit Batil Patung", new List<string> { "Chopped Beef", "Chopped Pork", "Noodles", "Chicharon"}},
 
             //Sinigang
             { "Sinigang na Baboy", new List<string> { "Pork", "Onion", "Tomato", "Radish", "Eggplant", "Green Chili", "String Beans", "Okra", "Kangkong"}},
@@ -88,7 +86,7 @@ public class Stove : MonoBehaviour
 
             //Pancit
             { "Pancit Malabon", cookedPancitMalabon},
-            // { "Pancit Batil Patung", cookedPancitBatil},
+            { "Pancit Batil Patung", cookedPancitBatil},
 
             //Sinigang
             // { "Sinigang na Baboy", cookedSinigangBaboy},

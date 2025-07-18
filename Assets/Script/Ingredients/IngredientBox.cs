@@ -7,10 +7,11 @@ public class IngredientBox : MonoBehaviour
 
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
+    private KeyCode interactKey = KeyCode.Space;
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (playerInRange && Input.GetKeyDown(interactKey))
         {
             if (playerInventory != null && !playerInventory.HasIngredient())
             {
@@ -22,17 +23,23 @@ public class IngredientBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
-            Debug.Log("Abot");
+
+            if (other.CompareTag("Player"))
+                interactKey = KeyCode.Space;
+            else if (other.CompareTag("Player2"))
+                interactKey = KeyCode.Return;
+
+            Debug.Log("Abot: " + other.tag);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = false;
             playerInventory = null;

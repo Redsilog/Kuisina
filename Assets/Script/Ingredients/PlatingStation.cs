@@ -1,19 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections;
 
 public class PlatingStation : MonoBehaviour
 {
-
     public Transform cookedFoodPoint;
 
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
+    private KeyCode interactKey = KeyCode.Space;
 
     [SerializeField]
     private GameObject placedDish;
-    //Adobo
+
+    // Adobo
     public GameObject cookedClassicAdobo;
     public GameObject cookedAdobongPuti;
 
@@ -23,26 +23,39 @@ public class PlatingStation : MonoBehaviour
     [SerializeField]
     private float ingredientTimer = 0f;
     [SerializeField]
-    private float maxWaitTime = 10f; // seconds to wait before checking
+    private float maxWaitTime = 10f;
 
     private Dictionary<string, List<string>> recipeBook;
-
     private Dictionary<string, GameObject> cookedPrefabs;
 
     private GameObject currentCookedFood;
+
+    void Start()
+    {
+        recipeBook = new Dictionary<string, List<string>>()
+        {
+            { "Classic Adobo", new List<string> { "Cooked Chicken", "Cooked Garlic", "Soy Sauce", "Vinegar" } },
+            { "Adobong Puti", new List<string> { "Cooked Chicken", "Cooked Garlic", "Vinegar" } },
+        };
+
+        cookedPrefabs = new Dictionary<string, GameObject>()
+        {
+            { "Classic Adobo", cookedClassicAdobo },
+            { "Adobong Puti", cookedAdobongPuti },
+        };
+    }
+
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (playerInRange && Input.GetKeyDown(interactKey))
         {
             if (playerInventory != null)
             {
-                // Player is holding a dish → Place it
                 if (playerInventory.HasDish() && currentCookedFood == null)
                 {
                     currentCookedFood = playerInventory.PlaceDish(cookedFoodPoint.position);
                     Debug.Log("Placed dish on station: " + currentCookedFood?.name);
                 }
-                // Player is not holding a dish → Pick it up
                 else if (!playerInventory.HasDish() && currentCookedFood != null)
                 {
                     playerInventory.PickUpDish("Dish", currentCookedFood);
@@ -51,35 +64,26 @@ public class PlatingStation : MonoBehaviour
                 }
             }
         }
+
+        if (addedIngredients.Count > 0)
+        {
+            ingredientTimer += Time.deltaTime;
+
+            if (ingredientTimer >= maxWaitTime)
+            {
+                CheckRecipes();
+                ingredientTimer = 0f;
+            }
+        }
     }
 
-     public void AddIngredient(PlayerInventory player)
+    public void AddIngredient(PlayerInventory player)
     {
         string ingredient = player.heldIngredient;
-        Debug.Log("Adding ingredient: " + ingredient); 
-        addedIngredients.Add(player.heldIngredient);
+        Debug.Log("Adding ingredient: " + ingredient);
+        addedIngredients.Add(ingredient);
         player.PlaceIngredient();
-
-        // switch (ingredient)
-        // {
-        //     case "Cooked Garlic":
-        //     case "Garlic":
-        //         garlic.SetActive(true);
-        //         break;
-
-        //     case "Cooked Chicken":
-        //     case "Chicken":
-        //         classicChicken.SetActive(true);
-        //         break;
-
-        //     case "Soy Sauce":
-        //         liquid1.SetActive(true);
-        //         break;
-
-        //     case "Vinegar":
-        //         liquid2.SetActive(true);
-        //         break;
-        // }
+        ingredientTimer = 0f;
     }
 
     private void CheckRecipes()
@@ -102,7 +106,6 @@ public class PlatingStation : MonoBehaviour
 
                 addedIngredients.Clear();
                 foundRecipe = true;
-
                 return;
             }
         }
@@ -111,43 +114,26 @@ public class PlatingStation : MonoBehaviour
         {
             Debug.Log("Walang ganyan boss");
             addedIngredients.Clear();
-            Debug.Log("Stove cleared.");
         }
     }
 
-    private bool CheckForValidRecipe()
-    {
-        foreach (var recipe in recipeBook)
-        {
-            if (recipe.Value.Count != addedIngredients.Count)
-                continue;
-
-            if (!recipe.Value.Except(addedIngredients).Any() && !addedIngredients.Except(recipe.Value).Any())
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
+
+            interactKey = (other.CompareTag("Player")) ? KeyCode.Space : KeyCode.Return;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = false;
             playerInventory = null;
         }
     }
-
 }
-

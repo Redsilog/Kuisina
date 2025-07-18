@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerMovement : MonoBehaviour
+public class playerMovement2 : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] Transform cameraTransform;
@@ -14,8 +14,8 @@ public class playerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetAxisRaw("Horizontal_P2");
+        float v = Input.GetAxisRaw("Vertical_P2");
         Vector3 input = new Vector3(h, 0, v).normalized;
 
         if (input.magnitude == 0)
@@ -26,14 +26,12 @@ public class playerMovement : MonoBehaviour
 
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
-
         camForward.y = 0f;
         camRight.y = 0f;
         camForward.Normalize();
         camRight.Normalize();
 
         Vector3 moveDir = camForward * input.z + camRight * input.x;
-
         rb.linearVelocity = new Vector3(moveDir.x * moveSpeed, rb.linearVelocity.y, moveDir.z * moveSpeed);
 
         if (moveDir != Vector3.zero)

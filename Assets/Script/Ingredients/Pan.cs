@@ -13,15 +13,14 @@ public class Pan : MonoBehaviour
     public GameObject cookedTapaPrefab;
     public GameObject cookedItlogPrefab;
     public GameObject cookedSinangagPrefab;
-
-    //Adobo
-    public GameObject cookedChickenPrefab;
+    public GameObject cookedChickenPrefab; // Adobo
 
     [Header("UI")]
     public Slider cookingProgressBar;
 
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
+    private KeyCode interactKey = KeyCode.Space;
 
     private bool isCooking = false;
     private bool isCooked = false;
@@ -41,7 +40,7 @@ public class Pan : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (playerInRange && Input.GetKeyDown(interactKey))
         {
             if (!isCooking && !isCooked && playerInventory.HasIngredient())
             {
@@ -78,9 +77,7 @@ public class Pan : MonoBehaviour
         cookedIngredientName = "Cooked " + ingredient;
 
         if (foodVisualOnPan != null)
-        {
             Destroy(foodVisualOnPan);
-        }
 
         foodVisualOnPan = Instantiate(rawVisual, cookPoint.position, cookPoint.rotation);
     }
@@ -97,9 +94,7 @@ public class Pan : MonoBehaviour
         }
 
         if (foodVisualOnPan != null)
-        {
             Destroy(foodVisualOnPan);
-        }
 
         GameObject cookedVisual = GetCookedVisual(cookedIngredientName);
         if (cookedVisual != null)
@@ -107,24 +102,16 @@ public class Pan : MonoBehaviour
             foodVisualOnPan = Instantiate(cookedVisual, cookPoint.position, cookPoint.rotation);
             isCooked = true;
         }
-        else
-        {
-            Debug.LogWarning("No cooked visual found for: " + cookedIngredientName);
-        }
     }
 
     void PickUpCookedFood()
     {
         if (foodVisualOnPan != null)
-        {
             Destroy(foodVisualOnPan);
-        }
 
         GameObject cookedVisual = GetCookedVisual(cookedIngredientName);
         if (cookedVisual != null)
-        {
             playerInventory.PickUpIngredient(cookedIngredientName, cookedVisual);
-        }
 
         isCooked = false;
         cookedIngredientName = "";
@@ -146,16 +133,19 @@ public class Pan : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
+
+            // Assign correct key for each player
+            interactKey = (other.CompareTag("Player")) ? KeyCode.Space : KeyCode.Return;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = false;
             playerInventory = null;

@@ -12,17 +12,17 @@ public class ChoppingBoard : MonoBehaviour
     public GameObject choppedPorkPrefab;
     public GameObject choppedChickenPrefab;
     public GameObject choppedBeefPrefab;
-    //add dito
+
+    public Slider choppingProgressBar;
 
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
+    private KeyCode interactKey = KeyCode.Space;
 
     private bool isChopping = false;
     private bool isChopped = false;
     private string choppedIngredientName = "";
     private GameObject foodOnBoard;
-
-    public Slider choppingProgressBar;
 
     private float choppingTimer = 0f;
 
@@ -34,7 +34,7 @@ public class ChoppingBoard : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (playerInRange && Input.GetKeyDown(interactKey))
         {
             if (!isChopping && !isChopped && playerInventory.HasIngredient())
             {
@@ -84,7 +84,7 @@ public class ChoppingBoard : MonoBehaviour
             choppingProgressBar.gameObject.SetActive(false);
         }
 
-        if (choppedIngredientName != "")
+        if (!string.IsNullOrEmpty(choppedIngredientName))
         {
             Destroy(foodOnBoard);
             GameObject choppedVisual = GetChoppedVisual(choppedIngredientName);
@@ -118,23 +118,27 @@ public class ChoppingBoard : MonoBehaviour
             case "Chopped Pork": return choppedPorkPrefab;
             case "Chopped Chicken": return choppedChickenPrefab;
             case "Chopped Beef": return choppedBeefPrefab;
-            //add dito
             default: return null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
+
+            if (other.CompareTag("Player"))
+                interactKey = KeyCode.Space;
+            else if (other.CompareTag("Player2"))
+                interactKey = KeyCode.Return;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             playerInRange = false;
             playerInventory = null;

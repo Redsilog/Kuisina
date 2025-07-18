@@ -6963,10 +6963,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e188e1af38937a9409a9ad560cd88752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cookedFoodPoint: {fileID: 0}
+  cookedFoodPoint: {fileID: 1609477841}
   placedDish: {fileID: 0}
-  cookedClassicAdobo: {fileID: 0}
-  cookedAdobongPuti: {fileID: 0}
+  cookedClassicAdobo: {fileID: 8662326802668621229, guid: f8e066400b3eb400f99f53469210150e, type: 3}
+  cookedAdobongPuti: {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
   addedIngredients: []
   ingredientTimer: 0
   maxWaitTime: 10

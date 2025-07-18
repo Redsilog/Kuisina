@@ -1061,6 +1061,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chili
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1369,6 +1373,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Green Chili
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -1865,6 +1873,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Itlog Box
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -2027,6 +2039,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Noodles
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -2186,6 +2202,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: String Beans
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -2471,6 +2491,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pork
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -2642,6 +2666,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Tomato
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -2936,6 +2964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dried Fish
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -3013,6 +3045,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Radish
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -3066,6 +3102,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 64630973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1144267517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4329187369262622338, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+  m_PrefabInstance: {fileID: 4483714059628328183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1163746320
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,6 +3143,9 @@ MonoBehaviour:
   chopTime: 3
   choppedGarlicPrefab: {fileID: 7896750443527812411, guid: c932e3704266c4efd87834fae824a869, type: 3}
   choppedOnionPrefab: {fileID: 1490503063597392397, guid: 08f4df757af664a1dab8e061a5debed8, type: 3}
+  choppedPorkPrefab: {fileID: 0}
+  choppedChickenPrefab: {fileID: 0}
+  choppedBeefPrefab: {fileID: 0}
   choppingProgressBar: {fileID: 674482300}
 --- !u!65 &1163746322
 BoxCollider:
@@ -3467,6 +3511,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Calamansi
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -3704,6 +3752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jackfruit
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -3780,6 +3832,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Adobong Pusit ???
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4063,6 +4119,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shrimp
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -4134,6 +4194,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Lemongrass
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4316,6 +4380,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Beef
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4911,6 +4979,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicharon
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -4987,6 +5059,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Mussels
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -5709,6 +5785,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kangkong
       objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5785,6 +5865,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Eggplant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -5932,6 +6016,7 @@ MonoBehaviour:
   cookedTapaPrefab: {fileID: 5324250071375890889, guid: 1c54a823aa024894abaa3bd201bbe912, type: 3}
   cookedItlogPrefab: {fileID: 8720950352401460616, guid: 82fc8999d11c087498065ea0978ab531, type: 3}
   cookedSinangagPrefab: {fileID: 5324250071375890889, guid: 5515d257147ee4d439e27f2099ce21fd, type: 3}
+  cookedChickenPrefab: {fileID: 0}
   cookingProgressBar: {fileID: 674482300}
 --- !u!1001 &2069590876
 PrefabInstance:
@@ -6037,7 +6122,11 @@ PrefabInstance:
       objectReference: {fileID: 5518332481034184278, guid: 60cc9d82ac68be241867e58bd440cedd, type: 3}
     - target: {fileID: 7314953985332916362, guid: eccee2cf3c1613842a5b65796cf4c4fa, type: 3}
       propertyPath: m_Name
-      value: Stove
+      value: Stove old
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314953985332916362, guid: eccee2cf3c1613842a5b65796cf4c4fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7972734492491210875, guid: eccee2cf3c1613842a5b65796cf4c4fa, type: 3}
       propertyPath: m_LocalScale.x
@@ -6155,6 +6244,10 @@ PrefabInstance:
     - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: m_Name
       value: Okra
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500502249778174183, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913293086037647362, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -6417,6 +6510,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3993463697118693065, guid: 50475fa9f16816248a35b359443d69ae, type: 3}
   m_PrefabInstance: {fileID: 249114697393795574}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4483714059628328183
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1240785644285758839, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: cookedFoodPoint
+      value: 
+      objectReference: {fileID: 1144267517}
+    - target: {fileID: 4329187369262622338, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.3827
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464629354772012170, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_Name
+      value: Stove
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.714
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36326075
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.368
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844250710183233072, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
 --- !u!1001 &5947049648951008797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6627,6 +6785,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 9086033131459956856}
   - {fileID: 419266691}
+  - {fileID: 4483714059628328183}
   - {fileID: 2089147774}
   - {fileID: 2066798127}
   - {fileID: 1163746325}

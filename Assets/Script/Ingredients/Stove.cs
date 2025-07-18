@@ -71,8 +71,8 @@ public class Stove : MonoBehaviour
 
             //Sisig
             //replace pork and chicken with chopped versions later
-            { "Kapampangan Sisig", new List<string> { "Pork", "Chicken"}},
-            { "Dinakdakan", new List<string> { "Pork", "Vinegar"}}
+            { "Kapampangan Sisig", new List<string> { "Chopped Pork", "Chopped Chicken"}},
+            { "Dinakdakan", new List<string> { "Chopped Pork", "Vinegar"}}
         };
 
         cookedPrefabs = new Dictionary<string, GameObject>()

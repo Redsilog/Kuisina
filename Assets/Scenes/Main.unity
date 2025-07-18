@@ -1614,6 +1614,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 629305913822926575, guid: 189ae5de33939409db23b7bca44d5a94, type: 3}
   m_PrefabInstance: {fileID: 636020265}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &655609022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 655609023}
+  m_Layer: 0
+  m_Name: chopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &655609023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655609022}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.002, y: 0.65, z: 1.713}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1501365964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &665385279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3186,12 +3217,12 @@ GameObject:
   - component: {fileID: 1163746322}
   - component: {fileID: 1163746321}
   m_Layer: 0
-  m_Name: Chopping Station
+  m_Name: Chopping Station old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1163746321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3204,6 +3235,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d630c96317c0448923e4b33f8edbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chopPoint: {fileID: 0}
+  chopTime: 3
+  choppedGarlicPrefab: {fileID: 0}
+  choppedOnionPrefab: {fileID: 0}
+  choppedPorkPrefab: {fileID: 0}
+  choppedChickenPrefab: {fileID: 0}
+  choppedBeefPrefab: {fileID: 0}
+  choppingProgressBar: {fileID: 0}
 --- !u!65 &1163746322
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4461,6 +4500,99 @@ Transform:
   m_Children: []
   m_Father: {fileID: 64630973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1501365962
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019905070182597137, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      propertyPath: m_Name
+      value: Chopping Station
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 655609023}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9019905070182597137, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1501365965}
+  m_SourcePrefab: {fileID: 100100000, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+--- !u!1 &1501365963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9019905070182597137, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+  m_PrefabInstance: {fileID: 1501365962}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1501365964 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8531774222388353195, guid: 0b8a853b213817546a9230687e0cc61d, type: 3}
+  m_PrefabInstance: {fileID: 1501365962}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1501365965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501365963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8d630c96317c0448923e4b33f8edbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chopPoint: {fileID: 655609023}
+  chopTime: 3
+  choppedGarlicPrefab: {fileID: 7896750443527812411, guid: c932e3704266c4efd87834fae824a869, type: 3}
+  choppedOnionPrefab: {fileID: 1490503063597392397, guid: 08f4df757af664a1dab8e061a5debed8, type: 3}
+  choppedPorkPrefab: {fileID: 0}
+  choppedChickenPrefab: {fileID: 0}
+  choppedBeefPrefab: {fileID: 0}
+  choppingProgressBar: {fileID: 0}
 --- !u!1001 &1527450223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6161,7 +6293,7 @@ Transform:
   m_GameObject: {fileID: 2066798123}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.623, y: 0.422, z: -10.06}
+  m_LocalPosition: {x: 9.486, y: 0.422, z: -10.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6188,6 +6320,13 @@ MonoBehaviour:
   cookedItlogPrefab: {fileID: 8720950352401460616, guid: 82fc8999d11c087498065ea0978ab531, type: 3}
   cookedSinangagPrefab: {fileID: 5324250071375890889, guid: 5515d257147ee4d439e27f2099ce21fd, type: 3}
   cookedChickenPrefab: {fileID: 0}
+  liquid1: {fileID: 0}
+  liquid2: {fileID: 0}
+  garlic: {fileID: 0}
+  chicken1: {fileID: 0}
+  chicken2: {fileID: 0}
+  v1: {fileID: 0}
+  v2: {fileID: 0}
   cookingProgressBar: {fileID: 674482300}
 --- !u!1001 &2069590876
 PrefabInstance:
@@ -6971,3 +7110,4 @@ SceneRoots:
   - {fileID: 665385280}
   - {fileID: 1988361416}
   - {fileID: 1445883634}
+  - {fileID: 1501365962}

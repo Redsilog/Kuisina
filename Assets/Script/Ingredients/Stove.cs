@@ -33,6 +33,11 @@ public class Stove : MonoBehaviour
     [SerializeField]
     private List<string> addedIngredients = new List<string>();
 
+    [SerializeField]
+    private float ingredientTimer = 0f;
+    [SerializeField]
+    private float maxWaitTime = 10f; // seconds to wait before checking
+
     private Dictionary<string, List<string>> recipeBook;
 
     private Dictionary<string, GameObject> cookedPrefabs;
@@ -41,11 +46,21 @@ public class Stove : MonoBehaviour
     private PlayerInventory playerInventory;
     private GameObject currentCookedFood;
 
-    [SerializeField]
-    private float ingredientTimer = 0f;
-    [SerializeField]
-    private float maxWaitTime = 10f; // seconds to wait before checking
+    [Header("Cooked State Adobo")]
+    public GameObject liquid1;
+    public GameObject liquid2;
+    public GameObject garlic;
+    public GameObject classicChicken;
+    public GameObject putiChicken;
+    public GameObject v1, v2;
+    private bool suka = false;
+
     private bool isTimerRunning = false;
+
+    [SerializeField]
+    int adoboCounter = 0;
+
+
 
     void Start()
     {
@@ -96,6 +111,12 @@ public class Stove : MonoBehaviour
             // { "Kapampangan Sisig", cookedKapampanganSisig},
             // { "Dinakdakan", cookedDinakdakanSisig}
         };
+
+        classicChicken.SetActive(false);
+        putiChicken.SetActive(false);
+        garlic.SetActive(false);
+        liquid1.SetActive(false);
+        liquid2.SetActive(false);
     }
 
     void Update()
@@ -128,6 +149,7 @@ public class Stove : MonoBehaviour
             {
                 CheckRecipes();
                 isTimerRunning = false;
+                ingredientTimer = 0f;
             }
         }
     }
@@ -152,8 +174,31 @@ public class Stove : MonoBehaviour
 
     public void AddIngredient(PlayerInventory player)
     {
+        string ingredient = player.heldIngredient;
+        Debug.Log("Adding ingredient: " + ingredient); 
         addedIngredients.Add(player.heldIngredient);
         player.PlaceIngredient();
+
+        switch (ingredient)
+        {
+            case "Cooked Garlic":
+            case "Garlic":
+                garlic.SetActive(true);
+                break;
+
+            case "Cooked Chicken":
+            case "Chicken":
+                classicChicken.SetActive(true);
+                break;
+
+            case "Soy Sauce":
+                liquid1.SetActive(true);
+                break;
+
+            case "Vinegar":
+                liquid2.SetActive(true);
+                break;
+        }
 
         if (CheckForValidRecipe())
         {
@@ -163,7 +208,6 @@ public class Stove : MonoBehaviour
         }
         else
         {
-            // Start or reset the timer if not yet valid
             ingredientTimer = 0f;
             isTimerRunning = true;
         }
@@ -190,6 +234,7 @@ public class Stove : MonoBehaviour
 
                 addedIngredients.Clear();
                 foundRecipe = true;
+                ResetVisuals();
 
                 return;
             }
@@ -199,6 +244,7 @@ public class Stove : MonoBehaviour
         {
             Debug.Log("Walang ganyan boss");
             addedIngredients.Clear();
+            ResetVisuals();
             Debug.Log("Stove cleared.");
         }
     }
@@ -206,9 +252,10 @@ public class Stove : MonoBehaviour
     public void resetStove()
     {
         addedIngredients.Clear();
+        ResetVisuals();
         Debug.Log("Nagaksaya ng pagkain ba");
     }
-    
+
     private bool CheckForValidRecipe()
     {
         foreach (var recipe in recipeBook)
@@ -223,5 +270,13 @@ public class Stove : MonoBehaviour
         }
 
         return false;
+    }
+    
+    void ResetVisuals()
+    {
+        classicChicken.SetActive(false);
+        garlic.SetActive(false);
+        liquid1.SetActive(false);
+        liquid2.SetActive(false);
     }
 }

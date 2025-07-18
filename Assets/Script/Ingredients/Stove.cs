@@ -57,6 +57,8 @@ public class Stove : MonoBehaviour
 
     private bool isTimerRunning = false;
 
+    private bool justCooked = false;
+
     [SerializeField]
     int adoboCounter = 0;
 
@@ -121,11 +123,27 @@ public class Stove : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        // Handle input
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            // If holding an ingredient, add it
             if (playerInventory != null && playerInventory.HasIngredient())
             {
                 AddIngredient(playerInventory);
+            }
+            // If NOT holding anything, and cooked food is present
+            else if (currentCookedFood != null && playerInventory != null && !playerInventory.HasDish())
+            {
+                if (justCooked)
+                {
+                    justCooked = false; // block instant pickup
+                }
+                else
+                {
+                    playerInventory.PickUpDish("Dish", currentCookedFood);
+                    currentCookedFood = null;
+                    Debug.Log("Player picked up dish");
+                }
             }
         }
 
@@ -235,6 +253,7 @@ public class Stove : MonoBehaviour
                 addedIngredients.Clear();
                 foundRecipe = true;
                 ResetVisuals();
+                justCooked = true;
 
                 return;
             }
@@ -244,6 +263,7 @@ public class Stove : MonoBehaviour
         {
             Debug.Log("Walang ganyan boss");
             addedIngredients.Clear();
+            justCooked = false;
             ResetVisuals();
             Debug.Log("Stove cleared.");
         }
@@ -252,6 +272,7 @@ public class Stove : MonoBehaviour
     public void resetStove()
     {
         addedIngredients.Clear();
+        justCooked = false;
         ResetVisuals();
         Debug.Log("Nagaksaya ng pagkain ba");
     }

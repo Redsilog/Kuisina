@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 621893886931840940}
   m_Layer: 0
   m_Name: pancit malabon
-  m_TagString: Untagged
+  m_TagString: Dish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

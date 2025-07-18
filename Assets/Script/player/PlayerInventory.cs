@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject heldVisual;
     [Tooltip("Transform under which held items are parented")]
     public Transform holdPoint;
+    public bool HasDish() => heldVisual != null;
 
     public void PlaceIngredient()
     {
@@ -64,9 +65,9 @@ public class PlayerInventory : MonoBehaviour
         if (heldVisual.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
     }
 
-    public void PlaceDish(Vector3 position)
+    public GameObject PlaceDish(Vector3 position)
     {
-        if (heldVisual == null) return;
+        if (heldVisual == null) return null;
 
         heldVisual.transform.SetParent(null);
         heldVisual.transform.position = position;
@@ -75,8 +76,29 @@ public class PlayerInventory : MonoBehaviour
         if (heldVisual.TryGetComponent<Collider>(out var c)) c.enabled = true;
         if (heldVisual.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = false;
 
+        GameObject placed = heldVisual;
+
         heldDish = "";
         heldVisual = null;
+
+        return placed;
+    }
+    
+    public void PickUpDish(GameObject dish)
+    {
+        if (heldVisual != null) return; // Already holding something
+
+        heldVisual = dish;
+        heldDish = dish.name; // Optional: or dish ID if you have one
+
+        dish.transform.SetParent(holdPoint); // holdingPoint = transform for hands, etc.
+        dish.transform.localPosition = Vector3.zero;
+        dish.transform.localRotation = Quaternion.identity;
+
+        if (dish.TryGetComponent<Collider>(out var c)) c.enabled = false;
+        if (dish.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
+
+        Debug.Log("Picked up: " + dish.name);
     }
 
     public bool HasIngredient()
@@ -84,8 +106,8 @@ public class PlayerInventory : MonoBehaviour
         return !string.IsNullOrEmpty(heldIngredient);
     }
 
-    public bool HasDish()
-    {
-        return !string.IsNullOrEmpty(heldDish);
-    }
+    // public bool HasDish()
+    // {
+    //     return !string.IsNullOrEmpty(heldDish);
+    // }
 }

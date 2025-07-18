@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3863459303528452887, guid: f8e066400b3eb400f99f53469210150e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.133214
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3863459303528452887, guid: f8e066400b3eb400f99f53469210150e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3863459303528452887, guid: f8e066400b3eb400f99f53469210150e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.221745
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3863459303528452887, guid: f8e066400b3eb400f99f53469210150e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51,6 +51,10 @@ PrefabInstance:
     - target: {fileID: 8662326802668621229, guid: f8e066400b3eb400f99f53469210150e, type: 3}
       propertyPath: m_Name
       value: adobong puti plating Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662326802668621229, guid: f8e066400b3eb400f99f53469210150e, type: 3}
+      propertyPath: m_TagString
+      value: Dish
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

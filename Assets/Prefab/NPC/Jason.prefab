@@ -372,7 +372,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  orderTriggerZone: {fileID: 0}
+  orderStopIndex: 0
   orderZoneMaxWait: 20
   postOrderDeliveredDelay: 5
   arrivalTolerance: 0.5
@@ -399,6 +399,9 @@ MonoBehaviour:
   interactKey: 101
   orderDisplayPoint: {fileID: 0}
   storagePoint: {fileID: 0}
+  onOrderRequested:
+    m_PersistentCalls:
+      m_Calls: []
   onOrderComplete:
     m_PersistentCalls:
       m_Calls: []

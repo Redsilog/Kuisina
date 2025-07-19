@@ -19,10 +19,20 @@ public class NPCSpawner : MonoBehaviour
     [Tooltip("Drag the Transform where you want the order ghost to appear")]
     public Transform displayPoint;
 
+    [Header("Order Timing Overrides")]
+    [Tooltip("Max seconds an NPC will wait for its order before moving on")]
+    public float npcMaxWaitForOrder = 20f;
+
+    [Tooltip("Seconds to wait *after* an order is delivered before resuming")]
+    public float npcPostOrderDelay = 5f;
+
     int     cur;
     GameObject current;
 
-    void Start() => SpawnNext();
+    void Start()
+    {
+        SpawnNext();
+    }
 
     void SpawnNext()
     {
@@ -35,9 +45,11 @@ public class NPCSpawner : MonoBehaviour
         var wp = current.GetComponent<NPCWaypointController>();
         if (wp != null)
         {
-            wp.waypoints      = patrolWaypoints;
-            wp.orderStopIndex = (cur < stopIndices.Length) ? stopIndices[cur] : 0;
-            wp.loop           = false;
+            wp.waypoints         = patrolWaypoints;
+            wp.orderStopIndex    = (cur < stopIndices.Length) ? stopIndices[cur] : 0;
+            wp.loop              = false;
+            wp.maxWaitForOrder   = npcMaxWaitForOrder;   // ← public override
+            wp.postOrderDelay    = npcPostOrderDelay;    // ← public override
             wp.onPatrolComplete.AddListener(OnFinished);
         }
 

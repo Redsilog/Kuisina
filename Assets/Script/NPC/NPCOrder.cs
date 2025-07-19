@@ -66,16 +66,9 @@ public class NPCOrder : MonoBehaviour
 
     public void AskForRandomOrder()
     {
-        if (orderNames.Length == 0) return;
+     // just pick the index and log
         currentOrder = Random.Range(0, orderNames.Length);
-        string name  = orderNames[currentOrder];
-        Debug.Log($"NPC requests: «{name}»");
-
-        if (orderDisplayPoint != null)
-            displayGhost = Instantiate(orderPrefabs[currentOrder],
-                                      orderDisplayPoint.position,
-                                      Quaternion.identity,
-                                      orderDisplayPoint);
+        Debug.Log($"NPC requests: «{orderNames[currentOrder]}»");
 
         onOrderRequested?.Invoke();
     }
@@ -84,13 +77,23 @@ public class NPCOrder : MonoBehaviour
     {
         var heldObj = playerInventory.heldVisual;
         if (playerInventory.HasDish()) playerInventory.PlaceDish(transform.position);
-        else                            playerInventory.PlaceIngredient();
+        else playerInventory.PlaceIngredient();
 
         npcInventory.ReceiveItem(orderNames[currentOrder], heldObj);
         Debug.Log("NPC: Thank you!");
 
         currentOrder = -1;
         if (displayGhost) Destroy(displayGhost);
+
+        onOrderComplete?.Invoke();
+        
+            if (orderDisplayPoint != null)
+        Instantiate(
+            orderPrefabs[currentOrder],
+            orderDisplayPoint.position,
+            Quaternion.identity,
+            orderDisplayPoint
+        );
 
         onOrderComplete?.Invoke();
     }

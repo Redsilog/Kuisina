@@ -61,7 +61,7 @@ public class PlayerInventory : MonoBehaviour
         heldVisual.transform.localPosition = Vector3.zero;
         heldVisual.transform.localRotation = Quaternion.identity;
 
-        if (heldVisual.TryGetComponent<Collider>(out var c)) c.enabled = false;
+        if (heldVisual.TryGetComponent<Collider>(out var c)) c.isTrigger  = true;
         if (heldVisual.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
     }
 

@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Stove : MonoBehaviour
 {
+    [SerializeField] private float ingredientTimer = 0f;
+    [SerializeField] private float maxWaitTime = 10f;
+    private bool isTimerRunning = false;
+
     public Transform cookedFoodPoint;
 
     public GameObject cookedHotsilog;
@@ -24,20 +28,18 @@ public class Stove : MonoBehaviour
     public GameObject cookedDinakdakanSisig;
 
     public GameObject failedDish;
-
     public Slider stoveSlider;
 
     [SerializeField] private List<string> addedIngredients = new List<string>();
-    [SerializeField] private float ingredientTimer = 0f;
-    [SerializeField] private float maxWaitTime = 10f;
-
     private Dictionary<string, List<string>> recipeBook;
     private Dictionary<string, GameObject> cookedPrefabs;
 
+    // ✅ now tracks both players separately
     private bool playerInRange = false;
-    private PlayerInventory playerInventory;
+    private PlayerInventory player1Inventory;
+    private PlayerInventory player2Inventory;
+
     private GameObject currentCookedFood;
-    private KeyCode interactKey = KeyCode.Space;
 
     [Header("Cooked State Visuals")]
     public GameObject liquid1;
@@ -46,7 +48,6 @@ public class Stove : MonoBehaviour
     public GameObject classicChicken;
     public GameObject putiChicken;
 
-    private bool isTimerRunning = false;
     private bool justCooked = false;
 
     void Start()
@@ -58,17 +59,17 @@ public class Stove : MonoBehaviour
             { "Tapsilog", new List<string> { "Cooked Tapa", "Cooked Sinangag", "Cooked Itlog" } },
             { "Chicken", new List<string> { "Cooked Chicken", "Tuyo", "Vinegar", "Cooked Garlic" } },
 
-            { "Classic Adobo", new List<string> { "Chicken", "Soy Sauce", "Vinegar", "Chopped Onion"}},
-            { "Adobong Puti", new List<string> { "Chicken", "Vinegar", "Garlic", "Salt"}},
+            { "Classic Adobo", new List<string> { "Chicken", "Soy Sauce", "Vinegar", "Chopped Garlic"} },
+            { "Adobong Puti", new List<string> { "Chicken", "Vinegar", "Chopped Garlic"} },
 
-            { "Pancit Malabon", new List<string> { "Noodles", "Chopped Pork", "Mussels", "Dried Fish"}},
-            { "Pancit Batil Patung", new List<string> { "Chopped Beef", "Chopped Pork", "Noodles", "Chicharon"}},
+            { "Pancit Malabon", new List<string> { "Noodles", "Chopped Pork", "Mussels", "Dried Fish"} },
+            { "Pancit Batil Patung", new List<string> { "Chopped Beef", "Chopped Pork", "Noodles", "Chicharon"} },
 
-            { "Sinigang na Baboy", new List<string> { "Pork", "Onion", "Tomato", "Radish", "Eggplant", "Green Chili", "String Beans", "Okra", "Kangkong"}},
-            { "Cansi", new List<string> { "Beef", "Garlic", "Onion", "Tomato", "Lemongrass", "Jackfruit"}},
+            { "Sinigang na Baboy", new List<string> { "Pork", "Onion", "Tomato", "Radish", "Eggplant", "Green Chili", "String Beans", "Okra", "Kangkong"} },
+            { "Cansi", new List<string> { "Beef", "Garlic", "Onion", "Tomato", "Lemongrass", "Jackfruit"} },
 
-            { "Kapampangan Sisig", new List<string> { "Chopped Pork", "Chopped Chicken"}},
-            { "Dinakdakan", new List<string> { "Chopped Pork", "Vinegar"}}
+            { "Kapampangan Sisig", new List<string> { "Chopped Pork", "Chopped Chicken"} },
+            { "Dinakdakan", new List<string> { "Chopped Pork", "Vinegar"} }
         };
 
         cookedPrefabs = new Dictionary<string, GameObject>()
@@ -80,44 +81,77 @@ public class Stove : MonoBehaviour
             { "Adobong Puti", cookedAdobongPuti },
             { "Pancit Malabon", cookedPancitMalabon },
             { "Pancit Batil Patung", cookedPancitBatil },
-            // Add more as needed
+            { "Sinigang na Baboy", cookedSinigangBaboy },
+            { "Cansi", cookedSinigangCansi },
+            { "Kapampangan Sisig", cookedKapampanganSisig },
+            { "Dinakdakan", cookedDinakdakanSisig },
         };
 
         ResetVisuals();
 
-        if (stoveSlider!= null)
+        if (stoveSlider != null)
             stoveSlider.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(interactKey))
+        // ✅ Player 1 actions (Space)
+        if (player1Inventory != null)
         {
-            if (playerInventory != null && playerInventory.HasIngredient())
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                AddIngredient(playerInventory);
-            }
-            else if (currentCookedFood != null && playerInventory != null && !playerInventory.HasDish())
-            {
-                if (justCooked)
+                if (player1Inventory.HasIngredient())
                 {
-                    justCooked = false;
+                    AddIngredient(player1Inventory);
                 }
-                else
+                else if (currentCookedFood != null && !player1Inventory.HasDish())
                 {
-                    playerInventory.PickUpDish("Dish", currentCookedFood);
-                    currentCookedFood = null;
-                    Debug.Log("Player picked up dish");
-                    stoveSlider.gameObject.SetActive(false);
+                    if (justCooked)
+                    {
+                        justCooked = false;
+                    }
+                    else
+                    {
+                        player1Inventory.PickUpDish("Dish", currentCookedFood);
+                        currentCookedFood = null;
+                        Debug.Log("Player 1 picked up dish");
+                    }
                 }
             }
         }
 
+        // ✅ Player 2 actions (Return)
+        if (player2Inventory != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if (player2Inventory.HasIngredient())
+                {
+                    AddIngredient(player2Inventory);
+                }
+                else if (currentCookedFood != null && !player2Inventory.HasDish())
+                {
+                    if (justCooked)
+                    {
+                        justCooked = false;
+                    }
+                    else
+                    {
+                        player2Inventory.PickUpDish("Dish", currentCookedFood);
+                        currentCookedFood = null;
+                        Debug.Log("Player 2 picked up dish");
+                    }
+                }
+            }
+        }
+
+        // ✅ Reset stove (Tab works for anyone)
         if (playerInRange && Input.GetKeyDown(KeyCode.Tab))
         {
             resetStove();
         }
 
+        // ✅ Serve dish (P works for anyone)
         if (playerInRange && Input.GetKeyDown(KeyCode.P) && currentCookedFood != null)
         {
             Destroy(currentCookedFood);
@@ -125,17 +159,7 @@ public class Stove : MonoBehaviour
             Debug.Log("Served na boss");
         }
 
-        if (isTimerRunning)
-        {
-            ingredientTimer += Time.deltaTime;
-
-            if (ingredientTimer >= maxWaitTime)
-            {
-                CheckRecipes();
-                isTimerRunning = false;
-                ingredientTimer = 0f;
-            }
-        }
+        // ✅ Ingredient timeout countdown
         if (isTimerRunning)
         {
             ingredientTimer += Time.deltaTime;
@@ -143,20 +167,14 @@ public class Stove : MonoBehaviour
             if (stoveSlider != null)
             {
                 stoveSlider.gameObject.SetActive(true);
-                stoveSlider.value = ingredientTimer / maxWaitTime;
+                stoveSlider.value = 1f - (ingredientTimer / maxWaitTime);
             }
 
             if (ingredientTimer >= maxWaitTime)
             {
-                CheckRecipes();
+                Debug.Log("Na-burn boss, di ka nagdagdag ng ingredient sa oras!");
+                resetStove();
                 isTimerRunning = false;
-                ingredientTimer = 0f;
-
-                if (stoveSlider != null)
-                {
-                    stoveSlider.value = 0f;
-                    stoveSlider.gameObject.SetActive(false);
-                }
             }
         }
     }
@@ -182,23 +200,37 @@ public class Stove : MonoBehaviour
                 liquid2.SetActive(true); break;
         }
 
-        if (CheckForValidRecipe())
+        string matchedRecipe = GetMatchingRecipe();
+        if (matchedRecipe != null)
         {
-            Debug.Log("Correct recipe made immediately!");
-            CheckRecipes();
+            Debug.Log("Matched recipe: " + matchedRecipe);
+
+            if (cookedPrefabs.TryGetValue(matchedRecipe, out GameObject foodPrefab))
+            {
+                currentCookedFood = Instantiate(foodPrefab, cookedFoodPoint.position, cookedFoodPoint.rotation);
+                justCooked = true;
+            }
+
+            addedIngredients.Clear();
+            ResetVisuals();
             isTimerRunning = false;
+
+            if (stoveSlider != null)
+            {
+                stoveSlider.value = 0f;
+                stoveSlider.gameObject.SetActive(false);
+            }
         }
         else
         {
+            // Start or restart timer after each added ingredient
             ingredientTimer = 0f;
             isTimerRunning = true;
         }
     }
 
-    private void CheckRecipes()
+    private string GetMatchingRecipe()
     {
-        bool foundRecipe = false;
-
         var actual = addedIngredients.OrderBy(i => i).ToList();
 
         foreach (var recipe in recipeBook)
@@ -206,46 +238,10 @@ public class Stove : MonoBehaviour
             var expected = recipe.Value.OrderBy(i => i).ToList();
 
             if (expected.SequenceEqual(actual))
-            {
-                Debug.Log("Serving " + recipe.Key);
-
-                if (cookedPrefabs.TryGetValue(recipe.Key, out GameObject foodPrefab))
-                {
-                    currentCookedFood = Instantiate(foodPrefab, cookedFoodPoint.position, cookedFoodPoint.rotation);
-                }
-
-                addedIngredients.Clear();
-                foundRecipe = true;
-                ResetVisuals();
-                justCooked = true;
-                return;
-            }
+                return recipe.Key;
         }
 
-        if (!foundRecipe)
-        {
-            Debug.Log("Walang ganyan boss");
-            addedIngredients.Clear();
-            justCooked = false;
-            ResetVisuals();
-        }
-
-        if (stoveSlider != null)
-        {
-            stoveSlider.value = 0f;
-            stoveSlider.gameObject.SetActive(false);
-        }
-    }
-
-    private bool CheckForValidRecipe()
-    {
-        foreach (var recipe in recipeBook)
-        {
-            if (recipe.Value.Count != addedIngredients.Count) continue;
-            if (!recipe.Value.Except(addedIngredients).Any() && !addedIngredients.Except(recipe.Value).Any())
-                return true;
-        }
-        return false;
+        return null;
     }
 
     public void resetStove()
@@ -253,13 +249,20 @@ public class Stove : MonoBehaviour
         addedIngredients.Clear();
         justCooked = false;
         ResetVisuals();
-        Debug.Log("Nagaksaya ng pagkain ba");
+
+        if (currentCookedFood != null)
+        {
+            Destroy(currentCookedFood);
+            currentCookedFood = null;
+        }
 
         if (stoveSlider != null)
         {
             stoveSlider.value = 0f;
             stoveSlider.gameObject.SetActive(false);
         }
+
+        Debug.Log("Nagaksaya ng pagkain ba");
     }
 
     void ResetVisuals()
@@ -272,20 +275,33 @@ public class Stove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (other.CompareTag("Player"))
         {
+            player1Inventory = other.GetComponent<PlayerInventory>();
             playerInRange = true;
-            playerInventory = other.GetComponent<PlayerInventory>();
-            interactKey = other.CompareTag("Player") ? KeyCode.Space : KeyCode.Return;
+        }
+        else if (other.CompareTag("Player2"))
+        {
+            player2Inventory = other.GetComponent<PlayerInventory>();
+            playerInRange = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (other.CompareTag("Player"))
+        {
+            player1Inventory = null;
+        }
+        else if (other.CompareTag("Player2"))
+        {
+            player2Inventory = null;
+        }
+
+        // ✅ Only set false if BOTH players are gone
+        if (player1Inventory == null && player2Inventory == null)
         {
             playerInRange = false;
-            playerInventory = null;
         }
     }
 }

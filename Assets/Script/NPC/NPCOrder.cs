@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,24 +6,37 @@ public class NPCOrder : MonoBehaviour
 {
     [Header("Order Data")]
     public GameObject[] orderPrefabs;
-    public string[]     orderNames;
+    public string[] orderNames;
 
     [Header("Settings")]
-    public KeyCode   interactKey      = KeyCode.E;
+    public KeyCode interactKey = KeyCode.E;
     public Transform orderDisplayPoint;
 
     [Header("Events")]
     public UnityEvent onOrderRequested;
     public UnityEvent onOrderComplete;
 
-    NPCInventory    npcInventory;
+    NPCInventory npcInventory;
     PlayerInventory playerInventory;
-    bool            playerInRange;
-    int             currentOrder    = -1;
-    GameObject      displayGhost;
+    bool playerInRange;
+    int currentOrder = -1;
+    GameObject displayGhost;
+
+    [SerializeField] public TextMeshProUGUI customerOrder1;
 
     void Awake()
     {
+        // ✅ Automatically assign the right TMP text based on the NPC name
+        if (name.Contains("Jason"))
+        {
+            customerOrder1 = GameObject.Find("Dialogue_Jason").GetComponent<TextMeshProUGUI>();
+        }
+        else if (name.Contains("Rafael"))
+        {
+            customerOrder1 = GameObject.Find("Dialogue_Rafael").GetComponent<TextMeshProUGUI>();
+        }
+
+        // Setup collider trigger
         var col = GetComponent<Collider>();
         col.isTrigger = true;
         npcInventory = GetComponent<NPCInventory>();
@@ -30,18 +44,21 @@ public class NPCOrder : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
-            playerInRange   = true;
+            playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
+
+            // ✅ Assign correct interact key for each player
+            interactKey = other.CompareTag("Player") ? KeyCode.Space : KeyCode.Return;
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
-            playerInRange   = false;
+            playerInRange = false;
             playerInventory = null;
         }
     }
@@ -49,52 +66,73 @@ public class NPCOrder : MonoBehaviour
     void Update()
     {
         if (!playerInRange || playerInventory == null) return;
-        if (!Input.GetKeyDown(interactKey))           return;
+        if (!Input.GetKeyDown(interactKey)) return;
 
-        if (currentOrder < 0)              AskForRandomOrder();
+        if (currentOrder < 0) AskForRandomOrder();
         else if (PlayerHasRequestedItem()) FulfillOrder();
-        else                               Debug.Log("NPC: You already have an order. Bring it back!");
+        else Debug.Log("NPC: You already have an order. Bring it back!");
     }
 
     bool PlayerHasRequestedItem()
     {
         if (playerInventory.heldVisual == null) return false;
-        string held   = playerInventory.heldVisual.name.Replace("(Clone)","");
+        string held = playerInventory.heldVisual.name.Replace("(Clone)", "");
         string needed = orderNames[currentOrder];
         return held == needed;
     }
 
     public void AskForRandomOrder()
     {
-     // just pick the index and log
         currentOrder = Random.Range(0, orderNames.Length);
         Debug.Log($"NPC requests: «{orderNames[currentOrder]}»");
+
+        if (customerOrder1 != null)
+            customerOrder1.text = orderNames[currentOrder];
 
         onOrderRequested?.Invoke();
     }
 
+    void ClearText()
+    {
+        if (customerOrder1 != null)
+            customerOrder1.text = "";
+    }
+
     void FulfillOrder()
     {
-        var heldObj = playerInventory.heldVisual;
-        if (playerInventory.HasDish()) playerInventory.PlaceDish(transform.position);
-        else playerInventory.PlaceIngredient();
+        int fulfilledOrderIndex = currentOrder;
 
-        npcInventory.ReceiveItem(orderNames[currentOrder], heldObj);
+        if (playerInventory.heldVisual != null)
+        {
+            Destroy(playerInventory.heldVisual);
+            playerInventory.heldVisual = null;
+        }
+
+        npcInventory.ReceiveItem(orderNames[fulfilledOrderIndex], null);
+
         Debug.Log("NPC: Thank you!");
 
-        currentOrder = -1;
+        if (customerOrder1 != null)
+        {
+            customerOrder1.text = "Thank you!";
+            Invoke(nameof(ClearText), 2f);
+        }
+
         if (displayGhost) Destroy(displayGhost);
 
-        onOrderComplete?.Invoke();
-        
-            if (orderDisplayPoint != null)
-        Instantiate(
-            orderPrefabs[currentOrder],
-            orderDisplayPoint.position,
-            Quaternion.identity,
-            orderDisplayPoint
-        );
+        if (orderDisplayPoint != null)
+        {
+            GameObject servedDish = Instantiate(
+                orderPrefabs[fulfilledOrderIndex],
+                orderDisplayPoint.position,
+                orderDisplayPoint.rotation,
+                orderDisplayPoint
+            );
+
+            Destroy(servedDish, 5f);
+        }
 
         onOrderComplete?.Invoke();
+        currentOrder = -1;
     }
 }

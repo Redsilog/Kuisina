@@ -409,8 +409,8 @@ MonoBehaviour:
   slotsParent: {fileID: 1192885107}
   slotPrefab: {fileID: 3677515324398016778, guid: a369704d584c92f4cbf7730d10fb3148, type: 3}
   itemPicture: {fileID: 994497768}
-  itemName: {fileID: 0}
-  itemDescription: {fileID: 0}
+  itemName: {fileID: 880311155}
+  itemDescription: {fileID: 992990802}
 --- !u!4 &153929203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8289940316230520722, guid: de5eb955ce9c80b488919346e7cc198b, type: 3}
@@ -2777,7 +2777,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -159.9458, y: 0, z: -160.36938, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3495,7 +3495,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -160.3695, y: 0, z: -157.63977, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

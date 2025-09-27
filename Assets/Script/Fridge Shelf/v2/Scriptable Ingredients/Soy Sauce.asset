@@ -15,3 +15,4 @@ MonoBehaviour:
   ingredientName: Soy Sauce
   ingredientIcon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   ingredientPrefab: {fileID: 8226525648215916097, guid: 2d4861b6a3e87d441b80d2a193c485a1, type: 3}
+  ingredientDescription: saoy soauce

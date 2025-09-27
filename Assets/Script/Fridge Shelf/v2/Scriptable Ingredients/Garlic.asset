@@ -15,3 +15,4 @@ MonoBehaviour:
   ingredientName: Garlic
   ingredientIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   ingredientPrefab: {fileID: 283848583454100565, guid: 189ae5de33939409db23b7bca44d5a94, type: 3}
+  ingredientDescription: gralic

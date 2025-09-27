@@ -48,6 +48,7 @@ public class PlayerInventory : MonoBehaviour
         heldDish = "";
         heldIngredient = ingredientName;
         heldVisual = Instantiate(prefab, holdPoint.position, Quaternion.identity, holdPoint);
+
     }
 
     public void PickUpDish(string dishName, GameObject dishObject)

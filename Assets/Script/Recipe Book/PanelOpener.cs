@@ -24,7 +24,7 @@ public class PanelOpener : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             isPlayerNear = true;
         }
@@ -32,7 +32,7 @@ public class PanelOpener : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             isPlayerNear = false;
             // optional: auto-close when leaving

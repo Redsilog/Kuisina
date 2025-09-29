@@ -25,14 +25,14 @@ public class FridgeShelfManager : MonoBehaviour
                 else if (storedIngredients.Count > 0 && activePlayerInventory != null)
                 {
                     playerPermissions perms = activePlayerInventory.GetComponent<playerPermissions>();
-                        // Check based on storage type
+                    // Check based on storage type
                     if (storageType == StorageType.Fridge && perms.canUseFridge)
                     {
-                        fridgeUI.OpenFridge(this, activePlayerInventory);
+                        fridgeUI.OpenFridge(this, activePlayerInventory, true);
                     }
                     else if (storageType == StorageType.Shelf && perms.canUseShelf)
                     {
-                        fridgeUI.OpenFridge(this, activePlayerInventory);
+                        fridgeUI.OpenFridge(this, activePlayerInventory, false);
                     }
                     else
                     {

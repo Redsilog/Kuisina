@@ -15,11 +15,17 @@ public class FridgeUI : MonoBehaviour
     public Image itemPicture;
     public TMP_Text itemName;  
     public TMP_Text itemDescription;
+
+    public RectTransform leftAnchor;
+    public RectTransform rightAnchor;
+
     private FridgeShelfManager currentFridge;
     private int selectedIndex = 0;
     private List<GameObject> spawnedSlots = new List<GameObject>();
 
     private PlayerInventory currentPlayer;
+
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,12 +61,21 @@ public class FridgeUI : MonoBehaviour
         }
     }
 
-    public void OpenFridge(FridgeShelfManager fridge, PlayerInventory playerInv)
+    public void OpenFridge(FridgeShelfManager fridge, PlayerInventory playerInv, bool openOnLeft)
     {
         currentFridge = fridge;
         currentPlayer = playerInv;
         fridgePanel.SetActive(true);
 
+        if (openOnLeft)
+        {
+            fridgePanel.transform.SetParent(leftAnchor, false);
+        }
+        else
+        {
+            fridgePanel.transform.SetParent(rightAnchor, false);
+        }
+        
         // clear old slots
         foreach (Transform child in slotsParent)
         {

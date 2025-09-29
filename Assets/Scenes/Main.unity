@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 256051823}
   - component: {fileID: 256051822}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: KitchenUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5934,6 +5934,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcPrefabs:
   - {fileID: 2111230945047006159, guid: df7f7a496bba46341b05bfd992f404f1, type: 3}
+  - {fileID: 6912682432288383443, guid: db88894398bdab3479cbfd702b822b99, type: 3}
+  - {fileID: 1926056749503639539, guid: 049f0e655fcdb394bbdff55bfe4a4d70, type: 3}
+  - {fileID: 8236878944884220726, guid: 2327654a6d766ef4491e0a871cd65c19, type: 3}
   spawnPoint: {fileID: 1445883634}
   patrolWaypoints:
   - {fileID: 540514793}
@@ -5941,7 +5944,7 @@ MonoBehaviour:
   - {fileID: 1430987755}
   stopIndices: 01000000
   displayPoint: {fileID: 633425637}
-  npcMaxWaitForOrder: 50
+  npcMaxWaitForOrder: 10
   npcPostOrderDelay: 5
 --- !u!4 &1445883634
 Transform:
@@ -8476,14 +8479,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcPrefabs:
   - {fileID: 3062963872397447008, guid: 19f5baa6097d4994290ad2cd64c33daa, type: 3}
+  - {fileID: 7927296470504479056, guid: 3d51b208c21b8e94094fc3ec137786cd, type: 3}
+  - {fileID: 469679333988774096, guid: b25a2c8aabdd7a144a8f6281ca2090cd, type: 3}
+  - {fileID: 538464148702343494, guid: 50e65f0cc883655488c1883bef9a588d, type: 3}
   spawnPoint: {fileID: 1988361416}
   patrolWaypoints:
   - {fileID: 1499719340}
   - {fileID: 960150777}
   - {fileID: 1111547481}
   stopIndices: 01000000
-  displayPoint: {fileID: 0}
-  npcMaxWaitForOrder: 50
+  displayPoint: {fileID: 1335418833}
+  npcMaxWaitForOrder: 10
   npcPostOrderDelay: 5
 --- !u!4 &1988361416
 Transform:

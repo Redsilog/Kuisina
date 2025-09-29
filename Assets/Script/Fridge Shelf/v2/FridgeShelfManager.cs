@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class FridgeShelfManager : MonoBehaviour
 {
+    public enum StorageType { Fridge, Shelf }
+    public StorageType storageType;
+
     public List<Ingredients> storedIngredients = new List<Ingredients>();
     private bool playerInRange = false;
     public FridgeUI fridgeUI;
@@ -21,7 +24,20 @@ public class FridgeShelfManager : MonoBehaviour
                 }
                 else if (storedIngredients.Count > 0 && activePlayerInventory != null)
                 {
-                    fridgeUI.OpenFridge(this, activePlayerInventory);
+                    playerPermissions perms = activePlayerInventory.GetComponent<playerPermissions>();
+                        // Check based on storage type
+                    if (storageType == StorageType.Fridge && perms.canUseFridge)
+                    {
+                        fridgeUI.OpenFridge(this, activePlayerInventory);
+                    }
+                    else if (storageType == StorageType.Shelf && perms.canUseShelf)
+                    {
+                        fridgeUI.OpenFridge(this, activePlayerInventory);
+                    }
+                    else
+                    {
+                        Debug.Log(activePlayerInventory.name + " cannot open this " + storageType + "!");
+                    }
                 }
             }
         }

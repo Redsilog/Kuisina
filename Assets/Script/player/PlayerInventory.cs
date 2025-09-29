@@ -13,6 +13,7 @@ public class PlayerInventory : MonoBehaviour
     [Tooltip("Transform under which held items are parented")]
     public Transform holdPoint;
     public bool HasDish() => heldVisual != null;
+    public int playerID = 1;
 
     public void PlaceIngredient()
     {

@@ -25,6 +25,7 @@ public class FridgeUI : MonoBehaviour
 
     private PlayerInventory currentPlayer;
 
+    private int currentPlayerID;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,26 +39,45 @@ public class FridgeUI : MonoBehaviour
     {
         if (fridgePanel.activeSelf && spawnedSlots.Count > 0)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (currentPlayerID == 1)
             {
-                selectedIndex = (selectedIndex + 1) % spawnedSlots.Count;
-                HighlightSlot(selectedIndex);
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    selectedIndex = (selectedIndex + 1) % spawnedSlots.Count;
+                    HighlightSlot(selectedIndex);
+                }
+                else if (Input.GetKeyDown(KeyCode.A))
+                {
+                    selectedIndex = (selectedIndex - 1 + spawnedSlots.Count) % spawnedSlots.Count;
+                    HighlightSlot(selectedIndex);
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Debug.Log("SPACE pressed while fridge open");
+                    TakeSelectedIngredient();
+                    CloseFridge();
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (currentPlayerID == 2)
             {
-                selectedIndex = (selectedIndex - 1 + spawnedSlots.Count) % spawnedSlots.Count;
-                HighlightSlot(selectedIndex);
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    selectedIndex = (selectedIndex + 1) % spawnedSlots.Count;
+                    HighlightSlot(selectedIndex);
+                }
+                else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    selectedIndex = (selectedIndex - 1 + spawnedSlots.Count) % spawnedSlots.Count;
+                    HighlightSlot(selectedIndex);
+                }
+                else if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    Debug.Log("SPACE pressed while fridge open");
+                    TakeSelectedIngredient();
+                    CloseFridge();
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("SPACE pressed while fridge open");
-                TakeSelectedIngredient();
-            }
-            else if (Input.GetKeyDown(KeyCode.Return))
-            {
-                Debug.Log("SPACE pressed while fridge open");
-                TakeSelectedIngredient();
-            }
+            
         }
     }
 
@@ -65,7 +85,14 @@ public class FridgeUI : MonoBehaviour
     {
         currentFridge = fridge;
         currentPlayer = playerInv;
+        currentPlayerID = playerInv.playerID;
+        
         fridgePanel.SetActive(true);
+
+        playerMovement movement = currentPlayer.GetComponent<playerMovement>();
+        playerMovement2 movement2 = currentPlayer.GetComponent<playerMovement2>();
+        if (movement != null) movement.enabled = false;
+        if (movement2 != null) movement2.enabled = false;
 
         if (openOnLeft)
         {
@@ -106,7 +133,19 @@ public class FridgeUI : MonoBehaviour
     public void CloseFridge()
     {
         fridgePanel.SetActive(false);
+        if (currentPlayer != null)
+        {
+            playerMovement movement = currentPlayer.GetComponent<playerMovement>();
+            if (movement != null) movement.enabled = true;
+            playerMovement2 movement2 = currentPlayer.GetComponent<playerMovement2>();
+            if (movement2 != null) movement2.enabled = true;
+        }
+
+        currentFridge.SetCooldown(0.25f);
+
         currentFridge = null;
+        currentPlayer = null;
+
     }
 
     void TakeSelectedIngredient()
@@ -120,13 +159,13 @@ public class FridgeUI : MonoBehaviour
         Ingredients selected = currentFridge.storedIngredients[selectedIndex];
         Debug.Log("Trying to take ingredient: " + selected.ingredientName);
 
-        PlayerInventory playerInv = FindObjectOfType<PlayerInventory>();
-
         // take ing
         currentPlayer.PickUpIngredient(selected.ingredientName, selected.ingredientPrefab);
         Debug.Log("Picked up " + selected.ingredientName);
 
         HighlightSlot(selectedIndex);
+
+        CloseFridge();
     }
     void ShowItemDetails(Ingredients ingredient)
     {

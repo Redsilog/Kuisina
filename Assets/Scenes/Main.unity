@@ -290,6 +290,41 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2052826779}
   m_SourcePrefab: {fileID: 100100000, guid: 50475fa9f16816248a35b359443d69ae, type: 3}
+--- !u!1 &147435552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 147435553}
+  m_Layer: 5
+  m_Name: RightAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &147435553
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147435552}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 150049775}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 729, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &150049771
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +420,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 789694856}
+  - {fileID: 1108968167}
+  - {fileID: 147435553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -405,12 +441,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c47d1d5aa878ac40a04c2bb166f15d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fridgePanel: {fileID: 150049771}
+  fridgePanel: {fileID: 789694855}
   slotsParent: {fileID: 1192885107}
   slotPrefab: {fileID: 3677515324398016778, guid: a369704d584c92f4cbf7730d10fb3148, type: 3}
   itemPicture: {fileID: 994497768}
   itemName: {fileID: 880311155}
   itemDescription: {fileID: 992990802}
+  leftAnchor: {fileID: 1108968167}
+  rightAnchor: {fileID: 147435553}
 --- !u!4 &153929203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8289940316230520722, guid: de5eb955ce9c80b488919346e7cc198b, type: 3}
@@ -2328,19 +2366,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789694855}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1192885107}
   - {fileID: 1128651526}
-  m_Father: {fileID: 150049775}
+  m_Father: {fileID: 1108968167}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -665.30023, y: 0}
-  m_SizeDelta: {x: -1630.5995, y: -300}
+  m_AnchoredPosition: {x: -5.300232, y: 0}
+  m_SizeDelta: {x: 189.40051, y: 680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &789694857
 MonoBehaviour:
@@ -3304,6 +3342,7 @@ MonoBehaviour:
   heldDish: 
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 1942374560}
+  playerID: 2
 --- !u!65 &991773637
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4228,6 +4267,42 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4840816417503670864, guid: a748d656bf0f52f4ca0efae583948d0d, type: 3}
   m_PrefabInstance: {fileID: 1527450223}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1108968166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1108968167}
+  m_Layer: 5
+  m_Name: LeftAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1108968167
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108968166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 789694856}
+  m_Father: {fileID: 150049775}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -660, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1111547480
 GameObject:
   m_ObjectHideFlags: 0
@@ -4915,6 +4990,7 @@ MonoBehaviour:
   heldDish: 
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 1870672294}
+  playerID: 1
 --- !u!114 &1211795461
 MonoBehaviour:
   m_ObjectHideFlags: 0

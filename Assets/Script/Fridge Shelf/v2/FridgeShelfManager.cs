@@ -12,33 +12,27 @@ public class FridgeShelfManager : MonoBehaviour
 
     private PlayerInventory activePlayerInventory;
 
+    private float reopenCooldown = 0f;
+
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (fridgeUI == null || activePlayerInventory == null) return;
+
+        if (reopenCooldown > 0f)
         {
-            if (fridgeUI != null)
+            reopenCooldown -= Time.deltaTime;
+            return;
+        }
+
+        if (playerInRange && activePlayerInventory != null)
+        {
+            if (activePlayerInventory.playerID == 1 && Input.GetKeyDown(KeyCode.Space))
             {
-                if (fridgeUI.fridgePanel.activeSelf) // already open
-                {
-                    fridgeUI.CloseFridge();
-                }
-                else if (storedIngredients.Count > 0 && activePlayerInventory != null)
-                {
-                    playerPermissions perms = activePlayerInventory.GetComponent<playerPermissions>();
-                    // Check based on storage type
-                    if (storageType == StorageType.Fridge && perms.canUseFridge)
-                    {
-                        fridgeUI.OpenFridge(this, activePlayerInventory, true);
-                    }
-                    else if (storageType == StorageType.Shelf && perms.canUseShelf)
-                    {
-                        fridgeUI.OpenFridge(this, activePlayerInventory, false);
-                    }
-                    else
-                    {
-                        Debug.Log(activePlayerInventory.name + " cannot open this " + storageType + "!");
-                    }
-                }
+                HandleFridgeToggle();
+            }
+            else if (activePlayerInventory.playerID == 2 && Input.GetKeyDown(KeyCode.Return))
+            {
+                HandleFridgeToggle();
             }
         }
     }
@@ -53,6 +47,37 @@ public class FridgeShelfManager : MonoBehaviour
         }
         return null;
     }
+
+    private void HandleFridgeToggle()
+    {
+        if (fridgeUI.fridgePanel.activeSelf) // already open
+        {
+            fridgeUI.CloseFridge();
+            reopenCooldown = 0.25f;
+        }
+        else if (storedIngredients.Count > 0)
+        {
+            playerPermissions perms = activePlayerInventory.GetComponent<playerPermissions>();
+            if (storageType == StorageType.Fridge && perms.canUseFridge)
+            {
+                fridgeUI.OpenFridge(this, activePlayerInventory, true);
+            }
+            else if (storageType == StorageType.Shelf && perms.canUseShelf)
+            {
+                fridgeUI.OpenFridge(this, activePlayerInventory, false);
+            }
+            else
+            {
+                Debug.Log(activePlayerInventory.name + " cannot open this " + storageType + "!");
+            }
+        }
+    }
+
+    public void SetCooldown(float time)
+    {
+        reopenCooldown = time;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("Player2"))

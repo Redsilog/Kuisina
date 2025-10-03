@@ -102,9 +102,6 @@ PrefabInstance:
       addedObject: {fileID: 4264085965895938701}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2954626129435891350}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3062302602616296678}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
       insertIndex: -1
@@ -165,25 +162,6 @@ CapsuleCollider:
   m_Height: 2.0370932
   m_Direction: 1
   m_Center: {x: 0, y: 0.93646693, z: 0}
---- !u!114 &2954626129435891350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193435133606120448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e78dd4122e188047a27b674f0a8a38f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rice: {fileID: 0}
-  ulam: {fileID: 0}
-  heldIngredient: 
-  heldDish: 
-  heldVisual: {fileID: 0}
-  holdPoint: {fileID: 8574199954686319867}
-  playerID: 1
 --- !u!114 &3062302602616296678
 MonoBehaviour:
   m_ObjectHideFlags: 0

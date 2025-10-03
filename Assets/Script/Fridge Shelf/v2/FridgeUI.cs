@@ -20,61 +20,67 @@ public class FridgeUI : MonoBehaviour
     public RectTransform rightAnchor;
 
     private FridgeShelfManager currentFridge;
-    private int selectedIndex = 0;
     private List<GameObject> spawnedSlots = new List<GameObject>();
 
     private PlayerInventory currentPlayer;
 
     private int currentPlayerID;
-    
+
+    private FridgeSlot[] slots;
+    private int scrollOffset = 0;
+    private int globalIndex = 0; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         fridgePanel.SetActive(false);
+        slots = slotsParent.GetComponentsInChildren<FridgeSlot>(true); 
     }
-
     // Update is called once per frame
     void Update()
     {
-        if (fridgePanel.activeSelf && spawnedSlots.Count > 0)
+        if (fridgePanel.activeSelf && currentFridge != null && currentFridge.storedIngredients.Count > 0)
         {
             if (currentPlayerID == 1)
             {
                 if (Input.GetKeyDown(KeyCode.D))
                 {
-                    selectedIndex = (selectedIndex + 1) % spawnedSlots.Count;
-                    HighlightSlot(selectedIndex);
+                    globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
+                    AdjustScrollOffset();
+                    RefreshSlots();
                 }
                 else if (Input.GetKeyDown(KeyCode.A))
                 {
-                    selectedIndex = (selectedIndex - 1 + spawnedSlots.Count) % spawnedSlots.Count;
-                    HighlightSlot(selectedIndex);
+                    globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
+                    AdjustScrollOffset();
+                    RefreshSlots();
                 }
                 else if (Input.GetKeyDown(KeyCode.Space))
                 {
                     Debug.Log("SPACE pressed while fridge open");
                     TakeSelectedIngredient();
-                    CloseFridge();
+                    //CloseFridge();
                 }
             }
             else if (currentPlayerID == 2)
             {
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    selectedIndex = (selectedIndex + 1) % spawnedSlots.Count;
-                    HighlightSlot(selectedIndex);
+                    globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
+                    AdjustScrollOffset();
+                    RefreshSlots();
                 }
                 else if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
-                    selectedIndex = (selectedIndex - 1 + spawnedSlots.Count) % spawnedSlots.Count;
-                    HighlightSlot(selectedIndex);
+                    globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
+                    AdjustScrollOffset();
+                    RefreshSlots();
                 }
                 else if (Input.GetKeyDown(KeyCode.Return))
                 {
-                    Debug.Log("SPACE pressed while fridge open");
+                    Debug.Log("ENTER pressed while fridge open");
                     TakeSelectedIngredient();
-                    CloseFridge();
+                    //CloseFridge();
                 }
             }
             
@@ -103,29 +109,9 @@ public class FridgeUI : MonoBehaviour
             fridgePanel.transform.SetParent(rightAnchor, false);
         }
         
-        // clear old slots
-        foreach (Transform child in slotsParent)
-        {
-            Destroy(child.gameObject);
-        }
-        spawnedSlots.Clear();
+        RefreshSlots();
 
-        // create new slots
-        foreach (Ingredients ing in fridge.storedIngredients)
-        {
-            GameObject slotGO = Instantiate(slotPrefab, slotsParent);
-
-            // Set the child UI elements
-            Image icon = slotGO.transform.Find("Icon").GetComponent<Image>();
-            TMP_Text nameText = slotGO.transform.Find("Name").GetComponent<TMP_Text>();
-
-            icon.sprite = ing.ingredientIcon;
-            nameText.text = ing.ingredientName;
-
-            spawnedSlots.Add(slotGO);
-        }
-        selectedIndex = 0; // reset selection to first slot
-        HighlightSlot(selectedIndex);
+        HighlightSlot(globalIndex);
 
         Debug.Log("Fridge opened with " + fridge.storedIngredients.Count + " items.");
     }
@@ -148,48 +134,67 @@ public class FridgeUI : MonoBehaviour
 
     }
 
-    void TakeSelectedIngredient()
+    void AdjustScrollOffset()
     {
-        if (selectedIndex < 0 || selectedIndex >= currentFridge.storedIngredients.Count)
+        //shift window left
+        if (globalIndex < scrollOffset)
+            scrollOffset = globalIndex;
+
+        //shift window right
+        if (globalIndex >= scrollOffset + slots.Length)
+            scrollOffset = globalIndex - slots.Length + 1;
+    }
+
+    public void RefreshSlots()
+    {
+        foreach (var slot in slots)
+            slot.Clear();
+
+        for (int i = 0; i < slots.Length; i++)
         {
-            Debug.LogWarning("Invalid selected index: " + selectedIndex);
-            return;
+            int fridgeIndex = i + scrollOffset; // map slot to fridge item
+            if (fridgeIndex < currentFridge.storedIngredients.Count)
+            {
+                slots[i].SetIngredient(currentFridge.storedIngredients[fridgeIndex]);
+            }
         }
 
-        Ingredients selected = currentFridge.storedIngredients[selectedIndex];
-        Debug.Log("Trying to take ingredient: " + selected.ingredientName);
+        HighlightSlot(globalIndex);
+    }
 
-        // take ing
-        currentPlayer.PickUpIngredient(selected.ingredientName, selected.ingredientPrefab);
+    void TakeSelectedIngredient()
+    {
+        if (globalIndex < 0 || globalIndex >= currentFridge.storedIngredients.Count)
+            return;
+
+        Ingredients selected = currentFridge.storedIngredients[globalIndex];
         Debug.Log("Picked up " + selected.ingredientName);
 
-        HighlightSlot(selectedIndex);
+        currentPlayer.PickUpIngredient(selected.ingredientName, selected.ingredientPrefab);
 
         CloseFridge();
     }
-    void ShowItemDetails(Ingredients ingredient)
-    {
-        // update right side
-        itemPicture.sprite = ingredient.ingredientIcon;
-        itemDescription.text = ingredient.ingredientName;
-        Debug.Log("Selected: " + ingredient.ingredientName);
-    }
 
-
-    void HighlightSlot(int index)
+    void HighlightSlot(int fridgeIndex)
     {
-        for (int i = 0; i < spawnedSlots.Count; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            // root background
-            Image bg = spawnedSlots[i].transform.Find("Background").GetComponent<Image>();
-            if (bg != null)
-                bg.color = (i == index) ? Color.yellow : Color.white;
+            int mappedIndex = scrollOffset + i;
+            slots[i].SetHighlight(mappedIndex == fridgeIndex);
         }
 
-        // update right panel
-        Ingredients ing = currentFridge.storedIngredients[index];
-        itemPicture.sprite = ing.ingredientIcon;
-        itemName.text = ing.ingredientName;
-        itemDescription.text = ing.ingredientDescription; 
+        if (fridgeIndex < currentFridge.storedIngredients.Count)
+        {
+            Ingredients ing = currentFridge.storedIngredients[fridgeIndex];
+            itemPicture.sprite = ing.ingredientIcon;
+            itemName.text = ing.ingredientName;
+            itemDescription.text = ing.ingredientDescription;
+        }
+        else
+        {
+            itemPicture.sprite = null;
+            itemName.text = "";
+            itemDescription.text = "";
+        }
     }
 }

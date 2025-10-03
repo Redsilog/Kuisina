@@ -7,16 +7,17 @@ public class FridgeShelfManager : MonoBehaviour
     public StorageType storageType;
 
     public List<Ingredients> storedIngredients = new List<Ingredients>();
-    private bool playerInRange = false;
-    public FridgeUI fridgeUI;
 
+    public FridgeUI fridgeUI_Player1;
+    public FridgeUI fridgeUI_Player2;
+
+    private bool playerInRange = false;
     private PlayerInventory activePlayerInventory;
 
     private float reopenCooldown = 0f;
 
     void Update()
     {
-        if (fridgeUI == null || activePlayerInventory == null) return;
 
         if (reopenCooldown > 0f)
         {
@@ -24,17 +25,28 @@ public class FridgeShelfManager : MonoBehaviour
             return;
         }
 
-        if (playerInRange && activePlayerInventory != null)
+        if (!playerInRange || activePlayerInventory == null) return;
+
+        FridgeUI targetUI = GetTargetUIForActivePlayer();
+        if (targetUI == null) return;
+
+        // Player 1 uses Space, Player 2 uses Enter/Return
+        if (activePlayerInventory.playerID == 1 && Input.GetKeyDown(KeyCode.Space))
         {
-            if (activePlayerInventory.playerID == 1 && Input.GetKeyDown(KeyCode.Space))
-            {
-                HandleFridgeToggle();
-            }
-            else if (activePlayerInventory.playerID == 2 && Input.GetKeyDown(KeyCode.Return))
-            {
-                HandleFridgeToggle();
-            }
+            HandleFridgeToggle(targetUI);
         }
+        else if (activePlayerInventory.playerID == 2 && Input.GetKeyDown(KeyCode.Return))
+        {
+            HandleFridgeToggle(targetUI);
+        }
+    }
+
+    FridgeUI GetTargetUIForActivePlayer()
+    {
+        if (activePlayerInventory == null) return null;
+        if (activePlayerInventory.playerID == 1) return fridgeUI_Player1;
+        if (activePlayerInventory.playerID == 2) return fridgeUI_Player2;
+        return null;
     }
 
     public Ingredients TakeIngredient(int index)
@@ -48,23 +60,27 @@ public class FridgeShelfManager : MonoBehaviour
         return null;
     }
 
-    private void HandleFridgeToggle()
+    private void HandleFridgeToggle(FridgeUI targetUI)
     {
-        if (fridgeUI.fridgePanel.activeSelf) // already open
+        if (targetUI.fridgePanel.activeSelf) // already open
         {
-            fridgeUI.CloseFridge();
+            targetUI.CloseFridge();
             reopenCooldown = 0.25f;
         }
+
         else if (storedIngredients.Count > 0)
         {
             playerPermissions perms = activePlayerInventory.GetComponent<playerPermissions>();
+
+            bool openOnLeft = activePlayerInventory.playerID == 1;
+
             if (storageType == StorageType.Fridge && perms.canUseFridge)
             {
-                fridgeUI.OpenFridge(this, activePlayerInventory, true);
+                targetUI.OpenFridge(this, activePlayerInventory, openOnLeft);
             }
             else if (storageType == StorageType.Shelf && perms.canUseShelf)
             {
-                fridgeUI.OpenFridge(this, activePlayerInventory, false);
+                targetUI.OpenFridge(this, activePlayerInventory, openOnLeft);
             }
             else
             {
@@ -92,12 +108,24 @@ public class FridgeShelfManager : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
-            playerInRange = false;
+            PlayerInventory leavingInv = other.GetComponent<PlayerInventory>();
+            if (leavingInv == activePlayerInventory)
+            {
+                playerInRange = false;
+                activePlayerInventory = null;
+            }
+
             Debug.Log("Player left fridge/shelf");
 
-            if (fridgeUI != null)
+            FridgeUI targetUI = null;
+            if (leavingInv != null)
             {
-                fridgeUI.CloseFridge();
+                targetUI = (leavingInv.playerID == 1) ? fridgeUI_Player1 : fridgeUI_Player2;
+            }
+
+            if (targetUI != null && targetUI.fridgePanel != null && targetUI.fridgePanel.activeSelf)
+            {
+                targetUI.CloseFridge();
             }
         }
     }

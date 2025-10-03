@@ -11452,11 +11452,21 @@ PrefabInstance:
     - target: {fileID: 1712300512226957753, guid: 8d5e796a8596f1f44b936bcd16da04d9, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9000000, guid: 4c73a1774a198c54583f175a874216cd, type: 3}
     - target: {fileID: 1712300512226957753, guid: 8d5e796a8596f1f44b936bcd16da04d9, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9acd8edf22768f54aa7e743215d033b5, type: 2}
+    - target: {fileID: 1712300512226957753, guid: 8d5e796a8596f1f44b936bcd16da04d9, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'CCM-Armature'\n\tTransform 'Shoulder.R'\n\tTransform
+        'LowerArm.L'\n\tTransform 'LowerLeg.L'\n\tTransform 'LowerLeg.R'\n\tTransform
+        'UpperArm.R'\n\tTransform 'UpperArm.L'\n\tTransform 'CCM-Armature'\n\tTransform
+        'Spine2'\n\tTransform 'Spine1'\n\tand more ...\n\tFrom animation clip 'Standing
+        Idle'"
+      objectReference: {fileID: 0}
     - target: {fileID: 2329928458356764205, guid: 8d5e796a8596f1f44b936bcd16da04d9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.8256265

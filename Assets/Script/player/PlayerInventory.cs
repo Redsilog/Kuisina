@@ -18,17 +18,16 @@ public class PlayerInventory : MonoBehaviour
     public Transform leftArm;
     public Transform rightArm;
 
-    [Header("Default Arm Poses")]
-    public Transform leftArmDefaultPose;
-    public Transform rightArmDefaultPose;
+    [Header("Default Arm Rotation Values")]
+    public Vector3 leftArmDefaultRotation = new Vector3(-63.027f, 10.057f, 21.59f);
+    public Vector3 rightArmDefaultRotation = new Vector3(-63.027f, 10.057f, 21.59f);
 
-    [Header("Holding Arm Poses")]
-    public Transform leftArmHoldPose;
-    public Transform rightArmHoldPose;
+    [Header("Holding Arm Rotation Values")]
+    public Vector3 leftArmHoldRotation = new Vector3(25.471f, -68.801f, 62.151f);
+    public Vector3 rightArmHoldRotation = new Vector3(25.471f, -68.801f, 62.151f);
 
     public int playerID = 1;
 
-    // Flag to prevent reset during initialization or reload
     private bool isGameInitialized = false;
 
     public bool HasDish() => heldVisual != null;
@@ -39,38 +38,30 @@ public class PlayerInventory : MonoBehaviour
         heldIngredient = "";
         heldDish = "";
 
-        // Only reset arms when the game is initialized
-        if (isGameInitialized)
-        {
-            ResetArms(); // Only reset arms after initialization
-        }
+        // Always reset arms when no item is held
+        ResetArms();
     }
 
-    void ApplyPose(Transform arm, Transform pose)
-    {
-        if (arm != null && pose != null)
-        {
-            arm.localPosition = pose.localPosition;
-            arm.localRotation = pose.localRotation;
-        }
-    }
-
+    // This manually sets the arm rotation to the default or holding rotation
     void ResetArms()
     {
-        ApplyPose(leftArm, leftArmDefaultPose);
-        ApplyPose(rightArm, rightArmDefaultPose);
+        // Reset arm rotations to the default pose
+        leftArm.localRotation = Quaternion.Euler(leftArmDefaultRotation);
+        rightArm.localRotation = Quaternion.Euler(rightArmDefaultRotation);
 
-        // Debugging the positions
-        Debug.Log("Left Arm Position after Reset: " + leftArm.localPosition);
-        Debug.Log("Right Arm Position after Reset: " + rightArm.localPosition);
+        // Debugging the rotation after reset
+        Debug.Log("Left Arm Rotation after Reset: " + leftArm.localRotation.eulerAngles);
+        Debug.Log("Right Arm Rotation after Reset: " + rightArm.localRotation.eulerAngles);
     }
 
+    // Set arms to the holding rotation when the player picks something up
     void SetHoldingPose()
     {
-        ApplyPose(leftArm, leftArmHoldPose);
-        ApplyPose(rightArm, rightArmHoldPose);
+        leftArm.localRotation = Quaternion.Euler(leftArmHoldRotation);
+        rightArm.localRotation = Quaternion.Euler(rightArmHoldRotation);
     }
 
+    // Place an ingredient and reset arms
     public void PlaceIngredient()
     {
         string temp = heldIngredient;
@@ -94,8 +85,12 @@ public class PlayerInventory : MonoBehaviour
         }
 
         ClearHeldItem(); // Reset held item and arms
+
+        // Arms are always reset here, no need to check for initialization anymore
+        ResetArms();
     }
 
+    // Pick up an ingredient and set arm pose to the holding pose
     public void PickUpIngredient(string ingredientName, GameObject prefab)
     {
         // Don't call PlaceIngredient here, to prevent unnecessary resets
@@ -106,6 +101,7 @@ public class PlayerInventory : MonoBehaviour
         SetHoldingPose(); // Set the arm pose for holding the ingredient
     }
 
+    // Pick up a dish and set arm pose to the holding pose
     public void PickUpDish(string dishName, GameObject dishObject)
     {
         // Prevent resetting arms when picking up a dish
@@ -124,6 +120,7 @@ public class PlayerInventory : MonoBehaviour
         SetHoldingPose(); // Set the arm pose for holding the dish
     }
 
+    // Place a dish in the world and reset the arms when the item is placed
     public GameObject PlaceDish(Vector3 position)
     {
         if (heldVisual == null) return null;
@@ -145,6 +142,7 @@ public class PlayerInventory : MonoBehaviour
         return placed;
     }
 
+    // Pick up a dish (overloaded method)
     public void PickUpDish(GameObject dish)
     {
         if (heldVisual != null) return; // Already holding something
@@ -164,6 +162,7 @@ public class PlayerInventory : MonoBehaviour
         SetHoldingPose(); // Set the arm pose for holding the dish
     }
 
+    // Check if the player has an ingredient
     public bool HasIngredient()
     {
         return !string.IsNullOrEmpty(heldIngredient);

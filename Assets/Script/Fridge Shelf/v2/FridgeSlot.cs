@@ -26,6 +26,6 @@ public class FridgeSlot : MonoBehaviour
     public void SetHighlight(bool active)
     {
         highlight.enabled = active;
-        icon.color = active ? Color.yellow : Color.white;
+        highlight.color = active ? Color.yellow : Color.white;
     }
 }

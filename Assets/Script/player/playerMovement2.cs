@@ -6,10 +6,12 @@ public class playerMovement2 : MonoBehaviour
     [SerializeField] Transform cameraTransform;
 
     private Rigidbody rb;
+    private Animator animator; // Reference to Animator
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>(); // Get the Animator component
     }
 
     void FixedUpdate()
@@ -21,6 +23,7 @@ public class playerMovement2 : MonoBehaviour
         if (input.magnitude == 0)
         {
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+            animator.SetBool("IsMoving", false); // Not moving
             return;
         }
 
@@ -36,8 +39,11 @@ public class playerMovement2 : MonoBehaviour
 
         if (moveDir != Vector3.zero)
         {
+            // Rotate the player to face the direction of movement
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
+
+            animator.SetBool("IsMoving", true); // Moving
         }
     }
 }

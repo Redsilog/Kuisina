@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b347f8f7bc708524786c7c214e8b50ad
+guid: 90ead89ecedad654897237c490821cba
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -105,3 +105,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318012
+  packageName: Free Cooking Animations
+  packageVersion: 1.0
+  assetPath: Assets/EEJANAI_Team/CookingAnimations/FBX/stiring (coffe or juice).fbx
+  uploadId: 750831

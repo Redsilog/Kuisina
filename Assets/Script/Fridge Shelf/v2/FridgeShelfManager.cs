@@ -73,6 +73,11 @@ public class FridgeShelfManager : MonoBehaviour
             playerPermissions perms = activePlayerInventory.GetComponent<playerPermissions>();
 
             bool openOnLeft = activePlayerInventory.playerID == 1;
+            if (activePlayerInventory.IsHoldingItem())
+            {
+                Debug.Log(activePlayerInventory.name + " cannot open fridge/shelf while holding something!");
+                return;
+            }
 
             if (storageType == StorageType.Fridge && perms.canUseFridge)
             {

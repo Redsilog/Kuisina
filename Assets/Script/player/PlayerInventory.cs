@@ -137,6 +137,11 @@ public class PlayerInventory : MonoBehaviour
         return !string.IsNullOrEmpty(heldIngredient);
     }
 
+    public bool IsHoldingItem()
+    {
+        return heldVisual != null || !string.IsNullOrEmpty(heldIngredient) || !string.IsNullOrEmpty(heldDish);
+    }
+
     public void InitializeGame()
     {
         isGameInitialized = true;

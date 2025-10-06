@@ -92,6 +92,9 @@ public class FridgeUI : MonoBehaviour
         currentFridge = fridge;
         currentPlayer = playerInv;
         currentPlayerID = playerInv.playerID;
+
+        globalIndex = 0;
+        scrollOffset = 0;
         
         fridgePanel.SetActive(true);
 

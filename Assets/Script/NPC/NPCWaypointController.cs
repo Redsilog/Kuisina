@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-
 public class NPCWaypointController : MonoBehaviour
 {
     [Header("Patrol")]
@@ -68,6 +67,7 @@ public class NPCWaypointController : MonoBehaviour
         idx = i;
         firedComplete = false;
         agent.isStopped = false;
+        animator.SetBool("IsSitting", false); // Not sitting while moving
         agent.SetDestination(waypoints[idx].position);
     }
 
@@ -75,6 +75,7 @@ public class NPCWaypointController : MonoBehaviour
     {
         waitingForOrder = true;
         agent.isStopped = true;
+        animator.SetBool("IsSitting", true); // Sit when waiting for order
         timeoutRoutine = StartCoroutine(WaitForOrder());
     }
 
@@ -120,6 +121,7 @@ public class NPCWaypointController : MonoBehaviour
     void ResumePatrol()
     {
         waitingForOrder = false;
+        animator.SetBool("IsSitting", false); // Stand up when resuming patrol
         MoveTo((idx + 1) % waypoints.Length);
     }
 
@@ -127,6 +129,7 @@ public class NPCWaypointController : MonoBehaviour
     {
         firedComplete = true;
         agent.isStopped = true;
+        animator.SetBool("IsSitting", false); // Ensure sitting is off
         onPatrolComplete?.Invoke();
     }
 }

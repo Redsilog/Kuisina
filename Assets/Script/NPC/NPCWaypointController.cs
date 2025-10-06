@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(NavMeshAgent),typeof(NPCOrder),typeof(NPCInventory))]
+
 public class NPCWaypointController : MonoBehaviour
 {
     [Header("Patrol")]
@@ -14,36 +14,42 @@ public class NPCWaypointController : MonoBehaviour
     public bool loop = false;
 
     [Header("Order Timing")]
-    public float maxWaitForOrder     = 20f;
-    public float postOrderDelay      = 5f;
+    public float maxWaitForOrder = 20f;
+    public float postOrderDelay = 5f;
 
     [Header("Completion Event")]
     public UnityEvent onPatrolComplete;
 
     NavMeshAgent agent;
-    NPCOrder     order;
+    NPCOrder order;
     NPCInventory inventory;
-    int          idx;
-    bool         waitingForOrder;
-    bool         firedComplete;
-    Coroutine    timeoutRoutine;
+    Animator animator;
+
+    int idx;
+    bool waitingForOrder;
+    bool firedComplete;
+    Coroutine timeoutRoutine;
 
     void Start()
     {
-        agent     = GetComponent<NavMeshAgent>();
-        order     = GetComponent<NPCOrder>();
+        agent = GetComponent<NavMeshAgent>();
+        order = GetComponent<NPCOrder>();
         inventory = GetComponent<NPCInventory>();
+        animator = GetComponent<Animator>();
 
         order.onOrderRequested.AddListener(OnOrderRequested);
-        order.onOrderComplete   .AddListener(OnOrderComplete);
+        order.onOrderComplete.AddListener(OnOrderComplete);
 
-        // clamp index
-        orderStopIndex = Mathf.Clamp(orderStopIndex, 0, waypoints.Length-1);
+        // Clamp index
+        orderStopIndex = Mathf.Clamp(orderStopIndex, 0, waypoints.Length - 1);
         MoveTo(0);
     }
 
     void Update()
     {
+        // Set animation based on whether the agent is moving
+        animator.SetBool("IsMoving", !agent.isStopped && agent.velocity.magnitude > 0.1f);
+
         if (waitingForOrder) return;
         if (agent.pathPending || agent.remainingDistance > agent.stoppingDistance) return;
 
@@ -54,7 +60,7 @@ public class NPCWaypointController : MonoBehaviour
         else if (!loop && isLast && !firedComplete)
             FinishPatrol();
         else
-            MoveTo((idx+1)%waypoints.Length);
+            MoveTo((idx + 1) % waypoints.Length);
     }
 
     void MoveTo(int i)
@@ -75,7 +81,7 @@ public class NPCWaypointController : MonoBehaviour
     IEnumerator WaitForOrder()
     {
         float t = maxWaitForOrder;
-        while (t>0f && waitingForOrder)
+        while (t > 0f && waitingForOrder)
         {
             t -= Time.deltaTime;
             yield return null;
@@ -114,7 +120,7 @@ public class NPCWaypointController : MonoBehaviour
     void ResumePatrol()
     {
         waitingForOrder = false;
-        MoveTo((idx+1)%waypoints.Length);
+        MoveTo((idx + 1) % waypoints.Length);
     }
 
     void FinishPatrol()

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ChoppingBoard : MonoBehaviour
 {
     public Transform chopPoint;
-    public float chopTime = 3f;
+    public float chopTime = 3f; // Total "chop points" required
 
     [Header("Chopped Prefabs")]
     public GameObject choppedGarlicPrefab;
@@ -17,6 +17,8 @@ public class ChoppingBoard : MonoBehaviour
 
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
+    private MonoBehaviour playerMovementScript; // Works for both Player1 and Player2
+    private Animator playerAnimator;
     private KeyCode interactKey = KeyCode.Space;
 
     private bool isChopping = false;
@@ -24,7 +26,8 @@ public class ChoppingBoard : MonoBehaviour
     private string choppedIngredientName = "";
     private GameObject foodOnBoard;
 
-    private float choppingTimer = 0f;
+    private float choppingProgress = 0f; // Current progress
+    private float chopIncrement = 0.2f;  // Amount added per tap (adjust for difficulty)
 
     void Start()
     {
@@ -34,7 +37,10 @@ public class ChoppingBoard : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(interactKey))
+        if (!playerInRange) return;
+
+        // Start chopping or pick up chopped ingredient
+        if (Input.GetKeyDown(interactKey))
         {
             if (!isChopping && !isChopped && playerInventory.HasIngredient())
             {
@@ -45,30 +51,46 @@ public class ChoppingBoard : MonoBehaviour
             {
                 PickUpChoppedIngredient();
             }
+
+            // Increment chopping progress per tap
+            if (isChopping)
+            {
+                choppingProgress += chopIncrement;
+
+                // Show progress bar
+                if (choppingProgressBar != null)
+                {
+                    choppingProgressBar.gameObject.SetActive(true);
+                    choppingProgressBar.value = choppingProgress / chopTime;
+                }
+
+                // Set chopping animation
+                if (playerAnimator != null)
+                    playerAnimator.SetBool("IsChopping", true);
+
+                // Finish chopping if progress complete
+                if (choppingProgress >= chopTime)
+                    FinishChopping();
+            }
         }
 
-        if (isChopping)
+        // Stop animation if not actively tapping
+        if (isChopping && !Input.GetKeyDown(interactKey))
         {
-            choppingTimer += Time.deltaTime;
-
-            if (choppingProgressBar != null)
-            {
-                choppingProgressBar.gameObject.SetActive(true);
-                choppingProgressBar.value = choppingTimer / chopTime;
-            }
-
-            if (choppingTimer >= chopTime)
-            {
-                FinishChopping();
-            }
+            if (playerAnimator != null)
+                playerAnimator.SetBool("IsChopping", false);
         }
     }
 
     void StartChopping(string ingredient, GameObject rawVisual)
     {
         isChopping = true;
-        choppingTimer = 0f;
+        choppingProgress = 0f;
         choppedIngredientName = "Chopped " + ingredient;
+
+        // Disable player movement
+        if (playerMovementScript != null)
+            playerMovementScript.enabled = false;
 
         foodOnBoard = Instantiate(rawVisual, chopPoint.position, chopPoint.rotation);
     }
@@ -76,7 +98,15 @@ public class ChoppingBoard : MonoBehaviour
     void FinishChopping()
     {
         isChopping = false;
-        choppingTimer = 0f;
+        choppingProgress = 0f;
+
+        // Enable player movement
+        if (playerMovementScript != null)
+            playerMovementScript.enabled = true;
+
+        // Stop chopping animation
+        if (playerAnimator != null)
+            playerAnimator.SetBool("IsChopping", false);
 
         if (choppingProgressBar != null)
         {
@@ -128,11 +158,18 @@ public class ChoppingBoard : MonoBehaviour
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
+            playerAnimator = other.GetComponent<Animator>();
 
             if (other.CompareTag("Player"))
+            {
                 interactKey = KeyCode.Space;
+                playerMovementScript = other.GetComponent<playerMovement>();
+            }
             else if (other.CompareTag("Player2"))
+            {
                 interactKey = KeyCode.Return;
+                playerMovementScript = other.GetComponent<playerMovement2>();
+            }
         }
     }
 
@@ -142,6 +179,12 @@ public class ChoppingBoard : MonoBehaviour
         {
             playerInRange = false;
             playerInventory = null;
+            playerMovementScript = null;
+
+            if (playerAnimator != null)
+                playerAnimator.SetBool("IsChopping", false);
+
+            playerAnimator = null;
         }
     }
 }

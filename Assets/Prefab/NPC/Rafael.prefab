@@ -430,6 +430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7059366773038134377}
+  - component: {fileID: 3619648507514294912}
   - component: {fileID: 8637308938518611760}
   - component: {fileID: 5285369898158490581}
   - component: {fileID: 8740618286295864443}
@@ -461,6 +462,28 @@ Transform:
   - {fileID: 4557989170278886461}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3619648507514294912
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111230945047006159}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 4c73a1774a198c54583f175a874216cd, type: 3}
+  m_Controller: {fileID: 9100000, guid: 7b44ffedac4e863449b081ac59edc427, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8637308938518611760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,19 +520,7 @@ MonoBehaviour:
   orderDisplayPoint: {fileID: 0}
   onOrderRequested:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onOrderComplete:
     m_PersistentCalls:
       m_Calls: []

@@ -59,7 +59,7 @@ public class ChoppingBoard : MonoBehaviour
             if (isChopping)
             {
                 choppingProgress += chopIncrement;
-                SoundFXManager.instance.PlaySoundFXClip(choppingClip, transform, .5f);
+                SoundFXManager.instance.PlaySoundFXClip(choppingClip, transform, 1f);
 
                 // Show progress bar
                 if (choppingProgressBar != null)

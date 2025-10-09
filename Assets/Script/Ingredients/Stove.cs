@@ -167,7 +167,9 @@ public class Stove : MonoBehaviour
             if (stoveSlider != null)
             {
                 stoveSlider.gameObject.SetActive(true);
-                stoveSlider.value = 1f - (ingredientTimer / maxWaitTime);
+                //removed "1f -"
+                //forces slider to go from right to left, dk if it changes cook time tho
+                stoveSlider.value = ingredientTimer / maxWaitTime;
             }
 
             if (ingredientTimer >= maxWaitTime)

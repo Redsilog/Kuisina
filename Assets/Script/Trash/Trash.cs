@@ -1,0 +1,50 @@
+using UnityEngine;
+
+public class Trash : MonoBehaviour
+{
+
+    private float trashCooldown = 0f; 
+
+    private void Update()
+    {
+        if (trashCooldown > 0f)
+            trashCooldown -= Time.deltaTime;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        PlayerInventory player = other.GetComponent<PlayerInventory>();
+
+        if (trashCooldown > 0f) return;
+
+        bool pressed = false;
+        if (player.playerID == 1 && Input.GetKey(KeyCode.Space))
+            pressed = true;
+        else if (player.playerID == 2 && Input.GetKey(KeyCode.Return))
+            pressed = true;
+
+        if (!pressed) return;
+
+        if (player.IsHoldingItem())
+        {
+            string itemName = player.heldIngredient != "" ? player.heldIngredient : player.heldDish;
+            Debug.Log($"Player {player.playerID} trashed: {itemName}");
+
+            Destroy(player.heldVisual);
+
+            player.heldIngredient = "";
+            player.heldDish = "";
+            player.heldVisual = null;
+
+            player.leftArm.localRotation = Quaternion.Euler(player.leftArmDefaultRotation);
+            player.rightArm.localRotation = Quaternion.Euler(player.rightArmDefaultRotation);
+
+            trashCooldown = 0.5f;
+        }
+        else
+        {
+            Debug.Log($"Player {player.playerID} didn't have anything.");
+            trashCooldown = 0.2f;
+        }
+    }
+}

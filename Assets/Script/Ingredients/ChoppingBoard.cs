@@ -29,6 +29,9 @@ public class ChoppingBoard : MonoBehaviour
     private float choppingProgress = 0f; // Current progress
     private float chopIncrement = 0.2f;  // Amount added per tap (adjust for difficulty)
 
+    //AUDIO
+    [SerializeField] private AudioClip choppingClip;
+
     void Start()
     {
         if (choppingProgressBar != null)
@@ -56,6 +59,7 @@ public class ChoppingBoard : MonoBehaviour
             if (isChopping)
             {
                 choppingProgress += chopIncrement;
+                SoundFXManager.instance.PlaySoundFXClip(choppingClip, transform, .5f);
 
                 // Show progress bar
                 if (choppingProgressBar != null)

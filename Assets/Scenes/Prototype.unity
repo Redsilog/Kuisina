@@ -9590,6 +9590,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1647356100}
+  openBookClip: {fileID: 8300000, guid: a72aa122268636348a2a4322594ac0b9, type: 3}
+  closeBookClip: {fileID: 8300000, guid: b701cdedbde4b4c4e84f6da78b32fa4c, type: 3}
 --- !u!1 &1445883632
 GameObject:
   m_ObjectHideFlags: 0
@@ -11245,7 +11247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1647356101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11255,7 +11257,7 @@ RectTransform:
   m_GameObject: {fileID: 1647356100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.1756, y: 2.1756, z: 2.1756}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 256051825}
@@ -13740,6 +13742,7 @@ MonoBehaviour:
   addedIngredients: []
   ingredientTimer: 0
   maxWaitTime: 10
+  placeDishClip: {fileID: 8300000, guid: b8ca928b26d557245bd02186043ca26d, type: 3}
 --- !u!1001 &2064041603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14637,6 +14640,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1247602478}
     - target: {fileID: 1240785644285758839, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: burntClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 19668c83a60e7ba4db3903419ffdae16, type: 3}
+    - target: {fileID: 1240785644285758839, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: cookingClip
+      value: 
+      objectReference: {fileID: 8300000, guid: feb63c0e469d35346bfa41682280f534, type: 3}
+    - target: {fileID: 1240785644285758839, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
       propertyPath: putiChicken
       value: 
       objectReference: {fileID: 2050211050}
@@ -14645,6 +14656,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1130443626}
     - target: {fileID: 1240785644285758839, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: cookingClip2
+      value: 
+      objectReference: {fileID: 8300000, guid: fc5e8aae62da74c499e9a9b4550049b7, type: 3}
+    - target: {fileID: 1240785644285758839, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
       propertyPath: classicChicken
       value: 
       objectReference: {fileID: 1487616806}
@@ -14652,6 +14667,10 @@ PrefabInstance:
       propertyPath: cookedFoodPoint
       value: 
       objectReference: {fileID: 1144267517}
+    - target: {fileID: 1240785644285758839, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
+      propertyPath: finishedCookingClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e585fbc7831b018419af1d7887def8fe, type: 3}
     - target: {fileID: 4329187369262622338, guid: bdd9ca445cd8b814382c7787790b658c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.387

@@ -5,39 +5,79 @@ public class PanelOpener : MonoBehaviour
     [Tooltip("Drag the UI Panel GameObject here")]
     public GameObject panel;
 
-    bool isPlayerNear = false;
+    private bool player1InRange = false;
+    private bool player2InRange = false;
+
+    [SerializeField] AudioClip openBookClip;
+    [SerializeField] AudioClip closeBookClip;
 
     void Start()
     {
         if (panel != null)
-            panel.SetActive(false);  // ensure it's closed at start
+            panel.SetActive(false);
     }
+
+
 
     void Update()
     {
-        // If player is in range and presses Tab, toggle the panel
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.Tab))
+
+        if (player1InRange && Input.GetKeyDown(KeyCode.Space))
         {
-            panel.SetActive(!panel.activeSelf);
+            TogglePanel();
+        }
+
+        if (player2InRange && Input.GetKeyDown(KeyCode.Return))
+        {
+            TogglePanel();
+        }
+    }
+
+    
+    private void TogglePanel()
+    {
+        bool isOpening = !panel.activeSelf;
+        panel.SetActive(isOpening);
+
+        if (isOpening)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(openBookClip, transform, .75f);
+        }
+        else
+        {
+            SoundFXManager.instance.PlaySoundFXClip(closeBookClip, transform, .75f);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (other.CompareTag("Player"))
         {
-            isPlayerNear = true;
+            player1InRange = true;
+        }
+        else if (other.CompareTag("Player2"))
+        {
+            player2InRange = true;
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (other.CompareTag("Player"))
         {
-            isPlayerNear = false;
-            // optional: auto-close when leaving
-            if (panel.activeSelf)
-                panel.SetActive(false);
+            player1InRange = false;
+        }
+        else if (other.CompareTag("Player2"))
+        {
+            player2InRange = false;
+        }
+
+        if (!player1InRange && !player2InRange && panel.activeSelf)
+        {
+            panel.SetActive(false);
+
+            if (closeBookClip != null)
+                SoundFXManager.instance.PlaySoundFXClip(closeBookClip, transform, 1f);
         }
     }
 }

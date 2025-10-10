@@ -30,6 +30,8 @@ public class PlatingStation : MonoBehaviour
 
     private GameObject currentCookedFood;
 
+    [SerializeField] private AudioClip placeDishClip;
+
     void Start()
     {
         recipeBook = new Dictionary<string, List<string>>()
@@ -54,6 +56,7 @@ public class PlatingStation : MonoBehaviour
                 if (playerInventory.HasDish() && currentCookedFood == null)
                 {
                     currentCookedFood = playerInventory.PlaceDish(cookedFoodPoint.position);
+                    SoundFXManager.instance.PlaySoundFXClip(placeDishClip, transform, 1f);
                     Debug.Log("Placed dish on station: " + currentCookedFood?.name);
                 }
                 else if (!playerInventory.HasDish() && currentCookedFood != null)

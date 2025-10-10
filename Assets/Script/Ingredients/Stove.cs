@@ -230,7 +230,7 @@ public class Stove : MonoBehaviour
             ResetVisuals();
             isTimerRunning = false;
             SoundFXManager.instance.PlaySoundFXClip(finishedCookingClip, transform, 1f);
-            SoundFXManager.instance.StopLoopingSound(); 
+            SoundFXManager.instance.StopLoopingSound();
 
             if (stoveSlider != null)
             {
@@ -273,6 +273,10 @@ public class Stove : MonoBehaviour
             Destroy(currentCookedFood);
             currentCookedFood = null;
         }
+
+        isTimerRunning = false;
+        ingredientTimer = 0f;
+        SoundFXManager.instance.StopLoopingSound();
 
         if (stoveSlider != null)
         {

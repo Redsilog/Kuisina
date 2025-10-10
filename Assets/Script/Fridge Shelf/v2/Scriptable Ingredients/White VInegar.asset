@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: White VInegar
   m_EditorClassIdentifier: 
-  ingredientName: White Vinegar
+  ingredientName: Vinegar
   ingredientIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   ingredientPrefab: {fileID: 2539663280885535478, guid: 3cf6cc75141b2304bbde634d9f247340, type: 3}
   ingredientDescription: whtie vinegar

@@ -1930,6 +1930,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287941507}
   m_CullTransparentMesh: 1
+--- !u!4 &295923506 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8790120311421098652, guid: 8629033b702e0624e8ec6b9fce0555be, type: 3}
+  m_PrefabInstance: {fileID: 6245423229575148860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &298753972
 GameObject:
   m_ObjectHideFlags: 0
@@ -10705,6 +10710,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558751271}
   m_CullTransparentMesh: 1
+--- !u!4 &1561199448 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1905057652889951432, guid: 8629033b702e0624e8ec6b9fce0555be, type: 3}
+  m_PrefabInstance: {fileID: 6245423229575148860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1580495243
 GameObject:
   m_ObjectHideFlags: 0
@@ -14828,9 +14838,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2298135219412722058, guid: 8629033b702e0624e8ec6b9fce0555be, type: 3}
+      propertyPath: leftArm
+      value: 
+      objectReference: {fileID: 1561199448}
+    - target: {fileID: 2298135219412722058, guid: 8629033b702e0624e8ec6b9fce0555be, type: 3}
       propertyPath: playerID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2298135219412722058, guid: 8629033b702e0624e8ec6b9fce0555be, type: 3}
+      propertyPath: rightArm
+      value: 
+      objectReference: {fileID: 295923506}
     - target: {fileID: 3729375040418128991, guid: 8629033b702e0624e8ec6b9fce0555be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.23
@@ -15010,13 +15028,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 9acd8edf22768f54aa7e743215d033b5, type: 2}
     - target: {fileID: 1712300512226957753, guid: 8d5e796a8596f1f44b936bcd16da04d9, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'CCM-Armature'\n\tTransform 'Shoulder.R'\n\tTransform
-        'LowerArm.L'\n\tTransform 'LowerLeg.L'\n\tTransform 'LowerLeg.R'\n\tTransform
-        'UpperArm.R'\n\tTransform 'UpperArm.L'\n\tTransform 'CCM-Armature'\n\tTransform
-        'Spine2'\n\tTransform 'Spine1'\n\tand more ...\n\tFrom animation clip 'Standing
-        Idle'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2329928458356764205, guid: 8d5e796a8596f1f44b936bcd16da04d9, type: 3}
       propertyPath: m_LocalRotation.w

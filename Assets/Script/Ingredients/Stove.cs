@@ -50,6 +50,11 @@ public class Stove : MonoBehaviour
 
     private bool justCooked = false;
 
+    //AUDIO
+    [SerializeField] private AudioClip cookingClip;
+    [SerializeField] private AudioClip burntClip;
+    [SerializeField] private AudioClip finishedCookingClip;
+
     void Start()
     {
         recipeBook = new Dictionary<string, List<string>>()
@@ -149,6 +154,7 @@ public class Stove : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(KeyCode.Tab))
         {
             resetStove();
+            SoundFXManager.instance.StopLoopingSound(); 
         }
 
         // ✅ Serve dish (P works for anyone)
@@ -177,6 +183,8 @@ public class Stove : MonoBehaviour
                 Debug.Log("Na-burn boss, di ka nagdagdag ng ingredient sa oras!");
                 resetStove();
                 isTimerRunning = false;
+                SoundFXManager.instance.PlaySoundFXClip(burntClip, transform, 1f);
+                SoundFXManager.instance.StopLoopingSound(); 
             }
         }
     }
@@ -188,6 +196,11 @@ public class Stove : MonoBehaviour
         addedIngredients.Add(ingredient);
         player.PlaceIngredient();
 
+        if (!isTimerRunning)
+        {
+            SoundFXManager.instance.PlayLoopWithCrossfade(cookingClip, transform, 1f, 2f);
+        }
+        
         switch (ingredient)
         {
             case "Cooked Garlic":
@@ -216,6 +229,8 @@ public class Stove : MonoBehaviour
             addedIngredients.Clear();
             ResetVisuals();
             isTimerRunning = false;
+            SoundFXManager.instance.PlaySoundFXClip(finishedCookingClip, transform, 1f);
+            SoundFXManager.instance.StopLoopingSound(); 
 
             if (stoveSlider != null)
             {
@@ -228,6 +243,7 @@ public class Stove : MonoBehaviour
             // Start or restart timer after each added ingredient
             ingredientTimer = 0f;
             isTimerRunning = true;
+            SoundFXManager.instance.PlayLoopWithCrossfade(cookingClip, transform, 1f, 2f);
         }
     }
 

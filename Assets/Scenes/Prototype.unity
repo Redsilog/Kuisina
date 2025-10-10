@@ -7443,6 +7443,7 @@ MonoBehaviour:
   choppedBeefPrefab: {fileID: 0}
   choppingProgressBar: {fileID: 0}
   choppingClip: {fileID: 0}
+  finishedChoppingClip: {fileID: 0}
 --- !u!65 &1163746322
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10365,6 +10366,7 @@ MonoBehaviour:
   choppedBeefPrefab: {fileID: 0}
   choppingProgressBar: {fileID: 511932053}
   choppingClip: {fileID: 8300000, guid: b26357c43408bd74ab280ee8bd047fff, type: 3}
+  finishedChoppingClip: {fileID: 8300000, guid: a317e005327ca5e4281102496f080eff, type: 3}
 --- !u!1 &1521016868
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,6 +31,7 @@ public class ChoppingBoard : MonoBehaviour
 
     //AUDIO
     [SerializeField] private AudioClip choppingClip;
+    [SerializeField] private AudioClip finishedChoppingClip;
 
     void Start()
     {
@@ -101,9 +102,10 @@ public class ChoppingBoard : MonoBehaviour
 
     void FinishChopping()
     {
+        SoundFXManager.instance.PlaySoundFXClip(finishedChoppingClip, transform, 1f);
         isChopping = false;
         choppingProgress = 0f;
-
+        
         // Enable player movement
         if (playerMovementScript != null)
             playerMovementScript.enabled = true;

@@ -56,13 +56,13 @@ public class SoundFXManager : MonoBehaviour
             loopingSource = null;
         }
 
-        foreach (var source in FindObjectsOfType<AudioSource>())
-        {
-            if (source != null && source.gameObject.name.Contains("[Loop]"))
-            {
-                Destroy(source.gameObject);
-            }
-        }
+        // foreach (var source in FindObjectsOfType<AudioSource>())
+        // {
+        //     if (source != null && source.gameObject.name.Contains("[Loop]"))
+        //     {
+        //         Destroy(source.gameObject);
+        //     }
+        // }
     }
 
     //for stuff that needs to be repeated over the clip length

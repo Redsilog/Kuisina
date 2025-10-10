@@ -38,6 +38,7 @@ public class FridgeUI : MonoBehaviour
     [SerializeField] AudioClip openPantryClip;
     [SerializeField] AudioClip closePantryClip;
     [SerializeField] AudioClip getItemClip;
+    [SerializeField] AudioClip selectItemClip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,12 +56,14 @@ public class FridgeUI : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.D))
                 {
                     globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
+                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
                     AdjustScrollOffset();
                     RefreshSlots();
                 }
                 else if (Input.GetKeyDown(KeyCode.A))
                 {
                     globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
+                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
                     AdjustScrollOffset();
                     RefreshSlots();
                 }
@@ -76,12 +79,14 @@ public class FridgeUI : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
+                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
                     AdjustScrollOffset();
                     RefreshSlots();
                 }
                 else if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
                     globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
+                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
                     AdjustScrollOffset();
                     RefreshSlots();
                 }

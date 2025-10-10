@@ -806,6 +806,7 @@ MonoBehaviour:
   openPantryClip: {fileID: 0}
   closePantryClip: {fileID: 0}
   getItemClip: {fileID: 8300000, guid: 68059fca99a0f4547ab3a858092ede20, type: 3}
+  selectItemClip: {fileID: 8300000, guid: de34f497b6aa0384387b06b8603d9ef7, type: 3}
 --- !u!1001 &152680627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2224,6 +2225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6c9d29e7d0c414abf7e37f2ead2296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashClip: {fileID: 8300000, guid: 1766fa4318180c64cab983c2c3c8bfb7, type: 3}
 --- !u!1001 &340297106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4416,6 +4418,7 @@ MonoBehaviour:
   openPantryClip: {fileID: 8300000, guid: 25634caa99b73c7498afc6a25c043b26, type: 3}
   closePantryClip: {fileID: 8300000, guid: 2e5621e2cff948540ba6303eaab75c53, type: 3}
   getItemClip: {fileID: 8300000, guid: 68059fca99a0f4547ab3a858092ede20, type: 3}
+  selectItemClip: {fileID: 8300000, guid: de34f497b6aa0384387b06b8603d9ef7, type: 3}
 --- !u!114 &771242571
 MonoBehaviour:
   m_ObjectHideFlags: 0

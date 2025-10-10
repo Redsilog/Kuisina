@@ -3,7 +3,8 @@ using UnityEngine;
 public class Trash : MonoBehaviour
 {
 
-    private float trashCooldown = 0f; 
+    private float trashCooldown = 0f;
+    [SerializeField] AudioClip trashClip;
 
     private void Update()
     {
@@ -18,10 +19,18 @@ public class Trash : MonoBehaviour
         if (trashCooldown > 0f) return;
 
         bool pressed = false;
+
         if (player.playerID == 1 && Input.GetKey(KeyCode.Space))
+        {
+            SoundFXManager.instance.PlaySoundFXClip(trashClip, transform, 1f);
             pressed = true;
+        }
+            
         else if (player.playerID == 2 && Input.GetKey(KeyCode.Return))
+        {
+            SoundFXManager.instance.PlaySoundFXClip(trashClip, transform, 1f);
             pressed = true;
+        }
 
         if (!pressed) return;
 
@@ -36,11 +45,12 @@ public class Trash : MonoBehaviour
             player.heldDish = "";
             player.heldVisual = null;
 
-            player.leftArm.localRotation = Quaternion.Euler(player.leftArmDefaultRotation);
-            player.rightArm.localRotation = Quaternion.Euler(player.rightArmDefaultRotation);
+            //player.leftArm.localRotation = Quaternion.Euler(player.leftArmDefaultRotation);
+            //player.rightArm.localRotation = Quaternion.Euler(player.rightArmDefaultRotation);
 
             trashCooldown = 0.5f;
         }
+
         else
         {
             Debug.Log($"Player {player.playerID} didn't have anything.");

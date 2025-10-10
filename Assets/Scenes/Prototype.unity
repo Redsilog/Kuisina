@@ -801,6 +801,11 @@ MonoBehaviour:
   itemDescription: {fileID: 992990802}
   leftAnchor: {fileID: 1108968167}
   rightAnchor: {fileID: 147435553}
+  openFridgeClip: {fileID: 8300000, guid: c76eae8209aa3e940b9083352786fc28, type: 3}
+  closeFridgeClip: {fileID: 8300000, guid: 1f8dcbabbe7837140bd15c94f84baa77, type: 3}
+  openPantryClip: {fileID: 0}
+  closePantryClip: {fileID: 0}
+  getItemClip: {fileID: 8300000, guid: 68059fca99a0f4547ab3a858092ede20, type: 3}
 --- !u!1001 &152680627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4406,6 +4411,11 @@ MonoBehaviour:
   itemDescription: {fileID: 1387944806}
   leftAnchor: {fileID: 1609485424}
   rightAnchor: {fileID: 524575494}
+  openFridgeClip: {fileID: 0}
+  closeFridgeClip: {fileID: 0}
+  openPantryClip: {fileID: 8300000, guid: 25634caa99b73c7498afc6a25c043b26, type: 3}
+  closePantryClip: {fileID: 8300000, guid: 2e5621e2cff948540ba6303eaab75c53, type: 3}
+  getItemClip: {fileID: 8300000, guid: 68059fca99a0f4547ab3a858092ede20, type: 3}
 --- !u!114 &771242571
 MonoBehaviour:
   m_ObjectHideFlags: 0

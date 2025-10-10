@@ -28,7 +28,16 @@ public class FridgeUI : MonoBehaviour
 
     private FridgeSlot[] slots;
     private int scrollOffset = 0;
-    private int globalIndex = 0; 
+    private int globalIndex = 0;
+
+    private FridgeShelfManager.StorageType currentStorageType;
+
+    //AUDIO
+    [SerializeField] AudioClip openFridgeClip;
+    [SerializeField] AudioClip closeFridgeClip;
+    [SerializeField] AudioClip openPantryClip;
+    [SerializeField] AudioClip closePantryClip;
+    [SerializeField] AudioClip getItemClip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -87,16 +96,22 @@ public class FridgeUI : MonoBehaviour
         }
     }
 
-    public void OpenFridge(FridgeShelfManager fridge, PlayerInventory playerInv, bool openOnLeft)
+    public void OpenFridge(FridgeShelfManager fridge, PlayerInventory playerInv, bool openOnLeft, FridgeShelfManager.StorageType type)
     {
         currentFridge = fridge;
         currentPlayer = playerInv;
         currentPlayerID = playerInv.playerID;
+        currentStorageType = type; 
 
         globalIndex = 0;
         scrollOffset = 0;
-        
+
         fridgePanel.SetActive(true);
+
+        if (type == FridgeShelfManager.StorageType.Fridge)
+            SoundFXManager.instance.PlaySoundFXClip(openFridgeClip, transform, 1f);
+        else
+            SoundFXManager.instance.PlaySoundFXClip(openPantryClip, transform, 1f);
 
         playerMovement movement = currentPlayer.GetComponent<playerMovement>();
         playerMovement2 movement2 = currentPlayer.GetComponent<playerMovement2>();
@@ -119,9 +134,14 @@ public class FridgeUI : MonoBehaviour
         Debug.Log("Fridge opened with " + fridge.storedIngredients.Count + " items.");
     }
 
-    public void CloseFridge()
+    public void CloseFridge(FridgeShelfManager.StorageType type)
     {
         fridgePanel.SetActive(false);
+        
+        if (type == FridgeShelfManager.StorageType.Fridge)
+            SoundFXManager.instance.PlaySoundFXClip(closeFridgeClip, transform, 1f);
+        else
+            SoundFXManager.instance.PlaySoundFXClip(closePantryClip, transform, 1f);
         if (currentPlayer != null)
         {
             playerMovement movement = currentPlayer.GetComponent<playerMovement>();
@@ -173,9 +193,11 @@ public class FridgeUI : MonoBehaviour
         Ingredients selected = currentFridge.storedIngredients[globalIndex];
         Debug.Log("Picked up " + selected.ingredientName);
 
+        SoundFXManager.instance.PlaySoundFXClip(getItemClip, transform, .75f);
+
         currentPlayer.PickUpIngredient(selected.ingredientName, selected.ingredientPrefab);
 
-        CloseFridge();
+        CloseFridge(currentStorageType);
     }
 
     void HighlightSlot(int fridgeIndex)

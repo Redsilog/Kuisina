@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class FridgeShelfManager : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class FridgeShelfManager : MonoBehaviour
 
     private bool playerInRange = false;
     private PlayerInventory activePlayerInventory;
-
     private float reopenCooldown = 0f;
+
+
 
     void Update()
     {
@@ -64,7 +66,7 @@ public class FridgeShelfManager : MonoBehaviour
     {
         if (targetUI.fridgePanel.activeSelf) // already open
         {
-            targetUI.CloseFridge();
+            targetUI.CloseFridge(storageType);
             reopenCooldown = 0.25f;
         }
 
@@ -81,11 +83,11 @@ public class FridgeShelfManager : MonoBehaviour
 
             if (storageType == StorageType.Fridge && perms.canUseFridge)
             {
-                targetUI.OpenFridge(this, activePlayerInventory, openOnLeft);
+                targetUI.OpenFridge(this, activePlayerInventory, openOnLeft, storageType);
             }
             else if (storageType == StorageType.Shelf && perms.canUseShelf)
             {
-                targetUI.OpenFridge(this, activePlayerInventory, openOnLeft);
+                targetUI.OpenFridge(this, activePlayerInventory, openOnLeft, storageType);
             }
             else
             {
@@ -130,7 +132,7 @@ public class FridgeShelfManager : MonoBehaviour
 
             if (targetUI != null && targetUI.fridgePanel != null && targetUI.fridgePanel.activeSelf)
             {
-                targetUI.CloseFridge();
+                targetUI.CloseFridge(storageType);
             }
         }
     }

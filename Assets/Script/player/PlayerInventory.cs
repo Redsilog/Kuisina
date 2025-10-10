@@ -9,17 +9,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject heldVisual;
     public Transform holdPoint;
 
-    public Transform leftArm;
-    public Transform rightArm;
-
-    public Vector3 leftArmDefaultRotation = new Vector3(-63.027f, 10.057f, 21.59f);
-    public Vector3 rightArmDefaultRotation = new Vector3(-63.027f, 10.057f, 21.59f);
-
-    public Vector3 leftArmHoldRotation = new Vector3(25.471f, -68.801f, 62.151f);
-    public Vector3 rightArmHoldRotation = new Vector3(25.471f, -68.801f, 62.151f);
-
     public int playerID = 1;
-    private bool isGameInitialized = false;
 
     public bool HasDish() => heldVisual != null;
 
@@ -28,19 +18,6 @@ public class PlayerInventory : MonoBehaviour
         heldVisual = null;
         heldIngredient = "";
         heldDish = "";
-        ResetArms();
-    }
-
-    void ResetArms()
-    {
-        leftArm.localRotation = Quaternion.Euler(leftArmDefaultRotation);
-        rightArm.localRotation = Quaternion.Euler(rightArmDefaultRotation);
-    }
-
-    void SetHoldingPose()
-    {
-        leftArm.localRotation = Quaternion.Euler(leftArmHoldRotation);
-        rightArm.localRotation = Quaternion.Euler(rightArmHoldRotation);
     }
 
     public void PlaceIngredient()
@@ -66,7 +43,6 @@ public class PlayerInventory : MonoBehaviour
         }
 
         ClearHeldItem();
-        ResetArms();
     }
 
     public void PickUpIngredient(string ingredientName, GameObject prefab)
@@ -74,7 +50,6 @@ public class PlayerInventory : MonoBehaviour
         heldDish = "";
         heldIngredient = ingredientName;
         heldVisual = Instantiate(prefab, holdPoint.position, Quaternion.identity, holdPoint);
-        SetHoldingPose();
     }
 
     public void PickUpDish(string dishName, GameObject dishObject)
@@ -89,8 +64,6 @@ public class PlayerInventory : MonoBehaviour
 
         if (heldVisual.TryGetComponent<Collider>(out var c)) c.isTrigger = true;
         if (heldVisual.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
-
-        SetHoldingPose();
     }
 
     public GameObject PlaceDish(Vector3 position)
@@ -108,8 +81,6 @@ public class PlayerInventory : MonoBehaviour
 
         heldDish = "";
         heldVisual = null;
-
-        ResetArms();
 
         return placed;
     }
@@ -129,7 +100,6 @@ public class PlayerInventory : MonoBehaviour
         if (dish.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
 
         Debug.Log("Picked up: " + dish.name);
-        SetHoldingPose();
     }
 
     public bool HasIngredient()
@@ -142,9 +112,4 @@ public class PlayerInventory : MonoBehaviour
         return heldVisual != null || !string.IsNullOrEmpty(heldIngredient) || !string.IsNullOrEmpty(heldDish);
     }
 
-    public void InitializeGame()
-    {
-        isGameInitialized = true;
-        Debug.Log("Game Initialized");
-    }
 }

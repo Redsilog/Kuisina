@@ -1468,11 +1468,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageType: 1
   storedIngredients:
-  - {fileID: 11400000, guid: 607b702ee015e1749b1ba60b34e7ce04, type: 2}
   - {fileID: 11400000, guid: 0890480780e7aae4e8adafcb9cc71371, type: 2}
-  - {fileID: 11400000, guid: 9bd84fc64d1022846918fb4f557fd255, type: 2}
-  - {fileID: 11400000, guid: 9bd84fc64d1022846918fb4f557fd255, type: 2}
-  - {fileID: 11400000, guid: 9bd84fc64d1022846918fb4f557fd255, type: 2}
+  - {fileID: 11400000, guid: 615770fa3cccaa84d898eb0bcf66c86f, type: 2}
+  - {fileID: 11400000, guid: f19dfa25429b7114fa38e1bde60f10ce, type: 2}
+  - {fileID: 11400000, guid: 4e5d086cfc64da84786317777c6c4de6, type: 2}
+  - {fileID: 11400000, guid: bcb4f7209d8935e45b8f1329c4c2af8a, type: 2}
   fridgeUI_Player1: {fileID: 1702717439}
   fridgeUI_Player2: {fileID: 637128159}
 --- !u!1001 &251049088
@@ -5982,10 +5982,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageType: 0
   storedIngredients:
-  - {fileID: 11400000, guid: f19dfa25429b7114fa38e1bde60f10ce, type: 2}
-  - {fileID: 11400000, guid: 0890480780e7aae4e8adafcb9cc71371, type: 2}
-  - {fileID: 11400000, guid: 9bd84fc64d1022846918fb4f557fd255, type: 2}
-  - {fileID: 11400000, guid: 607b702ee015e1749b1ba60b34e7ce04, type: 2}
+  - {fileID: 11400000, guid: 26fa1f07a0d37ec4e9342f5c9bfb7247, type: 2}
+  - {fileID: 11400000, guid: ef8353b109f9eb44eac33c9e2615191d, type: 2}
+  - {fileID: 11400000, guid: a334d094ac315b046a849ab8a231f9e7, type: 2}
+  - {fileID: 11400000, guid: 6f2d693371bf4b742acb048be0ae25a4, type: 2}
+  - {fileID: 11400000, guid: 85566f4b5249b7a4391a14b88c1a2637, type: 2}
+  - {fileID: 11400000, guid: 4daa5ebdc9affa34a83cb9f0ba298a7f, type: 2}
+  - {fileID: 11400000, guid: 7b3aeb7e075d9834aaba70577d53b452, type: 2}
+  - {fileID: 11400000, guid: a9ea938bf415f3948b49e6943fdb63c5, type: 2}
+  - {fileID: 11400000, guid: 54091536583d13344bb7f9c51baa84a4, type: 2}
+  - {fileID: 11400000, guid: 5b987a4f785bebd4e929613d67dfc3e8, type: 2}
+  - {fileID: 11400000, guid: 755965a2d205f8e4299e907695caa60c, type: 2}
+  - {fileID: 11400000, guid: c65d5b910ce964f499be09f5f9b2794c, type: 2}
   fridgeUI_Player1: {fileID: 1702717439}
   fridgeUI_Player2: {fileID: 637128159}
 --- !u!1001 &986850953

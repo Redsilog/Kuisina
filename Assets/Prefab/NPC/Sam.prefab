@@ -475,7 +475,9 @@ MonoBehaviour:
   orderPrefabs:
   - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
   - {fileID: 8662326802668621229, guid: f8e066400b3eb400f99f53469210150e, type: 3}
-  orderNames: []
+  orderNames:
+  - Cooked Classic Adobo
+  - Cooked Adobong Puti
   interactAction: {fileID: 0}
   orderDisplayPoint: {fileID: 0}
   onOrderRequested:

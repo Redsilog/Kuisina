@@ -1,196 +1,100 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
+
+[System.Serializable]
+public class ChopMapping
+{
+    public string inputName;        // e.g. "Onion"
+    public GameObject outputPrefab; // e.g. ChoppedOnion prefab
+}
 
 public class ChoppingBoard : MonoBehaviour
 {
-    public Transform chopPoint;
-    public float chopTime = 3f; // Total "chop points" required
-
-    [Header("Chopped Prefabs")]
-    public GameObject choppedGarlicPrefab;
-    public GameObject choppedOnionPrefab;
-    public GameObject choppedPorkPrefab;
-    public GameObject choppedChickenPrefab;
-    public GameObject choppedBeefPrefab;
-
-    public Slider choppingProgressBar;
-
-    private bool playerInRange = false;
-    private PlayerInventory playerInventory;
-    private MonoBehaviour playerMovementScript; // Works for both Player1 and Player2
-    private Animator playerAnimator;
-    private KeyCode interactKey = KeyCode.Space;
+    [Header("Chopping Settings")]
+    public List<ChopMapping> chopMappings = new List<ChopMapping>();
+    public float chopTime = 2f;
 
     private bool isChopping = false;
-    private bool isChopped = false;
-    private string choppedIngredientName = "";
-    private GameObject foodOnBoard;
-
-    private float choppingProgress = 0f; // Current progress
-    private float chopIncrement = 0.2f;  // Amount added per tap (adjust for difficulty)
-
-    //AUDIO
-    [SerializeField] private AudioClip choppingClip;
-    [SerializeField] private AudioClip finishedChoppingClip;
-
-    void Start()
-    {
-        if (choppingProgressBar != null)
-            choppingProgressBar.gameObject.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (!playerInRange) return;
-
-        // Start chopping or pick up chopped ingredient
-        if (Input.GetKeyDown(interactKey))
-        {
-            if (!isChopping && !isChopped && playerInventory.HasIngredient())
-            {
-                StartChopping(playerInventory.heldIngredient, playerInventory.heldVisual);
-                playerInventory.PlaceIngredient();
-            }
-            else if (isChopped && !playerInventory.HasIngredient())
-            {
-                PickUpChoppedIngredient();
-            }
-
-            // Increment chopping progress per tap
-            if (isChopping)
-            {
-                choppingProgress += chopIncrement;
-                SoundFXManager.instance.PlaySoundFXClip(choppingClip, transform, 1f);
-
-                // Show progress bar
-                if (choppingProgressBar != null)
-                {
-                    choppingProgressBar.gameObject.SetActive(true);
-                    choppingProgressBar.value = choppingProgress / chopTime;
-                }
-
-                // Set chopping animation
-                if (playerAnimator != null)
-                    playerAnimator.SetBool("IsChopping", true);
-
-                // Finish chopping if progress complete
-                if (choppingProgress >= chopTime)
-                    FinishChopping();
-            }
-        }
-
-        // Stop animation if not actively tapping
-        if (isChopping && !Input.GetKeyDown(interactKey))
-        {
-            if (playerAnimator != null)
-                playerAnimator.SetBool("IsChopping", false);
-        }
-    }
-
-    void StartChopping(string ingredient, GameObject rawVisual)
-    {
-        isChopping = true;
-        choppingProgress = 0f;
-        choppedIngredientName = "Chopped " + ingredient;
-
-        // Disable player movement
-        if (playerMovementScript != null)
-            playerMovementScript.enabled = false;
-
-        foodOnBoard = Instantiate(rawVisual, chopPoint.position, chopPoint.rotation);
-    }
-
-    void FinishChopping()
-    {
-        SoundFXManager.instance.PlaySoundFXClip(finishedChoppingClip, transform, 1f);
-        isChopping = false;
-        choppingProgress = 0f;
-        
-        // Enable player movement
-        if (playerMovementScript != null)
-            playerMovementScript.enabled = true;
-
-        // Stop chopping animation
-        if (playerAnimator != null)
-            playerAnimator.SetBool("IsChopping", false);
-
-        if (choppingProgressBar != null)
-        {
-            choppingProgressBar.value = 0;
-            choppingProgressBar.gameObject.SetActive(false);
-        }
-
-        if (!string.IsNullOrEmpty(choppedIngredientName))
-        {
-            Destroy(foodOnBoard);
-            GameObject choppedVisual = GetChoppedVisual(choppedIngredientName);
-            if (choppedVisual != null)
-            {
-                foodOnBoard = Instantiate(choppedVisual, chopPoint.position, chopPoint.rotation);
-                isChopped = true;
-            }
-        }
-    }
-
-    void PickUpChoppedIngredient()
-    {
-        if (foodOnBoard != null)
-            Destroy(foodOnBoard);
-
-        GameObject choppedVisual = GetChoppedVisual(choppedIngredientName);
-        if (choppedVisual != null)
-            playerInventory.PickUpIngredient(choppedIngredientName, choppedVisual);
-
-        isChopped = false;
-        choppedIngredientName = "";
-    }
-
-    GameObject GetChoppedVisual(string name)
-    {
-        switch (name)
-        {
-            case "Chopped Garlic": return choppedGarlicPrefab;
-            case "Chopped Onion": return choppedOnionPrefab;
-            case "Chopped Pork": return choppedPorkPrefab;
-            case "Chopped Chicken": return choppedChickenPrefab;
-            case "Chopped Beef": return choppedBeefPrefab;
-            default: return null;
-        }
-    }
+    private GameObject currentIngredientObject;
+    private string currentIngredientName;
+    private PlayerInventory currentPlayer;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (other.TryGetComponent(out PlayerInventory player))
         {
-            playerInRange = true;
-            playerInventory = other.GetComponent<PlayerInventory>();
-            playerAnimator = other.GetComponent<Animator>();
-
-            if (other.CompareTag("Player"))
-            {
-                interactKey = KeyCode.Space;
-                playerMovementScript = other.GetComponent<playerMovement>();
-            }
-            else if (other.CompareTag("Player2"))
-            {
-                interactKey = KeyCode.Return;
-                playerMovementScript = other.GetComponent<playerMovement2>();
-            }
+            currentPlayer = player;
+            Debug.Log("Player ready to chop");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (other.TryGetComponent(out PlayerInventory player) && player == currentPlayer)
         {
-            playerInRange = false;
-            playerInventory = null;
-            playerMovementScript = null;
-
-            if (playerAnimator != null)
-                playerAnimator.SetBool("IsChopping", false);
-
-            playerAnimator = null;
+            currentPlayer = null;
+            Debug.Log("Player left chopping board");
         }
     }
+
+    public void OnInteract(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed || isChopping || currentPlayer == null) return;
+
+        // Player is holding something?
+        if (currentPlayer.HasIngredient())
+        {
+            StartChopping(currentPlayer);
+        }
+        else
+        {
+            Debug.Log("Player has nothing to chop");
+        }
+    }
+
+    private void StartChopping(PlayerInventory player)
+    {
+        currentIngredientName = player.heldIngredient;
+        currentIngredientObject = player.heldVisual;
+        player.ClearHeldItemDirect(); // custom helper we’ll add below
+
+        isChopping = true;
+        Debug.Log("Started chopping " + currentIngredientName);
+
+        StartCoroutine(ChopRoutine());
+    }
+
+    private IEnumerator ChopRoutine()
+    {
+        yield return new WaitForSeconds(chopTime);
+
+        GameObject choppedPrefab = GetChoppedPrefab(currentIngredientName);
+        if (choppedPrefab != null)
+        {
+            Instantiate(choppedPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            Debug.Log("Chopped " + currentIngredientName + " into " + choppedPrefab.name);
+        }
+        else
+        {
+            Debug.LogWarning("No chopped prefab found for: " + currentIngredientName);
+        }
+
+        isChopping = false;
+        currentIngredientObject = null;
+        currentIngredientName = "";
+    }
+
+    private GameObject GetChoppedPrefab(string ingredientName)
+    {
+        foreach (var mapping in chopMappings)
+        {
+            if (mapping.inputName == ingredientName)
+                return mapping.outputPrefab;
+        }
+        return null;
+    }
+
 }
+

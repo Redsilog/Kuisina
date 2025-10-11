@@ -2520,11 +2520,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6e7236bcc7ad8a345bd8203a37806cee, type: 3}
   m_PrefabInstance: {fileID: 1022961862}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &424215215 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -2349826404440343707, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
-  m_PrefabInstance: {fileID: 1644909941}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &439576816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1356fca95527346d8bff167f0a0b1917, type: 3}
@@ -4523,36 +4518,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644909944}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8aa9ceb46c23bc046ae008ae49a63c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientTimer: 0
-  maxWaitTime: 10
-  cookedFoodPoint: {fileID: 0}
-  cookedHotsilog: {fileID: 0}
-  cookedTocilog: {fileID: 0}
-  cookedTapsilog: {fileID: 0}
-  cookedClassicAdobo: {fileID: 0}
-  cookedAdobongPuti: {fileID: 0}
-  cookedPancitMalabon: {fileID: 0}
-  cookedPancitBatil: {fileID: 0}
-  cookedSinigangBaboy: {fileID: 0}
-  cookedSinigangCansi: {fileID: 0}
-  cookedKapampanganSisig: {fileID: 0}
-  cookedDinakdakanSisig: {fileID: 0}
-  failedDish: {fileID: 0}
-  stoveSlider: {fileID: 0}
-  addedIngredients: []
-  liquid1: {fileID: 1397395328}
-  liquid2: {fileID: 1792355359}
-  garlic: {fileID: 1397395327}
-  classicChicken: {fileID: 1397395329}
-  putiChicken: {fileID: 1792355360}
-  cookingClip: {fileID: 8300000, guid: fc5e8aae62da74c499e9a9b4550049b7, type: 3}
-  burntClip: {fileID: 8300000, guid: 19668c83a60e7ba4db3903419ffdae16, type: 3}
-  finishedCookingClip: {fileID: 8300000, guid: 68059fca99a0f4547ab3a858092ede20, type: 3}
+  cookPoint: {fileID: 0}
+  cookedPrefab: {fileID: 0}
+  cookTime: 3
 --- !u!65 &909366145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6451,21 +6424,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1a1dd3d9a1179b439b47f5e4ae3c7bf, type: 3}
---- !u!1 &1397395327 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5353151924327341658, guid: a1a1dd3d9a1179b439b47f5e4ae3c7bf, type: 3}
-  m_PrefabInstance: {fileID: 1397395326}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1397395328 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2682008615923466553, guid: a1a1dd3d9a1179b439b47f5e4ae3c7bf, type: 3}
-  m_PrefabInstance: {fileID: 1397395326}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1397395329 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4755739961786017983, guid: a1a1dd3d9a1179b439b47f5e4ae3c7bf, type: 3}
-  m_PrefabInstance: {fileID: 1397395326}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1406122780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6638,7 +6596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -6646,18 +6604,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1396141562}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1534026680}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 909366144}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
@@ -6669,15 +6643,35 @@ PrefabInstance:
       value: OnInteract
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnInteract
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OnInteract
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: IngredientBox, Assembly-CSharp
+      value: ChoppingBoard, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Stove, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7128,21 +7122,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534026678}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f8d630c96317c0448923e4b33f8edbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chopPoint: {fileID: 424215215}
+  chopMappings:
+  - inputName: Onion
+    outputPrefab: {fileID: 1490503063597392397, guid: 08f4df757af664a1dab8e061a5debed8, type: 3}
+  - inputName: Garlic
+    outputPrefab: {fileID: 7896750443527812411, guid: c932e3704266c4efd87834fae824a869, type: 3}
   chopTime: 3
-  choppedGarlicPrefab: {fileID: 7896750443527812411, guid: c932e3704266c4efd87834fae824a869, type: 3}
-  choppedOnionPrefab: {fileID: 1490503063597392397, guid: 08f4df757af664a1dab8e061a5debed8, type: 3}
-  choppedPorkPrefab: {fileID: 0}
-  choppedChickenPrefab: {fileID: 0}
-  choppedBeefPrefab: {fileID: 0}
-  choppingProgressBar: {fileID: 0}
-  choppingClip: {fileID: 0}
-  finishedChoppingClip: {fileID: 0}
 --- !u!65 &1534026681
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9248,16 +9238,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e52f10f3f7604d4a99e81bb34db2466, type: 3}
---- !u!1 &1792355359 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2358402541723601465, guid: 4e52f10f3f7604d4a99e81bb34db2466, type: 3}
-  m_PrefabInstance: {fileID: 1792355358}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1792355360 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3249251640717401095, guid: 4e52f10f3f7604d4a99e81bb34db2466, type: 3}
-  m_PrefabInstance: {fileID: 1792355358}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1796683408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}

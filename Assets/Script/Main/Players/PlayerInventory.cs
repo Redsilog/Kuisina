@@ -45,6 +45,17 @@ public class PlayerInventory : MonoBehaviour
         ClearHeldItem();
     }
 
+    // inside PlayerInventory class
+    public void ClearHeldItemDirect()
+    {
+        if (heldVisual != null)
+            Destroy(heldVisual);
+        heldVisual = null;
+        heldIngredient = "";
+        heldDish = "";
+    }
+
+
     public void PickUpIngredient(string ingredientName, GameObject prefab)
     {
         heldDish = "";

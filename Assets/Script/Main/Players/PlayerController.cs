@@ -56,10 +56,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Picked up ingredient: " + currentBox.ingredientName);
         }
                 
-        var fridge = FindClosestFridge();
-        if (fridge != null)
+        if (inventory.currentFridge != null)
         {
-            fridge.TryOpenOrCloseFridge(inventory);
+            inventory.currentFridge.TryOpenOrCloseFridge(inventory);
         }
     }
 
@@ -81,16 +80,4 @@ public class PlayerController : MonoBehaviour
         }    
     }
     
-    private FridgeShelfManager FindClosestFridge()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 2f); // 2m range
-        foreach (Collider col in colliders)
-        {
-            if (col.TryGetComponent(out FridgeShelfManager fridge))
-            {
-                return fridge;
-            }
-        }
-        return null;
-    }
 }

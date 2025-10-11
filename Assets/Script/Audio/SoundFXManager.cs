@@ -5,12 +5,9 @@ using System.Collections;
 public class SoundFXManager : MonoBehaviour
 {
     public static SoundFXManager instance;
-
     [SerializeField] private AudioSource soundFXObject;
-
     private AudioSource loopingSource;
     private Coroutine crossfadeCoroutine;
-    
     void Awake()
     {
         if (instance == null)

@@ -74,14 +74,15 @@ public class FridgeUI : MonoBehaviour
         controls.FridgeFreezerPantry.Select.performed -= OnSelect;
         controls.FridgeFreezerPantry.Back.performed -= OnBack;
     }
+
     private void OnBack(InputAction.CallbackContext ctx)
     {
         if (!isOpen || currentFridge == null) return;
         CloseFridge(currentStorageType);
     }
+
     private void OnMoveRight(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Move Right called");
         if (!isOpen || currentFridge == null) return;
 
         globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
@@ -92,7 +93,6 @@ public class FridgeUI : MonoBehaviour
 
     private void OnMoveLeft(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Move Left called");
         if (!isOpen || currentFridge == null) return;
 
         globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
@@ -110,12 +110,22 @@ public class FridgeUI : MonoBehaviour
 
     public void OpenFridge(FridgeShelfManager fridge, PlayerInventory playerInv, bool openOnLeft, FridgeShelfManager.StorageType type)
     {
+
+        if (isOpen && currentFridge != null)
+        {
+            CloseFridge(currentStorageType);
+        }
         currentFridge = fridge;
         currentPlayer = playerInv;
         currentPlayerID = playerInv.playerID;
         currentStorageType = type;
         globalIndex = 0;
         scrollOffset = 0;
+
+        foreach (var slot in slots)
+        {
+            slot.Clear();
+        }
 
         fridgePanel.SetActive(true);
         isOpen = true;
@@ -131,19 +141,23 @@ public class FridgeUI : MonoBehaviour
         else
             SoundFXManager.instance.PlaySoundFXClip(openPantryClip, transform, 1f);
 
-/*             playerMovement movement = currentPlayer.GetComponent<playerMovement>();
-            playerMovement2 movement2 = currentPlayer.GetComponent<playerMovement2>();
-            if (movement != null) movement.enabled = false;
-            if (movement2 != null) movement2.enabled = false; */
+        RefreshSlots();
+        HighlightSlot(globalIndex);
 
-            if (openOnLeft)
-                fridgePanel.transform.SetParent(leftAnchor, false);
-            else
-                fridgePanel.transform.SetParent(rightAnchor, false);
-
-            RefreshSlots();
-            HighlightSlot(globalIndex);
+        if (currentFridge != null && currentFridge.storedIngredients.Count > 0)
+        {
+            Ingredients firstItem = currentFridge.storedIngredients[globalIndex];
+            itemPicture.sprite = firstItem.ingredientIcon;
+            itemName.text = firstItem.ingredientName;
+            itemDescription.text = firstItem.ingredientDescription;
         }
+        else
+        {
+            itemPicture.sprite = null;
+            itemName.text = "";
+            itemDescription.text = "";
+        }
+    }
 
     public void CloseFridge(FridgeShelfManager.StorageType type)
     {

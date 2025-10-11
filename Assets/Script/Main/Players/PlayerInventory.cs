@@ -18,6 +18,8 @@ public class PlayerInventory : MonoBehaviour
 
     public bool HasDish() => heldVisual != null;
 
+    public FridgeShelfManager currentFridge;
+
     private void ClearHeldItem()
     {
         heldVisual = null;

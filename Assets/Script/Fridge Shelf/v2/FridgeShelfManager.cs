@@ -26,9 +26,11 @@ public class FridgeShelfManager : MonoBehaviour
     FridgeUI GetTargetUIForActivePlayer()
     {
         if (activePlayerInventory == null) return null;
-        if (activePlayerInventory.playerID == 1) return fridgeUI_Player1;
-        if (activePlayerInventory.playerID == 2) return fridgeUI_Player2;
-        return null;
+
+        if (storageType == StorageType.Fridge)
+            return activePlayerInventory.playerID == 1 ? fridgeUI_Player1 : fridgeUI_Player2;
+        else
+            return activePlayerInventory.playerID == 1 ? fridgeUI_Player1 : fridgeUI_Player2;
     }
 
     public Ingredients TakeIngredient(int index)
@@ -44,11 +46,15 @@ public class FridgeShelfManager : MonoBehaviour
 
     public void TryOpenOrCloseFridge(PlayerInventory playerInventory)
     {
+        activePlayerInventory = playerInventory; 
         FridgeUI targetUI = GetTargetUIForActivePlayer();
 
+        Debug.Log($"TryOpenOrCloseFridge called by {playerInventory.name} (ID {playerInventory.playerID}). TargetUI = {(targetUI ? targetUI.name : "null")}");
+        if (fridgeUI_Player1 == fridgeUI_Player2)
+            Debug.LogError("fridgeUI_Player1 == fridgeUI_Player2 — both references are the same object!");
         HandleFridgeToggle(targetUI);
     }
-    
+
     private void HandleFridgeToggle(FridgeUI targetUI)
     {
         if (targetUI.fridgePanel.activeSelf) // already open
@@ -94,7 +100,8 @@ public class FridgeShelfManager : MonoBehaviour
         {
             playerInRange = true;
             activePlayerInventory = other.GetComponent<PlayerInventory>();
-            Debug.Log("Player near fridge/shelf");
+            activePlayerInventory.currentFridge = this;
+            Debug.Log($"{other.name} entered fridge: {gameObject.name}");
         }
     }
 
@@ -103,24 +110,28 @@ public class FridgeShelfManager : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
             PlayerInventory leavingInv = other.GetComponent<PlayerInventory>();
-            if (leavingInv == activePlayerInventory)
+
+            if (leavingInv != null && leavingInv.currentFridge == this)
             {
-                playerInRange = false;
-                activePlayerInventory = null;
+                leavingInv.currentFridge = null;
+
+                FridgeUI fridgeUI = null;
+                if (leavingInv.playerID == 1)
+                    fridgeUI = fridgeUI_Player1;
+                else if (leavingInv.playerID == 2)
+                    fridgeUI = fridgeUI_Player2;
+
+                // ✅ Only close if the panel was actually open
+                if (fridgeUI != null && fridgeUI.fridgePanel.activeSelf)
+                {
+                    fridgeUI.CloseFridge(storageType);
+                    Debug.Log($"Closed fridge UI for {other.name} leaving {gameObject.name}");
+                }
             }
 
-            Debug.Log("Player left fridge/shelf");
-
-            FridgeUI targetUI = null;
-            if (leavingInv != null)
-            {
-                targetUI = (leavingInv.playerID == 1) ? fridgeUI_Player1 : fridgeUI_Player2;
-            }
-
-            if (targetUI != null && targetUI.fridgePanel != null && targetUI.fridgePanel.activeSelf)
-            {
-                targetUI.CloseFridge(storageType);
-            }
+            playerInRange = false;
+            activePlayerInventory = null;
+            Debug.Log($"{other.name} left fridge: {gameObject.name}");
         }
     }
 }

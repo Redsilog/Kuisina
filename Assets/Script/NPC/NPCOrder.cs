@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem; // <-- New Input System
 
 public class NPCOrder : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class NPCOrder : MonoBehaviour
     public string[] orderNames;
 
     [Header("Settings")]
-    public KeyCode interactKey = KeyCode.E;
+    public InputActionReference interactAction; // Assign via Inspector
     public Transform orderDisplayPoint;
 
     [Header("Events")]
@@ -26,20 +27,26 @@ public class NPCOrder : MonoBehaviour
 
     void Awake()
     {
-        // ✅ Automatically assign the right TMP text based on the NPC name
         if (name.Contains("Jason"))
-        {
             customerOrder1 = GameObject.Find("Dialogue_Jason").GetComponent<TextMeshProUGUI>();
-        }
         else if (name.Contains("Rafael"))
-        {
             customerOrder1 = GameObject.Find("Dialogue_Rafael").GetComponent<TextMeshProUGUI>();
-        }
 
-        // Setup collider trigger
         var col = GetComponent<Collider>();
         col.isTrigger = true;
         npcInventory = GetComponent<NPCInventory>();
+    }
+
+    void OnEnable()
+    {
+        if (interactAction != null)
+            interactAction.action.Enable();
+    }
+
+    void OnDisable()
+    {
+        if (interactAction != null)
+            interactAction.action.Disable();
     }
 
     void OnTriggerEnter(Collider other)
@@ -48,9 +55,6 @@ public class NPCOrder : MonoBehaviour
         {
             playerInRange = true;
             playerInventory = other.GetComponent<PlayerInventory>();
-
-            // ✅ Assign correct interact key for each player
-            interactKey = other.CompareTag("Player") ? KeyCode.Space : KeyCode.Return;
         }
     }
 
@@ -65,12 +69,14 @@ public class NPCOrder : MonoBehaviour
 
     void Update()
     {
-        if (!playerInRange || playerInventory == null) return;
-        if (!Input.GetKeyDown(interactKey)) return;
+        if (!playerInRange || playerInventory == null || interactAction == null) return;
 
-        if (currentOrder < 0) AskForRandomOrder();
-        else if (PlayerHasRequestedItem()) FulfillOrder();
-        else Debug.Log("NPC: You already have an order. Bring it back!");
+        if (interactAction.action.WasPressedThisFrame())
+        {
+            if (currentOrder < 0) AskForRandomOrder();
+            else if (PlayerHasRequestedItem()) FulfillOrder();
+            else Debug.Log("NPC: You already have an order. Bring it back!");
+        }
     }
 
     bool PlayerHasRequestedItem()

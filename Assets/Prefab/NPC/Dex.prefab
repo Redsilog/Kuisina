@@ -717,7 +717,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.78954, y: -0.37059, z: 13.42831}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2106520611726478722}
@@ -733,11 +733,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7927296470504479056}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 4c73a1774a198c54583f175a874216cd, type: 3}
+  m_Controller: {fileID: 9100000, guid: 7b44ffedac4e863449b081ac59edc427, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -754,9 +754,9 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7927296470504479056}
   m_Enabled: 1
-  m_AgentTypeID: -334000983
+  m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -850,9 +850,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b039cc9b18c084f977e39c42237370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderPrefabs: []
+  orderPrefabs:
+  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
+  - {fileID: 8662326802668621229, guid: f8e066400b3eb400f99f53469210150e, type: 3}
   orderNames: []
-  interactKey: 101
+  interactAction: {fileID: 0}
   orderDisplayPoint: {fileID: 0}
   onOrderRequested:
     m_PersistentCalls:

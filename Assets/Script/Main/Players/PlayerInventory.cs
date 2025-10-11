@@ -11,6 +11,11 @@ public class PlayerInventory : MonoBehaviour
 
     public int playerID = 1;
 
+    [Header("Animation")]
+    public Animator animator;
+    public Rigidbody playerRigidbody; // reference to player's Rigidbody for movement detection
+    public float walkThreshold = 0.1f; // velocity magnitude to consider as walking
+
     public bool HasDish() => heldVisual != null;
 
     private void ClearHeldItem()
@@ -18,6 +23,8 @@ public class PlayerInventory : MonoBehaviour
         heldVisual = null;
         heldIngredient = "";
         heldDish = "";
+
+        UpdateHoldingAnimation();
     }
 
     public void PlaceIngredient()
@@ -61,6 +68,8 @@ public class PlayerInventory : MonoBehaviour
         heldDish = "";
         heldIngredient = ingredientName;
         heldVisual = Instantiate(prefab, holdPoint.position, Quaternion.identity, holdPoint);
+
+        UpdateHoldingAnimation();
     }
 
     public void PickUpDish(string dishName, GameObject dishObject)
@@ -75,6 +84,8 @@ public class PlayerInventory : MonoBehaviour
 
         if (heldVisual.TryGetComponent<Collider>(out var c)) c.isTrigger = true;
         if (heldVisual.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
+
+        UpdateHoldingAnimation();
     }
 
     public GameObject PlaceDish(Vector3 position)
@@ -92,6 +103,8 @@ public class PlayerInventory : MonoBehaviour
 
         heldDish = "";
         heldVisual = null;
+
+        UpdateHoldingAnimation();
 
         return placed;
     }
@@ -111,6 +124,8 @@ public class PlayerInventory : MonoBehaviour
         if (dish.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
 
         Debug.Log("Picked up: " + dish.name);
+
+        UpdateHoldingAnimation();
     }
 
     public bool HasIngredient()
@@ -123,4 +138,33 @@ public class PlayerInventory : MonoBehaviour
         return heldVisual != null || !string.IsNullOrEmpty(heldIngredient) || !string.IsNullOrEmpty(heldDish);
     }
 
+    void Update()
+    {
+        UpdateHoldingAnimation();
+    }
+
+    private void UpdateHoldingAnimation()
+    {
+        if (animator == null || playerRigidbody == null) return;
+
+        if (IsHoldingItem())
+        {
+            float speed = playerRigidbody.linearVelocity.magnitude;
+            if (speed > walkThreshold)
+            {
+                animator.SetBool("IsHoldingWalk", true);
+                animator.SetBool("IsHoldingStill", false);
+            }
+            else
+            {
+                animator.SetBool("IsHoldingWalk", false);
+                animator.SetBool("IsHoldingStill", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("IsHoldingWalk", false);
+            animator.SetBool("IsHoldingStill", false);
+        }
+    }
 }

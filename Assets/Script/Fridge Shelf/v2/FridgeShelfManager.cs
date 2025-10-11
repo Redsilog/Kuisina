@@ -33,13 +33,11 @@ public class FridgeShelfManager : MonoBehaviour
             return activePlayerInventory.playerID == 1 ? fridgeUI_Player1 : fridgeUI_Player2;
     }
 
-    public Ingredients TakeIngredient(int index)
+    public Ingredients GetIngredient(int index)
     {
         if (index >= 0 && index < storedIngredients.Count)
         {
-            Ingredients item = storedIngredients[index];
-            storedIngredients.RemoveAt(index); // remove it from fridge
-            return item;
+            return storedIngredients[index];
         }
         return null;
     }
@@ -66,7 +64,6 @@ public class FridgeShelfManager : MonoBehaviour
             bool openOnLeft = activePlayerInventory.playerID == 1;
             if (activePlayerInventory.IsHoldingItem()) return;
 
-            // ✅ Single permission check for any type
             if (perms != null && perms.CanUse(storageType))
             {
                 targetUI.OpenFridge(this, activePlayerInventory, openOnLeft, storageType);

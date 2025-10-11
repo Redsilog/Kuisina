@@ -231,6 +231,138 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""FridgeFreezerPantry"",
+            ""id"": ""0f81a6b2-110e-4872-823f-c887de65e2d8"",
+            ""actions"": [
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""94ad4786-041a-4d6f-ad62-e7a1f905ea29"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""f279d410-018a-4beb-88a1-462f31ddc85f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9755d98-a43e-41fd-939b-9a6c9ed0b1ca"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""c14afaf3-de1b-4336-ade5-5d45535b8815"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3798c0d3-1433-4218-ac24-adba110a8f8c"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d74503cd-75cd-42be-adbc-93c141f5b327"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5cb42685-8d89-492f-a9d9-dc3bca90765c"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5e4d006-3f0a-4b14-b418-ca8230f5fbf4"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c34f637-07cf-48aa-9a5f-6abc9b321485"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1545b842-14d8-4022-8369-d727a8f94d8c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79e5c8c6-e43b-4b1d-ac23-8bf56ca9eb6b"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5582165a-98ec-45d0-91d3-e59060f4ec1e"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -252,11 +384,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
+        // FridgeFreezerPantry
+        m_FridgeFreezerPantry = asset.FindActionMap("FridgeFreezerPantry", throwIfNotFound: true);
+        m_FridgeFreezerPantry_Left = m_FridgeFreezerPantry.FindAction("Left", throwIfNotFound: true);
+        m_FridgeFreezerPantry_Right = m_FridgeFreezerPantry.FindAction("Right", throwIfNotFound: true);
+        m_FridgeFreezerPantry_Select = m_FridgeFreezerPantry.FindAction("Select", throwIfNotFound: true);
+        m_FridgeFreezerPantry_Back = m_FridgeFreezerPantry.FindAction("Back", throwIfNotFound: true);
     }
 
     ~@Controls()
     {
         UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, Controls.Gameplay.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_FridgeFreezerPantry.enabled, "This will cause a leak and performance issues, Controls.FridgeFreezerPantry.Disable() has not been called.");
     }
 
     /// <summary>
@@ -446,6 +585,135 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="GameplayActions" /> instance referencing this action map.
     /// </summary>
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // FridgeFreezerPantry
+    private readonly InputActionMap m_FridgeFreezerPantry;
+    private List<IFridgeFreezerPantryActions> m_FridgeFreezerPantryActionsCallbackInterfaces = new List<IFridgeFreezerPantryActions>();
+    private readonly InputAction m_FridgeFreezerPantry_Left;
+    private readonly InputAction m_FridgeFreezerPantry_Right;
+    private readonly InputAction m_FridgeFreezerPantry_Select;
+    private readonly InputAction m_FridgeFreezerPantry_Back;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "FridgeFreezerPantry".
+    /// </summary>
+    public struct FridgeFreezerPantryActions
+    {
+        private @Controls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public FridgeFreezerPantryActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry/Left".
+        /// </summary>
+        public InputAction @Left => m_Wrapper.m_FridgeFreezerPantry_Left;
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry/Right".
+        /// </summary>
+        public InputAction @Right => m_Wrapper.m_FridgeFreezerPantry_Right;
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry/Select".
+        /// </summary>
+        public InputAction @Select => m_Wrapper.m_FridgeFreezerPantry_Select;
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry/Back".
+        /// </summary>
+        public InputAction @Back => m_Wrapper.m_FridgeFreezerPantry_Back;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_FridgeFreezerPantry; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="FridgeFreezerPantryActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(FridgeFreezerPantryActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="FridgeFreezerPantryActions" />
+        public void AddCallbacks(IFridgeFreezerPantryActions instance)
+        {
+            if (instance == null || m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Add(instance);
+            @Left.started += instance.OnLeft;
+            @Left.performed += instance.OnLeft;
+            @Left.canceled += instance.OnLeft;
+            @Right.started += instance.OnRight;
+            @Right.performed += instance.OnRight;
+            @Right.canceled += instance.OnRight;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="FridgeFreezerPantryActions" />
+        private void UnregisterCallbacks(IFridgeFreezerPantryActions instance)
+        {
+            @Left.started -= instance.OnLeft;
+            @Left.performed -= instance.OnLeft;
+            @Left.canceled -= instance.OnLeft;
+            @Right.started -= instance.OnRight;
+            @Right.performed -= instance.OnRight;
+            @Right.canceled -= instance.OnRight;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="FridgeFreezerPantryActions.UnregisterCallbacks(IFridgeFreezerPantryActions)" />.
+        /// </summary>
+        /// <seealso cref="FridgeFreezerPantryActions.UnregisterCallbacks(IFridgeFreezerPantryActions)" />
+        public void RemoveCallbacks(IFridgeFreezerPantryActions instance)
+        {
+            if (m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="FridgeFreezerPantryActions.AddCallbacks(IFridgeFreezerPantryActions)" />
+        /// <seealso cref="FridgeFreezerPantryActions.RemoveCallbacks(IFridgeFreezerPantryActions)" />
+        /// <seealso cref="FridgeFreezerPantryActions.UnregisterCallbacks(IFridgeFreezerPantryActions)" />
+        public void SetCallbacks(IFridgeFreezerPantryActions instance)
+        {
+            foreach (var item in m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="FridgeFreezerPantryActions" /> instance referencing this action map.
+    /// </summary>
+    public FridgeFreezerPantryActions @FridgeFreezerPantry => new FridgeFreezerPantryActions(this);
     private int m_GamepadSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -487,5 +755,41 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "FridgeFreezerPantry" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="FridgeFreezerPantryActions.AddCallbacks(IFridgeFreezerPantryActions)" />
+    /// <seealso cref="FridgeFreezerPantryActions.RemoveCallbacks(IFridgeFreezerPantryActions)" />
+    public interface IFridgeFreezerPantryActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Back" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBack(InputAction.CallbackContext context);
     }
 }

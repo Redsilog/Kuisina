@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 
 public class FridgeUI : MonoBehaviour
@@ -32,6 +33,10 @@ public class FridgeUI : MonoBehaviour
 
     private FridgeShelfManager.StorageType currentStorageType;
 
+    
+    private Controls controls;
+    private bool isOpen = false;
+
     //AUDIO
     [SerializeField] AudioClip openFridgeClip;
     [SerializeField] AudioClip closeFridgeClip;
@@ -41,64 +46,66 @@ public class FridgeUI : MonoBehaviour
     [SerializeField] AudioClip selectItemClip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
+    void Awake()
+    {
+        controls = new Controls();
+    }
+
     void Start()
     {
         fridgePanel.SetActive(false);
-        slots = slotsParent.GetComponentsInChildren<FridgeSlot>(true); 
+        slots = slotsParent.GetComponentsInChildren<FridgeSlot>(true);
     }
-    // Update is called once per frame
-    void Update()
+
+    private void OnEnable()
     {
-        if (fridgePanel.activeSelf && currentFridge != null && currentFridge.storedIngredients.Count > 0)
-        {
-            if (currentPlayerID == 1)
-            {
-                if (Input.GetKeyDown(KeyCode.D))
-                {
-                    globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
-                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
-                    AdjustScrollOffset();
-                    RefreshSlots();
-                }
-                else if (Input.GetKeyDown(KeyCode.A))
-                {
-                    globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
-                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
-                    AdjustScrollOffset();
-                    RefreshSlots();
-                }
-                else if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Debug.Log("SPACE pressed while fridge open");
-                    TakeSelectedIngredient();
-                    //CloseFridge();
-                }
-            }
-            else if (currentPlayerID == 2)
-            {
-                if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
-                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
-                    AdjustScrollOffset();
-                    RefreshSlots();
-                }
-                else if (Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
-                    SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
-                    AdjustScrollOffset();
-                    RefreshSlots();
-                }
-                else if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    Debug.Log("ENTER pressed while fridge open");
-                    TakeSelectedIngredient();
-                    //CloseFridge();
-                }
-            }
-            
-        }
+        controls.FridgeFreezerPantry.Left.performed += OnMoveLeft;
+        controls.FridgeFreezerPantry.Right.performed += OnMoveRight;
+        controls.FridgeFreezerPantry.Select.performed += OnSelect;
+        controls.FridgeFreezerPantry.Back.performed += OnBack;
+    }
+
+    private void OnDisable()
+    {
+        controls.FridgeFreezerPantry.Left.performed -= OnMoveLeft;
+        controls.FridgeFreezerPantry.Right.performed -= OnMoveRight;
+        controls.FridgeFreezerPantry.Select.performed -= OnSelect;
+        controls.FridgeFreezerPantry.Back.performed -= OnBack;
+    }
+    private void OnBack(InputAction.CallbackContext ctx)
+    {
+        if (!isOpen || currentFridge == null) return;
+        CloseFridge(currentStorageType);
+    }
+    private void OnMoveRight(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Move Right called");
+        if (!isOpen || currentFridge == null) return;
+
+        globalIndex = (globalIndex + 1) % currentFridge.storedIngredients.Count;
+        SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
+        AdjustScrollOffset();
+        RefreshSlots();
+    }
+
+    private void OnMoveLeft(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Move Left called");
+        if (!isOpen || currentFridge == null) return;
+
+        globalIndex = (globalIndex - 1 + currentFridge.storedIngredients.Count) % currentFridge.storedIngredients.Count;
+        SoundFXManager.instance.PlaySoundFXClip(selectItemClip, transform, .3f);
+        AdjustScrollOffset();
+        RefreshSlots();
+    }
+
+
+    private void OnSelect(InputAction.CallbackContext ctx)
+    {
+        if (!isOpen || currentFridge == null) return;
+        TakeSelectedIngredient();
     }
 
     public void OpenFridge(FridgeShelfManager fridge, PlayerInventory playerInv, bool openOnLeft, FridgeShelfManager.StorageType type)
@@ -106,47 +113,54 @@ public class FridgeUI : MonoBehaviour
         currentFridge = fridge;
         currentPlayer = playerInv;
         currentPlayerID = playerInv.playerID;
-        currentStorageType = type; 
-
+        currentStorageType = type;
         globalIndex = 0;
         scrollOffset = 0;
 
         fridgePanel.SetActive(true);
+        isOpen = true;
+
+        if (!controls.FridgeFreezerPantry.enabled)
+        {
+            controls.Gameplay.Disable();
+            controls.FridgeFreezerPantry.Enable();
+        }
 
         if (type == FridgeShelfManager.StorageType.Fridge)
             SoundFXManager.instance.PlaySoundFXClip(openFridgeClip, transform, 1f);
         else
             SoundFXManager.instance.PlaySoundFXClip(openPantryClip, transform, 1f);
 
-        playerMovement movement = currentPlayer.GetComponent<playerMovement>();
-        playerMovement2 movement2 = currentPlayer.GetComponent<playerMovement2>();
-        if (movement != null) movement.enabled = false;
-        if (movement2 != null) movement2.enabled = false;
+/*             playerMovement movement = currentPlayer.GetComponent<playerMovement>();
+            playerMovement2 movement2 = currentPlayer.GetComponent<playerMovement2>();
+            if (movement != null) movement.enabled = false;
+            if (movement2 != null) movement2.enabled = false; */
 
-        if (openOnLeft)
-        {
-            fridgePanel.transform.SetParent(leftAnchor, false);
+            if (openOnLeft)
+                fridgePanel.transform.SetParent(leftAnchor, false);
+            else
+                fridgePanel.transform.SetParent(rightAnchor, false);
+
+            RefreshSlots();
+            HighlightSlot(globalIndex);
         }
-        else
-        {
-            fridgePanel.transform.SetParent(rightAnchor, false);
-        }
-        
-        RefreshSlots();
-
-        HighlightSlot(globalIndex);
-
-        Debug.Log("Fridge opened with " + fridge.storedIngredients.Count + " items.");
-    }
 
     public void CloseFridge(FridgeShelfManager.StorageType type)
     {
         fridgePanel.SetActive(false);
+        isOpen = false;
         
+        if (!controls.Gameplay.enabled)
+        {
+            controls.FridgeFreezerPantry.Disable();
+            controls.Gameplay.Enable();
+        }
+
         if (type == FridgeShelfManager.StorageType.Fridge)
             SoundFXManager.instance.PlaySoundFXClip(closeFridgeClip, transform, 1f);
         else
             SoundFXManager.instance.PlaySoundFXClip(closePantryClip, transform, 1f);
+
         if (currentPlayer != null)
         {
             playerMovement movement = currentPlayer.GetComponent<playerMovement>();
@@ -156,10 +170,8 @@ public class FridgeUI : MonoBehaviour
         }
 
         currentFridge.SetCooldown(0.25f);
-
         currentFridge = null;
         currentPlayer = null;
-
     }
 
     void AdjustScrollOffset()

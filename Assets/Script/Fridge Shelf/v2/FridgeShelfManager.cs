@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using System;
 
 public class FridgeShelfManager : MonoBehaviour
@@ -16,31 +17,10 @@ public class FridgeShelfManager : MonoBehaviour
     private PlayerInventory activePlayerInventory;
     private float reopenCooldown = 0f;
 
-
-
     void Update()
     {
-
         if (reopenCooldown > 0f)
-        {
             reopenCooldown -= Time.deltaTime;
-            return;
-        }
-
-        if (!playerInRange || activePlayerInventory == null) return;
-
-        FridgeUI targetUI = GetTargetUIForActivePlayer();
-        if (targetUI == null) return;
-
-        // Player 1 uses Space, Player 2 uses Enter/Return
-        if (activePlayerInventory.playerID == 1 && Input.GetKeyDown(KeyCode.Space))
-        {
-            HandleFridgeToggle(targetUI);
-        }
-        else if (activePlayerInventory.playerID == 2 && Input.GetKeyDown(KeyCode.Return))
-        {
-            HandleFridgeToggle(targetUI);
-        }
     }
 
     FridgeUI GetTargetUIForActivePlayer()
@@ -62,6 +42,13 @@ public class FridgeShelfManager : MonoBehaviour
         return null;
     }
 
+    public void TryOpenOrCloseFridge(PlayerInventory playerInventory)
+    {
+        FridgeUI targetUI = GetTargetUIForActivePlayer();
+
+        HandleFridgeToggle(targetUI);
+    }
+    
     private void HandleFridgeToggle(FridgeUI targetUI)
     {
         if (targetUI.fridgePanel.activeSelf) // already open
@@ -77,12 +64,12 @@ public class FridgeShelfManager : MonoBehaviour
             bool openOnLeft = activePlayerInventory.playerID == 1;
             if (activePlayerInventory.IsHoldingItem())
             {
-                Debug.Log(activePlayerInventory.name + " cannot open fridge/shelf while holding something!");
                 return;
             }
 
             if (storageType == StorageType.Fridge && perms.canUseFridge)
             {
+             
                 targetUI.OpenFridge(this, activePlayerInventory, openOnLeft, storageType);
             }
             else if (storageType == StorageType.Shelf && perms.canUseShelf)

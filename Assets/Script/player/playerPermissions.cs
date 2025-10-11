@@ -2,7 +2,21 @@ using UnityEngine;
 
 public class playerPermissions : MonoBehaviour
 {
-    [Header("Interaction Permissions")]
-    public bool canUseFridge = false;
-    public bool canUseShelf = false;
+    [Header("Storage Access Permissions")]
+    public bool canUseFridge = true;
+    public bool canUseFreezer = false;
+    public bool canUsePantry = false;
+    public bool canUseCondiments = false;
+
+    public bool CanUse(FridgeShelfManager.StorageType type)
+    {
+        return type switch
+        {
+            FridgeShelfManager.StorageType.Fridge => canUseFridge,
+            FridgeShelfManager.StorageType.Freezer => canUseFreezer,
+            FridgeShelfManager.StorageType.Pantry => canUsePantry,
+            FridgeShelfManager.StorageType.Condiments => canUseCondiments,
+            _ => false
+        };
+    }
 }

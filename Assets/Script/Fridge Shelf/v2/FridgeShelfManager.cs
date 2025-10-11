@@ -5,7 +5,7 @@ using System;
 
 public class FridgeShelfManager : MonoBehaviour
 {
-    public enum StorageType { Fridge, Shelf }
+    public enum StorageType { Fridge, Freezer, Pantry, Condiments }
     public StorageType storageType;
 
     public List<Ingredients> storedIngredients = new List<Ingredients>();
@@ -49,9 +49,6 @@ public class FridgeShelfManager : MonoBehaviour
         activePlayerInventory = playerInventory; 
         FridgeUI targetUI = GetTargetUIForActivePlayer();
 
-        Debug.Log($"TryOpenOrCloseFridge called by {playerInventory.name} (ID {playerInventory.playerID}). TargetUI = {(targetUI ? targetUI.name : "null")}");
-        if (fridgeUI_Player1 == fridgeUI_Player2)
-            Debug.LogError("fridgeUI_Player1 == fridgeUI_Player2 — both references are the same object!");
         HandleFridgeToggle(targetUI);
     }
 
@@ -62,29 +59,21 @@ public class FridgeShelfManager : MonoBehaviour
             targetUI.CloseFridge(storageType);
             reopenCooldown = 0.25f;
         }
-
         else if (storedIngredients.Count > 0)
         {
             playerPermissions perms = activePlayerInventory.GetComponent<playerPermissions>();
 
             bool openOnLeft = activePlayerInventory.playerID == 1;
-            if (activePlayerInventory.IsHoldingItem())
-            {
-                return;
-            }
+            if (activePlayerInventory.IsHoldingItem()) return;
 
-            if (storageType == StorageType.Fridge && perms.canUseFridge)
-            {
-             
-                targetUI.OpenFridge(this, activePlayerInventory, openOnLeft, storageType);
-            }
-            else if (storageType == StorageType.Shelf && perms.canUseShelf)
+            // ✅ Single permission check for any type
+            if (perms != null && perms.CanUse(storageType))
             {
                 targetUI.OpenFridge(this, activePlayerInventory, openOnLeft, storageType);
             }
             else
             {
-                Debug.Log(activePlayerInventory.name + " cannot open this " + storageType + "!");
+                Debug.Log($"{activePlayerInventory.name} cannot open this {storageType}!");
             }
         }
     }

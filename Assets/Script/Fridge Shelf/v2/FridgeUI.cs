@@ -40,8 +40,16 @@ public class FridgeUI : MonoBehaviour
     //AUDIO
     [SerializeField] AudioClip openFridgeClip;
     [SerializeField] AudioClip closeFridgeClip;
+
+    [SerializeField] AudioClip openFreezerClip;
+    [SerializeField] AudioClip closeFreezerClip;
+
     [SerializeField] AudioClip openPantryClip;
     [SerializeField] AudioClip closePantryClip;
+
+    [SerializeField] AudioClip openCondimentsClip;
+    [SerializeField] AudioClip closeCondimentsClip;
+
     [SerializeField] AudioClip getItemClip;
     [SerializeField] AudioClip selectItemClip;
 
@@ -136,10 +144,28 @@ public class FridgeUI : MonoBehaviour
             controls.FridgeFreezerPantry.Enable();
         }
 
-        if (type == FridgeShelfManager.StorageType.Fridge)
-            SoundFXManager.instance.PlaySoundFXClip(openFridgeClip, transform, 1f);
-        else
-            SoundFXManager.instance.PlaySoundFXClip(openPantryClip, transform, 1f);
+        switch (type)
+        {
+            case FridgeShelfManager.StorageType.Fridge:
+                PlayClipSafe(openFridgeClip, "openFridgeClip", type);
+                break;
+
+            case FridgeShelfManager.StorageType.Freezer:
+                PlayClipSafe(openFreezerClip, "openFreezerClip", type);
+                break;
+
+            case FridgeShelfManager.StorageType.Pantry:
+                PlayClipSafe(openPantryClip, "openPantryClip", type);
+                break;
+
+            case FridgeShelfManager.StorageType.Condiments:
+                PlayClipSafe(openCondimentsClip, "openCondimentsClip", type);
+                break;
+
+            default:
+                Debug.LogWarning($"[FridgeUI] Unknown storage type: {type}");
+                break;
+        }
 
         RefreshSlots();
         HighlightSlot(globalIndex);
@@ -169,11 +195,29 @@ public class FridgeUI : MonoBehaviour
             controls.FridgeFreezerPantry.Disable();
             controls.Gameplay.Enable();
         }
+        
+        switch (type)
+        {
+            case FridgeShelfManager.StorageType.Fridge:
+                PlayClipSafe(closeFridgeClip, "closeFridgeClip", type);
+                break;
 
-        if (type == FridgeShelfManager.StorageType.Fridge)
-            SoundFXManager.instance.PlaySoundFXClip(closeFridgeClip, transform, 1f);
-        else
-            SoundFXManager.instance.PlaySoundFXClip(closePantryClip, transform, 1f);
+            case FridgeShelfManager.StorageType.Freezer:
+                PlayClipSafe(closeFreezerClip, "closeFreezerClip", type);
+                break;
+
+            case FridgeShelfManager.StorageType.Pantry:
+                PlayClipSafe(closePantryClip, "closePantryClip", type);
+                break;
+
+            case FridgeShelfManager.StorageType.Condiments:
+                PlayClipSafe(closeCondimentsClip, "closeCondimentsClip", type);
+                break;
+
+            default:
+                Debug.LogWarning($"[FridgeUI] Unknown storage type: {type}");
+                break;
+        }
 
         if (currentPlayer != null)
         {
@@ -186,6 +230,23 @@ public class FridgeUI : MonoBehaviour
         currentFridge.SetCooldown(0.25f);
         currentFridge = null;
         currentPlayer = null;
+    }
+
+    private void PlayClipSafe(AudioClip clip, string clipName, FridgeShelfManager.StorageType type)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning($"[FridgeUI] {clipName} is missing for {type} on {gameObject.name}");
+            return;
+        }
+
+        if (SoundFXManager.instance == null)
+        {
+            Debug.LogError("[FridgeUI] SoundFXManager.instance is NULL!");
+            return;
+        }
+
+        SoundFXManager.instance.PlaySoundFXClip(clip, transform, 1f);
     }
 
     void AdjustScrollOffset()

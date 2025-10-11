@@ -5892,12 +5892,6 @@ MonoBehaviour:
   heldDish: 
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 1942374560}
-  leftArm: {fileID: 0}
-  rightArm: {fileID: 0}
-  leftArmDefaultRotation: {x: -63.027, y: 10.057, z: 21.59}
-  rightArmDefaultRotation: {x: -63.027, y: 10.057, z: 21.59}
-  leftArmHoldRotation: {x: 25.471, y: -68.801, z: 62.151}
-  rightArmHoldRotation: {x: 25.471, y: -68.801, z: 62.151}
   playerID: 2
 --- !u!65 &991773637
 BoxCollider:
@@ -5959,8 +5953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a93c645b77a824a96f16cdfaa4f146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  cameraTransform: {fileID: 1273721468}
 --- !u!114 &991773640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7954,12 +7946,6 @@ MonoBehaviour:
   heldDish: 
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 1870672294}
-  leftArm: {fileID: 0}
-  rightArm: {fileID: 0}
-  leftArmDefaultRotation: {x: -63.027, y: 10.057, z: 21.59}
-  rightArmDefaultRotation: {x: -63.027, y: 10.057, z: 21.59}
-  leftArmHoldRotation: {x: 25.471, y: -68.801, z: 62.151}
-  rightArmHoldRotation: {x: 25.471, y: -68.801, z: 62.151}
   playerID: 1
 --- !u!114 &1211795461
 MonoBehaviour:
@@ -7973,8 +7959,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b897603c598323d459b4b4db0cab1175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  cameraTransform: {fileID: 1273721468}
 --- !u!114 &1211795462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11270,7 +11254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1647356101
 RectTransform:
   m_ObjectHideFlags: 0

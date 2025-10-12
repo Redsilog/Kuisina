@@ -107,7 +107,7 @@ public class FridgeShelfManager : MonoBehaviour
                 else if (leavingInv.playerID == 2)
                     fridgeUI = fridgeUI_Player2;
 
-                // ✅ Only close if the panel was actually open
+                // Only close if the panel was actually open
                 if (fridgeUI != null && fridgeUI.fridgePanel.activeSelf)
                 {
                     fridgeUI.CloseFridge(storageType);

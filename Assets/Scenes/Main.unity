@@ -5468,9 +5468,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa9ceb46c23bc046ae008ae49a63c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cookPoint: {fileID: 0}
-  cookedPrefab: {fileID: 0}
   cookTime: 3
+  displayPoint: {fileID: 0}
+  resultPoint: {fileID: 0}
+  recipes:
+  - dishName: Adobong Puti
+    requiredInputs:
+    - Chicken
+    - Vinegar
+    - Chopped Garlic
+    - Salt
+    - Pepper
+    requiredPrefabs:
+    - {fileID: 2803156310337275381, guid: 94003b7125e74422ca360a45b57cf1ea, type: 3}
+    - {fileID: 6299187688108886039, guid: 70ff1c3081a639b4c8c829ec22ca1939, type: 3}
+    - {fileID: 7896750443527812411, guid: c932e3704266c4efd87834fae824a869, type: 3}
+    - {fileID: 165019907273598318, guid: c46a35fbb38ffc54fa4ef376a5a7ebfa, type: 3}
+    - {fileID: 919132149155446097, guid: d182bdb50ba774d4bbff0b53341df0eb, type: 3}
+    outputPrefab: {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
 --- !u!65 &909366145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7503,7 +7518,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.15328799, y: 0.17785342, z: 0.055015326}
   m_Center: {x: -0.017441755, y: 0.07892699, z: 0.017507685}
@@ -7774,7 +7789,15 @@ PrefabInstance:
       objectReference: {fileID: 1739452253}
     - target: {fileID: 4705927342295368319, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.732
+      value: 0.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705927342295368319, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.443
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_Camera
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -7859,7 +7882,7 @@ PrefabInstance:
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1534026680}
+      objectReference: {fileID: 0}
     - target: {fileID: 8503285284578186807, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -8360,24 +8383,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -1123844352612404870, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
   m_PrefabInstance: {fileID: 1644909941}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1534026680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534026678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f8d630c96317c0448923e4b33f8edbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chopMappings:
-  - inputName: Onion
-    outputPrefab: {fileID: 1490503063597392397, guid: 08f4df757af664a1dab8e061a5debed8, type: 3}
-  - inputName: Garlic
-    outputPrefab: {fileID: 7896750443527812411, guid: c932e3704266c4efd87834fae824a869, type: 3}
-  chopTime: 3
 --- !u!65 &1534026681
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8399,6 +8404,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.048118044, y: 0.089529075, z: 0.37119517}
   m_Center: {x: -0.014059064, y: -0.019016229, z: 0.15973303}
+--- !u!4 &1534026682 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2349826404440343707, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+  m_PrefabInstance: {fileID: 1644909941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1534026685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534026678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8d630c96317c0448923e4b33f8edbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chopTime: 3
+  holdThreshold: 0.25
+  displayPoint: {fileID: 1692994714}
+  resultPoint: {fileID: 1692994714}
+  chopMappings:
+  - inputName: Garlic
+    inputPrefab: {fileID: 283848583454100565, guid: 189ae5de33939409db23b7bca44d5a94, type: 3}
+    outputPrefab: {fileID: 7896750443527812411, guid: c932e3704266c4efd87834fae824a869, type: 3}
+  - inputName: Onion
+    inputPrefab: {fileID: 5753312897571213974, guid: 941973161380c45c2a752efe2bfd477a, type: 3}
+    outputPrefab: {fileID: 1490503063597392397, guid: 08f4df757af664a1dab8e061a5debed8, type: 3}
 --- !u!1001 &1555077348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9441,6 +9474,34 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.357
       objectReference: {fileID: 0}
+    - target: {fileID: -4915575447287710332, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7025613
+      objectReference: {fileID: 0}
+    - target: {fileID: -4915575447287710332, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.71159846
+      objectReference: {fileID: 0}
+    - target: {fileID: -4915575447287710332, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0041768304
+      objectReference: {fileID: 0}
+    - target: {fileID: -4915575447287710332, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.004230135
+      objectReference: {fileID: 0}
+    - target: {fileID: -4915575447287710332, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -91
+      objectReference: {fileID: 0}
+    - target: {fileID: -4915575447287710332, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -42.932983
+      objectReference: {fileID: 0}
+    - target: {fileID: -4915575447287710332, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 42.929
+      objectReference: {fileID: 0}
     - target: {fileID: -4683669308469848369, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -9550,13 +9611,16 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
       insertIndex: 28
       addedObject: {fileID: 1099966205}
+    - targetCorrespondingSourceObject: {fileID: -2349826404440343707, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1692994714}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -1123844352612404870, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1534026681}
     - targetCorrespondingSourceObject: {fileID: -1123844352612404870, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1534026680}
+      addedObject: {fileID: 1534026685}
     - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1644909955}
@@ -9607,7 +9671,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644909942}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5391c2ce02c34f47bf14a9e652624c9, type: 3}
   m_Name: 
@@ -9922,6 +9986,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1356fca95527346d8bff167f0a0b1917, type: 3}
   m_PrefabInstance: {fileID: 1770615969}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1692994713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1692994714}
+  m_Layer: 0
+  m_Name: Display point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1692994714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692994713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: -0.139}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1534026682}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1693451767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12723,7 +12818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2070722170
 Transform:
   m_ObjectHideFlags: 0

@@ -46,7 +46,7 @@ public class NPCWaypointController : MonoBehaviour
 
     void Update()
     {
-        // Set animation based on whether the agent is moving
+        
         animator.SetBool("IsMoving", !agent.isStopped && agent.velocity.magnitude > 0.1f);
 
         if (waitingForOrder) return;
@@ -67,7 +67,7 @@ public class NPCWaypointController : MonoBehaviour
         idx = i;
         firedComplete = false;
         agent.isStopped = false;
-        animator.SetBool("IsSitting", false); // Not sitting while moving
+        animator.SetBool("IsSitting", false); 
         agent.SetDestination(waypoints[idx].position);
     }
 
@@ -75,7 +75,7 @@ public class NPCWaypointController : MonoBehaviour
     {
         waitingForOrder = true;
         agent.isStopped = true;
-        animator.SetBool("IsSitting", true); // Sit when waiting for order
+        animator.SetBool("IsSitting", true); 
         timeoutRoutine = StartCoroutine(WaitForOrder());
     }
 

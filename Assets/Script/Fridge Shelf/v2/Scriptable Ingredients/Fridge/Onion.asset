@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Onion
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 5753312897571213974, guid: 941973161380c45c2a752efe2bfd477a, type: 3}
   ingredientDescription: 

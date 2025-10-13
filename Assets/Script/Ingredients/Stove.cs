@@ -6,145 +6,111 @@ using UnityEngine.InputSystem;
 [System.Serializable]
 public class CookRecipe
 {
-    [Tooltip("Label for this dish (for debugging)")]
     public string dishName;
-
-    [Tooltip("Prefabs required to build this dish. Order matters for staging positions.")]
+    // Match by prefab NAME (clone-safe). Any order is fine.
     public List<GameObject> requiredPrefabs = new List<GameObject>();
-
-    [Tooltip("Per-slot stage visuals shown when that slot is filled. Same length/order as requiredPrefabs.")]
+    // stagePrefabs[0] after first piece, [1] after second, etc. (single stage shown at a time)
     public List<GameObject> stagePrefabs = new List<GameObject>();
-
-    [Tooltip("Final cooked result prefab")]
+    // Given to player when they interact after cooking is done
     public GameObject outputPrefab;
 }
 
 public class Stove : MonoBehaviour
 {
-    // -------- Public (Inspector) --------
-    [Tooltip("Seconds for the cook to finish (burn uses the same duration again)")]
+    [Tooltip("Seconds to complete cooking; burn window uses the same duration again")]
     public float cookTime = 3f;
 
-    [Tooltip("Base reference for laying out slots (items spread along local Right)")]
+    [Tooltip("Where to place the stage visuals")]
     public Transform displayPoint;
 
-    [Tooltip("Where the cooked result spawns (fallback to displayPoint if null)")]
+    [Tooltip("Local offset from Display Point (use to lift off the surface)")]
+    public Vector3 displayOffset = Vector3.zero;
+
+    [Tooltip("(Optional) not used for output now; kept for future use")]
     public Transform resultPoint;
 
-    [Tooltip("Available recipes. The first placed prefab locks which recipe is used.")]
     public List<CookRecipe> recipes = new List<CookRecipe>();
 
-    // -------- Private runtime --------
+    // ---- runtime ----
     PlayerInventory currentPlayer;
 
-    CookRecipe currentRecipe;            // locked when first valid prefab is placed
-    bool[] slotFilled;                   // per-slot filled flags
-    List<GameObject> stageInstances;     // per-slot stage visuals instances
+    CookRecipe currentRecipe;
+    bool[] slotFilled;
+    int placedCount;
+
+    GameObject stageInstance;      // only one stage shown at a time
+    int currentStageIndex = -1;
 
     bool isCooking;
     float cookProgress;
     Coroutine cookRoutine;
 
-    GameObject cookedSpawnedObject;
+    bool cookedReady;
     Coroutine burnRoutine;
 
-    // ---------- Trigger ----------
     void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerInventory p))
-        {
-            currentPlayer = p;
-        }
+        if (other.TryGetComponent(out PlayerInventory p)) currentPlayer = p;
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out PlayerInventory p) && p == currentPlayer)
-        {
-            // Stove continues cooking/burning even if player leaves.
-            currentPlayer = null;
-        }
+        if (other.TryGetComponent(out PlayerInventory p) && p == currentPlayer) currentPlayer = null;
     }
 
-    // ---------- Interact (tap-only) ----------
     public void OnInteract(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
 
-        // 1) If cooked exists in world and player is free -> pick it up
-        if (cookedSpawnedObject != null && currentPlayer != null && !currentPlayer.IsHoldingItem())
+        // cooked ready → hand to player
+        if (cookedReady && currentPlayer != null && !currentPlayer.IsHoldingItem())
         {
-            PickupCookedResult();
+            GiveCookedToPlayer();
             return;
         }
 
-        // 2) If player is holding something -> try to place it (must match required prefab)
+        // try placing from hand
         if (currentPlayer != null && (currentPlayer.HasIngredient() || currentPlayer.heldVisual != null))
         {
             TryPlaceFromHand();
-            return;
         }
-
-        // Otherwise do nothing (we’re not supporting unstaging via tap in this simple build)
     }
 
-    // ---------- Placement ----------
     void TryPlaceFromHand()
     {
-        // Determine the held object's "prefab name"
         string heldName = ResolveHeldName(currentPlayer);
         if (string.IsNullOrWhiteSpace(heldName)) return;
 
-        // If we haven't locked a recipe yet, pick a recipe that contains this prefab name
+        // lock a recipe
         if (currentRecipe == null)
         {
             currentRecipe = FindRecipeByFirstPrefabName(heldName);
-            if (currentRecipe == null)
-            {
-                Debug.LogWarning($"[Stove] No recipe accepts prefab '{heldName}'.");
-                return;
-            }
+            if (currentRecipe == null) { Debug.LogWarning($"[Stove] No recipe accepts '{heldName}'"); return; }
             InitRecipeState(currentRecipe);
         }
 
-        // Find a free slot whose required prefab name matches what we're holding
+        // find free slot for this prefab
         int slot = NextFreeMatchingSlot(heldName);
-        if (slot == -1)
-        {
-            Debug.LogWarning($"[Stove] '{heldName}' not needed or all its slots filled for '{currentRecipe.dishName}'.");
-            return;
-        }
+        if (slot == -1) { Debug.LogWarning($"[Stove] '{heldName}' not needed or already filled."); return; }
 
-        // Show per-slot stage visual (if provided)
-        ShowStageVisual(slot);
-
-        // Take the item from the player's hand (destroy visual + clear)
+        // consume from hand
         if (currentPlayer.heldVisual != null) Destroy(currentPlayer.heldVisual);
         currentPlayer.ClearHeldItemDirect();
 
-        // Mark filled and maybe start cooking
+        // mark filled
         slotFilled[slot] = true;
+        placedCount = CountFilled();
 
-        if (AllSlotsFilled())
-        {
-            BeginCook();
-        }
+        // show the ONE progress stage: index = placedCount - 1
+        UpdateStageVisual(placedCount - 1);
+
+        // done placing? cook!
+        if (AllSlotsFilled()) BeginCook();
     }
 
-    bool AllSlotsFilled()
-    {
-        if (currentRecipe == null || slotFilled == null) return false;
-        for (int i = 0; i < slotFilled.Length; i++)
-            if (!slotFilled[i]) return false;
-        return true;
-    }
-
-    // ---------- Cooking ----------
     void BeginCook()
     {
         if (isCooking) return;
-
-        // Keep stage visuals visible during cooking (as requested)
         isCooking = true;
         if (cookRoutine != null) StopCoroutine(cookRoutine);
         cookRoutine = StartCoroutine(CookRoutine());
@@ -163,115 +129,120 @@ public class Stove : MonoBehaviour
 
     void FinishCook()
     {
-        // When done cooking:
-        // - Remove stage visuals
-        // - Spawn cooked result at resultPoint (or displayPoint)
-        // - Start burn cycle (second cookTime). If unpicked, destroy + "Nasunog na".
+        // swap to final stage (Stage 3 if exists, else last provided)
+        int finalIdx = GetFinalStageIndex();
+        UpdateStageVisual(finalIdx);
 
-        DestroyAllStageVisuals();
+        // 👇 NEW: log when cooking completes
+        string dish = currentRecipe != null ? currentRecipe.dishName : "Dish";
+        Debug.Log($"[Stove] Finished cooking '{dish}'. Showing final stage index = {finalIdx}.");
 
-        Transform pt = resultPoint != null ? resultPoint : displayPoint;
-        if (currentRecipe != null && currentRecipe.outputPrefab != null && pt != null)
-        {
-            cookedSpawnedObject = Instantiate(currentRecipe.outputPrefab, pt.position, pt.rotation);
-            MakeStatic(cookedSpawnedObject);
+        cookedReady = true;
 
-            // Start burn timer
-            if (burnRoutine != null) StopCoroutine(burnRoutine);
-            burnRoutine = StartCoroutine(BurnRoutine());
-        }
+        if (burnRoutine != null) StopCoroutine(burnRoutine);
+        burnRoutine = StartCoroutine(BurnRoutine());
 
-        // Reset cooking loop
         isCooking = false;
         cookRoutine = null;
         cookProgress = 0f;
-
-        // We keep currentRecipe until picked up or burned, so the pickup uses the correct prefab.
     }
 
     IEnumerator BurnRoutine()
     {
         float t = 0f;
-        while (t < cookTime && cookedSpawnedObject != null)
-        {
-            t += Time.deltaTime;
-            yield return null;
-        }
+        while (t < cookTime && cookedReady) { t += Time.deltaTime; yield return null; }
 
-        if (cookedSpawnedObject != null)
+        if (cookedReady)
         {
-            Destroy(cookedSpawnedObject);
-            cookedSpawnedObject = null;
+            if (stageInstance != null) Destroy(stageInstance);
+            stageInstance = null;
+            currentStageIndex = -1;
+            cookedReady = false;
             Debug.Log("Nasunog na");
+            ResetRecipeState();
         }
-
-        // Full reset after burn
-        currentRecipe = null;
-        slotFilled = null;
-        stageInstances = null;
         burnRoutine = null;
     }
 
-    // ---------- Pickup ----------
-    void PickupCookedResult()
+    void GiveCookedToPlayer()
     {
-        if (cookedSpawnedObject == null || currentPlayer == null) return;
+        if (currentRecipe == null || currentRecipe.outputPrefab == null) return;
+        if (currentPlayer == null || currentPlayer.IsHoldingItem()) return;
 
-        // Put the cooked prefab into the player's hand (uses the recipe's output prefab)
-        if (currentRecipe != null && currentRecipe.outputPrefab != null)
-        {
-            string cookedName = currentRecipe.outputPrefab.name.Replace("(Clone)", "");
-            currentPlayer.PickUpIngredient(cookedName, currentRecipe.outputPrefab);
-        }
-        else
-        {
-            // Fallback: hand over the actual object instance (shouldn't happen if recipe is set)
-            string cookedName = cookedSpawnedObject.name.Replace("(Clone)", "");
-            currentPlayer.PickUpIngredient(cookedName, cookedSpawnedObject);
-        }
+        string cookedName = currentRecipe.outputPrefab.name.Replace("(Clone)", "");
+        currentPlayer.PickUpIngredient(cookedName, currentRecipe.outputPrefab);
 
-        // Clean world + cancel burn
-        if (cookedSpawnedObject != null)
-        {
-            Destroy(cookedSpawnedObject);
-            cookedSpawnedObject = null;
-        }
+        if (stageInstance != null) Destroy(stageInstance);
+        stageInstance = null;
+        currentStageIndex = -1;
+        cookedReady = false;
+
         if (burnRoutine != null) StopCoroutine(burnRoutine);
         burnRoutine = null;
 
-        // Reset for new dish
-        currentRecipe = null;
-        slotFilled = null;
-        stageInstances = null;
-        cookProgress = 0f;
+        ResetRecipeState();
     }
 
-    // ---------- Helpers ----------
+    // ----- Stage visual (single) -----
+    void UpdateStageVisual(int index)
+    {
+        if (currentRecipe == null) return;
+        if (currentRecipe.stagePrefabs == null || currentRecipe.stagePrefabs.Count == 0) return;
+
+        int maxIdx = currentRecipe.stagePrefabs.Count - 1;
+        int desired = Mathf.Clamp(index, 0, maxIdx);
+
+        // same stage shown? nothing to do
+        if (currentStageIndex == desired && stageInstance != null) return;
+
+        // destroy old
+        if (stageInstance != null)
+        {
+            Destroy(stageInstance);
+            stageInstance = null;
+        }
+
+        // spawn new at DisplayPoint + local offset
+        GameObject prefab = currentRecipe.stagePrefabs[desired];
+        if (prefab != null && displayPoint != null)
+        {
+            Vector3 pos = displayPoint.position + displayPoint.TransformVector(displayOffset);
+            Quaternion rot = displayPoint.rotation;
+            stageInstance = Instantiate(prefab, pos, rot);
+            MakeStatic(stageInstance);
+            currentStageIndex = desired;
+        }
+        else
+        {
+            currentStageIndex = -1;
+        }
+    }
+
+    int GetFinalStageIndex()
+    {
+        if (currentRecipe == null || currentRecipe.stagePrefabs == null || currentRecipe.stagePrefabs.Count == 0)
+            return -1;
+        return currentRecipe.stagePrefabs.Count > 2 ? 2 : currentRecipe.stagePrefabs.Count - 1;
+    }
+
+    // ----- Helpers -----
     static string Norm(string s) => string.IsNullOrWhiteSpace(s) ? "" : s.Trim().ToLowerInvariant();
 
-    // Resolve the name of what the player is holding (clone-safe)
     string ResolveHeldName(PlayerInventory inv)
     {
-        // Prefer the inventory's explicit name if you set it elsewhere
-        if (!string.IsNullOrWhiteSpace(inv.heldIngredient))
-            return inv.heldIngredient.Trim();
-
-        if (inv.heldVisual != null)
-            return inv.heldVisual.name.Replace("(Clone)", "").Trim();
-
+        if (!string.IsNullOrWhiteSpace(inv.heldIngredient)) return inv.heldIngredient.Trim();
+        if (inv.heldVisual != null) return inv.heldVisual.name.Replace("(Clone)", "").Trim();
         return "";
     }
 
     CookRecipe FindRecipeByFirstPrefabName(string heldPrefabName)
     {
         string key = Norm(heldPrefabName);
-        CookRecipe best = null;
-        int bestCount = int.MaxValue;
+        CookRecipe best = null; int bestCount = int.MaxValue;
 
         foreach (var r in recipes)
         {
-            if (r == null || r.requiredPrefabs == null || r.requiredPrefabs.Count == 0 || r.outputPrefab == null)
-                continue;
+            if (r == null || r.requiredPrefabs == null || r.requiredPrefabs.Count == 0 || r.outputPrefab == null) continue;
 
             bool contains = false;
             foreach (var req in r.requiredPrefabs)
@@ -281,12 +252,7 @@ public class Stove : MonoBehaviour
             }
             if (!contains) continue;
 
-            // Prefer the recipe with the fewest required items
-            if (r.requiredPrefabs.Count < bestCount)
-            {
-                best = r;
-                bestCount = r.requiredPrefabs.Count;
-            }
+            if (r.requiredPrefabs.Count < bestCount) { best = r; bestCount = r.requiredPrefabs.Count; }
         }
         return best;
     }
@@ -295,8 +261,28 @@ public class Stove : MonoBehaviour
     {
         int n = r.requiredPrefabs.Count;
         slotFilled = new bool[n];
-        stageInstances = new List<GameObject>(n);
-        for (int i = 0; i < n; i++) stageInstances.Add(null);
+        placedCount = 0;
+
+        if (stageInstance != null) { Destroy(stageInstance); stageInstance = null; }
+        currentStageIndex = -1;
+
+        isCooking = false;
+        cookProgress = 0f;
+        cookedReady = false;
+    }
+
+    void ResetRecipeState()
+    {
+        currentRecipe = null;
+        slotFilled = null;
+        placedCount = 0;
+
+        if (stageInstance != null) { Destroy(stageInstance); stageInstance = null; }
+        currentStageIndex = -1;
+
+        isCooking = false;
+        cookProgress = 0f;
+        cookedReady = false;
     }
 
     int NextFreeMatchingSlot(string heldPrefabName)
@@ -314,53 +300,19 @@ public class Stove : MonoBehaviour
         return -1;
     }
 
-    void ShowStageVisual(int slotIndex)
+    int CountFilled()
     {
-        if (currentRecipe == null) return;
-        if (slotIndex < 0 || slotIndex >= currentRecipe.requiredPrefabs.Count) return;
-
-        // Already showing? skip
-        if (stageInstances[slotIndex] != null) return;
-
-        // Stage visual for that slot (optional)
-        GameObject stagePrefab = (currentRecipe.stagePrefabs != null && slotIndex < currentRecipe.stagePrefabs.Count)
-            ? currentRecipe.stagePrefabs[slotIndex]
-            : null;
-
-        if (stagePrefab == null) return;
-
-        Vector3 pos; Quaternion rot;
-        GetSlotPose(slotIndex, out pos, out rot);
-        var inst = Instantiate(stagePrefab, pos, rot);
-        MakeStatic(inst);
-        stageInstances[slotIndex] = inst;
+        if (slotFilled == null) return 0;
+        int c = 0;
+        for (int i = 0; i < slotFilled.Length; i++) if (slotFilled[i]) c++;
+        return c;
     }
 
-    void DestroyAllStageVisuals()
+    bool AllSlotsFilled()
     {
-        if (stageInstances == null) return;
-        for (int i = 0; i < stageInstances.Count; i++)
-        {
-            if (stageInstances[i] != null)
-            {
-                Destroy(stageInstances[i]);
-                stageInstances[i] = null;
-            }
-        }
-    }
-
-    void GetSlotPose(int slotIndex, out Vector3 pos, out Quaternion rot)
-    {
-        Transform basePt = displayPoint != null ? displayPoint : transform;
-        int total = (currentRecipe != null && currentRecipe.requiredPrefabs != null)
-            ? currentRecipe.requiredPrefabs.Count : 1;
-
-        // Spread across local right axis
-        float spacing = 0.22f;
-        float start = -(total - 1) * 0.5f * spacing;
-        Vector3 right = basePt.right;
-        pos = basePt.position + right * (start + slotIndex * spacing);
-        rot = basePt.rotation;
+        if (slotFilled == null) return false;
+        for (int i = 0; i < slotFilled.Length; i++) if (!slotFilled[i]) return false;
+        return true;
     }
 
     void MakeStatic(GameObject go)

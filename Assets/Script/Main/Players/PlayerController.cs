@@ -25,13 +25,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         inventory = GetComponent<PlayerInventory>();
 
-        // Rigidbody APIs
+        // Rigidbody uses drag/velocity (not linearDamping/linearVelocity)
         if (rb != null) rb.linearDamping = 0f;
     }
 
     private void FixedUpdate()
     {
-        // moveInput.x = left/right, moveInput.y = forward/back
         Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y);
 
         if (inputDir.sqrMagnitude < 0.0001f)
@@ -66,24 +65,37 @@ public class PlayerController : MonoBehaviour
     }
 
     // SINGLE-BUTTON FLOW (Interact) for stations
-    // Bind your Interact action to keyboard/gamepad as you like (E / A / Cross / etc.)
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        // Always forward to stations first so they can see started/performed/canceled
-        if (currentBoard != null)
+        // If a station is in range, send the event to the NEAREST station (stove vs board)
+        if (currentStove != null || currentBoard != null)
         {
-            currentBoard.OnInteract(ctx);
-            return;
+            // both present -> choose closer
+            if (currentStove != null && currentBoard != null)
+            {
+                float dStove = (currentStove.transform.position - transform.position).sqrMagnitude;
+                float dBoard = (currentBoard.transform.position - transform.position).sqrMagnitude;
+
+                if (dStove <= dBoard) currentStove.OnInteract(ctx);
+                else currentBoard.OnInteract(ctx);
+
+                return;
+            }
+
+            // only one present
+            if (currentStove != null)
+            {
+                currentStove.OnInteract(ctx);
+                return;
+            }
+            if (currentBoard != null)
+            {
+                currentBoard.OnInteract(ctx);
+                return;
+            }
         }
 
-        if (currentStove != null)
-        {
-            // Your Stove already has OnInteract(InputAction.CallbackContext)
-            currentStove.OnInteract(ctx);
-            return;
-        }
-
-        // If no station in range, only do tap-time actions here (performed)
+        // If no station in range, only do tap-time actions here
         if (!ctx.performed) return;
 
         // IngredientBox pickup (only if hands are empty)

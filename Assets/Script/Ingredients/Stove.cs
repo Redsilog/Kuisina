@@ -7,28 +7,31 @@ using UnityEngine.InputSystem;
 public class CookRecipe
 {
     public string dishName;
-    // Match by prefab NAME (clone-safe). Any order is fine.
+
+    // Match by prefab NAME (clone-safe). Order doesn't matter for matching.
     public List<GameObject> requiredPrefabs = new List<GameObject>();
+
     // stagePrefabs[0] after first piece, [1] after second, etc. (single stage shown at a time)
     public List<GameObject> stagePrefabs = new List<GameObject>();
+
     // Given to player when they interact after cooking is done
     public GameObject outputPrefab;
 }
 
 public class Stove : MonoBehaviour
 {
+    [Header("Timing")]
     [Tooltip("Seconds to complete cooking; burn window uses the same duration again")]
     public float cookTime = 3f;
 
-    [Tooltip("Where to place the stage visuals")]
+    [Header("Placement")]
+    [Tooltip("Parent transform for the stage visual (instance will be a child of this)")]
     public Transform displayPoint;
-
-    [Tooltip("Local offset from Display Point (use to lift off the surface)")]
-    public Vector3 displayOffset = Vector3.zero;
 
     [Tooltip("(Optional) not used for output now; kept for future use")]
     public Transform resultPoint;
 
+    [Header("Recipes")]
     public List<CookRecipe> recipes = new List<CookRecipe>();
 
     // ---- runtime ----
@@ -38,7 +41,7 @@ public class Stove : MonoBehaviour
     bool[] slotFilled;
     int placedCount;
 
-    GameObject stageInstance;      // only one stage shown at a time
+    GameObject stageInstance;      // only one stage shown at a time (child of displayPoint)
     int currentStageIndex = -1;
 
     bool isCooking;
@@ -48,6 +51,7 @@ public class Stove : MonoBehaviour
     bool cookedReady;
     Coroutine burnRoutine;
 
+    // ===== Triggers =====
     void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerInventory p)) currentPlayer = p;
@@ -58,6 +62,7 @@ public class Stove : MonoBehaviour
         if (other.TryGetComponent(out PlayerInventory p) && p == currentPlayer) currentPlayer = null;
     }
 
+    // ===== Interact (tap-only) =====
     public void OnInteract(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
@@ -76,6 +81,7 @@ public class Stove : MonoBehaviour
         }
     }
 
+    // ===== Placement =====
     void TryPlaceFromHand()
     {
         string heldName = ResolveHeldName(currentPlayer);
@@ -133,7 +139,7 @@ public class Stove : MonoBehaviour
         int finalIdx = GetFinalStageIndex();
         UpdateStageVisual(finalIdx);
 
-        // 👇 NEW: log when cooking completes
+        // log completion
         string dish = currentRecipe != null ? currentRecipe.dishName : "Dish";
         Debug.Log($"[Stove] Finished cooking '{dish}'. Showing final stage index = {finalIdx}.");
 
@@ -183,7 +189,7 @@ public class Stove : MonoBehaviour
         ResetRecipeState();
     }
 
-    // ----- Stage visual (single) -----
+    // ----- Stage visual (single, CHILD of displayPoint) -----
     void UpdateStageVisual(int index)
     {
         if (currentRecipe == null) return;
@@ -202,13 +208,14 @@ public class Stove : MonoBehaviour
             stageInstance = null;
         }
 
-        // spawn new at DisplayPoint + local offset
+        // spawn new AS CHILD of DisplayPoint (exact position/rotation), NEVER touching scale
         GameObject prefab = currentRecipe.stagePrefabs[desired];
         if (prefab != null && displayPoint != null)
         {
-            Vector3 pos = displayPoint.position + displayPoint.TransformVector(displayOffset);
-            Quaternion rot = displayPoint.rotation;
-            stageInstance = Instantiate(prefab, pos, rot);
+            stageInstance = Instantiate(prefab, displayPoint);
+            stageInstance.transform.localPosition = Vector3.zero;
+            stageInstance.transform.localRotation = Quaternion.identity;
+            // NOTE: will inherit displayPoint's scale
             MakeStatic(stageInstance);
             currentStageIndex = desired;
         }
@@ -287,7 +294,7 @@ public class Stove : MonoBehaviour
 
     int NextFreeMatchingSlot(string heldPrefabName)
     {
-        if (currentRecipe == null || currentRecipe.requiredPrefabs == null) return -1;
+        if (currentRecipe == null || currentRecipe.requiredPrefabs == null || slotFilled == null) return -1;
 
         string key = Norm(heldPrefabName);
         for (int i = 0; i < currentRecipe.requiredPrefabs.Count; i++)

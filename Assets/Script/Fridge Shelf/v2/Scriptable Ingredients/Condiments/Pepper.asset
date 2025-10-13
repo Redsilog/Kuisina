@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: pepper
   ingredientIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  ingredientPrefab: {fileID: 3797330789469000996, guid: ac748fb4184399842a75381c06109974, type: 3}
+  ingredientPrefab: {fileID: 919132149155446097, guid: fc778046d5c74844cbfe4a6e21c0c89f, type: 3}
   ingredientDescription: Pepper

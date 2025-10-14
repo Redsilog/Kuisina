@@ -15,11 +15,12 @@ public class PlayerController : MonoBehaviour
     private IngredientBox currentBox;
     private ChoppingBoard currentBoard;
     private Stove currentStove;
+    private NPCInteractable currentNPC;
 
     // Inventory on this player
     private PlayerInventory inventory;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
         if (rb != null) rb.linearDamping = 0f;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y);
 
@@ -58,19 +59,24 @@ public class PlayerController : MonoBehaviour
     }
 
     // ===== Input System callbacks =====
-
     public void OnMove(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
     }
 
-    // SINGLE-BUTTON FLOW (Interact) for stations
+    // SINGLE-BUTTON FLOW (Interact)
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        // If a station is in range, send the event to the NEAREST station (stove vs board)
+        // 0) NPC has top priority (talking)
+        if (currentNPC != null)
+        {
+            currentNPC.OnInteract(ctx);
+            return;
+        }
+
+        // 1) Stations: choose the nearer between Stove and Board
         if (currentStove != null || currentBoard != null)
         {
-            // both present -> choose closer
             if (currentStove != null && currentBoard != null)
             {
                 float dStove = (currentStove.transform.position - transform.position).sqrMagnitude;
@@ -78,24 +84,14 @@ public class PlayerController : MonoBehaviour
 
                 if (dStove <= dBoard) currentStove.OnInteract(ctx);
                 else currentBoard.OnInteract(ctx);
-
                 return;
             }
 
-            // only one present
-            if (currentStove != null)
-            {
-                currentStove.OnInteract(ctx);
-                return;
-            }
-            if (currentBoard != null)
-            {
-                currentBoard.OnInteract(ctx);
-                return;
-            }
+            if (currentStove != null) { currentStove.OnInteract(ctx); return; }
+            if (currentBoard != null) { currentBoard.OnInteract(ctx); return; }
         }
 
-        // If no station in range, only do tap-time actions here
+        // 2) Nothing to forward to: handle tap-time actions
         if (!ctx.performed) return;
 
         // IngredientBox pickup (only if hands are empty)
@@ -112,47 +108,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // ===== Triggers to remember nearby things =====
-
+    // ===== Triggers =====
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out IngredientBox box))
-        {
-            currentBox = box;
-            Debug.Log("[Player] Box in range");
-        }
-
-        if (other.TryGetComponent(out ChoppingBoard board))
-        {
-            currentBoard = board;
-            Debug.Log("[Player] ChoppingBoard in range");
-        }
-
-        if (other.TryGetComponent(out Stove stove))
-        {
-            currentStove = stove;
-            Debug.Log("[Player] Stove in range");
-        }
+        if (other.TryGetComponent(out IngredientBox box)) { currentBox = box; }
+        if (other.TryGetComponent(out ChoppingBoard board)) { currentBoard = board; }
+        if (other.TryGetComponent(out Stove stove)) { currentStove = stove; }
+        if (other.TryGetComponent(out NPCInteractable npc)) { currentNPC = npc; }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out IngredientBox box) && box == currentBox)
-        {
-            currentBox = null;
-            Debug.Log("[Player] Left box");
-        }
-
-        if (other.TryGetComponent(out ChoppingBoard board) && board == currentBoard)
-        {
-            currentBoard = null;
-            Debug.Log("[Player] Left ChoppingBoard");
-        }
-
-        if (other.TryGetComponent(out Stove stove) && stove == currentStove)
-        {
-            currentStove = null;
-            Debug.Log("[Player] Left Stove");
-        }
+        if (other.TryGetComponent(out IngredientBox box) && box == currentBox) currentBox = null;
+        if (other.TryGetComponent(out ChoppingBoard board) && board == currentBoard) currentBoard = null;
+        if (other.TryGetComponent(out Stove stove) && stove == currentStove) currentStove = null;
+        if (other.TryGetComponent(out NPCInteractable npc) && npc == currentNPC) currentNPC = null;
     }
 }

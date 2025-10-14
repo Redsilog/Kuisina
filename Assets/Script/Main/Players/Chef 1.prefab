@@ -101,6 +101,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9170965475973420353, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9170965475973420353, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9170965475973420353, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.7
@@ -193,6 +205,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 21.59
       objectReference: {fileID: 0}
+    - target: {fileID: -3582283420672548161, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3582283420672548161, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3582283420672548161, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2890714478199259510, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2890714478199259510, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2890714478199259510, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
       propertyPath: m_Name
       value: Chef 1
@@ -248,6 +284,18 @@ PrefabInstance:
     - target: {fileID: 5599971546272274728, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 36.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815625361764335501, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815625361764335501, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815625361764335501, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7277453352445655181, guid: ebe749f4af7bbb44ea4cd5d2700bbe6b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -480,6 +528,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d25cd319-26d2-44d2-9340-3a487dc19607
     m_ActionName: 'Gameplay/Dash[/SwitchProControllerHID/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 48700f4a-a91e-4136-82aa-1c63a89e4502
+    m_ActionName: 'Gameplay/Interact[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94ad4786-041a-4d6f-ad62-e7a1f905ea29
+    m_ActionName: 'FridgeFreezerPantry/Left[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f279d410-018a-4beb-88a1-462f31ddc85f
+    m_ActionName: 'FridgeFreezerPantry/Right[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e9755d98-a43e-41fd-939b-9a6c9ed0b1ca
+    m_ActionName: 'FridgeFreezerPantry/Select[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c14afaf3-de1b-4336-ade5-5d45535b8815
+    m_ActionName: 'FridgeFreezerPantry/Back[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

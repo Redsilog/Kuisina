@@ -5,39 +5,31 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider))]
 public class NPCInteractable : MonoBehaviour
 {
-    [Header("Refs")]
-    [SerializeField] private Animator animator;          // optional
-    [SerializeField] private NPCHeadLookAt headLookAt;   // required
-    [SerializeField] private TextMeshProUGUI uiText;     // world-space or screen-space TMP text
+    [Header("Dialog")]
+    [TextArea] public string[] npcDialogLines;       // List of dialog lines
+    [SerializeField] private TextMeshProUGUI uiText; // TextMeshPro component for displaying dialog
 
-    [Header("Speech")]
-    [TextArea] public string lineOnInteract = "Hello there!";
-    public float autoClearAfter = 2f;                    // seconds; 0 = don't auto-clear
-    public float lookAtYOffset = 1.6f;                   // eye level
+    [Header("Order Interaction")]
+    [SerializeField] private NPCOrder1 npcOrder; // Reference to NPCOrder script
 
-    // runtime
-    private Transform currentInteractor;
+    [Tooltip("Cooldown for NPC interaction")]
+    public float interactCooldown = 1.0f;
+
+    // runtime variables
     private bool playerInRange;
+    private Transform currentInteractor;
+    private float nextAllowedTime = 0f;
 
     void Awake()
     {
-        if (!animator) animator = GetComponent<Animator>();
-        if (!headLookAt) headLookAt = GetComponent<NPCHeadLookAt>();
-
         var col = GetComponent<Collider>();
         col.isTrigger = true;
     }
 
-    void OnDisable()
-    {
-        headLookAt?.StopLooking();
-        CancelInvoke(nameof(ClearText));
-    }
-
-    // ---- proximity ---------------------------------------------------------
+    // ---- Proximity Handling ------------------------------------------------
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
             currentInteractor = other.transform;
@@ -46,33 +38,51 @@ public class NPCInteractable : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if ((other.CompareTag("Player") || other.CompareTag("Player2")) && other.transform == currentInteractor)
+        if (other.CompareTag("Player") && other.transform == currentInteractor)
         {
             playerInRange = false;
             currentInteractor = null;
-            headLookAt?.StopLooking();
         }
     }
 
-    // ---- interaction (forwarded from PlayerController.OnInteract) ----------
+    // ---- Interaction Handling ------------------------------------------------
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) return;
-        if (!playerInRange || currentInteractor == null) return;
+        if (!ctx.performed || !playerInRange || currentInteractor == null) return;
 
-        // 1) look at the player
-        headLookAt?.LookAtTransform(currentInteractor, lookAtYOffset);
+        // Cooldown gate
+        if (Time.time < nextAllowedTime) return;
+        nextAllowedTime = Time.time + interactCooldown;
 
-        // 2) show UI text instead of a chat bubble
-        if (uiText) uiText.text = lineOnInteract;
-        if (autoClearAfter > 0f) { CancelInvoke(nameof(ClearText)); Invoke(nameof(ClearText), autoClearAfter); }
+        // 1) Show random dialog line
+        ShowRandomDialog();
 
-        // 3) optional talk animation
-        if (animator) animator.SetTrigger("Talk");
+        // 2) Forward to NPCOrder for item checking and feedback
+        if (npcOrder != null)
+        {
+            npcOrder.OnInteract(ctx);
+        }
     }
 
-    void ClearText()
+    // ---- Handle dialog (pick a random one) --------------------------------
+    void ShowRandomDialog()
     {
-        if (uiText) uiText.text = "";
+        if (npcDialogLines.Length > 0)
+        {
+            int randomIndex = Random.Range(0, npcDialogLines.Length);
+            string randomLine = npcDialogLines[randomIndex];
+
+            if (uiText)
+                uiText.text = randomLine;
+
+            // Auto-clear after a short period
+            Invoke(nameof(ClearDialog), 2f); // clear after 2 seconds
+        }
+    }
+
+    void ClearDialog()
+    {
+        if (uiText)
+            uiText.text = "";
     }
 }

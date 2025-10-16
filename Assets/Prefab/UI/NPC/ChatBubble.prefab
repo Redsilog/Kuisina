@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8959413246409911170}
   - component: {fileID: -5132713053720689487}
+  - component: {fileID: 8901740943294997930}
   m_Layer: 0
   m_Name: ChatBubble
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2991403027405720253}
   - {fileID: 352050100716244763}
@@ -49,6 +50,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChatBubble
   dishIconSprite: {fileID: 0}
   iconType: 0
+--- !u!95 &8901740943294997930
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861604141854158598}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3708e20abc07bd46a04db5a1e399261, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1069912045083027986
 GameObject:
   m_ObjectHideFlags: 0

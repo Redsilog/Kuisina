@@ -7843,6 +7843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
   npcDialogLines:
   - I want is adobong puti
+  - test 1234
   uiText: {fileID: 495186713}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 1409324200}
@@ -11367,6 +11368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
   npcDialogLines:
   - asdadwa
+  - 12521512509
   uiText: {fileID: 495186713}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 1146181653}

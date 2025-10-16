@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
+using System.Collections;
 
 public class ChatBubble : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class ChatBubble : MonoBehaviour
         bubble.Setup(iconType, text);
 
         if (lifetime > 0f)
-            GameObject.Destroy(chatBubbleGO, lifetime);
+            bubble.StartCoroutine(bubble.DestroyAfterDelay(lifetime));
     }
 
     public enum IconType
@@ -36,12 +37,14 @@ public class ChatBubble : MonoBehaviour
     private SpriteRenderer backgroundSpriteRenderer;
     private SpriteRenderer iconSpriteRenderer;
     private TextMeshPro textMeshPro;
+    private Animator animator;
 
     private void Awake()
     {
         backgroundSpriteRenderer = transform.Find("Background").GetComponent<SpriteRenderer>();
         iconSpriteRenderer = transform.Find("Icon").GetComponent<SpriteRenderer>();
         textMeshPro = transform.Find("Text").GetComponent<TextMeshPro>();
+        animator = GetComponent<Animator>();
     }
 
     //billboarding
@@ -124,5 +127,21 @@ public class ChatBubble : MonoBehaviour
             default:
             case IconType.Dish: return dishIconSprite;
         }
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (animator)
+        {
+            animator.SetTrigger("Close");
+            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+            float clipLength = info.length;
+
+            yield return new WaitForSeconds(clipLength);
+        }
+
+        Destroy(gameObject);
     }
 }

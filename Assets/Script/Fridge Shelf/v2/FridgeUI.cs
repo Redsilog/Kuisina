@@ -36,7 +36,7 @@ public class FridgeUI : MonoBehaviour
 
 
     private Controls controls;
-    private bool isOpen = false;
+    public bool isOpen = false;
 
     //AUDIO
     [SerializeField] AudioClip openFridgeClip;
@@ -336,7 +336,7 @@ public class FridgeUI : MonoBehaviour
 
     private IEnumerator HideAfterAnimation(FridgeShelfManager.StorageType type)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         fridgePanel.SetActive(false);
 
         currentFridge = null;

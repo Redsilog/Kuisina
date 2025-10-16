@@ -101,10 +101,16 @@ public class PlayerController : MonoBehaviour
             Debug.Log("[Player] Picked up ingredient from box: " + currentBox.ingredientName);
         }
 
-        // Fridge toggle (if you use this)
         if (inventory != null && inventory.currentFridge != null)
         {
-            inventory.currentFridge.TryOpenOrCloseFridge(inventory);
+            if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
+            {
+                inventory.currentFridge.TryOpenOrCloseFridge(inventory);
+            }
+            else
+            {
+                Debug.Log("UI already open — ignoring Interact input.");
+            }
         }
     }
 

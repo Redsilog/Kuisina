@@ -44,18 +44,24 @@ public class FridgeShelfManager : MonoBehaviour
 
     public void TryOpenOrCloseFridge(PlayerInventory playerInventory)
     {
-        activePlayerInventory = playerInventory; 
+        if (reopenCooldown > 0f)
+        {
+            Debug.Log($"Fridge on cooldown for {reopenCooldown:F2}s");
+            return;
+        }
+
+        activePlayerInventory = playerInventory;
         FridgeUI targetUI = GetTargetUIForActivePlayer();
 
         HandleFridgeToggle(targetUI);
-    }
+}
 
     private void HandleFridgeToggle(FridgeUI targetUI)
     {
         if (targetUI.fridgePanel.activeSelf) // already open
         {
             targetUI.CloseFridge(storageType);
-            reopenCooldown = 0.25f;
+            SetCooldown(0f);
         }
         else if (storedIngredients.Count > 0)
         {
@@ -74,6 +80,13 @@ public class FridgeShelfManager : MonoBehaviour
             }
         }
     }
+    
+    public bool IsFridgeUIOpenFor(PlayerInventory playerInventory)
+    {
+        if (playerInventory == null) return false;
+        FridgeUI targetUI = playerInventory.playerID == 1 ? fridgeUI_Player1 : fridgeUI_Player2;
+        return targetUI != null && targetUI.isOpen;
+    }
 
     public void SetCooldown(float time)
     {
@@ -82,42 +95,36 @@ public class FridgeShelfManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
-        {
-            playerInRange = true;
-            activePlayerInventory = other.GetComponent<PlayerInventory>();
-            activePlayerInventory.currentFridge = this;
-            Debug.Log($"{other.name} entered fridge: {gameObject.name}");
-        }
+        if (!other.CompareTag("Player") && !other.CompareTag("Player2"))
+            return;
+
+        var inv = other.GetComponent<PlayerInventory>();
+        if (inv == null) return;
+
+        if (!inv.nearbyFridges.Contains(this))
+            inv.nearbyFridges.Add(this);
+
+        Debug.Log($"{other.name} entered fridge: {gameObject.name}");
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
+        if (!other.CompareTag("Player") && !other.CompareTag("Player2"))
+            return;
+
+        var inv = other.GetComponent<PlayerInventory>();
+        if (inv == null) return;
+
+        inv.nearbyFridges.Remove(this);
+
+        // Close only if this was the active one
+        if (inv.currentFridge == null)
         {
-            PlayerInventory leavingInv = other.GetComponent<PlayerInventory>();
-
-            if (leavingInv != null && leavingInv.currentFridge == this)
-            {
-                leavingInv.currentFridge = null;
-
-                FridgeUI fridgeUI = null;
-                if (leavingInv.playerID == 1)
-                    fridgeUI = fridgeUI_Player1;
-                else if (leavingInv.playerID == 2)
-                    fridgeUI = fridgeUI_Player2;
-
-                // Only close if the panel was actually open
-                if (fridgeUI != null && fridgeUI.fridgePanel.activeSelf)
-                {
-                    fridgeUI.CloseFridge(storageType);
-                    Debug.Log($"Closed fridge UI for {other.name} leaving {gameObject.name}");
-                }
-            }
-
-            playerInRange = false;
-            activePlayerInventory = null;
-            Debug.Log($"{other.name} left fridge: {gameObject.name}");
+            FridgeUI fridgeUI = inv.playerID == 1 ? fridgeUI_Player1 : fridgeUI_Player2;
+            if (fridgeUI != null && fridgeUI.fridgePanel.activeSelf)
+                fridgeUI.CloseFridge(storageType);
         }
+
+        Debug.Log($"{other.name} left fridge: {gameObject.name}");
     }
 }

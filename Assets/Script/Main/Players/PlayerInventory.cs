@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -17,8 +18,9 @@ public class PlayerInventory : MonoBehaviour
     public float walkThreshold = 0.1f; // velocity magnitude to consider as walking
 
     public bool HasDish() => heldVisual != null;
-
-    public FridgeShelfManager currentFridge;
+    public List<FridgeShelfManager> nearbyFridges = new List<FridgeShelfManager>();
+    public FridgeShelfManager currentFridge => 
+        nearbyFridges.Count > 0 ? nearbyFridges[nearbyFridges.Count - 1] : null;
 
     private void ClearHeldItem()
     {

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 
 public class FridgeUI : MonoBehaviour
@@ -14,7 +15,7 @@ public class FridgeUI : MonoBehaviour
 
     [Header("Right Panel")]
     public Image itemPicture;
-    public TMP_Text itemName;  
+    public TMP_Text itemName;
     public TMP_Text itemDescription;
 
     public RectTransform leftAnchor;
@@ -33,7 +34,7 @@ public class FridgeUI : MonoBehaviour
 
     private FridgeShelfManager.StorageType currentStorageType;
 
-    
+
     private Controls controls;
     private bool isOpen = false;
 
@@ -52,6 +53,10 @@ public class FridgeUI : MonoBehaviour
 
     [SerializeField] AudioClip getItemClip;
     [SerializeField] AudioClip selectItemClip;
+
+    [Header("Animation")]
+    public Animator fridgeAnimator;
+    public Animator fridgeAnimator2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -136,7 +141,13 @@ public class FridgeUI : MonoBehaviour
         }
 
         fridgePanel.SetActive(true);
+        Animator activeAnimator = currentPlayerID == 1 ? fridgeAnimator : fridgeAnimator2;
+        if (activeAnimator != null)
+            activeAnimator.SetBool("isOpen", true);
+        else
+            Debug.LogWarning($"No animator assigned for Player {currentPlayerID}");
         isOpen = true;
+
 
         if (!controls.FridgeFreezerPantry.enabled)
         {
@@ -187,15 +198,23 @@ public class FridgeUI : MonoBehaviour
 
     public void CloseFridge(FridgeShelfManager.StorageType type)
     {
-        fridgePanel.SetActive(false);
+
+        if (!isOpen) return;
+
+        Animator activeAnimator = currentPlayerID == 1 ? fridgeAnimator : fridgeAnimator2;
+        if (activeAnimator != null)
+            activeAnimator.SetBool("isOpen", false);
+        else
+            Debug.LogWarning($"No animator assigned for Player {currentPlayerID}");
+
         isOpen = false;
-        
+
         if (!controls.Gameplay.enabled)
         {
             controls.FridgeFreezerPantry.Disable();
             controls.Gameplay.Enable();
         }
-        
+
         switch (type)
         {
             case FridgeShelfManager.StorageType.Fridge:
@@ -227,7 +246,7 @@ public class FridgeUI : MonoBehaviour
             if (movement2 != null) movement2.enabled = true;
         }
 
-        currentFridge.SetCooldown(0.25f);
+        StartCoroutine(HideAfterAnimation(type));
         currentFridge = null;
         currentPlayer = null;
     }
@@ -314,4 +333,15 @@ public class FridgeUI : MonoBehaviour
             itemDescription.text = "";
         }
     }
+
+    private IEnumerator HideAfterAnimation(FridgeShelfManager.StorageType type)
+    {
+        yield return new WaitForSeconds(1f);
+        fridgePanel.SetActive(false);
+
+        currentFridge = null;
+        currentPlayer = null;
+    }
+
 }
+

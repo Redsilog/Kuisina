@@ -60,21 +60,14 @@ public class NPCInteractable : MonoBehaviour
         if (Time.time < nextAllowedTime) return;
         nextAllowedTime = Time.time + interactCooldown;
 
-        string dialog = GetRandomDialog();
-        if (!string.IsNullOrEmpty(dialog))
+        string randomLine = GetRandomDialog();
+        if (!string.IsNullOrEmpty(randomLine))
         {
-            ShowDialog(dialog);
-            ShowChat(dialog);
+            ShowChat(randomLine);
+            npcOrder.RandomizeOrder();
+            npcOrder.OnInteract(ctx);
         }
 
-        //if (animator) animator.SetTrigger("Talk");
-
-        // 2) Forward to NPCOrder for item checking and feedback
-        if (npcOrder != null)
-        {
-            npcOrder.RandomizeOrder(); // Randomize the NPC's order
-            npcOrder.OnInteract(ctx);   // Call the order fulfillment logic
-        }
     }
 
     private string GetRandomDialog()
@@ -85,41 +78,7 @@ public class NPCInteractable : MonoBehaviour
         int randomIndex = Random.Range(0, npcDialogLines.Length);
         return npcDialogLines[randomIndex];
     }
-    private void ShowDialog(string text)
-    {
-        if (uiText)
-            uiText.text = text;
 
-        if (autoClearAfter > 0f)
-        {
-            CancelInvoke(nameof(ClearDialog));
-            Invoke(nameof(ClearDialog), autoClearAfter);
-        }
-    }
-
-
-
-    // ---- Handle dialog (pick a random one) --------------------------------
-    void ShowRandomDialog()
-    {
-        if (npcDialogLines.Length > 0)
-        {
-            int randomIndex = Random.Range(0, npcDialogLines.Length);
-            string randomLine = npcDialogLines[randomIndex];
-
-            if (uiText)
-                uiText.text = randomLine;
-
-            // Auto-clear after a short period
-            Invoke(nameof(ClearDialog), 2f); // clear after 2 seconds
-        }
-    }
-
-    void ClearDialog()
-    {
-        if (uiText)
-            uiText.text = "";
-    }
     private void ShowChat(string text)
     {
         if (chatBubblePrefab && chatBubbleSpawnPoint)

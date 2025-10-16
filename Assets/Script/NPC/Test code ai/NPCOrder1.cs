@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,8 +6,8 @@ using UnityEngine.InputSystem;
 public class NPCOrder1 : MonoBehaviour
 {
     [Header("Order Settings")]
-    [Tooltip("The requested item the NPC needs (as a prefab)")]
-    public GameObject requestedItemPrefab;
+    [Tooltip("List of requested items (prefabs) the NPC may ask for")]
+    public List<GameObject> requestedItems = new List<GameObject>();
 
     [Header("Display Point")]
     [Tooltip("Where the item is placed once it's handed to the NPC")]
@@ -20,6 +21,9 @@ public class NPCOrder1 : MonoBehaviour
     // Cooldown for the next interaction
     private float nextAllowedTime = 0f;
     public float interactCooldown = 1f; // seconds
+
+    // Store the currently requested item
+    private GameObject currentRequestedItem;
 
     void Awake()
     {
@@ -71,7 +75,7 @@ public class NPCOrder1 : MonoBehaviour
     bool playerHasRequestedItem()
     {
         if (playerInventory.heldVisual == null) return false;
-        if (playerInventory.heldVisual.name.Replace("(Clone)", "") == requestedItemPrefab.name)
+        if (playerInventory.heldVisual.name.Replace("(Clone)", "") == currentRequestedItem.name)
         {
             return true;
         }
@@ -84,9 +88,9 @@ public class NPCOrder1 : MonoBehaviour
         orderFulfilled = true;
 
         // Place the item at the display point (showing the requested item)
-        if (orderDisplayPoint != null && requestedItemPrefab != null)
+        if (orderDisplayPoint != null && currentRequestedItem != null)
         {
-            Instantiate(requestedItemPrefab, orderDisplayPoint.position, orderDisplayPoint.rotation);
+            Instantiate(currentRequestedItem, orderDisplayPoint.position, orderDisplayPoint.rotation);
         }
 
         // Reset the order after some time
@@ -98,5 +102,19 @@ public class NPCOrder1 : MonoBehaviour
     {
         orderFulfilled = false;
         Debug.Log("NPC: Order reset! Ready for a new item.");
+    }
+
+    // Randomly choose the requested item
+    public void RandomizeOrder()
+    {
+        int randomIndex = Random.Range(0, requestedItems.Count);
+        currentRequestedItem = requestedItems[randomIndex];
+        Debug.Log("NPC: I need a " + currentRequestedItem.name + "!");
+    }
+
+    // Get the current requested item
+    public GameObject GetCurrentRequestedItem()
+    {
+        return currentRequestedItem;
     }
 }

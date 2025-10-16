@@ -60,7 +60,8 @@ public class NPCInteractable : MonoBehaviour
         // 2) Forward to NPCOrder for item checking and feedback
         if (npcOrder != null)
         {
-            npcOrder.OnInteract(ctx);
+            npcOrder.RandomizeOrder(); // Randomize the NPC's order
+            npcOrder.OnInteract(ctx);   // Call the order fulfillment logic
         }
     }
 

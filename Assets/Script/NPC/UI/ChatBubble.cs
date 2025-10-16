@@ -87,7 +87,7 @@ public class ChatBubble : MonoBehaviour
 
         // spacing & padding
         float spacing = hasIcon ? 0.12f : 0f;
-        Vector2 padding = new Vector2(0.3f, 0.3f);
+        Vector2 padding = new Vector2(0.2f, 0.2f);
 
         float totalWidth = padding.x * 2f + iconWidth + spacing + textWidth;
         float totalHeight = padding.y * 2f + textHeight;

@@ -13,7 +13,7 @@ public class FridgeShelfManager : MonoBehaviour
     public FridgeUI fridgeUI_Player1;
     public FridgeUI fridgeUI_Player2;
 
-    private bool playerInRange = false;
+
     private PlayerInventory activePlayerInventory;
     private float reopenCooldown = 0f;
 

@@ -71,7 +71,10 @@ public class PlayerInventory : MonoBehaviour
     {
         heldDish = "";
         heldIngredient = ingredientName;
-        heldVisual = Instantiate(prefab, holdPoint.position, prefab.transform.rotation, holdPoint);
+
+        Quaternion finalRotation = transform.rotation * prefab.transform.localRotation;
+        heldVisual = Instantiate(prefab, holdPoint.position, finalRotation, holdPoint);
+        heldVisual.transform.localPosition = Vector3.zero;
 
         UpdateHoldingAnimation();
     }

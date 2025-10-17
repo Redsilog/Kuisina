@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: String Beans
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 2545444337217025684, guid: b8b90411a772c55468f2562e289340ea, type: 3}
   ingredientDescription: 

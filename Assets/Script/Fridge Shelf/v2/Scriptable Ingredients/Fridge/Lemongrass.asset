@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Lemongrass
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 1758683800890475083, guid: 67f0d9e2673bdb44a814a47082abe67b, type: 3}
   ingredientDescription: 

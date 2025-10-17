@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Egg noodles
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 8319923572625000268, guid: a36867da37d9adc4980280a5e75d30f3, type: 3}
   ingredientDescription: 

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Batwan fruit
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 322174494287378330, guid: 218be955e13c5ec4ababfdf13b31b50a, type: 3}
   ingredientDescription: 

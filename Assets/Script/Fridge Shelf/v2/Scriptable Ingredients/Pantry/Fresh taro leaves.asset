@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Fresh taro leaves
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 4222341896267625364, guid: 2bcb14c078b852440914f588921cf559, type: 3}
   ingredientDescription: 

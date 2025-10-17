@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Herbs
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 927178076325847838, guid: b7f5d62f5cd305a478f9b8936390e366, type: 3}
   ingredientDescription: 

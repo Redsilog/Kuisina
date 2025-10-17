@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Coconut milk
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 7867356682618465997, guid: 93c6c518c8cad8e4d8bfbb464924c0c3, type: 3}
   ingredientDescription: 

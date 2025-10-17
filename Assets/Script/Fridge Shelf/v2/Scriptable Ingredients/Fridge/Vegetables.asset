@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Vegetables
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 7577837678311548170, guid: 697f431e619e0344b839e678bdd66bcb, type: 3}
   ingredientDescription: 

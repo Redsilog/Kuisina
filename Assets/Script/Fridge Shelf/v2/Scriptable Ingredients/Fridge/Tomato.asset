@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Tomato
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 6158365702576619692, guid: d6d7a2d1e0bffb84dbb2d4440eb85fce, type: 3}
   ingredientDescription: 

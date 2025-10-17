@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Bay leaf
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 531571749312636408, guid: 6e12da8b3c13e2144a173b59ace441ea, type: 3}
   ingredientDescription: 

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Annatto sauce
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 7248614075983427814, guid: 93c44ea0deb48194a92e51add52bd415, type: 3}
   ingredientDescription: 

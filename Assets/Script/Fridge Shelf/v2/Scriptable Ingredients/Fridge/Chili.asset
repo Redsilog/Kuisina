@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Chili
   ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 1800893038877159961, guid: a87cc1fcd7cc29b4e9d1a1e0f110f1cf, type: 3}
   ingredientDescription: 

@@ -31,6 +31,8 @@ public class PlayerInventory : MonoBehaviour
         UpdateHoldingAnimation();
     }
 
+
+
     public void PlaceIngredient()
     {
         string temp = heldIngredient;
@@ -174,4 +176,6 @@ public class PlayerInventory : MonoBehaviour
             animator.SetBool("IsHoldingStill", false);
         }
     }
+
+
 }

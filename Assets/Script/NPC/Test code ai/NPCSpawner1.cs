@@ -13,43 +13,93 @@ public class NPCSpawner1 : MonoBehaviour
     [Tooltip("Route object that has a WaypointSet component (children = waypoints).")]
     public WaypointSet routeToUse;
 
-    [Tooltip("Which waypoint index to use as the initial wait spot (e.g., 0 if first child is Path 2).")]
+    [Tooltip("Which waypoint index is the SIT/WAIT spot (NPC will stop here).")]
     public int initialWaitIndex = 0;
+
+    [Tooltip("If true, NPC walks through waypoints in order until reaching initialWaitIndex. If false, it starts directly at that index.")]
+    public bool approachWaitIndexSequentially = true;
+
+    [Tooltip("If true, ignore initialWaitIndex and randomly pick a sit/stop waypoint from the route.")]
+    public bool randomizeWaitIndex = false;
 
     [Header("Auto")]
     public bool spawnOnStart = true;
+    [Min(1)] public int spawnCount = 1;
 
     void Start()
     {
-        if (spawnOnStart) SpawnOne();
+        if (spawnOnStart)
+        {
+            for (int i = 0; i < spawnCount; i++)
+            {
+                SpawnOne();
+            }
+        }
     }
 
-    public GameObject SpawnOne()
+    /// <summary>
+    /// Spawns a single NPC, injects waypoints + sit index, and returns the instance.
+    /// </summary>
+    public GameObject SpawnOne(Transform overrideSpawnPoint = null, WaypointSet overrideRoute = null, int? overrideWaitIndex = null, bool? overrideApproachSequentially = null)
     {
-        if (npcPrefab == null || spawnPoints == null || spawnPoints.Length == 0)
+        if (npcPrefab == null)
         {
-            Debug.LogWarning("[NPCSpawner1] Missing prefab or spawn points.");
+            Debug.LogWarning("[NPCSpawner1] Missing npcPrefab.");
             return null;
         }
 
-        Transform p = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject npc = Instantiate(npcPrefab, p.position, p.rotation);
+        // pick spawn point
+        Transform spawn = overrideSpawnPoint != null
+            ? overrideSpawnPoint
+            : PickRandomSpawnPoint();
 
-        // Inject waypoints right after spawn
-        if (routeToUse != null)
+        if (spawn == null)
         {
-            var movement = npc.GetComponent<NPCMovement>();
-            if (movement != null)
-            {
-                Transform[] points = routeToUse.GetPoints();
-                movement.SetWaypoints(points, initialWaitIndex);
-            }
+            Debug.LogWarning("[NPCSpawner1] No spawn points assigned.");
+            return null;
+        }
+
+        // instantiate
+        GameObject npc = Instantiate(npcPrefab, spawn.position, spawn.rotation);
+
+        // choose route
+        WaypointSet route = overrideRoute != null ? overrideRoute : routeToUse;
+        if (route == null)
+        {
+            Debug.LogWarning("[NPCSpawner1] No routeToUse assigned. NPC will have no waypoints.");
+            return npc;
+        }
+
+        Transform[] points = route.GetPoints();
+        if (points == null || points.Length == 0)
+        {
+            Debug.LogWarning("[NPCSpawner1] routeToUse has no points.");
+            return npc;
+        }
+
+        // compute wait index
+        int waitIndex = overrideWaitIndex.HasValue ? overrideWaitIndex.Value :
+                        randomizeWaitIndex ? Random.Range(0, points.Length) :
+                        Mathf.Clamp(initialWaitIndex, 0, points.Length - 1);
+
+        // inject into NPCMovement
+        var movement = npc.GetComponent<NPCMovement>();
+        if (movement != null)
+        {
+            movement.approachWaitIndexSequentially = overrideApproachSequentially ?? approachWaitIndexSequentially;
+            movement.SetWaypoints(points, waitIndex);
         }
         else
         {
-            Debug.LogWarning("[NPCSpawner1] No routeToUse assigned. NPC will have no waypoints.");
+            Debug.LogWarning("[NPCSpawner1] Spawned NPC has no NPCMovement component.");
         }
 
         return npc;
+    }
+
+    private Transform PickRandomSpawnPoint()
+    {
+        if (spawnPoints == null || spawnPoints.Length == 0) return null;
+        return spawnPoints[Random.Range(0, spawnPoints.Length)];
     }
 }

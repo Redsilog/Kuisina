@@ -355,6 +355,13 @@ MonoBehaviour:
   - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
   - {fileID: 2803156310337275381, guid: 94003b7125e74422ca360a45b57cf1ea, type: 3}
   orderDisplayPoint: {fileID: 0}
+  requestLines: []
+  thankLines: []
+  wrongItemLines: []
+  defaultRequestFormat: "I\u2019d like {0}, please."
+  defaultThankFormat: Thank you!
+  defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
+  timeoutLine: "I\u2019ll come back later."
 --- !u!114 &2878355038216414384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,18 +374,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5aaae571475bcd428016c2e8ef4568a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
-  npcDialogLines:
-  - "Cook Adobong Puti \t"
-  - 'Raw Chicken  '
-  chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
-  chatBubbleSpawnPoint: {fileID: 1639728488320555459}
   npcOrder: {fileID: 4678029363476456500}
   headLookAt: {fileID: 7165187411326931142}
   npcMovement: {fileID: 3150818223207602429}
+  chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
+  chatBubbleSpawnPoint: {fileID: 1639728488320555459}
   autoClearAfter: 2
-  interactCooldown: 1
-  initialWaitTime: 5
-  extendedWaitTime: 20
+  requestLines:
+  - 
+  thankLines:
+  - 
+  wrongItemLines:
+  - 
+  defaultRequestFormat: "I\u2019d like {0}, please."
+  defaultThankFormat: Thank you!
+  defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
+  timeoutLine: "I\u2019ll come back later."
+  interactCooldown: 5
+  initialWaitTime: 10
+  extendedWaitTime: 10
   thankYouDelay: 5
 --- !u!114 &3150818223207602429
 MonoBehaviour:
@@ -392,15 +406,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9107649ad30af194186a40b7eb5c8ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  interactionDistance: 2
-  initialWaitIndex: 5
+  waypoints: []
+  waitIndex: 2
   approachWaitIndexSequentially: 1
-  currentState: 0
+  arrivalEpsilon: 0.1
+  interactionTimeout: 10
+  thankYouDelay: 5
+  currentState: 1
 --- !u!54 &313650437582184559
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -469,8 +481,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.2331352, z: 1}
-  m_Center: {x: -0, y: 0.6165672, z: 0}
+  m_Size: {x: 1, y: 1.7147322, z: 1}
+  m_Center: {x: -0, y: 0.8757695, z: -0}
 --- !u!1 &2042530464512064476
 GameObject:
   m_ObjectHideFlags: 0

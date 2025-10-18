@@ -62,17 +62,24 @@ public class PlayerController : MonoBehaviour
             return;
 
         // First, try to interact with an ingredient box
-        if (currentBox != null && inventory != null && !inventory.HasIngredient() && !inventory.HasDish())
-        {
-            inventory.PickUpIngredient(currentBox.ingredientName, currentBox.ingredientPrefab);
-            Debug.Log("Picked up ingredient: " + currentBox.ingredientName);
-            return;
-        }
+        // if (currentBox != null && inventory != null && !inventory.HasIngredient() && !inventory.HasDish())
+        // {
+        //     inventory.PickUpIngredient(currentBox.ingredientName, currentBox.ingredientPrefab);
+        //     Debug.Log("Picked up ingredient: " + currentBox.ingredientName);
+        //     return;
+        // }
 
         // Then, check if near a chopping board
         if (currentBoard != null && inventory != null)
         {
             currentBoard.HandlePlayerInteract(inventory);
+        }
+        if (inventory != null && inventory.currentFridge != null)
+        {
+            if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
+                inventory.currentFridge.TryOpenOrCloseFridge(inventory);
+            else
+                Debug.Log("UI already open — ignoring Interact input.");
         }
     }
 

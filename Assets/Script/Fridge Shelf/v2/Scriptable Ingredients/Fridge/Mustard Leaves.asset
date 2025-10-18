@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Mustard Leaves
   m_EditorClassIdentifier: 
   ingredientName: Mustard Leaves
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
   ingredientPrefab: {fileID: 3577054956678356174, guid: c1d2421f64fe465428e07166fe746a98, type: 3}
   ingredientDescription: 

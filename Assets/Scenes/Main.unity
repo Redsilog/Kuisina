@@ -3148,7 +3148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284508295627307637, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6664445997175546063, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9287,7 +9287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.56
+      value: -9.1
       objectReference: {fileID: 0}
     - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13713,9 +13713,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1926e792686f6493b9e1bb0bf666edbe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1929214688}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1926e792686f6493b9e1bb0bf666edbe, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1929214692}
   m_SourcePrefab: {fileID: 100100000, guid: 1926e792686f6493b9e1bb0bf666edbe, type: 3}
 --- !u!4 &1929214686 stripped
 Transform:
@@ -13734,7 +13731,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929214687}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5391c2ce02c34f47bf14a9e652624c9, type: 3}
   m_Name: 
@@ -13762,44 +13759,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.030907407, y: 0.03682144, z: 0.01395991}
   m_Center: {x: 0.0054537035, y: 0.0084108, z: -0.0030200714}
---- !u!114 &1929214692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929214687}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae2bf7086e144840afe5d6f61cb3764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  storageType: 2
-  storedIngredients:
-  - {fileID: 11400000, guid: 6fe0da8b1dbdf4f4a8a5ce20b8de4b44, type: 2}
-  - {fileID: 11400000, guid: d4f4f09d0dca1474b9cb17c5cd0e8d1c, type: 2}
-  - {fileID: 11400000, guid: ba30aadb674b1a54b926ba43582c55bf, type: 2}
-  - {fileID: 11400000, guid: a4c9eb4f720e08c43a18668cef5d425c, type: 2}
-  - {fileID: 11400000, guid: 4b661c8f3144f1340a9cb722d5bd4b4a, type: 2}
-  - {fileID: 11400000, guid: ec4afbcd97d6bd34b97a7cc2fd5c6fde, type: 2}
-  - {fileID: 11400000, guid: 73d687b9808660c48892368c883aaeb7, type: 2}
-  - {fileID: 11400000, guid: 1604805d8ae2e794e9b458e0d8b2bfb7, type: 2}
-  - {fileID: 11400000, guid: 2b1fb2242eacd54459aa6757912b6d75, type: 2}
-  - {fileID: 11400000, guid: 77c47477a6779894b9bbc9d2404599a3, type: 2}
-  - {fileID: 11400000, guid: d2fcd83ed1182484592afde402abc872, type: 2}
-  - {fileID: 11400000, guid: 0a983aba0651a3d4c8199e58dc1f0275, type: 2}
-  - {fileID: 11400000, guid: 9c57d4712b4ca88479308c90a819bae1, type: 2}
-  - {fileID: 11400000, guid: 3274edd1259d1cf4d889f1c6484a3860, type: 2}
-  - {fileID: 11400000, guid: f933b4f3fc4bebe42bc37fb80c34ed36, type: 2}
-  - {fileID: 11400000, guid: 54c61b68d2c7a254db8ec2f861b662a5, type: 2}
-  - {fileID: 11400000, guid: 742d4b4c709ee07438a4a59fad4a766d, type: 2}
-  - {fileID: 11400000, guid: 034ae3551a265664a8427321fe09ba55, type: 2}
-  - {fileID: 11400000, guid: 64082b91c98cf074f88cf9b9b481f9ce, type: 2}
-  - {fileID: 11400000, guid: 43b38fee4a10bc044a1c11328f694976, type: 2}
-  - {fileID: 11400000, guid: 441676cbe66656147b6629f70cee379f, type: 2}
-  - {fileID: 11400000, guid: 5073e36c3f827df4092edcc05aee9f30, type: 2}
-  fridgeUI_Player1: {fileID: 1702717439}
-  fridgeUI_Player2: {fileID: 637128159}
 --- !u!1001 &1937606467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16077,7 +16036,7 @@ GameObject:
   - component: {fileID: 6203106944589305833}
   - component: {fileID: 1165085322}
   m_Layer: 0
-  m_Name: Kitchen counter
+  m_Name: Kitchen counter (Condiments)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

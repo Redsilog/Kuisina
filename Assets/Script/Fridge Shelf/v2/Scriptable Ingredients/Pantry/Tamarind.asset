@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tamarind
   m_EditorClassIdentifier: 
   ingredientName: Tamarind
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 8c5d70f9cf4b1d04f92895741674fba6, type: 3}
   ingredientPrefab: {fileID: 3375772878605251302, guid: e95301528b689c34f9f765a272f8da65, type: 3}
   ingredientDescription: 

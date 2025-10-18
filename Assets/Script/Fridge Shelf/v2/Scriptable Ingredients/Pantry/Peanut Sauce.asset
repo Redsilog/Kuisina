@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Peanut Sauce
   m_EditorClassIdentifier: 
   ingredientName: Peanut Sauce
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: bc4ec56b06ba01e4382711563bf11c72, type: 3}
   ingredientPrefab: {fileID: 6357304540719192686, guid: 92b5685c05fae044197e67de80f9359c, type: 3}
   ingredientDescription: 

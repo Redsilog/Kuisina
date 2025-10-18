@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Eggs
   m_EditorClassIdentifier: 
   ingredientName: Eggs
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 31c3a752bb503e84fb9b854744b30d7a, type: 3}
   ingredientPrefab: {fileID: 623109176531972589, guid: 321788018fc02da4b8f05af10281e971, type: 3}
   ingredientDescription: 

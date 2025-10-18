@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Calamansi
   m_EditorClassIdentifier: 
   ingredientName: Calamansi
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 75db3a5ab677737439ff0d28e7034052, type: 3}
   ingredientPrefab: {fileID: 2970551574801009779, guid: 7bb1908563ece9d4496d9c140196f3f2, type: 3}
   ingredientDescription: 

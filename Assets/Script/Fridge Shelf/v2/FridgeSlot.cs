@@ -10,6 +10,17 @@ public class FridgeSlot : MonoBehaviour
 
     public void SetIngredient(Ingredients ing)
     {
+
+        if (ing == null)
+        {
+            Debug.LogError($"❌ Ingredient is null in {name}");
+            return;
+        }
+        if (icon == null)
+        {
+            Debug.LogError($"❌ Icon Image reference missing in {name}");
+            return;
+        }
         icon.sprite = ing.ingredientIcon;
         nameText.text = ing.ingredientName;
         icon.enabled = true;

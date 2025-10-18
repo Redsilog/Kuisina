@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Citrus
   m_EditorClassIdentifier: 
   ingredientName: Citrus
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: da27f05c606d84043ac379cea65b02cd, type: 3}
   ingredientPrefab: {fileID: 5977635784449195237, guid: 9275bae036801f04cbe9d13317b5aa0c, type: 3}
   ingredientDescription: 

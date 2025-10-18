@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bagoong
   m_EditorClassIdentifier: 
   ingredientName: Bagoong
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: fedf2de80bd2f144c9cc5a9dc383bee9, type: 3}
   ingredientPrefab: {fileID: 638463609516810275, guid: 141b5769ec407ea479e4f96e7c918fd9, type: 3}
   ingredientDescription: 

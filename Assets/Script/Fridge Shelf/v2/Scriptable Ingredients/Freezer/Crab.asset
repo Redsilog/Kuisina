@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Crab
   m_EditorClassIdentifier: 
   ingredientName: Crab
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 5ed1ff2a2483f8a40882f507bf32293f, type: 3}
   ingredientPrefab: {fileID: 4298140417909606448, guid: 4634a9d9a685eb04eaea29e2be2b4a5d, type: 3}
   ingredientDescription: 

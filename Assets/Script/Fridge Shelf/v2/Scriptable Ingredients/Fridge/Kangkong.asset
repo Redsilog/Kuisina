@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Kangkong
   m_EditorClassIdentifier: 
   ingredientName: Kangkong
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: ba1238c990cc7d543a289f90f56825af, type: 3}
   ingredientPrefab: {fileID: 3731351060411727192, guid: 307e3ad0da2d9054382710b0b9c6892a, type: 3}
   ingredientDescription: 

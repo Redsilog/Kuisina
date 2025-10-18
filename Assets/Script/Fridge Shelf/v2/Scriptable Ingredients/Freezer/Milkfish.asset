@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Milkfish
   m_EditorClassIdentifier: 
   ingredientName: Milkfish
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
   ingredientPrefab: {fileID: 3830759151182367452, guid: a49ae350138ea4a4bbf310d4b1e544aa, type: 3}
   ingredientDescription: 

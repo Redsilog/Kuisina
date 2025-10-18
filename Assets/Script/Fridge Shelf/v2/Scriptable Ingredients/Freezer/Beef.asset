@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Beef
   m_EditorClassIdentifier: 
   ingredientName: Beef
-  ingredientIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  ingredientPrefab: {fileID: 919132149155446097, guid: 399cd614943ee4c1697ebd1bd366a411, type: 3}
+  ingredientIcon: {fileID: 21300000, guid: 9370c44a2740cb94b947fe9bdfeaa3c2, type: 3}
+  ingredientPrefab: {fileID: 5345678898178037883, guid: 5946975cad01c40b3a83f27fb22da2e3, type: 3}
   ingredientDescription: befe

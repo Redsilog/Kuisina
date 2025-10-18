@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Kamias
   m_EditorClassIdentifier: 
   ingredientName: Kamias
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 7fcacb849b2e2a044888f671b8a85efd, type: 3}
   ingredientPrefab: {fileID: 3595278982281106306, guid: 45ad1bab3dfb1954f92a54ba191269cd, type: 3}
   ingredientDescription: 

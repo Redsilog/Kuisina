@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Shrimp
   m_EditorClassIdentifier: 
   ingredientName: Shrimp
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: f0669fcfab67ed4459d181b031c24d41, type: 3}
   ingredientPrefab: {fileID: 90768167670456000, guid: b672b5c99ddfbf4488788e1e7fa3e50f, type: 3}
   ingredientDescription: 

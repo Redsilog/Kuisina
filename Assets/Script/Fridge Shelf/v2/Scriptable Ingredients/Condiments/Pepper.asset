@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: Pepper
   m_EditorClassIdentifier: 
-  ingredientName: pepper
-  ingredientIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  ingredientName: Pepper
+  ingredientIcon: {fileID: 21300000, guid: 8dd8c43c42c13ba4baf26cb4ee7f41e8, type: 3}
   ingredientPrefab: {fileID: 919132149155446097, guid: fc778046d5c74844cbfe4a6e21c0c89f, type: 3}
   ingredientDescription: Pepper

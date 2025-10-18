@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Vinegar
   m_EditorClassIdentifier: 
   ingredientName: Vinegar
-  ingredientIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  ingredientIcon: {fileID: 21300000, guid: 5c0033f5aa88c514ca243c90f9e57087, type: 3}
   ingredientPrefab: {fileID: 6299187688108886039, guid: 70ff1c3081a639b4c8c829ec22ca1939, type: 3}
   ingredientDescription: whtie vinegar

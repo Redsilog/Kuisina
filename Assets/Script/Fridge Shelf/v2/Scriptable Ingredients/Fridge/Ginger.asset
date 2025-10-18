@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ginger
   m_EditorClassIdentifier: 
   ingredientName: Ginger
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 798ec8de3309a9a4db24c64c7b5cd064, type: 3}
   ingredientPrefab: {fileID: 6123188673231416336, guid: 4214399b4349b6e4ea1417e20f817e41, type: 3}
   ingredientDescription: 

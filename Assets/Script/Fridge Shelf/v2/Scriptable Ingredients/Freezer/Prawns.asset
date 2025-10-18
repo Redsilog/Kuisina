@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Prawns
   m_EditorClassIdentifier: 
   ingredientName: Prawns
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 9435b8700fb4f274ba9f69b3360eb22f, type: 3}
   ingredientPrefab: {fileID: 3407182045979681299, guid: 45cdfbce72cd8d74eaac3ef40203c226, type: 3}
   ingredientDescription: 

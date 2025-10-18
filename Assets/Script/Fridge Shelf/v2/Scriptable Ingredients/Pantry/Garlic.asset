@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Garlic
   m_EditorClassIdentifier: 
   ingredientName: Garlic
-  ingredientIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  ingredientIcon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
   ingredientPrefab: {fileID: 283848583454100565, guid: 189ae5de33939409db23b7bca44d5a94, type: 3}
   ingredientDescription: gralic

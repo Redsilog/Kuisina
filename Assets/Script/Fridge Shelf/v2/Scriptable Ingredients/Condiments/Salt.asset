@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: Salt
   m_EditorClassIdentifier: 
-  ingredientName: salt
-  ingredientIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  ingredientName: Salt
+  ingredientIcon: {fileID: 21300000, guid: 987b9c8afdba5654d9da91a2f008ecca, type: 3}
   ingredientPrefab: {fileID: 6471412834332519492, guid: c46a35fbb38ffc54fa4ef376a5a7ebfa, type: 3}
   ingredientDescription: 'Salt
 

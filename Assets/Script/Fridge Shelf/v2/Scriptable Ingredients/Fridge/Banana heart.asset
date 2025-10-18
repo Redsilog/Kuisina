@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Banana heart
   m_EditorClassIdentifier: 
   ingredientName: Banana Heart
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 74d61e1599f6b644f8274e47cd6e94e9, type: 3}
   ingredientPrefab: {fileID: 343232443221193581, guid: db4f492a35d568142bdba945aafaa891, type: 3}
   ingredientDescription: 

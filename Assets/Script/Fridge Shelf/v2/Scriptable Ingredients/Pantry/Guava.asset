@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Guava
   m_EditorClassIdentifier: 
   ingredientName: Guava
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 97aac4b7ad067f2409e8eb4aa31b0c7f, type: 3}
   ingredientPrefab: {fileID: 7341892037671936401, guid: ca3956b574e00df469896410c3193c62, type: 3}
   ingredientDescription: 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bangus
   m_EditorClassIdentifier: 
   ingredientName: Bangus
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
   ingredientPrefab: {fileID: 2110464885176317599, guid: 627ce3bfaee904c40974e7dba56ea7e2, type: 3}
   ingredientDescription: 

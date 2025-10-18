@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Whole Pig
   m_EditorClassIdentifier: 
   ingredientName: Whole Pig
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: d384a69369bfa6040bd18a4eeff677a2, type: 3}
   ingredientPrefab: {fileID: 2263898638605444909, guid: 46d29d34591464d40bb08c5dae23413a, type: 3}
   ingredientDescription: 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Mackerel
   m_EditorClassIdentifier: 
   ingredientName: Mackerel
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 9151098d7a4ffba4c8a39a7b28e7899d, type: 3}
   ingredientPrefab: {fileID: 4012217767369414277, guid: 4b777662c37a0124ca8d86546b050bb2, type: 3}
   ingredientDescription: 

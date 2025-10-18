@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Miki noodles
   m_EditorClassIdentifier: 
   ingredientName: Miki noodles
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: f92c96df1b440684694eeed790c8b2f6, type: 3}
   ingredientPrefab: {fileID: 8567320846755788902, guid: fa018ba14c0268648aa51720d540622e, type: 3}
   ingredientDescription: 

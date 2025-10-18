@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chili
   m_EditorClassIdentifier: 
   ingredientName: Chili
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: b49b83c07f2e25446b53b826bf1fb529, type: 3}
   ingredientPrefab: {fileID: 1800893038877159961, guid: a87cc1fcd7cc29b4e9d1a1e0f110f1cf, type: 3}
   ingredientDescription: 

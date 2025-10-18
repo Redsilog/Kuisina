@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Green Mango
   m_EditorClassIdentifier: 
   ingredientName: Green Mango
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
   ingredientPrefab: {fileID: 1611861345624574518, guid: bbcdaf9fcacb2bf47ae0c6261fa3d47d, type: 3}
   ingredientDescription: 

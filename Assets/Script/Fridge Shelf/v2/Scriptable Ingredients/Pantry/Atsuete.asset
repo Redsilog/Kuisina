@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Atsuete
   m_EditorClassIdentifier: 
   ingredientName: Atsuete
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 811c211bfbc2bd245a0f10a8d08c10aa, type: 3}
   ingredientPrefab: {fileID: 1546053527863194828, guid: 98b96788ddc269043a3c3a3bdefd8932, type: 3}
   ingredientDescription: 

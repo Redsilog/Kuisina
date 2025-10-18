@@ -1,49 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [System.Serializable]
 public class ChopMapping
 {
-    public string inputName;        // e.g. "Garlic"
-    public GameObject inputPrefab;  // raw visual to stage on the board / give back
-    public GameObject outputPrefab; // chopped result to spawn
+    public string inputName;
+    public GameObject inputPrefab;
+    public GameObject outputPrefab;
 }
 
 public class ChoppingBoard : MonoBehaviour
 {
-    // ---- Public (Inspector) ----
-    public float chopTime = 2f;             // seconds to finish chopping
-    public float holdThreshold = 0.25f;     // hold time to count as "hold" vs "tap"
-    public Transform displayPoint;          // where raw sits while staged (world spawn)
-    public Transform resultPoint;           // optional; if null, uses displayPoint
+    [Header("Settings")]
+    public float chopTime = 2f;
+    public Transform displayPoint;
+    public Transform resultPoint;
     public List<ChopMapping> chopMappings = new List<ChopMapping>();
 
-    // ---- Private runtime ----
-    PlayerInventory currentPlayer;
-    Animator playerAnimator;
+    private GameObject stagedRawInstance;
+    private string stagedRawName;
+    private GameObject stagedRawSourcePrefab;
 
-    GameObject stagedRawInstance;           // world object (UNPARENTED)
-    string stagedRawName;
-    GameObject stagedRawSourcePrefab;       // which prefab to give back to hand
+    private GameObject choppedSpawnedObject;
+    private GameObject lastChoppedPrefabRef;
+    private bool hasChoppedItem;
 
-    bool isChopping;
-    float chopProgress;                     // persists across pauses
-    string currentIngredientName;
+    private bool isChopping;
+    private float chopProgress;
 
-    GameObject choppedSpawnedObject;        // world object (UNPARENTED)
-    GameObject lastChoppedPrefabRef;        // prefab used for result
-    bool hasChoppedItem;
-
-    bool buttonPressed;
-    float pressStartTime;
-    Coroutine holdGateRoutine;
+    private Animator playerAnimator;
+    private PlayerInventory currentPlayer;
 
     public float ChopProgress01 => chopTime <= 0f ? 0f : Mathf.Clamp01(chopProgress / chopTime);
 
-    // ---------- Trigger ----------
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerInventory p))
         {
@@ -52,98 +43,112 @@ public class ChoppingBoard : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out PlayerInventory p) && p == currentPlayer)
         {
-            if (isChopping) PauseChop(); // keep staged + progress
+            if (isChopping) PauseChop();
             currentPlayer = null;
             playerAnimator = null;
         }
     }
 
-    // ---------- Interact input ----------
-    public void OnInteract(InputAction.CallbackContext ctx)
+    public void HandlePlayerInteract(PlayerInventory player)
     {
-        if (ctx.started)
-        {
-            buttonPressed = true;
-            pressStartTime = Time.time;
-            if (holdGateRoutine != null) StopCoroutine(holdGateRoutine);
-            holdGateRoutine = StartCoroutine(HoldGate());
-        }
+        if (player == null) return;
 
-        if (ctx.canceled)
+        // 1) Place raw ingredient if hands are holding one
+        if (stagedRawInstance == null && !hasChoppedItem && player.IsHoldingItem())
         {
-            float held = Time.time - pressStartTime;
-            buttonPressed = false;
-
-            if (isChopping)
+            string name = ResolveHeldName(player);
+            var map = GetMapping(name);
+            if (map != null)
             {
-                PauseChop(); // keep progress
+                PlaceFromHand(map, player);
+                
+                BeginChop(player);
                 return;
             }
-
-            if (held < holdThreshold)
-                TapAction();
-        }
-    }
-
-    IEnumerator HoldGate()
-    {
-        float t0 = pressStartTime;
-        while (buttonPressed && (Time.time - t0) < holdThreshold) yield return null;
-        if (!buttonPressed) yield break;
-
-        if (!isChopping && stagedRawInstance != null && !hasChoppedItem)
-            BeginChop();
-    }
-
-    // ---------- Tap behavior ----------
-    void TapAction()
-    {
-        // 1) Place from hand (board empty)
-        if (!isChopping && stagedRawInstance == null && !hasChoppedItem && currentPlayer != null)
-        {
-            string name = ResolveHeldName(currentPlayer);
-            var map = GetMapping(name);
-            if (map != null) { PlaceFromHand(map); return; }
         }
 
-        // 2) Pick up chopped (hands empty)
-        if (!isChopping && hasChoppedItem && choppedSpawnedObject != null &&
-            currentPlayer != null && !currentPlayer.IsHoldingItem())
+        // 2) Pick up chopped result if board has one
+        if (hasChoppedItem && !player.IsHoldingItem() && choppedSpawnedObject != null)
         {
-            PickupChoppedResult();
+            PickupChoppedResult(player);
             return;
         }
 
-        // 3) Pick up staged raw (hands empty) – resets progress
-        if (!isChopping && stagedRawInstance != null &&
-            currentPlayer != null && !currentPlayer.IsHoldingItem())
+        // 3) Pick up staged raw if hands empty
+        if (stagedRawInstance != null && !player.IsHoldingItem())
         {
-            PickupStagedRaw();
+            PickupStagedRaw(player);
+            return;
+        }
+
+        // 4) Begin chopping manually if raw is staged and not yet chopping
+        if (stagedRawInstance != null && !isChopping)
+        {
+            BeginChop(player);
             return;
         }
     }
 
-    // ---------- Chop flow ----------
-    void BeginChop()
+    private void PlaceFromHand(ChopMapping map, PlayerInventory player)
     {
-        SnapToPoint(stagedRawInstance, displayPoint);
+        if (displayPoint == null) return;
+
+        stagedRawInstance = Instantiate(map.inputPrefab, displayPoint.position, displayPoint.rotation);
+
+        if (stagedRawInstance.TryGetComponent<Collider>(out var c)) c.enabled = false;
+        if (stagedRawInstance.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
+
+        stagedRawName = map.inputName;
+        stagedRawSourcePrefab = map.inputPrefab;
+
+        player.ClearHeldItemDirect();
+        chopProgress = 0f;
+        isChopping = false;
+        hasChoppedItem = false;
+    }
+
+    private void PickupStagedRaw(PlayerInventory player)
+    {
+        player.PickUpIngredient(stagedRawName, stagedRawSourcePrefab);
+        Destroy(stagedRawInstance);
+
+        stagedRawInstance = null;
+        stagedRawName = null;
+        stagedRawSourcePrefab = null;
+        chopProgress = 0f;
+    }
+
+    private void PickupChoppedResult(PlayerInventory player)
+    {
+        string itemName = lastChoppedPrefabRef.name.Replace("(Clone)", "");
+        player.PickUpIngredient(itemName, lastChoppedPrefabRef);
+        Destroy(choppedSpawnedObject);
+
+        choppedSpawnedObject = null;
+        hasChoppedItem = false;
+        chopProgress = 0f;
+    }
+
+    private void BeginChop(PlayerInventory player)
+    {
+        if (stagedRawInstance == null) return;
+
         isChopping = true;
+        playerAnimator = player.animator;
 
         if (playerAnimator != null)
-        {
             playerAnimator.SetBool("IsChopping", true);
-            playerAnimator.SetBool("IsHoldingWalk", false);
-            playerAnimator.SetBool("IsHoldingStill", false);
-        }
 
         StartCoroutine(ChopWhileHeld());
     }
 
-    IEnumerator ChopWhileHeld()
+
+
+    private IEnumerator ChopWhileHeld()
     {
         while (isChopping && chopProgress < chopTime)
         {
@@ -155,29 +160,37 @@ public class ChoppingBoard : MonoBehaviour
         if (chopProgress >= chopTime) FinishChop();
     }
 
-    void PauseChop()
+    // Called when player presses and holds interact
+    public void StartChop(PlayerInventory player)
+    {
+        if (stagedRawInstance == null) return; // nothing to chop
+        if (isChopping) return; // already chopping
+
+        isChopping = true;
+        playerAnimator = player.animator;
+        if (playerAnimator != null) playerAnimator.SetBool("IsChopping", true);
+
+        StartCoroutine(ChopWhileHeld());
+    }
+
+    // Called when player releases interact
+    public void PauseChop()
     {
         if (!isChopping) return;
         isChopping = false;
         if (playerAnimator != null) playerAnimator.SetBool("IsChopping", false);
-        // progress kept
     }
 
-    void FinishChop()
+    private void FinishChop()
     {
-        var map = GetMapping(currentIngredientName);
+        var map = GetMapping(stagedRawName);
         lastChoppedPrefabRef = map != null ? map.outputPrefab : null;
 
-        // consume staged
-        if (stagedRawInstance != null)
-        {
-            Destroy(stagedRawInstance);
-            stagedRawInstance = null;
-            stagedRawName = null;
-            stagedRawSourcePrefab = null;
-        }
+        if (stagedRawInstance != null) Destroy(stagedRawInstance);
+        stagedRawInstance = null;
+        stagedRawName = null;
+        stagedRawSourcePrefab = null;
 
-        // spawn result (no parenting)
         Transform point = resultPoint != null ? resultPoint : displayPoint;
         if (lastChoppedPrefabRef != null && point != null)
         {
@@ -191,94 +204,27 @@ public class ChoppingBoard : MonoBehaviour
         isChopping = false;
         if (playerAnimator != null) playerAnimator.SetBool("IsChopping", false);
         chopProgress = 0f;
-        currentIngredientName = null;
     }
 
-    // ---------- Place / Pickup ----------
-    void PlaceFromHand(ChopMapping map)
-    {
-        if (displayPoint == null) return;
-
-        GameObject rawPrefab = map.inputPrefab != null ? map.inputPrefab : currentPlayer.heldVisual;
-        if (rawPrefab == null) return;
-
-        stagedRawInstance = Instantiate(rawPrefab, displayPoint.position, displayPoint.rotation);
-
-        if (stagedRawInstance.TryGetComponent<Collider>(out var c1)) c1.enabled = false;
-        if (stagedRawInstance.TryGetComponent<Rigidbody>(out var r1)) r1.isKinematic = true;
-
-        stagedRawName = map.inputName;
-        stagedRawSourcePrefab = map.inputPrefab != null ? map.inputPrefab : rawPrefab;
-        currentIngredientName = stagedRawName;
-
-        if (currentPlayer.heldVisual != null) Destroy(currentPlayer.heldVisual);
-        currentPlayer.ClearHeldItemDirect();
-    }
-
-    void PickupStagedRaw()
-    {
-        if (stagedRawSourcePrefab == null) return;
-
-        currentPlayer.PickUpIngredient(stagedRawName, stagedRawSourcePrefab);
-
-        Destroy(stagedRawInstance);
-        stagedRawInstance = null;
-        stagedRawName = null;
-        stagedRawSourcePrefab = null;
-
-        chopProgress = 0f;
-    }
-
-    void PickupChoppedResult()
-    {
-        if (lastChoppedPrefabRef != null)
-        {
-            string itemName = lastChoppedPrefabRef.name.Replace("(Clone)", "");
-            currentPlayer.PickUpIngredient(itemName, lastChoppedPrefabRef);
-            Destroy(choppedSpawnedObject);
-        }
-        else
-        {
-            // fallback: give the actual object
-            var obj = choppedSpawnedObject;
-            obj.transform.SetParent(currentPlayer.holdPoint, true);
-            obj.transform.localPosition = Vector3.zero;
-            obj.transform.localRotation = Quaternion.identity;
-            if (obj.TryGetComponent<Collider>(out var c)) c.enabled = false;
-            if (obj.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
-
-            currentPlayer.heldVisual = obj;
-            currentPlayer.heldIngredient = obj.name.Replace("(Clone)", "");
-            currentPlayer.heldDish = "";
-        }
-
-        choppedSpawnedObject = null;
-        hasChoppedItem = false;
-        chopProgress = 0f;
-    }
-
-    // ---------- Helpers ----------
-    ChopMapping GetMapping(string ingredientName)
+    private ChopMapping GetMapping(string ingredientName)
     {
         if (string.IsNullOrWhiteSpace(ingredientName)) return null;
         string key = ingredientName.Trim();
+
         foreach (var m in chopMappings)
+        {
             if (!string.IsNullOrEmpty(m.inputName) &&
                 string.Equals(m.inputName.Trim(), key, System.StringComparison.OrdinalIgnoreCase))
                 return m;
+        }
+
         return null;
     }
 
-    string ResolveHeldName(PlayerInventory inv)
+    private string ResolveHeldName(PlayerInventory inv)
     {
         if (!string.IsNullOrWhiteSpace(inv.heldIngredient)) return inv.heldIngredient.Trim();
         if (inv.heldVisual != null) return inv.heldVisual.name.Replace("(Clone)", "").Trim();
         return "";
-    }
-
-    static void SnapToPoint(GameObject obj, Transform point)
-    {
-        if (obj == null || point == null) return;
-        obj.transform.SetPositionAndRotation(point.position, point.rotation);
     }
 }

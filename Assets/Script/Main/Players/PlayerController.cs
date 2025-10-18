@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private IngredientBox currentBox;
     private ChoppingBoard currentBoard;
     private PlayerInventory inventory;
+    private NPCInteractable currentNPC;
 
     private void Start()
     {
@@ -61,15 +62,12 @@ public class PlayerController : MonoBehaviour
         if (!ctx.performed)
             return;
 
-        // First, try to interact with an ingredient box
-        // if (currentBox != null && inventory != null && !inventory.HasIngredient() && !inventory.HasDish())
-        // {
-        //     inventory.PickUpIngredient(currentBox.ingredientName, currentBox.ingredientPrefab);
-        //     Debug.Log("Picked up ingredient: " + currentBox.ingredientName);
-        //     return;
-        // }
+        if (currentNPC != null)
+        {
+            currentNPC.OnInteract(ctx);
+            return;
+        }
 
-        // Then, check if near a chopping board
         if (currentBoard != null && inventory != null)
         {
             currentBoard.HandlePlayerInteract(inventory);
@@ -95,6 +93,12 @@ public class PlayerController : MonoBehaviour
             currentBoard = board;
             Debug.Log("Board Detected");
         }
+
+        else if (other.TryGetComponent(out NPCInteractable npc))
+        {
+            currentNPC = npc;
+            Debug.Log("nandito npc");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -104,5 +108,10 @@ public class PlayerController : MonoBehaviour
 
         if (other.TryGetComponent(out ChoppingBoard board) && board == currentBoard)
             currentBoard = null;
+
+        if (other.TryGetComponent(out NPCInteractable npc) && npc == currentNPC)
+        {
+            currentNPC = null;
+        }
     }
 }

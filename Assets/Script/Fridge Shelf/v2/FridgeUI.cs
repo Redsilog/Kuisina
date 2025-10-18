@@ -151,7 +151,8 @@ public class FridgeUI : MonoBehaviour
 
         if (!controls.FridgeFreezerPantry.enabled)
         {
-            controls.Gameplay.Disable();
+            controls.Player1.Disable();
+            controls.Player2.Disable();
             controls.FridgeFreezerPantry.Enable();
         }
 
@@ -209,10 +210,11 @@ public class FridgeUI : MonoBehaviour
 
         isOpen = false;
 
-        if (!controls.Gameplay.enabled)
+        if (!controls.Player1.enabled || !controls.Player2.enabled)
         {
             controls.FridgeFreezerPantry.Disable();
-            controls.Gameplay.Enable();
+            controls.Player1.Enable();
+            controls.Player2.Enable();
         }
 
         switch (type)

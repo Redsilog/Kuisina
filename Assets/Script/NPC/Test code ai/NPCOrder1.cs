@@ -17,14 +17,14 @@ public class NPCOrder1 : MonoBehaviour
     public List<string> wrongItemLines = new List<string>();  // shown when wrong item given
 
     [Header("Fallback Lines")]
-    [SerializeField] private string defaultRequestFormat = "I’d like {0}, please.";
+    [SerializeField] private string defaultRequestFormat = "Iï¿½d like {0}, please.";
     [SerializeField] private string defaultThankFormat = "Thank you!";
-    [SerializeField] private string defaultWrongFormat = "That’s not what I ordered. I asked for {0}.";
-    [SerializeField] private string timeoutLine = "I’ll come back later.";
+    [SerializeField] private string defaultWrongFormat = "Thatï¿½s not what I ordered. I asked for {0}.";
+    [SerializeField] private string timeoutLine = "Iï¿½ll come back later.";
 
     public event Action OnOrderFulfilled;
 
-    // — Runtime state —
+    // ï¿½ Runtime state ï¿½
     public bool HasActiveOrder => _currentItem != null && !_orderFulfilled;
     public string CurrentRequestName => _currentItem ? TrimName(_currentItem.name) : "";
     public int CurrentRequestIndex => _currentIndex;
@@ -78,6 +78,7 @@ public class NPCOrder1 : MonoBehaviour
 
         // Optional: spawn delivered visual
         if (orderDisplayPoint != null && _currentItem != null)
+            Debug.Log("Instantiate");
             Instantiate(_currentItem, orderDisplayPoint.position, orderDisplayPoint.rotation);
 
         // Clear player's hand

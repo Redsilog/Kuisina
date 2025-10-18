@@ -1962,6 +1962,14 @@ PrefabInstance:
       propertyPath: orderDisplayPoint
       value: 
       objectReference: {fileID: 199891955}
+    - target: {fileID: 4678029363476456500, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
+      propertyPath: requestedItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678029363476456500, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
+      propertyPath: 'requestedItems.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2803156310337275381, guid: 94003b7125e74422ca360a45b57cf1ea, type: 3}
     - target: {fileID: 7116499036814956716, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.8933804

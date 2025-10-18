@@ -153,12 +153,14 @@ public class NPCInteractable : MonoBehaviour
         waitingForInteraction = false;
 
         ShowChat(npcOrder.GetThankLine());
+        //instantiate food here 
         StartCoroutine(ThankAndLeave());
     }
 
     IEnumerator ThankAndLeave()
     {
         yield return new WaitForSeconds(thankYouDelay);
+        //destroy instantiated food
         if (npcMovement) npcMovement.StartLeaving();
         if (headLookAt) headLookAt.StopLooking();
     }

@@ -57,6 +57,7 @@ public class FridgeUI : MonoBehaviour
     [Header("Animation")]
     public Animator fridgeAnimator;
     public Animator fridgeAnimator2;
+    private PlayerController player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -123,11 +124,11 @@ public class FridgeUI : MonoBehaviour
 
     public void OpenFridge(FridgeShelfManager fridge, PlayerInventory playerInv, bool openOnLeft, FridgeShelfManager.StorageType type)
     {
-
         if (isOpen && currentFridge != null)
         {
             CloseFridge(currentStorageType);
         }
+
         currentFridge = fridge;
         currentPlayer = playerInv;
         currentPlayerID = playerInv.playerID;
@@ -141,19 +142,28 @@ public class FridgeUI : MonoBehaviour
         }
 
         fridgePanel.SetActive(true);
+
         Animator activeAnimator = currentPlayerID == 1 ? fridgeAnimator : fridgeAnimator2;
         if (activeAnimator != null)
             activeAnimator.SetBool("isOpen", true);
         else
             Debug.LogWarning($"No animator assigned for Player {currentPlayerID}");
+
         isOpen = true;
 
+        //eto yung di nagpapagalaw sa player pag open fridge
+        PlayerController playerController = currentPlayer.GetComponent<PlayerController>();
+        if (playerController != null)
+            playerController.enabled = false;
+
+        Rigidbody rb = currentPlayer.GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.linearVelocity = Vector3.zero;
 
         if (!controls.FridgeFreezerPantry.enabled)
         {
-            controls.Player1.Disable();
-            controls.Player2.Disable();
             controls.FridgeFreezerPantry.Enable();
+            Debug.Log("Fridge controls enabled");
         }
 
         switch (type)
@@ -199,7 +209,6 @@ public class FridgeUI : MonoBehaviour
 
     public void CloseFridge(FridgeShelfManager.StorageType type)
     {
-
         if (!isOpen) return;
 
         Animator activeAnimator = currentPlayerID == 1 ? fridgeAnimator : fridgeAnimator2;
@@ -209,12 +218,19 @@ public class FridgeUI : MonoBehaviour
             Debug.LogWarning($"No animator assigned for Player {currentPlayerID}");
 
         isOpen = false;
+        
+        //nagpapagalaw ulit 
+        if (currentPlayer != null)
+        {
+            PlayerController playerController = currentPlayer.GetComponent<PlayerController>();
+            if (playerController != null)
+                playerController.enabled = true;
+        }
 
-        if (!controls.Player1.enabled || !controls.Player2.enabled)
+        if (controls.FridgeFreezerPantry.enabled)
         {
             controls.FridgeFreezerPantry.Disable();
-            controls.Player1.Enable();
-            controls.Player2.Enable();
+            Debug.Log("Fridge controls disabled");
         }
 
         switch (type)
@@ -240,18 +256,12 @@ public class FridgeUI : MonoBehaviour
                 break;
         }
 
-        if (currentPlayer != null)
-        {
-            playerMovement movement = currentPlayer.GetComponent<playerMovement>();
-            if (movement != null) movement.enabled = true;
-            playerMovement2 movement2 = currentPlayer.GetComponent<playerMovement2>();
-            if (movement2 != null) movement2.enabled = true;
-        }
-
         StartCoroutine(HideAfterAnimation(type));
+
         currentFridge = null;
         currentPlayer = null;
     }
+
 
     private void PlayClipSafe(AudioClip clip, string clipName, FridgeShelfManager.StorageType type)
     {

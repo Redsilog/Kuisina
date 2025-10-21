@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Goat Meat
   m_EditorClassIdentifier: 
   ingredientName: Goat Meat
-  ingredientIcon: {fileID: 0}
+  ingredientIcon: {fileID: 21300000, guid: 151fa6fbc5f6aeb499cbcb8ebc268b1f, type: 3}
   ingredientPrefab: {fileID: 782812046259951055, guid: 21cc0a4d0e1f37544a7569f967a2d322, type: 3}
   ingredientDescription: 

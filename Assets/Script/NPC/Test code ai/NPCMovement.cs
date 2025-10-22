@@ -1,38 +1,45 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Handles NPC movement along a series of waypoints, stopping at a sit/wait point
+/// to interact with the player and resuming after.
+/// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NPCInteractable))]
 public class NPCMovement : MonoBehaviour
 {
     public enum NPCState
     {
-        Moving,   // walking along waypoints
-        Sitting,  // at sit waypoint, waiting for player to interact
-        Ordering, // order phase
-        Thanking, // thank dwell
-        Leaving   // going to next waypoint after sit/order/thank/timeout
+        Moving,     // Walking between points
+        Sitting,    // Waiting for player interaction
+        Ordering,   // Order phase (player interaction in progress)
+        Thanking,   // Short dwell after order success
+        Leaving     // Leaving after thank or timeout
     }
 
-    [Header("Runtime Route (injected by spawner)")]
-    public Transform[] waypoints;          // injected at runtime
-    public int waitIndex = 0;              // which waypoint is the sit spot
-    public bool approachWaitIndexSequentially = true; // spawner can set this
+    [Header("Waypoint Route (Injected by Spawner)")]
 
-    [Header("Movement Settings")]
-    public float arrivalEpsilon = 0.1f;    // extra slack beyond agent.stoppingDistance
+    private int sitIndex = 0;
 
-    [Header("Timers")]
-    public float interactionTimeout = 10f; // Order timer (handled by Interactable)
-    public float thankYouDelay = 5f;       // Thank dwell (handled here)
+    [Header("Timing")]
+    [Tooltip("Time NPC stays in 'Thanking' phase before leaving.")]
+    public float thankYouDelay = 5f;
 
-    public NPCState currentState = NPCState.Moving;
+    public NPCState CurrentState { get; private set; } = NPCState.Moving;
 
+    // --- Internal references ---
     private NavMeshAgent agent;
     private NPCInteractable npcInteractable;
 
-    private int currentIndex = 0;
-    private bool routeReady = false;
-    private float stateTimer = 0f;
+    // --- Route control ---
+    private Transform[] waypoints; // private because spawner injects it
+    private int currentIndex;
+    private bool routeReady;
+    private float stateTimer;
+
+    // Small constant to help with arrival precision
+    private const float arrivalEpsilon = 0.1f;
 
     void Awake()
     {
@@ -42,127 +49,138 @@ public class NPCMovement : MonoBehaviour
 
     void Update()
     {
-        if (!routeReady || waypoints == null || waypoints.Length == 0) return;
+        if (!routeReady || waypoints == null || waypoints.Length == 0)
+            return;
 
-        switch (currentState)
+        switch (CurrentState)
         {
             case NPCState.Moving:
-                TickMoving();
+                HandleMoving();
                 break;
 
             case NPCState.Sitting:
-                // Interactable controls SIT/ORDER timers. We only park the agent here.
-                agent.isStopped = true;
-                break;
-
             case NPCState.Ordering:
-                // Ordering handled by Interactable; keep the agent parked.
                 agent.isStopped = true;
                 break;
 
             case NPCState.Thanking:
-                agent.isStopped = true;
-                stateTimer += Time.deltaTime;
-                if (stateTimer >= thankYouDelay)
-                {
-                    StartLeaving();
-                }
+                HandleThanking();
                 break;
 
             case NPCState.Leaving:
-                TickLeaving();
+                HandleLeaving();
                 break;
         }
     }
 
-    // --------- Public API (called by Spawner / Interactable) ---------
+    // ----------- Public API -----------
 
-    // Spawner calls this immediately after instantiate
-    public void SetWaypoints(Transform[] points, int initialWaitIndex)
+    /// <summary>
+    /// Called by the spawner right after NPC is created.
+    /// Sets up the waypoints and starting movement.
+    /// </summary>
+    public void InitializeRoute(Transform[] route, int sitWaypoint)
     {
-        waypoints = points;
-        waitIndex = Mathf.Clamp(initialWaitIndex, 0, waypoints.Length - 1);
-
-        currentIndex = approachWaitIndexSequentially ? 0 : waitIndex;
-        routeReady = (waypoints != null && waypoints.Length > 0);
-
-        if (routeReady)
+        if (route == null || route.Length == 0)
         {
-            agent.isStopped = false;
-            agent.SetDestination(waypoints[currentIndex].position);
-            currentState = NPCState.Moving;
+            Debug.LogWarning($"[NPCMovement] {name} received no waypoints!");
+            return;
         }
+
+        waypoints = route;
+        sitIndex = Mathf.Clamp(sitWaypoint, 0, waypoints.Length - 1);
+        currentIndex = 0; // Always start from the first waypoint
+
+        routeReady = true;
+        MoveTo(currentIndex);
+        CurrentState = NPCState.Moving;
     }
 
-    // Called by NPCInteractable when player starts order phase
-    public void StartOrdering()
+    /// <summary>
+    /// Called by NPCInteractable when player starts an order.
+    /// </summary>
+    public void BeginOrdering()
     {
-        currentState = NPCState.Ordering;
+        CurrentState = NPCState.Ordering;
+        agent.isStopped = true;
+        stateTimer = 0f;
+    }
+
+    /// <summary>
+    /// Called when correct item is delivered.
+    /// </summary>
+    public void BeginThanking()
+    {
+        CurrentState = NPCState.Thanking;
         stateTimer = 0f;
         agent.isStopped = true;
     }
 
-    // Called by NPCInteractable when order fulfilled
-    public void FulfillOrder()
-    {
-        currentState = NPCState.Thanking;
-        stateTimer = 0f;
-    }
-
-    // Called by NPCInteractable on timeout / after thank
+    /// <summary>
+    /// Called when thank phase or timeout finishes.
+    /// </summary>
     public void StartLeaving()
     {
-        // Move to the next waypoint after the sit point
-        currentIndex = (waitIndex + 1) % waypoints.Length;
-        agent.isStopped = false;
-        agent.SetDestination(waypoints[currentIndex].position);
-        currentState = NPCState.Leaving;
-        stateTimer = 0f;
-    }
-
-    // Called by NPCInteractable when the NPC reaches the sit spot (or by us)
-    public void StartSitting()
-    {
-        currentState = NPCState.Sitting;
-        agent.isStopped = true;
+        CurrentState = NPCState.Leaving;
         stateTimer = 0f;
 
-        // Tell Interactable to begin SIT phase timers & (optionally) randomize order later
-        if (npcInteractable) npcInteractable.StartWaitingForPlayer();
+        int next = (sitIndex + 1) % waypoints.Length;
+        MoveTo(next);
     }
 
-    // --------- Internals ---------
+    // ----------- Internal Handlers -----------
 
-    void TickMoving()
+    private void HandleMoving()
     {
-        if (!agent.hasPath) agent.SetDestination(waypoints[currentIndex].position);
+        if (!agent.hasPath)
+            MoveTo(currentIndex);
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + arrivalEpsilon)
         {
-            // reached currentIndex
-            if (currentIndex == waitIndex)
+            if (currentIndex == sitIndex)
             {
-                // sit here
                 StartSitting();
             }
             else
             {
-                // continue along route toward waitIndex
+                // Continue to next waypoint
                 currentIndex = (currentIndex + 1) % waypoints.Length;
-                agent.isStopped = false;
-                agent.SetDestination(waypoints[currentIndex].position);
+                MoveTo(currentIndex);
             }
         }
     }
 
-    void TickLeaving()
+    private void HandleThanking()
+    {
+        stateTimer += Time.deltaTime;
+        if (stateTimer >= thankYouDelay)
+            StartLeaving();
+    }
+
+    private void HandleLeaving()
     {
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + arrivalEpsilon)
         {
-            // After leaving, resume normal waypoint walk (loop)
+            // Resume loop after leaving
             currentIndex = (currentIndex + 1) % waypoints.Length;
-            agent.SetDestination(waypoints[currentIndex].position);
-            currentState = NPCState.Moving;
+            MoveTo(currentIndex);
+            CurrentState = NPCState.Moving;
         }
+    }
+
+    private void StartSitting()
+    {
+        CurrentState = NPCState.Sitting;
+        agent.isStopped = true;
+        stateTimer = 0f;
+
+        npcInteractable?.StartWaitingForPlayer();
+    }
+
+    private void MoveTo(int index)
+    {
+        currentIndex = index;
+        agent.isStopped = false;
+        agent.SetDestination(waypoints[currentIndex].position);
     }
 }

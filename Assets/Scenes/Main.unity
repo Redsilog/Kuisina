@@ -486,11 +486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c256836738d29904fbd10c8f9f1dfb70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaypointSet
-  points:
-  - {fileID: 450856803}
-  - {fileID: 1137021194}
-  - {fileID: 1074876788}
-  - {fileID: 1244890425}
 --- !u!1001 &68101631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -562,65 +557,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 629305913822926575, guid: 189ae5de33939409db23b7bca44d5a94, type: 3}
   m_PrefabInstance: {fileID: 1611152803}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &88287949
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 88287950}
-  - component: {fileID: 88287951}
-  m_Layer: 0
-  m_Name: NPC Spawner (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &88287950
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88287949}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.87, y: 0.91, z: 9.41}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2070722170}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &88287951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88287949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b38d8a3c6fb3d8498de2b9e8d808446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcPrefabs:
-  - {fileID: 2111230945047006159, guid: df7f7a496bba46341b05bfd992f404f1, type: 3}
-  - {fileID: 6912682432288383443, guid: db88894398bdab3479cbfd702b822b99, type: 3}
-  - {fileID: 1926056749503639539, guid: 049f0e655fcdb394bbdff55bfe4a4d70, type: 3}
-  - {fileID: 8236878944884220726, guid: 2327654a6d766ef4491e0a871cd65c19, type: 3}
-  spawnPoint: {fileID: 88287950}
-  patrolWaypoints:
-  - {fileID: 2028060281}
-  - {fileID: 771063743}
-  - {fileID: 2060549734}
-  - {fileID: 1244890425}
-  stopIndices: 02000000
-  displayPoint: {fileID: 199891955}
-  npcMaxWaitForOrder: 20
-  npcPostOrderDelay: 5
 --- !u!4 &99567371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6e7236bcc7ad8a345bd8203a37806cee, type: 3}
@@ -1920,7 +1856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1918290237203441870, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2878355038216414384, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
       propertyPath: autoClearAfter
@@ -3961,7 +3897,7 @@ GameObject:
   - component: {fileID: 458645337}
   - component: {fileID: 458645338}
   m_Layer: 0
-  m_Name: Spawner Testing
+  m_Name: Spawner  NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3994,15 +3930,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6feb5d38b8558b4da8f6483d53c15ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCSpawner1
-  npcPrefab: {fileID: 1918290237203441870, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
-  spawnPoints:
-  - {fileID: 55422358}
-  routeToUse: {fileID: 55422359}
-  initialWaitIndex: 2
-  approachWaitIndexSequentially: 1
-  randomizeWaitIndex: 0
+  npcEntries:
+  - npcPrefab: {fileID: 1918290237203441870, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
+    route: {fileID: 55422359}
+    spawnPoint: {fileID: 55422358}
+    waitIndex: 2
+    tableDisplayPoint: {fileID: 199891955}
   spawnOnStart: 1
-  spawnCount: 1
 --- !u!4 &462724202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5674347055956428868, guid: f32f6ada9f0534ba589daf39859053de, type: 3}
@@ -7882,65 +7816,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099966204}
   m_Mesh: {fileID: 2692889195491215165, guid: d7d67c4ec09e743ee8179f6c607a8656, type: 3}
---- !u!1 &1102729343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1102729344}
-  - component: {fileID: 1102729345}
-  m_Layer: 0
-  m_Name: NPC Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1102729344
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102729343}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.23, y: 0.91, z: -0.49}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2070722170}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1102729345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102729343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b38d8a3c6fb3d8498de2b9e8d808446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcPrefabs:
-  - {fileID: 3062963872397447008, guid: 19f5baa6097d4994290ad2cd64c33daa, type: 3}
-  - {fileID: 538464148702343494, guid: 50e65f0cc883655488c1883bef9a588d, type: 3}
-  - {fileID: 469679333988774096, guid: b25a2c8aabdd7a144a8f6281ca2090cd, type: 3}
-  - {fileID: 7927296470504479056, guid: 3d51b208c21b8e94094fc3ec137786cd, type: 3}
-  spawnPoint: {fileID: 1102729344}
-  patrolWaypoints:
-  - {fileID: 450856803}
-  - {fileID: 1137021194}
-  - {fileID: 1074876788}
-  - {fileID: 1244890425}
-  stopIndices: 02000000
-  displayPoint: {fileID: 199891955}
-  npcMaxWaitForOrder: 20
-  npcPostOrderDelay: 5
 --- !u!4 &1115340741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1356fca95527346d8bff167f0a0b1917, type: 3}
@@ -15392,8 +15267,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 458645337}
-  - {fileID: 1102729344}
-  - {fileID: 88287950}
   - {fileID: 393612781}
   - {fileID: 1926233449}
   m_Father: {fileID: 0}

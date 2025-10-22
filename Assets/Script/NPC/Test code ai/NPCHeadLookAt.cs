@@ -7,35 +7,43 @@ public class NPCHeadLookAt : MonoBehaviour
     [SerializeField] private Transform headLookAtTarget;
     [SerializeField] private float lerpSpeed = 2f;
 
+
+
     [Header("Head Follow Distance")]
     public float followDistance = 10f;
 
     private bool isLooking;
     private Transform playerTransform;
-    private bool canFollowPlayer;
+    private bool canFollowPlayer = false;
 
     void Update()
     {
-        bool within = false;
-        if (playerTransform != null)
+        if (playerTransform != null && canFollowPlayer)
         {
-            float d = Vector3.Distance(transform.position, playerTransform.position);
-            within = d <= followDistance;
-        }
-
-        float target = (isLooking && within && canFollowPlayer) ? 1f : 0f;
-        rig.weight = Mathf.Lerp(rig.weight, target, Time.deltaTime * lerpSpeed);
-
-        if (headLookAtTarget != null && playerTransform != null && isLooking && within && canFollowPlayer)
-        {
-            headLookAtTarget.position = playerTransform.position + Vector3.up * 1.6f;
+            // Check if player is within the following distance
+            float distance = Vector3.Distance(transform.position, playerTransform.position);
+            if (distance <= followDistance)
+            {
+                // Smoothly transition to follow the player
+                float target = 1f;
+                rig.weight = Mathf.Lerp(rig.weight, target, Time.deltaTime * lerpSpeed);
+                if (headLookAtTarget != null)
+                {
+                    headLookAtTarget.position = playerTransform.position + Vector3.up * 1.6f;
+                }
+            }
+            else
+            {
+                // Stop following if the player is out of range
+                StopLooking();
+            }
         }
     }
 
     public void LookAtTransform(Transform t, float yOffset = 1.6f)
     {
         playerTransform = t;
-        isLooking = true;
+        isLooking = true;  // This should be true during interaction
         if (headLookAtTarget != null && t != null)
             headLookAtTarget.position = t.position + Vector3.up * yOffset;
     }

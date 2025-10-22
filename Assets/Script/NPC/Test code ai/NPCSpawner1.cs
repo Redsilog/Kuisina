@@ -2,104 +2,104 @@ using UnityEngine;
 
 public class NPCSpawner1 : MonoBehaviour
 {
-    [Header("Spawn")]
-    [Tooltip("NPC prefab with NPCMovement + NPCInteractable + NPCOrder1 + NPCHeadLookAt")]
-    public GameObject npcPrefab;
+    [System.Serializable]
+    public class NPCSpawnData
+    {
+        [Header("NPC Setup")]
+        [Tooltip("The NPC prefab to spawn.")]
+        public GameObject npcPrefab;
 
-    [Tooltip("Where to spawn the NPC(s)")]
-    public Transform[] spawnPoints;
+        [Tooltip("The route this NPC will follow (WaypointSet with child waypoints).")]
+        public WaypointSet route;
 
-    [Header("Route Injection")]
-    [Tooltip("Route object that has a WaypointSet component (children = waypoints).")]
-    public WaypointSet routeToUse;
+        [Tooltip("Spawn point where this NPC will appear.")]
+        public Transform spawnPoint;
 
-    [Tooltip("Which waypoint index is the SIT/WAIT spot (NPC will stop here).")]
-    public int initialWaitIndex = 0;
+        [Tooltip("Which waypoint index the NPC will sit/wait at.")]
+        [Range(0, 20)] public int waitIndex = 0;
 
-    [Tooltip("If true, NPC walks through waypoints in order until reaching initialWaitIndex. If false, it starts directly at that index.")]
-    public bool approachWaitIndexSequentially = true;
+        [Tooltip("Where this NPC's food will appear (table Display transform).")]
+        public Transform tableDisplayPoint;
+    }
 
-    [Tooltip("If true, ignore initialWaitIndex and randomly pick a sit/stop waypoint from the route.")]
-    public bool randomizeWaitIndex = false;
+    [Header("Spawner Settings")]
+    [Tooltip("List of all NPCs to spawn with their own prefab, route, and spawn point.")]
+    public NPCSpawnData[] npcEntries;
 
-    [Header("Auto")]
+    [Tooltip("If true, NPCs will spawn automatically at Start.")]
     public bool spawnOnStart = true;
-    [Min(1)] public int spawnCount = 1;
 
     void Start()
     {
         if (spawnOnStart)
         {
-            for (int i = 0; i < spawnCount; i++)
-            {
-                SpawnOne();
-            }
+            SpawnAllNPCs();
         }
     }
 
     /// <summary>
-    /// Spawns a single NPC, injects waypoints + sit index, and returns the instance.
+    /// Spawns all NPCs defined in the npcEntries list.
     /// </summary>
-    public GameObject SpawnOne(Transform overrideSpawnPoint = null, WaypointSet overrideRoute = null, int? overrideWaitIndex = null, bool? overrideApproachSequentially = null)
+    public void SpawnAllNPCs()
     {
-        if (npcPrefab == null)
+        if (npcEntries == null || npcEntries.Length == 0)
         {
-            Debug.LogWarning("[NPCSpawner1] Missing npcPrefab.");
-            return null;
+            Debug.LogWarning("[NPCSpawner1] No NPC entries set!");
+            return;
         }
 
-        // pick spawn point
-        Transform spawn = overrideSpawnPoint != null
-            ? overrideSpawnPoint
-            : PickRandomSpawnPoint();
-
-        if (spawn == null)
+        foreach (var entry in npcEntries)
         {
-            Debug.LogWarning("[NPCSpawner1] No spawn points assigned.");
-            return null;
+            if (entry.npcPrefab == null || entry.route == null || entry.spawnPoint == null)
+            {
+                Debug.LogWarning("[NPCSpawner1] Missing prefab, route, or spawn point in entry.");
+                continue;
+            }
+
+            // Instantiate the NPC prefab
+            GameObject npc = Instantiate(
+                entry.npcPrefab,
+                entry.spawnPoint.position,
+                entry.spawnPoint.rotation
+            );
+
+            // Set order display point for the NPC's food (handled by NPCOrder1)
+            var order = npc.GetComponent<NPCOrder1>();
+            if (order != null)
+            {
+                order.SetOrderDisplayPoint(entry.tableDisplayPoint);
+            }
+
+            // Inject route and sit index into NPCMovement
+            var move = npc.GetComponent<NPCMovement>();
+            if (move != null)
+            {
+                Transform[] waypoints = entry.route.GetPoints();
+                if (waypoints != null && waypoints.Length > 0)
+                {
+                    move.InitializeRoute(waypoints, entry.waitIndex);
+                }
+                else
+                {
+                    Debug.LogWarning($"[NPCSpawner1] Route '{entry.route.name}' has no waypoints!");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"[NPCSpawner1] NPC prefab '{entry.npcPrefab.name}' is missing NPCMovement component!");
+            }
+
+            // After NPC is instantiated, set the player's transform for NPC's headLookAt
+            var headLookAt = npc.GetComponent<NPCHeadLookAt>();
+            if (headLookAt != null)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");  // Find the player in the scene
+                if (player != null)
+                {
+                    headLookAt.SetPlayerTransform(player.transform);  // Assign the player transform
+                    headLookAt.EnableFollowing(true);  // Start following when interacting
+                }
+            }
         }
-
-        // instantiate
-        GameObject npc = Instantiate(npcPrefab, spawn.position, spawn.rotation);
-
-        // choose route
-        WaypointSet route = overrideRoute != null ? overrideRoute : routeToUse;
-        if (route == null)
-        {
-            Debug.LogWarning("[NPCSpawner1] No routeToUse assigned. NPC will have no waypoints.");
-            return npc;
-        }
-
-        Transform[] points = route.GetPoints();
-        if (points == null || points.Length == 0)
-        {
-            Debug.LogWarning("[NPCSpawner1] routeToUse has no points.");
-            return npc;
-        }
-
-        // compute wait index
-        int waitIndex = overrideWaitIndex.HasValue ? overrideWaitIndex.Value :
-                        randomizeWaitIndex ? Random.Range(0, points.Length) :
-                        Mathf.Clamp(initialWaitIndex, 0, points.Length - 1);
-
-        // inject into NPCMovement
-        var movement = npc.GetComponent<NPCMovement>();
-        if (movement != null)
-        {
-            movement.approachWaitIndexSequentially = overrideApproachSequentially ?? approachWaitIndexSequentially;
-            movement.SetWaypoints(points, waitIndex);
-        }
-        else
-        {
-            Debug.LogWarning("[NPCSpawner1] Spawned NPC has no NPCMovement component.");
-        }
-
-        return npc;
-    }
-
-    private Transform PickRandomSpawnPoint()
-    {
-        if (spawnPoints == null || spawnPoints.Length == 0) return null;
-        return spawnPoints[Random.Range(0, spawnPoints.Length)];
     }
 }

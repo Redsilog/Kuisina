@@ -353,15 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
   requestedItems:
   - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
-  - {fileID: 2803156310337275381, guid: 94003b7125e74422ca360a45b57cf1ea, type: 3}
   orderDisplayPoint: {fileID: 0}
-  requestLines: []
-  thankLines: []
-  wrongItemLines: []
-  defaultRequestFormat: "I\u2019d like {0}, please."
-  defaultThankFormat: Thank you!
-  defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
-  timeoutLine: "I\u2019ll come back later."
 --- !u!114 &2878355038216414384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,13 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9107649ad30af194186a40b7eb5c8ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
-  waypoints: []
-  waitIndex: 2
-  approachWaitIndexSequentially: 1
-  arrivalEpsilon: 0.1
-  interactionTimeout: 10
   thankYouDelay: 5
-  currentState: 1
 --- !u!54 &313650437582184559
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -6,13 +6,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider))]
 public class NPCInteractable : MonoBehaviour
 {
-    [Header("Order (logic)")]
-    [SerializeField] private NPCOrder1 npcOrder;  // Reference to NPCOrder1
-
-    [Header("Head Look (optional)")]
+    [Header("References")]
+    [SerializeField] private NPCOrder1 npcOrder;
     [SerializeField] private NPCHeadLookAt headLookAt;
-
-    [Header("Movement Ref")]
     [SerializeField] private NPCMovement npcMovement;
 
     [Header("Chat Bubble")]
@@ -20,38 +16,37 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Transform chatBubbleSpawnPoint;
     [SerializeField] private float autoClearAfter = 2f;
 
-    [Header("Dialog (index MUST match NPCOrder1.requestedItems)")]
-    public List<string> requestLines = new List<string>();    // shown when order starts
-    public List<string> thankLines = new List<string>();    // shown when fulfilled
-    public List<string> wrongItemLines = new List<string>();  // shown when wrong item given
+    // Keep the dialogue lists HERE (NPCOrder1 no longer owns them)
+    [Header("Dialog Lines (must match NPCOrder1.requestedItems)")]
+    public List<string> requestLines = new List<string>();
+    public List<string> thankLines = new List<string>();
+    public List<string> wrongItemLines = new List<string>();
 
-    [Header("Fallback Lines")]
+    [Header("Fallback Texts")]
     [SerializeField] private string defaultRequestFormat = "I’d like {0}, please.";
     [SerializeField] private string defaultThankFormat = "Thank you!";
     [SerializeField] private string defaultWrongFormat = "That’s not what I ordered. I asked for {0}.";
     [SerializeField] private string timeoutLine = "I’ll come back later.";
 
-    [Header("Timing")]
+    [Header("Timers")]
     public float interactCooldown = 1.0f;
-    public float initialWaitTime = 10f; // SIT phase
-    public float extendedWaitTime = 10f; // ORDER phase after interact
-    public float thankYouDelay = 5f;  // dwell after successful delivery
+    public float initialWaitTime = 10f;
+    public float extendedWaitTime = 10f;
+    public float thankYouDelay = 5f;
 
-    // runtime
     private bool playerInRange;
     private Transform currentInteractor;
-    private float nextAllowedTime = 0f;
-
-    private bool waitingForInteraction = false;
-    private float interactionTimer = 0f;
+    private bool waitingForInteraction;
+    private float nextAllowedTime;
+    private float interactionTimer;
 
     void Awake()
     {
         var col = GetComponent<Collider>();
         col.isTrigger = true;
 
-        if (!npcMovement) npcMovement = GetComponent<NPCMovement>();
-        if (!npcOrder) npcOrder = GetComponent<NPCOrder1>();
+        npcOrder ??= GetComponent<NPCOrder1>();
+        npcMovement ??= GetComponent<NPCMovement>();
 
         if (npcOrder != null)
             npcOrder.OnOrderFulfilled += HandleOrderFulfilled;
@@ -63,13 +58,6 @@ public class NPCInteractable : MonoBehaviour
             npcOrder.OnOrderFulfilled -= HandleOrderFulfilled;
     }
 
-    // Called by NPCMovement when it reaches the sit/wait spot
-    public void StartWaitingForPlayer()
-    {
-        waitingForInteraction = true;
-        interactionTimer = initialWaitTime; // SIT phase (no order yet)
-    }
-
     void Update()
     {
         if (!waitingForInteraction) return;
@@ -78,112 +66,157 @@ public class NPCInteractable : MonoBehaviour
         if (interactionTimer <= 0f)
         {
             waitingForInteraction = false;
-
-            // timeout: leave
-            if (!string.IsNullOrEmpty(timeoutLine))
-                ShowChat(timeoutLine);
-
-            if (npcMovement) npcMovement.StartLeaving();
-            if (headLookAt) headLookAt.StopLooking();
+            HandleTimeout();
         }
     }
 
-    // Proximity
-    void OnTriggerEnter(Collider other)
+    // Called by NPCMovement when NPC reaches sit point
+    public void StartWaitingForPlayer()
     {
-        if (other.CompareTag("Player") || other.CompareTag("Player2"))
-        {
-            playerInRange = true;
-            currentInteractor = other.transform;
-            Debug.Log("[NPCInteractable] Player entered interaction range.");
-        }
+        waitingForInteraction = true;
+        interactionTimer = initialWaitTime;
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if ((other.CompareTag("Player") || other.CompareTag("Player2")) && other.transform == currentInteractor)
-        {
-            playerInRange = false;
-            currentInteractor = null;
-            Debug.Log("[NPCInteractable] Player exited interaction range.");
-        }
-    }
-
-    // INTERACT: start order if none, or try fulfill if active
     public void OnInteract(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed || !playerInRange || currentInteractor == null) return;
-        if (Time.time < nextAllowedTime) return;  // Cooldown check
+        if (Time.time < nextAllowedTime) return;
         nextAllowedTime = Time.time + interactCooldown;
 
-        Debug.Log("[NPCInteractable] Interact triggered by player.");
+        var playerInventory = currentInteractor.GetComponent<PlayerInventory>();
+        if (playerInventory == null) return;
 
-        var inv = currentInteractor.GetComponent<PlayerInventory>();
-        bool acted = npcOrder ? npcOrder.StartOrTryFulfill(inv) : false;
+        bool acted = npcOrder && npcOrder.StartOrTryFulfill(playerInventory);
 
         if (!acted)
         {
-            // Wrong item, show wrong item message
+            // Wrong item (active order, but mismatch)
             if (npcOrder && npcOrder.HasActiveOrder)
-                ShowChat(npcOrder.GetWrongLine());
+                ShowChat(BuildWrongLine());
             return;
         }
 
+        // If we now have an active order, show the request and enter ordering state
         if (npcOrder.HasActiveOrder)
         {
             waitingForInteraction = true;
             interactionTimer = extendedWaitTime;
 
-            // Show the request dialog for the item
-            ShowChat(npcOrder.GetRequestLine());
+            ShowChat(BuildRequestLine());
+            npcMovement?.BeginOrdering();
 
-            // Make the NPC look at the player
             if (headLookAt != null)
             {
                 headLookAt.SetPlayerTransform(currentInteractor);
                 headLookAt.LookAtTransform(currentInteractor, 1.6f);
-                headLookAt.EnableFollowing(true);
+                headLookAt.EnableFollowing(true);  // Start following
             }
         }
     }
 
-    // Fired by NPCOrder1 when the correct item was delivered
-    void HandleOrderFulfilled()
+
+    private void HandleOrderFulfilled()
     {
         waitingForInteraction = false;
-
-        ShowChat(npcOrder.GetThankLine());
-        //instantiate food here 
+        ShowChat(BuildThankLine());
         StartCoroutine(ThankAndLeave());
     }
 
-    IEnumerator ThankAndLeave()
+    private IEnumerator ThankAndLeave()
     {
         yield return new WaitForSeconds(thankYouDelay);
-        //destroy instantiated food
-        if (npcMovement) npcMovement.StartLeaving();
-        if (headLookAt) headLookAt.StopLooking();
+        npcMovement?.BeginThanking();
+        headLookAt?.StopLooking();
     }
 
-    // ------- Helpers -------
-    string FormatByIndex(List<string> list, int idx, string fallbackFmt, string itemName)
+    private void HandleTimeout()
+    {
+        ShowChat(timeoutLine);
+        npcMovement?.StartLeaving();
+        headLookAt?.StopLooking();
+    }
+
+    private bool IsPlayerTag(Collider other)
+    {
+        return other.CompareTag("Player") || other.CompareTag("Player2");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (IsPlayerTag(other))
+        {
+            playerInRange = true;
+            currentInteractor = other.transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (IsPlayerTag(other) && other.transform == currentInteractor)
+        {
+            playerInRange = false;
+            currentInteractor = null;
+
+            // Stop following the player when they exit range
+            if (headLookAt != null)
+                headLookAt.StopLooking();
+        }
+    }
+
+
+    // ---------- Dialogue builders (moved here from NPCOrder1) ----------
+
+    private string BuildRequestLine()
+    {
+        return FormatByIndex(
+            requestLines,
+            npcOrder?.CurrentRequestIndex ?? -1,
+            defaultRequestFormat,
+            npcOrder?.CurrentRequestName ?? ""
+        );
+    }
+
+    private string BuildWrongLine()
+    {
+        return FormatByIndex(
+            wrongItemLines,
+            npcOrder?.CurrentRequestIndex ?? -1,
+            defaultWrongFormat,
+            npcOrder?.CurrentRequestName ?? ""
+        );
+    }
+
+    private string BuildThankLine()
+    {
+        return FormatByIndex(
+            thankLines,
+            npcOrder?.CurrentRequestIndex ?? -1,
+            defaultThankFormat,
+            npcOrder?.CurrentRequestName ?? ""
+        );
+    }
+
+    private static string FormatByIndex(List<string> list, int idx, string fallbackFmt, string itemName)
     {
         string line = null;
-        if (list != null && idx >= 0 && idx < list.Count) line = list[idx];
-        if (string.IsNullOrWhiteSpace(line)) line = fallbackFmt;
+        if (list != null && idx >= 0 && idx < list.Count)
+            line = list[idx];
+        if (string.IsNullOrWhiteSpace(line))
+            line = fallbackFmt;
+
         return line.Contains("{0}") ? string.Format(line, itemName) : line;
     }
 
-    void ShowChat(string text)
-    {
-        Debug.Log($"[NPCInteractable] Showing chat bubble: {text}");
+    // ---------- Chat bubble helper ----------
 
+    private void ShowChat(string text)
+    {
         if (!chatBubblePrefab || !chatBubbleSpawnPoint || string.IsNullOrWhiteSpace(text)) return;
 
         ChatBubble.Create(
             chatBubbleSpawnPoint,
             Vector3.zero,
-            ChatBubble.IconType.Dish, // adjust icon type if you want
+            ChatBubble.IconType.Dish,
             text,
             chatBubblePrefab,
             autoClearAfter

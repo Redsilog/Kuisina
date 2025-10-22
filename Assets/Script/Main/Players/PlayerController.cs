@@ -11,11 +11,12 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private Vector2 moveInput;
-    private Stove currentStove;
 
+    private Stove currentStove;
     private ChoppingBoard currentBoard;
-    private PlayerInventory inventory;
     private NPCInteractable currentNPC;
+    private GameObject currentCookedFood;
+    private PlayerInventory inventory;
 
     private void Start()
     {
@@ -43,11 +44,7 @@ public class PlayerController : MonoBehaviour
         moveDir.Normalize();
 
         rb.linearVelocity = new Vector3(moveDir.x * moveSpeed, rb.linearVelocity.y, moveDir.z * moveSpeed);
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            Quaternion.LookRotation(moveDir),
-            10f * Time.fixedDeltaTime
-        );
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), 10f * Time.fixedDeltaTime);
 
         animator.SetBool("IsMoving", true);
     }
@@ -67,10 +64,38 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if (currentCookedFood != null && inventory != null)
+        {
+            GameObject heldCopy = Instantiate(
+                currentCookedFood, 
+                inventory.holdPoint.position, 
+                currentCookedFood.transform.rotation,
+                inventory.holdPoint
+            );
+
+            heldCopy.transform.localPosition = Vector3.zero;
+            heldCopy.transform.localRotation = Quaternion.identity;
+
+            var rb = heldCopy.GetComponent<Rigidbody>();
+            if (rb != null) Destroy(rb);
+
+            var col = heldCopy.GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+
+            inventory.PickUpDish(heldCopy);
+
+            Destroy(currentCookedFood);
+
+            currentCookedFood = null;
+            return;
+        }
+
+
         if (currentStove != null && inventory != null && inventory.HasIngredient())
         {
             currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
             inventory.ClearHeldItemDirect();
+            return;
         }
 
         if (currentBoard != null && inventory != null)
@@ -91,19 +116,18 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out ChoppingBoard board))
-        {
             currentBoard = board;
-            Debug.Log("Board Detected");
-        }
+
         else if (other.TryGetComponent(out NPCInteractable npc))
-        {
             currentNPC = npc;
-            Debug.Log("NPC Detected");
-        }
+
         else if (other.TryGetComponent(out Stove stove))
-        {
             currentStove = stove;
-            Debug.Log("Stove detected");
+
+        else if (other.CompareTag("CookedFood"))
+        {
+            currentCookedFood = other.gameObject;
+            Debug.Log("Cooked food in range");
         }
     }
 
@@ -117,5 +141,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.TryGetComponent(out Stove stove) && stove == currentStove)
             currentStove = null;
+
+        if (other.gameObject == currentCookedFood)
+            currentCookedFood = null;
     }
 }

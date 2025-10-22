@@ -12,10 +12,9 @@ public class NPCOrder1 : MonoBehaviour
     public Transform orderDisplayPoint;
 
     [Header("Dialog (index MUST match requestedItems)")]
-    public List<string> requestLines = new List<string>();    // shown when order starts
-    public List<string> thankLines = new List<string>();    // shown when fulfilled
-    public List<string> wrongItemLines = new List<string>();  // shown when wrong item given
-
+    public List<string> requestLines = new List<string>();
+    public List<string> thankLines = new List<string>(); 
+    public List<string> wrongItemLines = new List<string>();
     [Header("Fallback Lines")]
     [SerializeField] private string defaultRequestFormat = "I�d like {0}, please.";
     [SerializeField] private string defaultThankFormat = "Thank you!";

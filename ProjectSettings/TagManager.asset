@@ -15,6 +15,7 @@ TagManager:
   - Tocino
   - Dish
   - Player2
+  - CookedFood
   layers:
   - Default
   - TransparentFX

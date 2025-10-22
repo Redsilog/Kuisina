@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Stove currentStove;
 
-    private IngredientBox currentBox;
     private ChoppingBoard currentBoard;
     private PlayerInventory inventory;
     private NPCInteractable currentNPC;
@@ -60,8 +59,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed)
-            return;
+        if (!ctx.performed) return;
 
         if (currentNPC != null)
         {
@@ -81,7 +79,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-
         if (inventory != null && inventory.currentFridge != null)
         {
             if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
@@ -93,48 +90,32 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out IngredientBox box))
-        {
-            currentBox = box;
-            Debug.Log("Box Detected");
-        }
-        else if (other.TryGetComponent(out ChoppingBoard board))
+        if (other.TryGetComponent(out ChoppingBoard board))
         {
             currentBoard = board;
             Debug.Log("Board Detected");
         }
-
         else if (other.TryGetComponent(out NPCInteractable npc))
         {
             currentNPC = npc;
-            Debug.Log("nandito npc");
+            Debug.Log("NPC Detected");
         }
-
         else if (other.TryGetComponent(out Stove stove))
         {
             currentStove = stove;
             Debug.Log("Stove detected");
         }
-
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out IngredientBox box) && box == currentBox)
-            currentBox = null;
-
         if (other.TryGetComponent(out ChoppingBoard board) && board == currentBoard)
             currentBoard = null;
 
         if (other.TryGetComponent(out NPCInteractable npc) && npc == currentNPC)
-        {
             currentNPC = null;
-        }
 
         if (other.TryGetComponent(out Stove stove) && stove == currentStove)
-        {
             currentStove = null;
-        }
-
     }
 }

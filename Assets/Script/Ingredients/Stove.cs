@@ -14,19 +14,19 @@ public class Stove : MonoBehaviour
 {
     [Header("Cooking Settings")]
     public List<Recipe> recipes = new List<Recipe>();
-
     [Tooltip("Point where the cooked dish will appear.")]
     public Transform spawnPoint;
 
     private List<string> currentIngredients = new List<string>();
     private bool isCooking = false;
+    [HideInInspector] public GameObject cookedFood;
 
     public void PlaceIngredient(string ingredientName, GameObject ingredientObject)
     {
         if (isCooking) return;
 
         currentIngredients.Add(ingredientName);
-        Destroy(ingredientObject); // remove visual from player
+        Destroy(ingredientObject);
         Debug.Log("Placed ingredient: " + ingredientName);
 
         CheckCookingStart();
@@ -38,7 +38,6 @@ public class Stove : MonoBehaviour
 
         foreach (var recipe in recipes)
         {
-            // Check if all required ingredients are present
             bool allPresent = true;
             foreach (var req in recipe.requiredIngredients)
             {
@@ -63,13 +62,18 @@ public class Stove : MonoBehaviour
         isCooking = true;
         Debug.Log($"Cooking {recipe.dishName}...");
 
-        yield return new WaitForSeconds(5f); // you can customize per recipe if needed
+        yield return new WaitForSeconds(5f);
 
         Debug.Log($"{recipe.dishName} is ready!");
 
         if (recipe.cookedDishPrefab != null && spawnPoint != null)
         {
-            Instantiate(recipe.cookedDishPrefab, spawnPoint.position, spawnPoint.rotation);
+            cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, spawnPoint.rotation);
+
+            if (cookedFood.TryGetComponent<Collider>(out var col))
+                col.isTrigger = true;
+            if (cookedFood.TryGetComponent<Rigidbody>(out var rb))
+                rb.isKinematic = true;
         }
 
         currentIngredients.Clear();

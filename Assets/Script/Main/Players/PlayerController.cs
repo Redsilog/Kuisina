@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private Vector2 moveInput;
+    private Stove currentStove;
 
     private IngredientBox currentBox;
     private ChoppingBoard currentBoard;
@@ -68,10 +69,19 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if (currentStove != null && inventory != null && inventory.HasIngredient())
+        {
+            currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
+            inventory.ClearHeldItemDirect();
+        }
+
         if (currentBoard != null && inventory != null)
         {
             currentBoard.HandlePlayerInteract(inventory);
+            return;
         }
+
+
         if (inventory != null && inventory.currentFridge != null)
         {
             if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
@@ -99,6 +109,13 @@ public class PlayerController : MonoBehaviour
             currentNPC = npc;
             Debug.Log("nandito npc");
         }
+
+        else if (other.TryGetComponent(out Stove stove))
+        {
+            currentStove = stove;
+            Debug.Log("Stove detected");
+        }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -113,5 +130,11 @@ public class PlayerController : MonoBehaviour
         {
             currentNPC = null;
         }
+
+        if (other.TryGetComponent(out Stove stove) && stove == currentStove)
+        {
+            currentStove = null;
+        }
+
     }
 }

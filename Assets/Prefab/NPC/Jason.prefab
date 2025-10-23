@@ -203,7 +203,6 @@ GameObject:
   - component: {fileID: 3362230179953171851}
   - component: {fileID: 3877397564574911276}
   - component: {fileID: 7628764393964339779}
-  - component: {fileID: 7165187411326931142}
   - component: {fileID: 4678029363476456500}
   - component: {fileID: 2878355038216414384}
   - component: {fileID: 3150818223207602429}
@@ -323,22 +322,6 @@ MonoBehaviour:
   - {fileID: 3429888292577766223}
   - {fileID: 3928466635250722235}
   - {fileID: 3178555970716007695}
---- !u!114 &7165187411326931142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918290237203441870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2e3a3f0bf5e5b48b17ebace6486761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCHeadLookAt
-  rig: {fileID: 1333936978519400139}
-  headLookAtTarget: {fileID: 0}
-  lerpSpeed: 2
-  followDistance: 5
 --- !u!114 &4678029363476456500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
   npcOrder: {fileID: 4678029363476456500}
-  headLookAt: {fileID: 7165187411326931142}
+  headLookAt: {fileID: 0}
   npcMovement: {fileID: 3150818223207602429}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 1639728488320555459}

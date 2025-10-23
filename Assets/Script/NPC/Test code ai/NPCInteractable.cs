@@ -8,7 +8,6 @@ public class NPCInteractable : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private NPCOrder1 npcOrder;
-    [SerializeField] private NPCHeadLookAt headLookAt;
     [SerializeField] private NPCMovement npcMovement;
 
     [Header("Chat Bubble")]
@@ -104,16 +103,8 @@ public class NPCInteractable : MonoBehaviour
 
             ShowChat(BuildRequestLine());
             npcMovement?.BeginOrdering();
-
-            if (headLookAt != null)
-            {
-                headLookAt.SetPlayerTransform(currentInteractor);
-                headLookAt.LookAtTransform(currentInteractor, 1.6f);
-                headLookAt.EnableFollowing(true);  // Start following
-            }
         }
     }
-
 
     private void HandleOrderFulfilled()
     {
@@ -126,14 +117,12 @@ public class NPCInteractable : MonoBehaviour
     {
         yield return new WaitForSeconds(thankYouDelay);
         npcMovement?.BeginThanking();
-        headLookAt?.StopLooking();
     }
 
     private void HandleTimeout()
     {
         ShowChat(timeoutLine);
         npcMovement?.StartLeaving();
-        headLookAt?.StopLooking();
     }
 
     private bool IsPlayerTag(Collider other)
@@ -156,15 +145,10 @@ public class NPCInteractable : MonoBehaviour
         {
             playerInRange = false;
             currentInteractor = null;
-
-            // Stop following the player when they exit range
-            if (headLookAt != null)
-                headLookAt.StopLooking();
         }
     }
 
-
-    // ---------- Dialogue builders (moved here from NPCOrder1) ----------
+    // ---------- Dialogue builders ----------
 
     private string BuildRequestLine()
     {

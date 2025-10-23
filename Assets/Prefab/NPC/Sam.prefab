@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2405209679301228629}
   - component: {fileID: 8468420713983291714}
+  - component: {fileID: 1782132161986773336}
   m_Layer: 0
   m_Name: CCM-Barbarian-Male-01
   m_TagString: Untagged
@@ -52,6 +53,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,6 +76,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -110,6 +114,29 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.09580469, y: -0.000000029802322, z: 0.2701618}
     m_Extent: {x: 0.5166664, y: 0.72766566, z: 0.8726186}
   m_DirtyAABB: 0
+--- !u!136 &1782132161986773336
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33383820449311022}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.33
+  m_Height: 2.0455031
+  m_Direction: 1
+  m_Center: {x: 0.00000015894571, y: 0.8565992, z: -0.02}
 --- !u!1 &106042774509276540
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,9 +346,10 @@ GameObject:
   - component: {fileID: 2598127710002334890}
   - component: {fileID: 2551529802237786143}
   - component: {fileID: 3242440207933851625}
-  - component: {fileID: -2472470431397989891}
-  - component: {fileID: 616656150912416265}
-  - component: {fileID: -8768187109042864487}
+  - component: {fileID: 2684202832195889416}
+  - component: {fileID: 8116053454523537836}
+  - component: {fileID: 4565515312486299703}
+  - component: {fileID: 3525728755951990675}
   m_Layer: 0
   m_Name: Sam
   m_TagString: Untagged
@@ -378,7 +406,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -435,12 +463,33 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &-2472470431397989891
+--- !u!65 &2684202832195889416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926056749503639539}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.7147322, z: 1}
+  m_Center: {x: -0, y: 0.8757695, z: -0}
+--- !u!114 &8116053454523537836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -449,18 +498,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1926056749503639539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 439073dde529a6b4080db84dbdd5b04f, type: 3}
+  m_Script: {fileID: 11500000, guid: c5aaae571475bcd428016c2e8ef4568a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  orderStopIndex: 0
-  loop: 0
-  maxWaitForOrder: 20
-  postOrderDelay: 5
-  onPatrolComplete:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &616656150912416265
+  m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
+  npcOrder: {fileID: 4565515312486299703}
+  npcMovement: {fileID: 3525728755951990675}
+  chatBubblePrefab: {fileID: 0}
+  chatBubbleSpawnPoint: {fileID: 0}
+  autoClearAfter: 2
+  requestLines: []
+  thankLines: []
+  wrongItemLines: []
+  defaultRequestFormat: "I\u2019d like {0}, please."
+  defaultThankFormat: Thank you!
+  defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
+  timeoutLine: "I\u2019ll come back later."
+  interactCooldown: 1
+  initialWaitTime: 10
+  extendedWaitTime: 10
+  thankYouDelay: 5
+--- !u!114 &4565515312486299703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -469,25 +526,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1926056749503639539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3b039cc9b18c084f977e39c42237370, type: 3}
+  m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  orderPrefabs:
-  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
-  - {fileID: 8662326802668621229, guid: f8e066400b3eb400f99f53469210150e, type: 3}
-  orderNames:
-  - Cooked Classic Adobo
-  - Cooked Adobong Puti
-  interactAction: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
+  requestedItems: []
   orderDisplayPoint: {fileID: 0}
-  onOrderRequested:
-    m_PersistentCalls:
-      m_Calls: []
-  onOrderComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  customerOrder1: {fileID: 0}
---- !u!114 &-8768187109042864487
+--- !u!114 &3525728755951990675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -496,11 +540,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1926056749503639539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0e088d32ab65e045ac2945b3b1213f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9107649ad30af194186a40b7eb5c8ca3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  storagePoint: {fileID: 0}
-  storedItemNames: []
+  m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
+  thankYouDelay: 5
 --- !u!1 &2467715066881241450
 GameObject:
   m_ObjectHideFlags: 0

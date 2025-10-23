@@ -76,10 +76,10 @@ GameObject:
   - component: {fileID: 7249982585548656274}
   - component: {fileID: 3221395050917514673}
   - component: {fileID: 2878495911978924330}
-  - component: {fileID: -1426784956190541565}
-  - component: {fileID: 5495134854393226549}
-  - component: {fileID: 1595381548937302252}
-  - component: {fileID: 3792924749609516119}
+  - component: {fileID: 1847694669510729522}
+  - component: {fileID: 7385037669786936995}
+  - component: {fileID: 1033130887509553941}
+  - component: {fileID: 9212604538420879108}
   m_Layer: 0
   m_Name: Jacob
   m_TagString: Untagged
@@ -136,7 +136,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -170,13 +170,13 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &-1426784956190541565
-CapsuleCollider:
+--- !u!65 &1847694669510729522
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -190,15 +190,13 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5495134854393226549
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.7147322, z: 1}
+  m_Center: {x: -0, y: 0.8757695, z: -0}
+--- !u!114 &7385037669786936995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,25 +205,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 469679333988774096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3b039cc9b18c084f977e39c42237370, type: 3}
+  m_Script: {fileID: 11500000, guid: c5aaae571475bcd428016c2e8ef4568a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  orderPrefabs:
-  - {fileID: 8662326802668621229, guid: f8e066400b3eb400f99f53469210150e, type: 3}
-  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
-  orderNames:
-  - Cooked Classic Adobo
-  - Cooked Adobong Puti
-  interactAction: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
+  npcOrder: {fileID: 1033130887509553941}
+  npcMovement: {fileID: 9212604538420879108}
+  chatBubblePrefab: {fileID: 0}
+  chatBubbleSpawnPoint: {fileID: 0}
+  autoClearAfter: 2
+  requestLines: []
+  thankLines: []
+  wrongItemLines: []
+  defaultRequestFormat: "I\u2019d like {0}, please."
+  defaultThankFormat: Thank you!
+  defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
+  timeoutLine: "I\u2019ll come back later."
+  interactCooldown: 1
+  initialWaitTime: 10
+  extendedWaitTime: 10
+  thankYouDelay: 5
+--- !u!114 &1033130887509553941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469679333988774096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
+  requestedItems: []
   orderDisplayPoint: {fileID: 0}
-  onOrderRequested:
-    m_PersistentCalls:
-      m_Calls: []
-  onOrderComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  customerOrder1: {fileID: 0}
---- !u!114 &1595381548937302252
+--- !u!114 &9212604538420879108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,31 +247,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 469679333988774096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0e088d32ab65e045ac2945b3b1213f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9107649ad30af194186a40b7eb5c8ca3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  storagePoint: {fileID: 0}
-  storedItemNames: []
---- !u!114 &3792924749609516119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469679333988774096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 439073dde529a6b4080db84dbdd5b04f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  orderStopIndex: 0
-  loop: 0
-  maxWaitForOrder: 20
-  postOrderDelay: 5
-  onPatrolComplete:
-    m_PersistentCalls:
-      m_Calls: []
+  m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
+  thankYouDelay: 5
 --- !u!1 &553496376509050822
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,6 +835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 747229046365338302}
   - component: {fileID: 685970862572231368}
+  - component: {fileID: 1334235994615623533}
   m_Layer: 0
   m_Name: CCM-Astronaut-01-Orange
   m_TagString: Untagged
@@ -885,6 +878,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -906,6 +901,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -943,6 +939,29 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.088120565, y: -0.000000029802322, z: 0.26200736}
     m_Extent: {x: 0.51278317, y: 0.74980724, z: 0.86694324}
   m_DirtyAABB: 0
+--- !u!136 &1334235994615623533
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7856183925753550571}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.33
+  m_Height: 2.0455031
+  m_Direction: 1
+  m_Center: {x: 0.00000015894571, y: 0.8565992, z: -0.02}
 --- !u!1 &8055231926045351620
 GameObject:
   m_ObjectHideFlags: 0

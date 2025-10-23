@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCSpawner1 : MonoBehaviour
@@ -5,101 +6,100 @@ public class NPCSpawner1 : MonoBehaviour
     [System.Serializable]
     public class NPCSpawnData
     {
-        [Header("NPC Setup")]
-        [Tooltip("The NPC prefab to spawn.")]
         public GameObject npcPrefab;
-
-        [Tooltip("The route this NPC will follow (WaypointSet with child waypoints).")]
         public WaypointSet route;
-
-        [Tooltip("Spawn point where this NPC will appear.")]
         public Transform spawnPoint;
-
-        [Tooltip("Which waypoint index the NPC will sit/wait at.")]
         [Range(0, 20)] public int waitIndex = 0;
-
-        [Tooltip("Where this NPC's food will appear (table Display transform).")]
-        public Transform tableDisplayPoint;
     }
 
     [Header("Spawner Settings")]
-    [Tooltip("List of all NPCs to spawn with their own prefab, route, and spawn point.")]
     public NPCSpawnData[] npcEntries;
-
-    [Tooltip("If true, NPCs will spawn automatically at Start.")]
     public bool spawnOnStart = true;
+
+    [Tooltip("If true, after the last NPC on a route finishes, it loops back to the first prefab on that route.")]
+    public bool loopPerRoute = true;
+
+    // Per-route state
+    private Dictionary<WaypointSet, List<NPCSpawnData>> _routeLists = new();
+    private Dictionary<WaypointSet, int> _nextIndex = new();    // next prefab to spawn for that route
+    private HashSet<WaypointSet> _routeHasActiveNPC = new();    // enforce 1 active per route
 
     void Start()
     {
+        BuildRouteGroups();
+
         if (spawnOnStart)
         {
-            SpawnAllNPCs();
+            // Spawn the first NPC for each route only
+            foreach (var route in _routeLists.Keys)
+                TrySpawnNextForRoute(route);
         }
     }
 
-    /// <summary>
-    /// Spawns all NPCs defined in the npcEntries list.
-    /// </summary>
-    public void SpawnAllNPCs()
+    private void BuildRouteGroups()
     {
-        if (npcEntries == null || npcEntries.Length == 0)
-        {
-            Debug.LogWarning("[NPCSpawner1] No NPC entries set!");
-            return;
-        }
+        _routeLists.Clear();
+        _nextIndex.Clear();
+        _routeHasActiveNPC.Clear();
 
         foreach (var entry in npcEntries)
         {
-            if (entry.npcPrefab == null || entry.route == null || entry.spawnPoint == null)
-            {
-                Debug.LogWarning("[NPCSpawner1] Missing prefab, route, or spawn point in entry.");
+            if (entry == null || entry.npcPrefab == null || entry.route == null || entry.spawnPoint == null)
                 continue;
-            }
 
-            // Instantiate the NPC prefab
-            GameObject npc = Instantiate(
-                entry.npcPrefab,
-                entry.spawnPoint.position,
-                entry.spawnPoint.rotation
-            );
+            if (!_routeLists.ContainsKey(entry.route))
+                _routeLists[entry.route] = new List<NPCSpawnData>();
 
-            // Set order display point for the NPC's food (handled by NPCOrder1)
-            var order = npc.GetComponent<NPCOrder1>();
-            if (order != null)
-            {
-                order.SetOrderDisplayPoint(entry.tableDisplayPoint);
-            }
-
-            // Inject route and sit index into NPCMovement
-            var move = npc.GetComponent<NPCMovement>();
-            if (move != null)
-            {
-                Transform[] waypoints = entry.route.GetPoints();
-                if (waypoints != null && waypoints.Length > 0)
-                {
-                    move.InitializeRoute(waypoints, entry.waitIndex);
-                }
-                else
-                {
-                    Debug.LogWarning($"[NPCSpawner1] Route '{entry.route.name}' has no waypoints!");
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"[NPCSpawner1] NPC prefab '{entry.npcPrefab.name}' is missing NPCMovement component!");
-            }
-
-            // After NPC is instantiated, set the player's transform for NPC's headLookAt
-            var headLookAt = npc.GetComponent<NPCHeadLookAt>();
-            if (headLookAt != null)
-            {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");  // Find the player in the scene
-                if (player != null)
-                {
-                    headLookAt.SetPlayerTransform(player.transform);  // Assign the player transform
-                    headLookAt.EnableFollowing(true);  // Start following when interacting
-                }
-            }
+            _routeLists[entry.route].Add(entry);
         }
+
+        // Preserve inspector order per route
+        foreach (var kv in _routeLists)
+            _nextIndex[kv.Key] = 0;
+    }
+
+    private void TrySpawnNextForRoute(WaypointSet route)
+    {
+        if (route == null || !_routeLists.ContainsKey(route)) return;
+
+        // Only one active NPC per route
+        if (_routeHasActiveNPC.Contains(route)) return;
+
+        var list = _routeLists[route];
+        if (list == null || list.Count == 0) return;
+
+        int idx = _nextIndex[route];
+
+        // If not looping and we've reached the end, stop spawning
+        if (!loopPerRoute && idx >= list.Count) return;
+
+        // Wrap index when looping
+        if (loopPerRoute && idx >= list.Count) idx = 0;
+
+        var entry = list[idx];
+
+        // Advance pointer for next time
+        _nextIndex[route] = idx + 1;
+
+        // Mark route busy
+        _routeHasActiveNPC.Add(route);
+
+        // Spawn
+        GameObject npcObj = Instantiate(entry.npcPrefab, entry.spawnPoint.position, entry.spawnPoint.rotation);
+        var move = npcObj.GetComponent<NPCMovement>();
+        if (move != null)
+            move.InitializeRoute(entry.route.waypoints, entry.waitIndex, this, entry.route);
+        else
+            Debug.LogWarning($"[NPCSpawner1] Spawned prefab {entry.npcPrefab.name} has no NPCMovement.");
+    }
+
+    // Called by NPCMovement when an NPC finishes its route and despawns
+    public void OnNPCCompletedRoute(NPCMovement npc, WaypointSet route)
+    {
+        if (route != null && _routeHasActiveNPC.Contains(route))
+            _routeHasActiveNPC.Remove(route);
+
+        // Spawn the next NPC for that same route
+        TrySpawnNextForRoute(route);
     }
 }

@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Vector2 moveInput;
 
+    // 🔒 Interaction lock: blocks movement & walk animation during interactions
+    private bool isInteracting = false;
+
     private Stove currentStove;
     private ChoppingBoard currentBoard;
     private NPCInteractable currentNPC;
@@ -30,6 +33,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 🔒 While interacting, stop motion & keep idle animation
+        if (isInteracting)
+        {
+            rb.linearVelocity = Vector3.zero;
+            animator.SetBool("IsMoving", false);
+            return;
+        }
+
         Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
 
         if (inputDir.sqrMagnitude < 0.01f)
@@ -57,18 +68,25 @@ public class PlayerController : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        if (inventory == null) return;
 
+        // Talk to NPCs
         if (currentNPC != null)
         {
+            LockInteraction();
             currentNPC.OnInteract(ctx);
+            UnlockInteractionDelayed(0.5f);
             return;
         }
 
-        if (currentCookedFood != null && inventory != null)
+        // Pick up cooked food
+        if (currentCookedFood != null)
         {
+            LockInteraction();
+
             GameObject heldCopy = Instantiate(
-                currentCookedFood, 
-                inventory.holdPoint.position, 
+                currentCookedFood,
+                inventory.holdPoint.position,
                 currentCookedFood.transform.rotation,
                 inventory.holdPoint
             );
@@ -76,40 +94,47 @@ public class PlayerController : MonoBehaviour
             heldCopy.transform.localPosition = Vector3.zero;
             heldCopy.transform.localRotation = Quaternion.identity;
 
-            var rb = heldCopy.GetComponent<Rigidbody>();
-            if (rb != null) Destroy(rb);
-
-            var col = heldCopy.GetComponent<Collider>();
-            if (col != null) col.enabled = false;
+            if (heldCopy.TryGetComponent<Rigidbody>(out var r)) Destroy(r);
+            if (heldCopy.TryGetComponent<Collider>(out var c)) c.enabled = false;
 
             inventory.PickUpDish(heldCopy);
-
             Destroy(currentCookedFood);
-
             currentCookedFood = null;
+
+            UnlockInteractionDelayed(0.3f);
             return;
         }
 
-
-        if (currentStove != null && inventory != null && inventory.HasIngredient())
+        // Place ingredient on stove
+        if (currentStove != null && inventory.HasIngredient())
         {
+            LockInteraction();
+
             currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
             inventory.ClearHeldItemDirect();
+
+            UnlockInteractionDelayed(0.3f);
             return;
         }
 
-        if (currentBoard != null && inventory != null)
+        // Use chopping board
+        if (currentBoard != null)
         {
+            LockInteraction();
             currentBoard.HandlePlayerInteract(inventory);
+
+            // If chopping begins, ChoppingBoard will keep us locked (SetInteracting(true)).
+            // If no long interaction started (e.g., quick pickup/place), auto-unlock shortly.
+            UnlockInteractionDelayed(0.1f);
             return;
         }
 
-        if (inventory != null && inventory.currentFridge != null)
+        // Open/close fridge (FridgeUI already disables PlayerController while open)
+        if (inventory.currentFridge != null)
         {
-            if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
-                inventory.currentFridge.TryOpenOrCloseFridge(inventory);
-            else
-                Debug.Log("UI already open — ignoring Interact input.");
+            LockInteraction();
+            inventory.currentFridge.TryOpenOrCloseFridge(inventory);
+            UnlockInteractionDelayed(0.3f);
         }
     }
 
@@ -117,13 +142,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.TryGetComponent(out ChoppingBoard board))
             currentBoard = board;
-
         else if (other.TryGetComponent(out NPCInteractable npc))
             currentNPC = npc;
-
         else if (other.TryGetComponent(out Stove stove))
             currentStove = stove;
-
         else if (other.CompareTag("CookedFood"))
         {
             currentCookedFood = other.gameObject;
@@ -144,5 +166,26 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject == currentCookedFood)
             currentCookedFood = null;
+    }
+
+    // 🔒 Public helpers for other systems (e.g., ChoppingBoard) to control the lock
+    public void SetInteracting(bool value)
+    {
+        isInteracting = value;
+        if (value)
+        {
+            // ensure idle while interacting
+            if (rb != null) rb.linearVelocity = Vector3.zero;
+            if (animator != null) animator.SetBool("IsMoving", false);
+        }
+    }
+
+    public void LockInteraction() => SetInteracting(true);
+    public void UnlockInteraction() => SetInteracting(false);
+
+    private void UnlockInteractionDelayed(float delay)
+    {
+        CancelInvoke(nameof(UnlockInteraction));
+        Invoke(nameof(UnlockInteraction), delay);
     }
 }

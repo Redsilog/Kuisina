@@ -57,7 +57,7 @@ public class ChoppingBoard : MonoBehaviour
     {
         if (player == null) return;
 
-        // 1) Place raw ingredient if hands are holding one
+        // 1) Place raw ingredient if hands are holding one  auto begin chopping
         if (stagedRawInstance == null && !hasChoppedItem && player.IsHoldingItem())
         {
             string name = ResolveHeldName(player);
@@ -65,30 +65,29 @@ public class ChoppingBoard : MonoBehaviour
             if (map != null)
             {
                 PlaceFromHand(map, player);
-                
-                BeginChop(player);
+                BeginChop(player); // will SetInteracting(true)
                 return;
             }
         }
 
-        // 2) Pick up chopped result if board has one
+        // 2) Pick up chopped result
         if (hasChoppedItem && !player.IsHoldingItem() && choppedSpawnedObject != null)
         {
             PickupChoppedResult(player);
             return;
         }
 
-        // 3) Pick up staged raw if hands empty
+        // 3) Pick up staged raw (if hands empty)
         if (stagedRawInstance != null && !player.IsHoldingItem())
         {
             PickupStagedRaw(player);
             return;
         }
 
-        // 4) Begin chopping manually if raw is staged and not yet chopping
+        // 4) Begin chopping manually if raw is staged
         if (stagedRawInstance != null && !isChopping)
         {
-            BeginChop(player);
+            BeginChop(player); // will SetInteracting(true)
             return;
         }
     }
@@ -138,8 +137,12 @@ public class ChoppingBoard : MonoBehaviour
         if (stagedRawInstance == null) return;
 
         isChopping = true;
-        Animator anim = player.animator;
 
+        //  Tell controller to lock movement (stay idle even if key held)
+        if (player.TryGetComponent<PlayerController>(out var controller))
+            controller.SetInteracting(true);
+
+        Animator anim = player.animator;
         if (anim != null)
             anim.SetBool("IsChopping", true);
 
@@ -159,7 +162,6 @@ public class ChoppingBoard : MonoBehaviour
             FinishChop(player);
     }
 
-
     // Called when player presses and holds interact
     public void StartChop(PlayerInventory player)
     {
@@ -167,18 +169,26 @@ public class ChoppingBoard : MonoBehaviour
         if (isChopping) return; // already chopping
 
         isChopping = true;
+
+        if (player.TryGetComponent<PlayerController>(out var controller))
+            controller.SetInteracting(true);
+
         playerAnimator = player.animator;
         if (playerAnimator != null) playerAnimator.SetBool("IsChopping", true);
 
         StartCoroutine(ChopWhileHeld(player));
     }
 
-    // Called when player releases interact
+    // Called when player releases interact OR leaves the trigger
     public void PauseChop()
     {
         if (!isChopping) return;
         isChopping = false;
+
         if (playerAnimator != null) playerAnimator.SetBool("IsChopping", false);
+
+        if (currentPlayer != null && currentPlayer.TryGetComponent<PlayerController>(out var controller))
+            controller.SetInteracting(false);
     }
 
     private void FinishChop(PlayerInventory player)
@@ -210,8 +220,11 @@ public class ChoppingBoard : MonoBehaviour
 
         if (player != null && player.animator != null)
             player.animator.SetBool("IsChopping", false);
-    }
 
+        //  Allow movement again after finishing
+        if (player != null && player.TryGetComponent<PlayerController>(out var controller))
+            controller.SetInteracting(false);
+    }
 
     private ChopMapping GetMapping(string ingredientName)
     {

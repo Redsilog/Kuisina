@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +7,15 @@ public class NPCSpawner1 : MonoBehaviour
     [System.Serializable]
     public class NPCSpawnData
     {
+        [Header("NPC Setup")]
         public GameObject npcPrefab;
         public WaypointSet route;
         public Transform spawnPoint;
         [Range(0, 20)] public int waitIndex = 0;
+
+        [Header("Spawn Timing")]
+        [Tooltip("Delay before this NPC prefab spawns (in seconds).")]
+        public float spawnDelay = 0f;  //  you can manually set this in the Inspector
     }
 
     [Header("Spawner Settings")]
@@ -19,10 +25,10 @@ public class NPCSpawner1 : MonoBehaviour
     [Tooltip("If true, after the last NPC on a route finishes, it loops back to the first prefab on that route.")]
     public bool loopPerRoute = true;
 
-    // Per-route state
+    // Route tracking
     private Dictionary<WaypointSet, List<NPCSpawnData>> _routeLists = new();
-    private Dictionary<WaypointSet, int> _nextIndex = new();    // next prefab to spawn for that route
-    private HashSet<WaypointSet> _routeHasActiveNPC = new();    // enforce 1 active per route
+    private Dictionary<WaypointSet, int> _nextIndex = new();
+    private HashSet<WaypointSet> _routeHasActiveNPC = new();
 
     void Start()
     {
@@ -30,9 +36,9 @@ public class NPCSpawner1 : MonoBehaviour
 
         if (spawnOnStart)
         {
-            // Spawn the first NPC for each route only
+            // Spawn first NPC per route, each with their own delay
             foreach (var route in _routeLists.Keys)
-                TrySpawnNextForRoute(route);
+                StartCoroutine(SpawnWithDelay(route));
         }
     }
 
@@ -53,16 +59,36 @@ public class NPCSpawner1 : MonoBehaviour
             _routeLists[entry.route].Add(entry);
         }
 
-        // Preserve inspector order per route
         foreach (var kv in _routeLists)
             _nextIndex[kv.Key] = 0;
+    }
+
+    // Handles waiting for that NPC's spawn delay
+    private IEnumerator SpawnWithDelay(WaypointSet route)
+    {
+        if (!_routeLists.ContainsKey(route)) yield break;
+
+        var list = _routeLists[route];
+        if (list == null || list.Count == 0) yield break;
+
+        // Pick the next NPC in order
+        int idx = _nextIndex[route];
+        if (!loopPerRoute && idx >= list.Count) yield break;
+        if (loopPerRoute && idx >= list.Count) idx = 0;
+
+        var entry = list[idx];
+
+        // Wait for its custom delay
+        if (entry.spawnDelay > 0)
+            yield return new WaitForSeconds(entry.spawnDelay);
+
+        // Then spawn
+        TrySpawnNextForRoute(route);
     }
 
     private void TrySpawnNextForRoute(WaypointSet route)
     {
         if (route == null || !_routeLists.ContainsKey(route)) return;
-
-        // Only one active NPC per route
         if (_routeHasActiveNPC.Contains(route)) return;
 
         var list = _routeLists[route];
@@ -70,21 +96,14 @@ public class NPCSpawner1 : MonoBehaviour
 
         int idx = _nextIndex[route];
 
-        // If not looping and we've reached the end, stop spawning
+        // Stop if not looping and finished all NPCs
         if (!loopPerRoute && idx >= list.Count) return;
-
-        // Wrap index when looping
         if (loopPerRoute && idx >= list.Count) idx = 0;
 
         var entry = list[idx];
-
-        // Advance pointer for next time
         _nextIndex[route] = idx + 1;
-
-        // Mark route busy
         _routeHasActiveNPC.Add(route);
 
-        // Spawn
         GameObject npcObj = Instantiate(entry.npcPrefab, entry.spawnPoint.position, entry.spawnPoint.rotation);
         var move = npcObj.GetComponent<NPCMovement>();
         if (move != null)
@@ -93,13 +112,13 @@ public class NPCSpawner1 : MonoBehaviour
             Debug.LogWarning($"[NPCSpawner1] Spawned prefab {entry.npcPrefab.name} has no NPCMovement.");
     }
 
-    // Called by NPCMovement when an NPC finishes its route and despawns
+    // Called when NPC finishes route
     public void OnNPCCompletedRoute(NPCMovement npc, WaypointSet route)
     {
         if (route != null && _routeHasActiveNPC.Contains(route))
             _routeHasActiveNPC.Remove(route);
 
-        // Spawn the next NPC for that same route
-        TrySpawnNextForRoute(route);
+        //Spawn the next NPC with its individual delay
+        StartCoroutine(SpawnWithDelay(route));
     }
 }

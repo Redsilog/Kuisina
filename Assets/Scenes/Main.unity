@@ -12038,8 +12038,39 @@ MonoBehaviour:
     - chili
     - ginger
     cookedDishPrefab: {fileID: 1671006580}
-  - dishName: 
-    requiredIngredients: []
+  - dishName: Pork Sisig
+    requiredIngredients:
+    - pork
+    - chopped onion
+    - calamansi
+    - chili
+    cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  - dishName: Bangus Sisig
+    requiredIngredients:
+    - bangus
+    - chopped onion
+    - calamansi
+    - chili
+    cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  - dishName: Squid Sisig
+    requiredIngredients:
+    - Squid
+    - chopped onion
+    - calamansi
+    - chili
+    cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  - dishName: Laing
+    requiredIngredients:
+    - Dried taro leaves
+    - coconut milk
+    - bagoong
+    - chili
+    cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  - dishName: Pinangat na Gabi
+    requiredIngredients:
+    - shrimp
+    - bagoong
+    - coconut milk
     cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   spawnPoint: {fileID: 1671006584}
   cookedFood: {fileID: 0}
@@ -33763,6 +33794,21 @@ MonoBehaviour:
     - peanut sauce
     - eggplant
     - pechay
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Traditional Kare-kare
+    requiredIngredients:
+    - crab
+    - prawns
+    - squid
+    - peanut sauce
+    - pechay
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Vegetable Kare-kare
+    requiredIngredients:
+    - eggplant
+    - banana heart
+    - string beans
+    - peanut sauce
     cookedDishPrefab: {fileID: 1674021882}
   spawnPoint: {fileID: 1674021886}
   cookedFood: {fileID: 0}

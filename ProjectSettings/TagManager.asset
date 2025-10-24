@@ -16,6 +16,7 @@ TagManager:
   - Dish
   - Player2
   - CookedFood
+  - NPCTimerCanvas
   layers:
   - Default
   - TransparentFX

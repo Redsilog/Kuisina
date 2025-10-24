@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Collider))]
@@ -39,6 +40,10 @@ public class NPCInteractable : MonoBehaviour
     private float nextAllowedTime;
     private float interactionTimer;
 
+    [SerializeField] private GameObject timerUIPrefab;
+    private NPCTimerUI activeTimerUI;
+    [SerializeField] private Canvas npcTimerCanvas;
+
     void Awake()
     {
         var col = GetComponent<Collider>();
@@ -49,6 +54,8 @@ public class NPCInteractable : MonoBehaviour
 
         if (npcOrder != null)
             npcOrder.OnOrderFulfilled += HandleOrderFulfilled;
+
+        npcTimerCanvas = GameObject.FindWithTag("NPCTimerCanvas").GetComponent<Canvas>();
     }
 
     void OnDestroy()
@@ -74,6 +81,7 @@ public class NPCInteractable : MonoBehaviour
     {
         waitingForInteraction = true;
         interactionTimer = initialWaitTime;
+        SpawnTimerUI();
     }
 
     public void OnInteract(InputAction.CallbackContext ctx)
@@ -111,6 +119,7 @@ public class NPCInteractable : MonoBehaviour
         waitingForInteraction = false;
         ShowChat(BuildThankLine());
         StartCoroutine(ThankAndLeave());
+        RemoveTimerUI();
     }
 
     private IEnumerator ThankAndLeave()
@@ -123,6 +132,7 @@ public class NPCInteractable : MonoBehaviour
     {
         ShowChat(timeoutLine);
         npcMovement?.StartLeaving();
+        RemoveTimerUI();
     }
 
     private bool IsPlayerTag(Collider other)
@@ -189,6 +199,36 @@ public class NPCInteractable : MonoBehaviour
             line = fallbackFmt;
 
         return line.Contains("{0}") ? string.Format(line, itemName) : line;
+    }
+    // timer
+    public float GetRemainingTime()
+    {
+        return interactionTimer;
+    }
+
+    public float GetMaxTime()
+    {
+        return waitingForInteraction ? extendedWaitTime : initialWaitTime;
+    }
+
+    private void SpawnTimerUI()
+    {
+        if (activeTimerUI != null) return;
+
+        Debug.Log("Spawning timer!");
+
+        GameObject obj = Instantiate(timerUIPrefab, npcTimerCanvas.transform);
+        activeTimerUI = obj.GetComponent<NPCTimerUI>();
+        activeTimerUI.npc = this;
+        activeTimerUI.followTarget = chatBubbleSpawnPoint;
+    }
+    private void RemoveTimerUI()
+    {
+        if (activeTimerUI != null)
+        {
+            Destroy(activeTimerUI.gameObject);
+            activeTimerUI = null;
+        }
     }
 
     // ---------- Chat bubble helper ----------

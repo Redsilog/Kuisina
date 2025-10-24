@@ -132,21 +132,28 @@ public class Stove : MonoBehaviour
         if (stars > 0)
         {
             Debug.Log($"{recipe.dishName} is ready! Satisfaction: {stars} stars");
-            cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, recipe.cookedDishPrefab.transform.rotation);
 
-            var refComp = cookedFood.AddComponent<DishReference>();
-            refComp.prefab = recipe.cookedDishPrefab;
-
-            cookedFood.transform.SetParent(spawnPoint);
-
+            // ✅ Instantiate dish only ONCE
             if (recipe.cookedDishPrefab != null && spawnPoint != null)
             {
                 cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, spawnPoint.rotation);
 
+                // ✅ Add reference to prefab data
+                var refComp = cookedFood.AddComponent<DishReference>();
+                refComp.prefab = recipe.cookedDishPrefab;
+
+                // ✅ Parent to stove spawn
+                cookedFood.transform.SetParent(spawnPoint, worldPositionStays: true);
+
+                // ✅ Physics cleanup: prevent falling
                 if (cookedFood.TryGetComponent<Collider>(out var col))
                     col.isTrigger = true;
+
                 if (cookedFood.TryGetComponent<Rigidbody>(out var rb))
                     rb.isKinematic = true;
+
+                // ✅ Face the same way as stove (optional fine-tune)
+                cookedFood.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
             }
         }
         else

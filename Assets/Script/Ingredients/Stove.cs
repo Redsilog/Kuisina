@@ -68,7 +68,8 @@ public class Stove : MonoBehaviour
 
         if (recipe.cookedDishPrefab != null && spawnPoint != null)
         {
-            cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, spawnPoint.rotation);
+            cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, recipe.cookedDishPrefab.transform.rotation);
+            cookedFood.transform.SetParent(spawnPoint);
 
             if (cookedFood.TryGetComponent<Collider>(out var col))
                 col.isTrigger = true;

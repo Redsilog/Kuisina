@@ -312,6 +312,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
   requestedItems:
   - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
+  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
+  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
+  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
+  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
+  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
+  - {fileID: 8842149696845135816, guid: 16ac19fd858d44a1988308905dab078f, type: 3}
   orderDisplayPoint: {fileID: 0}
 --- !u!114 &-2240061318032004275
 MonoBehaviour:
@@ -338,8 +344,8 @@ MonoBehaviour:
   defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
   timeoutLine: "I\u2019ll come back later."
   interactCooldown: 1
-  initialWaitTime: 20
-  extendedWaitTime: 20
+  initialWaitTime: 50
+  extendedWaitTime: 50
   thankYouDelay: 5
   timerUIPrefab: {fileID: 7473964165292485588, guid: 0341027f979279445920342dfb2b5ed4, type: 3}
   npcTimerCanvas: {fileID: 0}

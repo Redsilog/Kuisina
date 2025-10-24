@@ -800,8 +800,8 @@ MonoBehaviour:
   defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
   timeoutLine: "I\u2019ll come back later."
   interactCooldown: 1
-  initialWaitTime: 20
-  extendedWaitTime: 20
+  initialWaitTime: 50
+  extendedWaitTime: 50
   thankYouDelay: 5
   timerUIPrefab: {fileID: 7473964165292485588, guid: 0341027f979279445920342dfb2b5ed4, type: 3}
   npcTimerCanvas: {fileID: 0}
@@ -817,7 +817,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems: []
+  requestedItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   orderDisplayPoint: {fileID: 0}
 --- !u!114 &750206956557513461
 MonoBehaviour:

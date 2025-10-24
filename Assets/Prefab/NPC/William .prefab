@@ -267,6 +267,37 @@ Transform:
   - {fileID: 8662841270374118451}
   m_Father: {fileID: 8240009921664496167}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1833457236291560106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5695465187731649724}
+  m_Layer: 0
+  m_Name: Chat Bubble Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5695465187731649724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833457236291560106}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8879705854000802651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2215396570796196313
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +875,7 @@ Transform:
   m_Children:
   - {fileID: 776945271374010346}
   - {fileID: 7783965470326940923}
+  - {fileID: 5695465187731649724}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &-3387251183273862630
@@ -975,8 +1007,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
   npcOrder: {fileID: 4033324540559785009}
   npcMovement: {fileID: 1442535647112417804}
-  chatBubblePrefab: {fileID: 0}
-  chatBubbleSpawnPoint: {fileID: 0}
+  chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
+  chatBubbleSpawnPoint: {fileID: 5695465187731649724}
   autoClearAfter: 2
   requestLines: []
   thankLines: []

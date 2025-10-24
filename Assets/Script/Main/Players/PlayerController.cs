@@ -56,66 +56,86 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) return;
-
-        if (currentNPC != null)
+        // --- Pressed or held down ---
+        if (ctx.started)
         {
-            currentNPC.OnInteract(ctx);
-            return;
+            if (currentBoard != null && inventory != null)
+            {
+                // Start chopping if ingredient is already placed
+                currentBoard.StartChop(inventory);
+            }
         }
 
-        if (currentCookedFood != null && inventory != null)
+        // --- Released ---
+        else if (ctx.canceled)
         {
-            Vector3 worldPos = currentCookedFood.transform.position;
-            Quaternion worldRot = currentCookedFood.transform.rotation;
-            Vector3 worldScale = currentCookedFood.transform.lossyScale; // the "true" pre-pickup size
-
-            currentCookedFood.transform.SetParent(inventory.holdPoint, worldPositionStays: false);
-
-            currentCookedFood.transform.localPosition = Vector3.zero;
-            currentCookedFood.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
-
-            Vector3 parentScale = inventory.holdPoint.lossyScale;
-            currentCookedFood.transform.localScale = new Vector3(
-                worldScale.x / parentScale.x,
-                worldScale.y / parentScale.y,
-                worldScale.z / parentScale.z
-            );
-
-            if (currentCookedFood.TryGetComponent<Collider>(out var col)) col.enabled = false;
-            if (currentCookedFood.TryGetComponent<Rigidbody>(out var rb)) rb.isKinematic = true;
-
-            inventory.PickUpDish(currentCookedFood);
-
-            if (currentStove != null)
-                currentStove.cookedFood = null;
-
-            currentCookedFood = null;
-            return;
+            if (currentBoard != null)
+            {
+                currentBoard.PauseChop();
+            }
         }
 
-
-        if (currentStove != null && inventory != null && inventory.HasIngredient())
+        // --- Single tap (performed) ---
+        else if (ctx.performed)
         {
-            currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
-            inventory.ClearHeldItemDirect();
-            return;
-        }
+            if (currentNPC != null)
+            {
+                currentNPC.OnInteract(ctx);
+                return;
+            }
 
-        if (currentBoard != null && inventory != null)
-        {
-            currentBoard.HandlePlayerInteract(inventory);
-            return;
-        }
+            if (currentCookedFood != null && inventory != null)
+            {
+                Vector3 worldPos = currentCookedFood.transform.position;
+                Quaternion worldRot = currentCookedFood.transform.rotation;
+                Vector3 worldScale = currentCookedFood.transform.lossyScale;
 
-        if (inventory != null && inventory.currentFridge != null)
-        {
-            if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
-                inventory.currentFridge.TryOpenOrCloseFridge(inventory);
-            else
-                Debug.Log("UI already open — ignoring Interact input.");
+                currentCookedFood.transform.SetParent(inventory.holdPoint, worldPositionStays: false);
+                currentCookedFood.transform.localPosition = Vector3.zero;
+                currentCookedFood.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
+
+                Vector3 parentScale = inventory.holdPoint.lossyScale;
+                currentCookedFood.transform.localScale = new Vector3(
+                    worldScale.x / parentScale.x,
+                    worldScale.y / parentScale.y,
+                    worldScale.z / parentScale.z
+                );
+
+                if (currentCookedFood.TryGetComponent<Collider>(out var col)) col.enabled = false;
+                if (currentCookedFood.TryGetComponent<Rigidbody>(out var rb)) rb.isKinematic = true;
+
+                inventory.PickUpDish(currentCookedFood);
+
+                if (currentStove != null)
+                    currentStove.cookedFood = null;
+
+                currentCookedFood = null;
+                return;
+            }
+
+            if (currentStove != null && inventory != null && inventory.HasIngredient())
+            {
+                currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
+                inventory.ClearHeldItemDirect();
+                return;
+            }
+
+            if (currentBoard != null && inventory != null)
+            {
+                currentBoard.HandlePlayerInteract(inventory);
+                return;
+            }
+
+            if (inventory != null && inventory.currentFridge != null)
+            {
+                if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
+                    inventory.currentFridge.TryOpenOrCloseFridge(inventory);
+                else
+                    Debug.Log("UI already open — ignoring Interact input.");
+            }
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

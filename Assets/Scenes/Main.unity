@@ -11994,7 +11994,7 @@ MonoBehaviour:
   - dishName: test
     requiredIngredients:
     - soy sauce
-    cookedDishPrefab: {fileID: 2801310890732738640, guid: 132f55829b7352244bffeefb381e7d00, type: 3}
+    cookedDishPrefab: {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
   - dishName: Pancit Malabon
     requiredIngredients:
     - Thick rice noodles
@@ -33876,7 +33876,7 @@ MonoBehaviour:
   - dishName: seaf
     requiredIngredients:
     - banana heart
-    cookedDishPrefab: {fileID: 1177551576558324966, guid: 8b750321532555d4aaeed151df801e20, type: 3}
+    cookedDishPrefab: {fileID: 1537515693604730114, guid: a25b791e431643e40955d62f5c635bba, type: 3}
   spawnPoint: {fileID: 1674021886}
   cookedFood: {fileID: 0}
 --- !u!65 &8567716999343194649

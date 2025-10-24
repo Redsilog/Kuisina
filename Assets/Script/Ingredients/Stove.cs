@@ -132,6 +132,12 @@ public class Stove : MonoBehaviour
         if (stars > 0)
         {
             Debug.Log($"{recipe.dishName} is ready! Satisfaction: {stars} stars");
+            cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, recipe.cookedDishPrefab.transform.rotation);
+
+            var refComp = cookedFood.AddComponent<DishReference>();
+            refComp.prefab = recipe.cookedDishPrefab;
+
+            cookedFood.transform.SetParent(spawnPoint);
 
             if (recipe.cookedDishPrefab != null && spawnPoint != null)
             {

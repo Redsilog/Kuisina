@@ -11992,9 +11992,8 @@ MonoBehaviour:
   recipes:
   - dishName: Adobong Puti
     requiredIngredients:
-    - chopped garlic
     - raw chicken
-    cookedDishPrefab: {fileID: 2058961354891543812, guid: 9d5b2bb6187eb754e8870666647a1b4d, type: 3}
+    cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   spawnPoint: {fileID: 1671006584}
   cookedFood: {fileID: 0}
 --- !u!65 &909366145
@@ -18958,6 +18957,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.1
       objectReference: {fileID: 0}
@@ -18996,6 +19007,10 @@ PrefabInstance:
     - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3541967100005885166, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: moveSpeed
@@ -23488,8 +23503,8 @@ Transform:
   m_GameObject: {fileID: 1671006580}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.976, y: 2.11, z: 13.372}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: -7.916, y: 1.17, z: 13.429}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -33518,7 +33533,7 @@ GameObject:
   - component: {fileID: 909366145}
   - component: {fileID: 909366144}
   m_Layer: 0
-  m_Name: Cube.006
+  m_Name: Stove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

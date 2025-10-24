@@ -47,38 +47,38 @@ public class PlatingStation : MonoBehaviour
         };
     }
 
-    void Update()
-    {
-        if (playerInRange && Input.GetKeyDown(interactKey))
-        {
-            if (playerInventory != null)
-            {
-                if (playerInventory.HasDish() && currentCookedFood == null)
-                {
-                    currentCookedFood = playerInventory.PlaceDish(cookedFoodPoint.position);
-                    SoundFXManager.instance.PlaySoundFXClip(placeDishClip, transform, 1f);
-                    Debug.Log("Placed dish on station: " + currentCookedFood?.name);
-                }
-                else if (!playerInventory.HasDish() && currentCookedFood != null)
-                {
-                    playerInventory.PickUpDish("Dish", currentCookedFood);
-                    Debug.Log("Picked up dish from station");
-                    currentCookedFood = null;
-                }
-            }
-        }
+    // void Update()
+    // {
+    //     if (playerInRange && Input.GetKeyDown(interactKey))
+    //     {
+    //         if (playerInventory != null)
+    //         {
+    //             if (playerInventory.HasDish() && currentCookedFood == null)
+    //             {
+    //                 currentCookedFood = playerInventory.PlaceDish(cookedFoodPoint.position);
+    //                 SoundFXManager.instance.PlaySoundFXClip(placeDishClip, transform, 1f);
+    //                 Debug.Log("Placed dish on station: " + currentCookedFood?.name);
+    //             }
+    //             else if (!playerInventory.HasDish() && currentCookedFood != null)
+    //             {
+    //                 playerInventory.PickUpDish("Dish", currentCookedFood);
+    //                 Debug.Log("Picked up dish from station");
+    //                 currentCookedFood = null;
+    //             }
+    //         }
+    //     }
 
-        if (addedIngredients.Count > 0)
-        {
-            ingredientTimer += Time.deltaTime;
+    //     if (addedIngredients.Count > 0)
+    //     {
+    //         ingredientTimer += Time.deltaTime;
 
-            if (ingredientTimer >= maxWaitTime)
-            {
-                CheckRecipes();
-                ingredientTimer = 0f;
-            }
-        }
-    }
+    //         if (ingredientTimer >= maxWaitTime)
+    //         {
+    //             CheckRecipes();
+    //             ingredientTimer = 0f;
+    //         }
+    //     }
+    // }
 
     public void AddIngredient(PlayerInventory player)
     {

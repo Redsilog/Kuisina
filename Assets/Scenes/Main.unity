@@ -11990,9 +11990,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipes:
-  - dishName: Adobong Puti
+  - dishName: Pancit Malabon
     requiredIngredients:
-    - raw chicken
+    - Thick rice noodles
+    - Shrimp
+    - Squid
+    - Mussels
+    - Annatto sauce
+    cookedDishPrefab: {fileID: 1671006580}
+  - dishName: Pancit Habhab
+    requiredIngredients:
+    - Miki noodles
+    - Pork
+    - Shrimp
+    - Vinegar
+    - pechay
+    cookedDishPrefab: {fileID: 1671006580}
+  - dishName: Pancit Canton
+    requiredIngredients:
+    - Egg noodles
+    - Pork
+    - Shrimp
+    - Soy sauce
+    - pechay
+    cookedDishPrefab: {fileID: 1671006580}
+  - dishName: Kinilaw na Isda
+    requiredIngredients:
+    - tanigue sliced
+    - calamansi
+    - chopped onion
+    - chili
+    - ginger
+    cookedDishPrefab: {fileID: 1671006580}
+  - dishName: Kinilaw na Kambing
+    requiredIngredients:
+    - goat meat
+    - vinegar
+    - chopped onion
+    - chopped garlic
+    - ginger
+    cookedDishPrefab: {fileID: 1671006580}
+  - dishName: Kinilaw na may Gata
+    requiredIngredients:
+    - tanigue sliced
+    - vinegar
+    - coconut mik
+    - chili
+    - ginger
+    cookedDishPrefab: {fileID: 1671006580}
+  - dishName: 
+    requiredIngredients: []
     cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   spawnPoint: {fileID: 1671006584}
   cookedFood: {fileID: 0}
@@ -20688,6 +20735,21 @@ MonoBehaviour:
   - inputName: Onion
     inputPrefab: {fileID: 5753312897571213974, guid: 941973161380c45c2a752efe2bfd477a, type: 3}
     outputPrefab: {fileID: 1490503063597392397, guid: 08f4df757af664a1dab8e061a5debed8, type: 3}
+  - inputName: Tomato
+    inputPrefab: {fileID: 919132149155446097, guid: 20964848296b9874a9c6ac98f2cd9584, type: 3}
+    outputPrefab: {fileID: 7364402600382064937, guid: d6eca75f29e3fa543b8ef5fd17c097ba, type: 3}
+  - inputName: Mustard Leaves
+    inputPrefab: {fileID: 3577054956678356174, guid: c1d2421f64fe465428e07166fe746a98, type: 3}
+    outputPrefab: {fileID: 8396663279592880571, guid: 3d2561b6f4d087040be7655c48502aa7, type: 3}
+  - inputName: Green Mango
+    inputPrefab: {fileID: 1611861345624574518, guid: bbcdaf9fcacb2bf47ae0c6261fa3d47d, type: 3}
+    outputPrefab: {fileID: 952560554307870623, guid: 3a8f1ad13a386bd41b8c4df98ca0f270, type: 3}
+  - inputName: Tanigue
+    inputPrefab: {fileID: 6356208855227572934, guid: 4f6ff084fd9267a4db5b0d53c8a10d4b, type: 3}
+    outputPrefab: {fileID: 4641973220217669568, guid: edde856ecbe40c244abf6fbd9029dd44, type: 3}
+  - inputName: Kamias
+    inputPrefab: {fileID: 3595278982281106306, guid: 45ad1bab3dfb1954f92a54ba191269cd, type: 3}
+    outputPrefab: {fileID: 6262278333677566324, guid: 00d0b1d9f301efc4db69ab0512e4b205, type: 3}
 --- !u!1001 &1535294473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23411,7 +23473,7 @@ GameObject:
   - component: {fileID: 1671006582}
   - component: {fileID: 1671006581}
   m_Layer: 0
-  m_Name: FoodSpawnPoint
+  m_Name: panSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23598,6 +23660,117 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672476788}
   m_Mesh: {fileID: 4493585093827132993, guid: 1e10b334149a2dc43a9fd85800acae2d, type: 3}
+--- !u!1 &1674021882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1674021886}
+  - component: {fileID: 1674021885}
+  - component: {fileID: 1674021884}
+  - component: {fileID: 1674021883}
+  m_Layer: 0
+  m_Name: potSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1674021883
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674021882}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1674021884
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674021882}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1674021885
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674021882}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1674021886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674021882}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.724, y: 2.11, z: 13.372}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1676189293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ccebbd06f91a24f9d950a6e3b8584624, type: 3}
@@ -31523,8 +31696,10 @@ GameObject:
   - component: {fileID: 8448302365942251661}
   - component: {fileID: 4668013534113045006}
   - component: {fileID: 8567716999343194647}
+  - component: {fileID: 8567716999343194649}
+  - component: {fileID: 8567716999343194648}
   m_Layer: 0
-  m_Name: Cube.010
+  m_Name: pot stove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33482,6 +33657,136 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8567716999343194648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459513671614389649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa9ceb46c23bc046ae008ae49a63c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Stove
+  recipes:
+  - dishName: Adobong Puti
+    requiredIngredients:
+    - raw chicken
+    - vinegar
+    - chopped garlic
+    - bay leaf
+    - salt
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Adobong Bisaya
+    requiredIngredients:
+    - pork
+    - vinegar
+    - soy sauce
+    - chopped garlic
+    - pepper
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Adobo sa Pula
+    requiredIngredients:
+    - raw chicken
+    - soy sauce
+    - vinegar
+    - chopped garlic
+    - annatto sauce
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Adobo sa Gata
+    requiredIngredients:
+    - pork
+    - coconut milk
+    - soy sauce
+    - vinegar
+    - chili
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Sinigang sa Sampalok
+    requiredIngredients:
+    - pork
+    - tamarind
+    - sliced tomato
+    - onion
+    - kangkong
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Sinigang sa Kamias
+    requiredIngredients:
+    - pork
+    - kamias sliced
+    - sliced tomato
+    - onion
+    - kangkong
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Sinigang sa Bayabas
+    requiredIngredients:
+    - pork
+    - guava
+    - sliced tomato
+    - onion
+    - sliced mustard leaves
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Sinigang sa Mangga
+    requiredIngredients:
+    - pork
+    - green mango
+    - sliced tomato
+    - onion
+    - sliced mustard leaves
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Lechon Cebu
+    requiredIngredients:
+    - lemongrass
+    - chopped garlic
+    - salt
+    - pepper
+    - whole pig
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Lechon Manila
+    requiredIngredients:
+    - salt
+    - pepper
+    - liver sauce
+    - whole pig
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Lechon Bacolod
+    requiredIngredients:
+    - chopped garlic
+    - salt
+    - pepper
+    - batwan
+    - whole pig
+    cookedDishPrefab: {fileID: 1674021882}
+  - dishName: Traditional Kare-kare
+    requiredIngredients:
+    - beef
+    - peanut sauce
+    - eggplant
+    - pechay
+    cookedDishPrefab: {fileID: 1674021882}
+  spawnPoint: {fileID: 1674021886}
+  cookedFood: {fileID: 0}
+--- !u!65 &8567716999343194649
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459513671614389649}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.019999998, y: 0.042871676, z: 0.034788527}
+  m_Center: {x: -6.36375e-13, y: -0.011435843, z: -0.007394255}
 --- !u!1 &8700725329511232099
 GameObject:
   m_ObjectHideFlags: 0
@@ -33749,4 +34054,5 @@ SceneRoots:
   - {fileID: 1049803535}
   - {fileID: 2093271524}
   - {fileID: 1671006584}
+  - {fileID: 1674021886}
   - {fileID: 598285658}

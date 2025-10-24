@@ -57,7 +57,6 @@ public class ChoppingBoard : MonoBehaviour
     {
         if (player == null) return;
 
-        // 1) Place raw ingredient if hands are holding one
         if (stagedRawInstance == null && !hasChoppedItem && player.IsHoldingItem())
         {
             string name = ResolveHeldName(player);
@@ -65,33 +64,23 @@ public class ChoppingBoard : MonoBehaviour
             if (map != null)
             {
                 PlaceFromHand(map, player);
-                
-                BeginChop(player);
                 return;
             }
         }
 
-        // 2) Pick up chopped result if board has one
         if (hasChoppedItem && !player.IsHoldingItem() && choppedSpawnedObject != null)
         {
             PickupChoppedResult(player);
             return;
         }
 
-        // 3) Pick up staged raw if hands empty
-        if (stagedRawInstance != null && !player.IsHoldingItem())
+        if (stagedRawInstance != null && !player.IsHoldingItem() && !isChopping)
         {
             PickupStagedRaw(player);
             return;
         }
-
-        // 4) Begin chopping manually if raw is staged and not yet chopping
-        if (stagedRawInstance != null && !isChopping)
-        {
-            BeginChop(player);
-            return;
-        }
     }
+
 
     private void PlaceFromHand(ChopMapping map, PlayerInventory player)
     {

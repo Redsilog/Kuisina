@@ -82,6 +82,9 @@ public class PlayerController : MonoBehaviour
         // Pick up cooked food
         if (currentCookedFood != null)
         {
+            Vector3 worldPos = currentCookedFood.transform.position;
+            Quaternion worldRot = currentCookedFood.transform.rotation;
+            Vector3 worldScale = currentCookedFood.transform.lossyScale; // the "true" pre-pickup size
             LockInteraction();
 
             GameObject heldCopy = Instantiate(
@@ -91,11 +94,27 @@ public class PlayerController : MonoBehaviour
                 inventory.holdPoint
             );
 
-            heldCopy.transform.localPosition = Vector3.zero;
-            heldCopy.transform.localRotation = Quaternion.identity;
+            currentCookedFood.transform.SetParent(inventory.holdPoint, worldPositionStays: false);
 
+            currentCookedFood.transform.localPosition = Vector3.zero;
+            currentCookedFood.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
+
+            Vector3 parentScale = inventory.holdPoint.lossyScale;
+            currentCookedFood.transform.localScale = new Vector3(
+                worldScale.x / parentScale.x,
+                worldScale.y / parentScale.y,
+                worldScale.z / parentScale.z
+            );
             if (heldCopy.TryGetComponent<Rigidbody>(out var r)) Destroy(r);
             if (heldCopy.TryGetComponent<Collider>(out var c)) c.enabled = false;
+
+            if (currentCookedFood.TryGetComponent<Collider>(out var col)) col.enabled = false;
+            if (currentCookedFood.TryGetComponent<Rigidbody>(out var rb)) rb.isKinematic = true;
+
+            inventory.PickUpDish(currentCookedFood);
+
+            if (currentStove != null)
+                currentStove.cookedFood = null;
 
             inventory.PickUpDish(heldCopy);
             Destroy(currentCookedFood);

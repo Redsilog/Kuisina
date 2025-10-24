@@ -81,21 +81,21 @@ public class PlayerInventory : MonoBehaviour
         UpdateHoldingAnimation();
     }
 
-    public void PickUpDish(string dishName, GameObject dishObject)
-    {
-        PlaceIngredient();
-        heldDish = dishName;
-        heldVisual = dishObject;
+    // public void PickUpDish(string dishName, GameObject dishObject)
+    // {
+    //     PlaceIngredient();
+    //     heldDish = dishName;
+    //     heldVisual = dishObject;
 
-        heldVisual.transform.SetParent(holdPoint);
-        heldVisual.transform.localPosition = Vector3.zero;
-        heldVisual.transform.localRotation = Quaternion.identity;
+    //     heldVisual.transform.SetParent(holdPoint);
+    //     heldVisual.transform.localPosition = Vector3.zero;
+    //     heldVisual.transform.localRotation = Quaternion.identity;
 
-        if (heldVisual.TryGetComponent<Collider>(out var c)) c.isTrigger = true;
-        if (heldVisual.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
+    //     if (heldVisual.TryGetComponent<Collider>(out var c)) c.isTrigger = true;
+    //     if (heldVisual.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;
 
-        UpdateHoldingAnimation();
-    }
+    //     UpdateHoldingAnimation();
+    // }
 
     public GameObject PlaceDish(Vector3 position)
     {
@@ -125,9 +125,12 @@ public class PlayerInventory : MonoBehaviour
         heldVisual = dish;
         heldDish = dish.name;
 
-        dish.transform.SetParent(holdPoint);
-        dish.transform.localPosition = Vector3.zero;
-        dish.transform.localRotation = Quaternion.identity;
+        // Only set transforms if dish is NOT already a child of holdPoint
+        if (dish.transform.parent != holdPoint)
+        {
+            dish.transform.SetParent(holdPoint, worldPositionStays: false);
+            dish.transform.localPosition = Vector3.zero;
+        }
 
         if (dish.TryGetComponent<Collider>(out var c)) c.enabled = false;
         if (dish.TryGetComponent<Rigidbody>(out var r)) r.isKinematic = true;

@@ -63,7 +63,7 @@ RectTransform:
   m_GameObject: {fileID: 3186937036043993638}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.85, y: 0.94, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2970065161162468661}
@@ -73,7 +73,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -5.300232, y: 0}
-  m_SizeDelta: {x: 189.40051, y: 680}
+  m_SizeDelta: {x: 189.40063, y: 680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8079109147932446624
 CanvasRenderer:
@@ -175,7 +175,7 @@ RectTransform:
   m_GameObject: {fileID: 3588325740557059613}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1764704, y: 1.0638298, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8168969383876898325}
@@ -185,7 +185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 500, y: 0}
+  m_AnchoredPosition: {x: 588.2349, y: 0}
   m_SizeDelta: {x: -1100, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8778195334924054700
@@ -526,7 +526,7 @@ RectTransform:
   m_GameObject: {fileID: 6018416196134474299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1764705, y: 1.0638298, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6444401961934640667}
@@ -537,8 +537,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.1501465, y: 0}
-  m_SizeDelta: {x: -95.70007, y: -100}
+  m_AnchoredPosition: {x: 2.529602, y: 0}
+  m_SizeDelta: {x: -95.700195, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6092408633357060543
 CanvasRenderer:
@@ -826,12 +826,19 @@ MonoBehaviour:
   itemDescription: {fileID: 4890826534615303309}
   leftAnchor: {fileID: 4589381799458658034}
   rightAnchor: {fileID: 3010696797716440529}
+  isOpen: 0
   openFridgeClip: {fileID: 8300000, guid: c76eae8209aa3e940b9083352786fc28, type: 3}
   closeFridgeClip: {fileID: 8300000, guid: 1f8dcbabbe7837140bd15c94f84baa77, type: 3}
+  openFreezerClip: {fileID: 0}
+  closeFreezerClip: {fileID: 0}
   openPantryClip: {fileID: 0}
   closePantryClip: {fileID: 0}
+  openCondimentsClip: {fileID: 0}
+  closeCondimentsClip: {fileID: 0}
   getItemClip: {fileID: 8300000, guid: 68059fca99a0f4547ab3a858092ede20, type: 3}
   selectItemClip: {fileID: 8300000, guid: de34f497b6aa0384387b06b8603d9ef7, type: 3}
+  fridgeAnimator: {fileID: 0}
+  fridgeAnimator2: {fileID: 0}
 --- !u!1001 &3509576085605345125
 PrefabInstance:
   m_ObjectHideFlags: 0

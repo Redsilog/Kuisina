@@ -12038,7 +12038,8 @@ MonoBehaviour:
     - chili
     - ginger
     cookedDishPrefab: {fileID: 1671006580}
-    - raw chicken
+  - dishName: 
+    requiredIngredients: []
     cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   spawnPoint: {fileID: 1671006584}
   cookedFood: {fileID: 0}
@@ -33691,7 +33692,7 @@ MonoBehaviour:
     - soy sauce
     - vinegar
     - chopped garlic
-    - annatto
+    - annatto sauce
     cookedDishPrefab: {fileID: 1674021882}
   - dishName: Adobo sa Gata
     requiredIngredients:

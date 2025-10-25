@@ -510,10 +510,10 @@ MonoBehaviour:
   requestLines: []
   thankLines: []
   wrongItemLines: []
-  defaultRequestFormat: "I\u2019d like {0}, please."
-  defaultThankFormat: Thank you!
+  defaultRequestFormat: Pwede isang order ng {0}
+  defaultThankFormat: Salamat!!!!
   defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
-  timeoutLine: "I\u2019ll come back later."
+  timeoutLine: Bagal naman dito.
   interactCooldown: 1
   initialWaitTime: 50
   extendedWaitTime: 50

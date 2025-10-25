@@ -363,10 +363,10 @@ MonoBehaviour:
   - 
   wrongItemLines:
   - 
-  defaultRequestFormat: "I\u2019d like {0}, please."
-  defaultThankFormat: Thank you!
+  defaultRequestFormat: Pwede isang order ng {0}
+  defaultThankFormat: Salamat!!!!
   defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
-  timeoutLine: "I\u2019ll come back later."
+  timeoutLine: Bagal naman dito.
   interactCooldown: 5
   initialWaitTime: 50
   extendedWaitTime: 50
@@ -386,6 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
   thankYouDelay: 5
+  HasReachedWaitIndex: 0
 --- !u!54 &313650437582184559
 Rigidbody:
   m_ObjectHideFlags: 0

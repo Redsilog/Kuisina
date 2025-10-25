@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public class Recipe
@@ -36,49 +37,143 @@ public class Stove : MonoBehaviour
     {
         if (isCooking) return;
 
+        Recipe matchedRecipe = null;
+
+        // Normalize current ingredients for case-insensitive comparison
+        var normalizedCurrent = currentIngredients
+            .Select(i => i.ToLower())
+            .ToList();
+
         foreach (var recipe in recipes)
         {
-            bool allPresent = true;
+            if (recipe.requiredIngredients.Count != normalizedCurrent.Count)
+                continue;
+
+            // Copy list so we can safely remove matches
+            var tempList = new List<string>(normalizedCurrent);
+            bool allMatch = true;
+
             foreach (var req in recipe.requiredIngredients)
             {
-                if (!currentIngredients.Contains(req))
+                string reqLower = req.ToLower();
+                if (tempList.Contains(reqLower))
                 {
-                    allPresent = false;
+                    tempList.Remove(reqLower); // remove matched occurrence
+                }
+                else
+                {
+                    allMatch = false;
                     break;
                 }
             }
 
-            if (allPresent)
+            // ✅ Only match when all ingredients match exactly (case-insensitive)
+            if (allMatch && tempList.Count == 0)
             {
-                Debug.Log($"All ingredients for {recipe.dishName} placed. Starting to cook!");
-                StartCoroutine(CookRoutine(recipe));
+                matchedRecipe = recipe;
                 break;
+            }
+        }
+
+        if (matchedRecipe != null)
+        {
+            // Step 2: Check order accuracy
+            int wrongOrderCount = CountWrongOrder(currentIngredients, matchedRecipe.requiredIngredients);
+            int starRating = GetStarRating(wrongOrderCount);
+
+            if (starRating == 0)
+            {
+                Debug.Log($"All ingredients are wrong! No dish for {matchedRecipe.dishName}.");
+                currentIngredients.Clear();
+                return;
+            }
+
+            Debug.Log($"Cooking {matchedRecipe.dishName} with {starRating} stars (wrong order count: {wrongOrderCount})!");
+            StartCoroutine(CookRoutine(matchedRecipe, starRating));
+        }
+        else
+        {
+            Debug.Log("No recipe matched these ingredients (checked all).");
+            Debug.Log("Current: " + string.Join(", ", currentIngredients));
+            foreach (var r in recipes)
+            {
+                Debug.Log($"Recipe: {r.dishName} requires {string.Join(", ", r.requiredIngredients)}");
             }
         }
     }
 
-    private IEnumerator CookRoutine(Recipe recipe)
+    private int CountWrongOrder(List<string> current, List<string> required)
+    {
+        int wrong = 0;
+        for (int i = 0; i < required.Count; i++)
+        {
+            if (!string.Equals(current[i], required[i], System.StringComparison.OrdinalIgnoreCase))
+                wrong++;
+        }
+        return wrong;
+    }
+
+    private int GetStarRating(int wrongOrder)
+    {
+        if (wrongOrder == 0) return 5;
+        if (wrongOrder == 2) return 3;
+        if (wrongOrder == 3) return 2;
+        if (wrongOrder >= 4) return 1;
+        return 0;
+    }
+
+    public void ClearStove()
+    {
+        currentIngredients.Clear();
+        isCooking = false;
+
+        if (cookedFood != null)
+        {
+            Destroy(cookedFood);
+            cookedFood = null;
+        }
+
+        Debug.Log("Stove cleared!");
+    }
+
+
+    private IEnumerator CookRoutine(Recipe recipe, int stars)
     {
         isCooking = true;
-        Debug.Log($"Cooking {recipe.dishName}...");
+        Debug.Log($"Cooking {recipe.dishName}... Please wait.");
 
         yield return new WaitForSeconds(5f);
 
-        Debug.Log($"{recipe.dishName} is ready!");
-
-        if (recipe.cookedDishPrefab != null && spawnPoint != null)
+        if (stars > 0)
         {
-            cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, recipe.cookedDishPrefab.transform.rotation);
+            Debug.Log($"{recipe.dishName} is ready! Satisfaction: {stars} stars");
 
-            var refComp = cookedFood.AddComponent<DishReference>();
-            refComp.prefab = recipe.cookedDishPrefab;
+            // ✅ Instantiate dish only ONCE
+            if (recipe.cookedDishPrefab != null && spawnPoint != null)
+            {
+                cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, spawnPoint.rotation);
 
-            cookedFood.transform.SetParent(spawnPoint);
+                // ✅ Add reference to prefab data
+                var refComp = cookedFood.AddComponent<DishReference>();
+                refComp.prefab = recipe.cookedDishPrefab;
 
-            if (cookedFood.TryGetComponent<Collider>(out var col))
-                col.isTrigger = true;
-            if (cookedFood.TryGetComponent<Rigidbody>(out var rb))
-                rb.isKinematic = true;
+                // ✅ Parent to stove spawn
+                cookedFood.transform.SetParent(spawnPoint, worldPositionStays: true);
+
+                // ✅ Physics cleanup: prevent falling
+                if (cookedFood.TryGetComponent<Collider>(out var col))
+                    col.isTrigger = true;
+
+                if (cookedFood.TryGetComponent<Rigidbody>(out var rb))
+                    rb.isKinematic = true;
+
+                // ✅ Face the same way as stove (optional fine-tune)
+                cookedFood.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
+            }
+        }
+        else
+        {
+            Debug.Log($"Cooking failed! No dish produced.");
         }
 
         currentIngredients.Clear();

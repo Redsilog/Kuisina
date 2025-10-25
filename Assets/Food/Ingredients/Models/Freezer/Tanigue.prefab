@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2855678215841148949}
   - component: {fileID: 1959563784824200623}
   m_Layer: 0
-  m_Name: Tangigue
+  m_Name: Tanigue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

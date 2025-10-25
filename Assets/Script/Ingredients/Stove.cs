@@ -122,6 +122,21 @@ public class Stove : MonoBehaviour
         return 0;
     }
 
+    public void ClearStove()
+    {
+        currentIngredients.Clear();
+        isCooking = false;
+
+        if (cookedFood != null)
+        {
+            Destroy(cookedFood);
+            cookedFood = null;
+        }
+
+        Debug.Log("Stove cleared!");
+    }
+
+
     private IEnumerator CookRoutine(Recipe recipe, int stars)
     {
         isCooking = true;

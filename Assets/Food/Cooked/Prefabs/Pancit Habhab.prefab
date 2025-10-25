@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -946078746506095103}
   - component: {fileID: -7737158197361925768}
   m_Layer: 0
-  m_Name: FINAL_Pancit Habhab
+  m_Name: Pancit Habhab
   m_TagString: CookedFood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

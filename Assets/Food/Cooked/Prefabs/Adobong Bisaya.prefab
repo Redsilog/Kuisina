@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1575714879232823158
+--- !u!1 &3812840457618248889
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3846502255603274504}
-  - component: {fileID: 1819780230236821467}
-  - component: {fileID: 7600047008654697672}
-  - component: {fileID: 2109652574001503926}
-  - component: {fileID: 6309530764696867049}
-  - component: {fileID: -775562789745420232}
+  - component: {fileID: 3738217766199323389}
+  - component: {fileID: 7259388365160231027}
+  - component: {fileID: 2460400385221432614}
+  - component: {fileID: -996890196441784283}
+  - component: {fileID: -2446490545053709484}
+  - component: {fileID: 6928139235543458221}
   m_Layer: 0
-  m_Name: FINAL_Pork Sisig
+  m_Name: Adobong Bisaya
   m_TagString: CookedFood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3846502255603274504
+--- !u!4 &3738217766199323389
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575714879232823158}
+  m_GameObject: {fileID: 3812840457618248889}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.6406338, y: -1.4123434e-17, z: 1.4123442e-17, w: 0.7678466}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 80.40146, y: 29.363266, z: 2.6820817}
+  m_LocalScale: {x: 12.072271, y: 12.072271, z: 12.072271}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1819780230236821467
+--- !u!33 &7259388365160231027
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575714879232823158}
-  m_Mesh: {fileID: 9222442825374439052, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
---- !u!23 &7600047008654697672
+  m_GameObject: {fileID: 3812840457618248889}
+  m_Mesh: {fileID: -8367368952253168500, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
+--- !u!23 &2460400385221432614
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575714879232823158}
+  m_GameObject: {fileID: 3812840457618248889}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -69,18 +69,13 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1432594464388952545, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: 1886820026795636259, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -7198559261415225722, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -5998004595915773402, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -541708846208547136, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: 725804396391725484, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -2813337366143557646, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -7828181104068881822, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -6056682150832676986, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -4984906860265027368, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -4423473342802127725, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
-  - {fileID: -1812103721715802958, guid: c3dba1db612dc524b883a37b4ac3a6dd, type: 3}
+  - {fileID: -2813467912831258332, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
+  - {fileID: 9185737683893222716, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
+  - {fileID: -6478536213147159724, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
+  - {fileID: -3846018093981099296, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
+  - {fileID: -6087771358165109452, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
+  - {fileID: 6699446615349125189, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
+  - {fileID: 880774007180850119, guid: 4f93f0a092465104faa4c7010b4f7851, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,13 +98,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &2109652574001503926
+--- !u!54 &-996890196441784283
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575714879232823158}
+  m_GameObject: {fileID: 3812840457618248889}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -130,13 +125,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6309530764696867049
+--- !u!65 &-2446490545053709484
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575714879232823158}
+  m_GameObject: {fileID: 3812840457618248889}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -149,18 +144,18 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.02, y: 0.030282782, z: 0.11092251}
-  m_Center: {x: -0.00019587344, y: -0.00060979405, z: -0.022437453}
---- !u!114 &-775562789745420232
+  m_Size: {x: 0.090525135, y: 0.095205225, z: 0.03820475}
+  m_Center: {x: 0.00016857125, y: -0.0018326084, z: -0.0015336454}
+--- !u!114 &6928139235543458221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575714879232823158}
+  m_GameObject: {fileID: 3812840457618248889}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 1575714879232823158}
+  prefab: {fileID: 3812840457618248889}

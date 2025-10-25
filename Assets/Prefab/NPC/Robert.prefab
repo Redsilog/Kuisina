@@ -818,13 +818,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
   requestedItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
+  - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
+  - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  - {fileID: 2718114985656909500, guid: 542a7afe66666804dad7ce6b938b2bf7, type: 3}
   orderDisplayPoint: {fileID: 0}
 --- !u!114 &750206956557513461
 MonoBehaviour:

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2615058273355938825}
   - component: {fileID: -8364156722795720866}
   m_Layer: 0
-  m_Name: FINAL_Traditional Karekare
+  m_Name: 'Traditional Karekare '
   m_TagString: CookedFood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

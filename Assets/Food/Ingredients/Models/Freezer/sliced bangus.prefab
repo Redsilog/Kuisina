@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5785282875218763990}
   - component: {fileID: 7207640607007768382}
   m_Layer: 0
-  m_Name: Milkfish Sliced
+  m_Name: sliced bangus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

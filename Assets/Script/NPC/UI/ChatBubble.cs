@@ -66,7 +66,6 @@ public class ChatBubble : MonoBehaviour
             return;
         }
 
-        text = WrapTextByWordLimit(text, 5);
         textMeshPro.SetText(text ?? "");
         textMeshPro.ForceMeshUpdate();
 
@@ -144,32 +143,5 @@ public class ChatBubble : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-
-    private string WrapTextByWordLimit(string input, int wordsPerLine)
-    {
-        if (string.IsNullOrEmpty(input)) return "";
-
-        string[] words = input.Split(' ');
-        System.Text.StringBuilder sb = new System.Text.StringBuilder();
-        int count = 0;
-
-        for (int i = 0; i < words.Length; i++)
-        {
-            sb.Append(words[i]);
-            count++;
-
-            if (count >= wordsPerLine && i < words.Length - 1)
-            {
-                sb.Append('\n'); // move to next line
-                count = 0;
-            }
-            else if (i < words.Length - 1)
-            {
-                sb.Append(' '); // add space between words
-            }
-        }
-
-        return sb.ToString();
     }
 }

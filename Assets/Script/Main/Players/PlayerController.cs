@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -56,23 +57,26 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        // --- Pressed or held down ---
+        // --- Hold down starts the timer for stove clearing ---
         if (ctx.started)
         {
-            if (currentBoard != null && inventory != null)
+            if (currentStove != null && !inventory.HasIngredient())
             {
-                // Start chopping if ingredient is already placed
-                currentBoard.StartChop(inventory);
+                StartCoroutine(HoldToClearStove());
+                return;
             }
+
+            if (currentBoard != null && inventory != null)
+                currentBoard.StartChop(inventory);
         }
 
         // --- Released ---
         else if (ctx.canceled)
         {
+            StopAllCoroutines(); // cancel hold if released early
+
             if (currentBoard != null)
-            {
                 currentBoard.PauseChop();
-            }
         }
 
         // --- Single tap (performed) ---
@@ -135,6 +139,24 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator HoldToClearStove()
+    {
+        float holdTime = 1f; // how long player must hold to clear
+        float elapsed = 0f;
+
+        while (elapsed < holdTime)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (currentStove != null && !inventory.HasIngredient())
+        {
+            currentStove.ClearStove();
+        }
+    }
+
 
 
     private void OnTriggerEnter(Collider other)

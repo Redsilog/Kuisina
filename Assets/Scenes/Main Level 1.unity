@@ -154,8 +154,8 @@ MonoBehaviour:
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 666936579}
   playerID: 2
-  animator: {fileID: 0}
-  playerRigidbody: {fileID: 0}
+  animator: {fileID: 347448501}
+  playerRigidbody: {fileID: 347448502}
   walkThreshold: 0.1
   nearbyFridges: []
 --- !u!114 &3297481
@@ -6562,6 +6562,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3297481}
   m_SourcePrefab: {fileID: 100100000, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
+--- !u!95 &347448501 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1664609362152100273, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
+  m_PrefabInstance: {fileID: 347448500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &347448502 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2575324619265472830, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
+  m_PrefabInstance: {fileID: 347448500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &348816372
 GameObject:
   m_ObjectHideFlags: 0
@@ -39216,10 +39226,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7541541348439038015, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
 --- !u!33 &8401952776469087287
 MeshFilter:

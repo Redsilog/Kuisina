@@ -26655,7 +26655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3561352624722755884, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39216,7 +39216,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7541541348439038015, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
 --- !u!33 &8401952776469087287
 MeshFilter:

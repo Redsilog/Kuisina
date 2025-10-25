@@ -154,8 +154,8 @@ MonoBehaviour:
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 666936579}
   playerID: 2
-  animator: {fileID: 0}
-  playerRigidbody: {fileID: 0}
+  animator: {fileID: 4039042019090379989, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+  playerRigidbody: {fileID: 2575324619265472830, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
   walkThreshold: 0.1
   nearbyFridges: []
 --- !u!114 &3297481
@@ -22208,7 +22208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3561352624722755884, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

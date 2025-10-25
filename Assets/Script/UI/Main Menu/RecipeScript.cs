@@ -1,25 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class RecipeScript : MonoBehaviour
 {
     [Header("UI Setup")]
+    public GameObject recipeBookPanel;    // Parent UI panel for the recipe book
     public Image displayImage;            // The UI Image component to show pages
     public Sprite[] pages;                // List of page images
-    public Button nextButton;             // Optional button to go forward
-    public Button prevButton;             // Optional button to go back
+    public Button nextButton;             // Button to go forward
+    public Button prevButton;             // Button to go back
 
     [Header("Audio Setup")]
-    public AudioSource audioSource;        // Audio source to play sound
-    public AudioClip pageTurnSound;        // Page flip sound effect
+    public AudioSource audioSource;       // Audio source to play sound
+    public AudioClip pageTurnSound;       // Page flip sound effect
 
     [Header("Optional Keyboard Input")]
     public Key nextKey = Key.RightArrow;
     public Key prevKey = Key.LeftArrow;
+    public Key toggleBookKey = Key.Space; // Press Space to open/close the recipe book
 
     private int currentPage = 0;
+    private bool isBookOpen = false;
 
     void Start()
     {
@@ -40,16 +42,39 @@ public class RecipeScript : MonoBehaviour
         if (prevButton != null) prevButton.onClick.AddListener(PreviousPage);
 
         ShowPage(currentPage);
+
+        // Hide book at start
+        if (recipeBookPanel != null)
+            recipeBookPanel.SetActive(false);
     }
 
     void Update()
     {
-        // Optional keyboard controls
-        if (Keyboard.current[nextKey].wasPressedThisFrame)
-            NextPage();
+        // Toggle book visibility with Space
+        if (Keyboard.current[toggleBookKey].wasPressedThisFrame)
+        {
+            ToggleBook();
+        }
 
-        if (Keyboard.current[prevKey].wasPressedThisFrame)
-            PreviousPage();
+        // Only allow navigation if book is open
+        if (isBookOpen)
+        {
+            if (Keyboard.current[nextKey].wasPressedThisFrame)
+                NextPage();
+
+            if (Keyboard.current[prevKey].wasPressedThisFrame)
+                PreviousPage();
+        }
+    }
+
+    private void ToggleBook()
+    {
+        isBookOpen = !isBookOpen;
+
+        if (recipeBookPanel != null)
+            recipeBookPanel.SetActive(isBookOpen);
+
+        Debug.Log(isBookOpen ? "📘 Recipe book opened." : "📕 Recipe book closed.");
     }
 
     public void NextPage()
@@ -61,7 +86,6 @@ public class RecipeScript : MonoBehaviour
             currentPage = pages.Length - 1; // stay at last page
 
         PlayPageSound();
-
         ShowPage(currentPage);
     }
 

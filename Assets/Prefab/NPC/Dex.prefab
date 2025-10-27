@@ -919,8 +919,8 @@ MonoBehaviour:
   defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
   timeoutLine: "I\u2019ll come back later."
   interactCooldown: 1
-  initialWaitTime: 50
-  extendedWaitTime: 50
+  initialWaitTime: 120
+  extendedWaitTime: 120
   thankYouDelay: 5
   timerUIPrefab: {fileID: 7473964165292485588, guid: 0341027f979279445920342dfb2b5ed4, type: 3}
   npcTimerCanvas: {fileID: 0}

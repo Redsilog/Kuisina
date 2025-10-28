@@ -34,8 +34,11 @@ public class FridgeUI : MonoBehaviour
 
     private FridgeShelfManager.StorageType currentStorageType;
 
-
+    [Header("Input Settings")]
+    public int playerID = 1;
     private Controls controls;
+    private InputActionMap activeMap;
+
     public bool isOpen = false;
 
     //AUDIO
@@ -75,18 +78,28 @@ public class FridgeUI : MonoBehaviour
 
     private void OnEnable()
     {
-        controls.FridgeFreezerPantry.Left.performed += OnMoveLeft;
-        controls.FridgeFreezerPantry.Right.performed += OnMoveRight;
-        controls.FridgeFreezerPantry.Select.performed += OnSelect;
-        controls.FridgeFreezerPantry.Back.performed += OnBack;
+        activeMap = (playerID == 1)
+            ? controls.FridgeFreezerPantry1
+            : controls.FridgeFreezerPantry2;
+
+        activeMap.Enable();
+
+        activeMap.FindAction("Left").performed += OnMoveLeft;
+        activeMap.FindAction("Right").performed += OnMoveRight;
+        activeMap.FindAction("Select").performed += OnSelect;
+        activeMap.FindAction("Back").performed += OnBack;
     }
 
     private void OnDisable()
     {
-        controls.FridgeFreezerPantry.Left.performed -= OnMoveLeft;
-        controls.FridgeFreezerPantry.Right.performed -= OnMoveRight;
-        controls.FridgeFreezerPantry.Select.performed -= OnSelect;
-        controls.FridgeFreezerPantry.Back.performed -= OnBack;
+        if (activeMap == null) return;
+
+        activeMap.FindAction("Left").performed -= OnMoveLeft;
+        activeMap.FindAction("Right").performed -= OnMoveRight;
+        activeMap.FindAction("Select").performed -= OnSelect;
+        activeMap.FindAction("Back").performed -= OnBack;
+
+        activeMap.Disable();
     }
 
     private void OnBack(InputAction.CallbackContext ctx)
@@ -160,11 +173,11 @@ public class FridgeUI : MonoBehaviour
         if (rb != null)
             rb.linearVelocity = Vector3.zero;
 
-        if (!controls.FridgeFreezerPantry.enabled)
-        {
-            controls.FridgeFreezerPantry.Enable();
-            Debug.Log("Fridge controls enabled");
-        }
+        // if (!controls.FridgeFreezerPantry.enabled)
+        // {
+        //     controls.FridgeFreezerPantry.Enable();
+        //     Debug.Log("Fridge controls enabled");
+        // }
 
         switch (type)
         {
@@ -227,11 +240,11 @@ public class FridgeUI : MonoBehaviour
                 playerController.enabled = true;
         }
 
-        if (controls.FridgeFreezerPantry.enabled)
-        {
-            controls.FridgeFreezerPantry.Disable();
-            Debug.Log("Fridge controls disabled");
-        }
+        // if (controls.FridgeFreezerPantry.enabled)
+        // {
+        //     controls.FridgeFreezerPantry.Disable();
+        //     Debug.Log("Fridge controls disabled");
+        // }
 
         switch (type)
         {

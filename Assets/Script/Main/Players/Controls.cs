@@ -295,7 +295,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""FridgeFreezerPantry"",
+            ""name"": ""FridgeFreezerPantry1"",
             ""id"": ""0f81a6b2-110e-4872-823f-c887de65e2d8"",
             ""actions"": [
                 {
@@ -349,30 +349,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ae8adaf4-c1aa-42fe-98fe-61c888e01736"",
-                    ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""27409088-da01-43cf-82bb-de7838088b8c"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Right"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3afaad70-60f5-4616-bb85-21fc2ac44c67"",
-                    ""path"": ""<Keyboard>/period"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -393,7 +371,84 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8b684f03-52b8-478d-b0fa-d26c73decb20"",
+                    ""id"": ""4eeba36c-7ac1-4045-86bb-2bd07e1594c8"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""FridgeFreezerPantry2"",
+            ""id"": ""5668e116-4119-44dd-a0c0-d7e3c0b1bd74"",
+            ""actions"": [
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d462c62-a65a-40cb-9a25-f110893fa4f7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""e77eb241-92a9-48db-a82d-bda808391e88"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""339c49ac-032f-4643-bbe3-bb00a1d31c23"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""6bc0313a-429e-407b-bc70-7e19e8847ce1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""84fbe7c6-a7d5-48af-b85b-f1c6b5c8e782"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cfa109b3-3566-4c29-a244-0c2a09240a1f"",
+                    ""path"": ""<Keyboard>/period"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6620b63e-f283-4229-a349-7a21b3f45364"",
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -404,18 +459,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4eeba36c-7ac1-4045-86bb-2bd07e1594c8"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""207ac705-611f-4211-868f-e77c599b96e1"",
+                    ""id"": ""cab3d7b3-fb09-4c79-98ac-4e097bb3217d"",
                     ""path"": ""<Keyboard>/slash"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -449,19 +493,26 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Move = m_Player2.FindAction("Move", throwIfNotFound: true);
         m_Player2_Interact = m_Player2.FindAction("Interact", throwIfNotFound: true);
-        // FridgeFreezerPantry
-        m_FridgeFreezerPantry = asset.FindActionMap("FridgeFreezerPantry", throwIfNotFound: true);
-        m_FridgeFreezerPantry_Left = m_FridgeFreezerPantry.FindAction("Left", throwIfNotFound: true);
-        m_FridgeFreezerPantry_Right = m_FridgeFreezerPantry.FindAction("Right", throwIfNotFound: true);
-        m_FridgeFreezerPantry_Select = m_FridgeFreezerPantry.FindAction("Select", throwIfNotFound: true);
-        m_FridgeFreezerPantry_Back = m_FridgeFreezerPantry.FindAction("Back", throwIfNotFound: true);
+        // FridgeFreezerPantry1
+        m_FridgeFreezerPantry1 = asset.FindActionMap("FridgeFreezerPantry1", throwIfNotFound: true);
+        m_FridgeFreezerPantry1_Left = m_FridgeFreezerPantry1.FindAction("Left", throwIfNotFound: true);
+        m_FridgeFreezerPantry1_Right = m_FridgeFreezerPantry1.FindAction("Right", throwIfNotFound: true);
+        m_FridgeFreezerPantry1_Select = m_FridgeFreezerPantry1.FindAction("Select", throwIfNotFound: true);
+        m_FridgeFreezerPantry1_Back = m_FridgeFreezerPantry1.FindAction("Back", throwIfNotFound: true);
+        // FridgeFreezerPantry2
+        m_FridgeFreezerPantry2 = asset.FindActionMap("FridgeFreezerPantry2", throwIfNotFound: true);
+        m_FridgeFreezerPantry2_Left = m_FridgeFreezerPantry2.FindAction("Left", throwIfNotFound: true);
+        m_FridgeFreezerPantry2_Right = m_FridgeFreezerPantry2.FindAction("Right", throwIfNotFound: true);
+        m_FridgeFreezerPantry2_Select = m_FridgeFreezerPantry2.FindAction("Select", throwIfNotFound: true);
+        m_FridgeFreezerPantry2_Back = m_FridgeFreezerPantry2.FindAction("Back", throwIfNotFound: true);
     }
 
     ~@Controls()
     {
         UnityEngine.Debug.Assert(!m_Player1.enabled, "This will cause a leak and performance issues, Controls.Player1.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Player2.enabled, "This will cause a leak and performance issues, Controls.Player2.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_FridgeFreezerPantry.enabled, "This will cause a leak and performance issues, Controls.FridgeFreezerPantry.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_FridgeFreezerPantry1.enabled, "This will cause a leak and performance issues, Controls.FridgeFreezerPantry1.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_FridgeFreezerPantry2.enabled, "This will cause a leak and performance issues, Controls.FridgeFreezerPantry2.Disable() has not been called.");
     }
 
     /// <summary>
@@ -748,44 +799,44 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     /// </summary>
     public Player2Actions @Player2 => new Player2Actions(this);
 
-    // FridgeFreezerPantry
-    private readonly InputActionMap m_FridgeFreezerPantry;
-    private List<IFridgeFreezerPantryActions> m_FridgeFreezerPantryActionsCallbackInterfaces = new List<IFridgeFreezerPantryActions>();
-    private readonly InputAction m_FridgeFreezerPantry_Left;
-    private readonly InputAction m_FridgeFreezerPantry_Right;
-    private readonly InputAction m_FridgeFreezerPantry_Select;
-    private readonly InputAction m_FridgeFreezerPantry_Back;
+    // FridgeFreezerPantry1
+    private readonly InputActionMap m_FridgeFreezerPantry1;
+    private List<IFridgeFreezerPantry1Actions> m_FridgeFreezerPantry1ActionsCallbackInterfaces = new List<IFridgeFreezerPantry1Actions>();
+    private readonly InputAction m_FridgeFreezerPantry1_Left;
+    private readonly InputAction m_FridgeFreezerPantry1_Right;
+    private readonly InputAction m_FridgeFreezerPantry1_Select;
+    private readonly InputAction m_FridgeFreezerPantry1_Back;
     /// <summary>
-    /// Provides access to input actions defined in input action map "FridgeFreezerPantry".
+    /// Provides access to input actions defined in input action map "FridgeFreezerPantry1".
     /// </summary>
-    public struct FridgeFreezerPantryActions
+    public struct FridgeFreezerPantry1Actions
     {
         private @Controls m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public FridgeFreezerPantryActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public FridgeFreezerPantry1Actions(@Controls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "FridgeFreezerPantry/Left".
+        /// Provides access to the underlying input action "FridgeFreezerPantry1/Left".
         /// </summary>
-        public InputAction @Left => m_Wrapper.m_FridgeFreezerPantry_Left;
+        public InputAction @Left => m_Wrapper.m_FridgeFreezerPantry1_Left;
         /// <summary>
-        /// Provides access to the underlying input action "FridgeFreezerPantry/Right".
+        /// Provides access to the underlying input action "FridgeFreezerPantry1/Right".
         /// </summary>
-        public InputAction @Right => m_Wrapper.m_FridgeFreezerPantry_Right;
+        public InputAction @Right => m_Wrapper.m_FridgeFreezerPantry1_Right;
         /// <summary>
-        /// Provides access to the underlying input action "FridgeFreezerPantry/Select".
+        /// Provides access to the underlying input action "FridgeFreezerPantry1/Select".
         /// </summary>
-        public InputAction @Select => m_Wrapper.m_FridgeFreezerPantry_Select;
+        public InputAction @Select => m_Wrapper.m_FridgeFreezerPantry1_Select;
         /// <summary>
-        /// Provides access to the underlying input action "FridgeFreezerPantry/Back".
+        /// Provides access to the underlying input action "FridgeFreezerPantry1/Back".
         /// </summary>
-        public InputAction @Back => m_Wrapper.m_FridgeFreezerPantry_Back;
+        public InputAction @Back => m_Wrapper.m_FridgeFreezerPantry1_Back;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_FridgeFreezerPantry; }
+        public InputActionMap Get() { return m_Wrapper.m_FridgeFreezerPantry1; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -793,9 +844,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="FridgeFreezerPantryActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="FridgeFreezerPantry1Actions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(FridgeFreezerPantryActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(FridgeFreezerPantry1Actions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -803,11 +854,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="FridgeFreezerPantryActions" />
-        public void AddCallbacks(IFridgeFreezerPantryActions instance)
+        /// <seealso cref="FridgeFreezerPantry1Actions" />
+        public void AddCallbacks(IFridgeFreezerPantry1Actions instance)
         {
-            if (instance == null || m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_FridgeFreezerPantry1ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FridgeFreezerPantry1ActionsCallbackInterfaces.Add(instance);
             @Left.started += instance.OnLeft;
             @Left.performed += instance.OnLeft;
             @Left.canceled += instance.OnLeft;
@@ -828,8 +879,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="FridgeFreezerPantryActions" />
-        private void UnregisterCallbacks(IFridgeFreezerPantryActions instance)
+        /// <seealso cref="FridgeFreezerPantry1Actions" />
+        private void UnregisterCallbacks(IFridgeFreezerPantry1Actions instance)
         {
             @Left.started -= instance.OnLeft;
             @Left.performed -= instance.OnLeft;
@@ -846,12 +897,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="FridgeFreezerPantryActions.UnregisterCallbacks(IFridgeFreezerPantryActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="FridgeFreezerPantry1Actions.UnregisterCallbacks(IFridgeFreezerPantry1Actions)" />.
         /// </summary>
-        /// <seealso cref="FridgeFreezerPantryActions.UnregisterCallbacks(IFridgeFreezerPantryActions)" />
-        public void RemoveCallbacks(IFridgeFreezerPantryActions instance)
+        /// <seealso cref="FridgeFreezerPantry1Actions.UnregisterCallbacks(IFridgeFreezerPantry1Actions)" />
+        public void RemoveCallbacks(IFridgeFreezerPantry1Actions instance)
         {
-            if (m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_FridgeFreezerPantry1ActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -861,21 +912,150 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="FridgeFreezerPantryActions.AddCallbacks(IFridgeFreezerPantryActions)" />
-        /// <seealso cref="FridgeFreezerPantryActions.RemoveCallbacks(IFridgeFreezerPantryActions)" />
-        /// <seealso cref="FridgeFreezerPantryActions.UnregisterCallbacks(IFridgeFreezerPantryActions)" />
-        public void SetCallbacks(IFridgeFreezerPantryActions instance)
+        /// <seealso cref="FridgeFreezerPantry1Actions.AddCallbacks(IFridgeFreezerPantry1Actions)" />
+        /// <seealso cref="FridgeFreezerPantry1Actions.RemoveCallbacks(IFridgeFreezerPantry1Actions)" />
+        /// <seealso cref="FridgeFreezerPantry1Actions.UnregisterCallbacks(IFridgeFreezerPantry1Actions)" />
+        public void SetCallbacks(IFridgeFreezerPantry1Actions instance)
         {
-            foreach (var item in m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_FridgeFreezerPantry1ActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_FridgeFreezerPantryActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_FridgeFreezerPantry1ActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="FridgeFreezerPantryActions" /> instance referencing this action map.
+    /// Provides a new <see cref="FridgeFreezerPantry1Actions" /> instance referencing this action map.
     /// </summary>
-    public FridgeFreezerPantryActions @FridgeFreezerPantry => new FridgeFreezerPantryActions(this);
+    public FridgeFreezerPantry1Actions @FridgeFreezerPantry1 => new FridgeFreezerPantry1Actions(this);
+
+    // FridgeFreezerPantry2
+    private readonly InputActionMap m_FridgeFreezerPantry2;
+    private List<IFridgeFreezerPantry2Actions> m_FridgeFreezerPantry2ActionsCallbackInterfaces = new List<IFridgeFreezerPantry2Actions>();
+    private readonly InputAction m_FridgeFreezerPantry2_Left;
+    private readonly InputAction m_FridgeFreezerPantry2_Right;
+    private readonly InputAction m_FridgeFreezerPantry2_Select;
+    private readonly InputAction m_FridgeFreezerPantry2_Back;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "FridgeFreezerPantry2".
+    /// </summary>
+    public struct FridgeFreezerPantry2Actions
+    {
+        private @Controls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public FridgeFreezerPantry2Actions(@Controls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry2/Left".
+        /// </summary>
+        public InputAction @Left => m_Wrapper.m_FridgeFreezerPantry2_Left;
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry2/Right".
+        /// </summary>
+        public InputAction @Right => m_Wrapper.m_FridgeFreezerPantry2_Right;
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry2/Select".
+        /// </summary>
+        public InputAction @Select => m_Wrapper.m_FridgeFreezerPantry2_Select;
+        /// <summary>
+        /// Provides access to the underlying input action "FridgeFreezerPantry2/Back".
+        /// </summary>
+        public InputAction @Back => m_Wrapper.m_FridgeFreezerPantry2_Back;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_FridgeFreezerPantry2; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="FridgeFreezerPantry2Actions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(FridgeFreezerPantry2Actions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="FridgeFreezerPantry2Actions" />
+        public void AddCallbacks(IFridgeFreezerPantry2Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_FridgeFreezerPantry2ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FridgeFreezerPantry2ActionsCallbackInterfaces.Add(instance);
+            @Left.started += instance.OnLeft;
+            @Left.performed += instance.OnLeft;
+            @Left.canceled += instance.OnLeft;
+            @Right.started += instance.OnRight;
+            @Right.performed += instance.OnRight;
+            @Right.canceled += instance.OnRight;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="FridgeFreezerPantry2Actions" />
+        private void UnregisterCallbacks(IFridgeFreezerPantry2Actions instance)
+        {
+            @Left.started -= instance.OnLeft;
+            @Left.performed -= instance.OnLeft;
+            @Left.canceled -= instance.OnLeft;
+            @Right.started -= instance.OnRight;
+            @Right.performed -= instance.OnRight;
+            @Right.canceled -= instance.OnRight;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="FridgeFreezerPantry2Actions.UnregisterCallbacks(IFridgeFreezerPantry2Actions)" />.
+        /// </summary>
+        /// <seealso cref="FridgeFreezerPantry2Actions.UnregisterCallbacks(IFridgeFreezerPantry2Actions)" />
+        public void RemoveCallbacks(IFridgeFreezerPantry2Actions instance)
+        {
+            if (m_Wrapper.m_FridgeFreezerPantry2ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="FridgeFreezerPantry2Actions.AddCallbacks(IFridgeFreezerPantry2Actions)" />
+        /// <seealso cref="FridgeFreezerPantry2Actions.RemoveCallbacks(IFridgeFreezerPantry2Actions)" />
+        /// <seealso cref="FridgeFreezerPantry2Actions.UnregisterCallbacks(IFridgeFreezerPantry2Actions)" />
+        public void SetCallbacks(IFridgeFreezerPantry2Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_FridgeFreezerPantry2ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FridgeFreezerPantry2ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="FridgeFreezerPantry2Actions" /> instance referencing this action map.
+    /// </summary>
+    public FridgeFreezerPantry2Actions @FridgeFreezerPantry2 => new FridgeFreezerPantry2Actions(this);
     private int m_PlayerSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -934,11 +1114,47 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "FridgeFreezerPantry" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "FridgeFreezerPantry1" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="FridgeFreezerPantryActions.AddCallbacks(IFridgeFreezerPantryActions)" />
-    /// <seealso cref="FridgeFreezerPantryActions.RemoveCallbacks(IFridgeFreezerPantryActions)" />
-    public interface IFridgeFreezerPantryActions
+    /// <seealso cref="FridgeFreezerPantry1Actions.AddCallbacks(IFridgeFreezerPantry1Actions)" />
+    /// <seealso cref="FridgeFreezerPantry1Actions.RemoveCallbacks(IFridgeFreezerPantry1Actions)" />
+    public interface IFridgeFreezerPantry1Actions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Back" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBack(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "FridgeFreezerPantry2" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="FridgeFreezerPantry2Actions.AddCallbacks(IFridgeFreezerPantry2Actions)" />
+    /// <seealso cref="FridgeFreezerPantry2Actions.RemoveCallbacks(IFridgeFreezerPantry2Actions)" />
+    public interface IFridgeFreezerPantry2Actions
     {
         /// <summary>
         /// Method invoked when associated input action "Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.

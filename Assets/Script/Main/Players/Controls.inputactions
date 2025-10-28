@@ -209,7 +209,7 @@
             ]
         },
         {
-            "name": "FridgeFreezerPantry",
+            "name": "FridgeFreezerPantry1",
             "id": "0f81a6b2-110e-4872-823f-c887de65e2d8",
             "actions": [
                 {
@@ -263,30 +263,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ae8adaf4-c1aa-42fe-98fe-61c888e01736",
-                    "path": "<Keyboard>/comma",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Left",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "27409088-da01-43cf-82bb-de7838088b8c",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Right",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3afaad70-60f5-4616-bb85-21fc2ac44c67",
-                    "path": "<Keyboard>/period",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -307,7 +285,84 @@
                 },
                 {
                     "name": "",
-                    "id": "8b684f03-52b8-478d-b0fa-d26c73decb20",
+                    "id": "4eeba36c-7ac1-4045-86bb-2bd07e1594c8",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "FridgeFreezerPantry2",
+            "id": "5668e116-4119-44dd-a0c0-d7e3c0b1bd74",
+            "actions": [
+                {
+                    "name": "Left",
+                    "type": "Button",
+                    "id": "0d462c62-a65a-40cb-9a25-f110893fa4f7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right",
+                    "type": "Button",
+                    "id": "e77eb241-92a9-48db-a82d-bda808391e88",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "339c49ac-032f-4643-bbe3-bb00a1d31c23",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "6bc0313a-429e-407b-bc70-7e19e8847ce1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "84fbe7c6-a7d5-48af-b85b-f1c6b5c8e782",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cfa109b3-3566-4c29-a244-0c2a09240a1f",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6620b63e-f283-4229-a349-7a21b3f45364",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
@@ -318,18 +373,7 @@
                 },
                 {
                     "name": "",
-                    "id": "4eeba36c-7ac1-4045-86bb-2bd07e1594c8",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "207ac705-611f-4211-868f-e77c599b96e1",
+                    "id": "cab3d7b3-fb09-4c79-98ac-4e097bb3217d",
                     "path": "<Keyboard>/slash",
                     "interactions": "",
                     "processors": "",

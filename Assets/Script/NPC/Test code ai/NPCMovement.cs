@@ -28,6 +28,8 @@ public class NPCMovement : MonoBehaviour
     private NPCSpawner1 spawnerRef;
     private WaypointSet routeRef;
 
+    [HideInInspector] public bool HasReachedWaitIndex = false;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -77,6 +79,8 @@ public class NPCMovement : MonoBehaviour
         routeReady = true;
         MoveTo(currentIndex);
         CurrentState = NPCState.Moving;
+
+
     }
 
     public void BeginOrdering()

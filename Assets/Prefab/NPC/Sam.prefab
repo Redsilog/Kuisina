@@ -510,15 +510,16 @@ MonoBehaviour:
   requestLines: []
   thankLines: []
   wrongItemLines: []
-  defaultRequestFormat: "I\u2019d like {0}, please."
-  defaultThankFormat: Thank you!
+  defaultRequestFormat: Pwede isang order ng {0}
+  defaultThankFormat: Salamat!!!!
   defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
-  timeoutLine: "I\u2019ll come back later."
+  timeoutLine: Bagal naman dito.
   interactCooldown: 1
-  initialWaitTime: 10
-  extendedWaitTime: 10
+  initialWaitTime: 120
+  extendedWaitTime: 120
   thankYouDelay: 5
   timerUIPrefab: {fileID: 7473964165292485588, guid: 0341027f979279445920342dfb2b5ed4, type: 3}
+  npcTimerCanvas: {fileID: 0}
 --- !u!114 &4565515312486299703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,7 +532,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems: []
+  requestedItems:
+  - {fileID: 9169607984740651036, guid: 1d530a0e4f5522f4795584bffee03148, type: 3}
+  - {fileID: 4816417172275688324, guid: 357c36830c522564a946b950e9ad87b5, type: 3}
+  - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
+  - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
   orderDisplayPoint: {fileID: 0}
 --- !u!114 &3525728755951990675
 MonoBehaviour:
@@ -546,6 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
   thankYouDelay: 5
+  HasReachedWaitIndex: 0
 --- !u!1 &2467715066881241450
 GameObject:
   m_ObjectHideFlags: 0

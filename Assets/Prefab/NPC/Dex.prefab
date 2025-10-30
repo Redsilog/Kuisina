@@ -888,7 +888,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems: []
+  requestedItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   orderDisplayPoint: {fileID: 0}
 --- !u!114 &8153805941879948859
 MonoBehaviour:
@@ -915,10 +919,11 @@ MonoBehaviour:
   defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
   timeoutLine: "I\u2019ll come back later."
   interactCooldown: 1
-  initialWaitTime: 10
-  extendedWaitTime: 10
+  initialWaitTime: 120
+  extendedWaitTime: 120
   thankYouDelay: 5
   timerUIPrefab: {fileID: 7473964165292485588, guid: 0341027f979279445920342dfb2b5ed4, type: 3}
+  npcTimerCanvas: {fileID: 0}
 --- !u!114 &3708950258913308442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,6 +937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
   thankYouDelay: 5
+  HasReachedWaitIndex: 0
 --- !u!114 &7697540194351131832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,7 +950,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems: []
+  requestedItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   orderDisplayPoint: {fileID: 0}
 --- !u!1 &8235922866452085474
 GameObject:

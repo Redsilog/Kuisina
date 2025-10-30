@@ -7007,19 +7007,23 @@ MonoBehaviour:
   - route: {fileID: 1923008503}
     spawnPoint: {fileID: 1923008502}
     waitIndex: 2
-    spawnDelay: 1.5
+    spawnDelay: 0
   - route: {fileID: 733210087}
     spawnPoint: {fileID: 733210086}
     waitIndex: 2
-    spawnDelay: 5.5
+    spawnDelay: 30
   - route: {fileID: 22253045}
     spawnPoint: {fileID: 22253044}
     waitIndex: 2
-    spawnDelay: 10.5
+    spawnDelay: 40
+  - route: {fileID: 276390058}
+    spawnPoint: {fileID: 276390057}
+    waitIndex: 2
+    spawnDelay: 50
   spawnOnStart: 1
-  loopPerRoute: 0
+  reshuffleEveryCycle: 1
   avoidConsecutivePrefabRepeat: 1
-  maxConcurrency: 3
+  maxConcurrencyPerRoute: 3
 --- !u!1001 &461282052
 PrefabInstance:
   m_ObjectHideFlags: 0

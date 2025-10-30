@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private NPCInteractable currentNPC;
     private GameObject currentCookedFood;
     private PlayerInventory inventory;
+
+    private List<Stove> nearbyStoves = new List<Stove>();
 
     private void Start()
     {
@@ -162,17 +165,31 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out ChoppingBoard board))
+        {
             currentBoard = board;
+            ToggleHighlight(board.gameObject, true);
+        }
 
         else if (other.TryGetComponent(out NPCInteractable npc))
             currentNPC = npc;
 
-        else if (other.TryGetComponent(out Stove stove))
-            currentStove = stove;
+        if (other.TryGetComponent(out Stove stove))
+        {
+            if (!nearbyStoves.Contains(stove))
+                nearbyStoves.Add(stove);
 
-        else if (other.CompareTag("CookedFood"))
+            // highlight the stove you just entered
+            ToggleHighlight(stove.gameObject, true);
+
+            // set currentStove to the closest available
+            currentStove = GetClosestStove();
+            return;
+        }
+
+        if (other.CompareTag("CookedFood"))
         {
             currentCookedFood = other.gameObject;
+            ToggleHighlight(currentCookedFood, true);
             Debug.Log("Cooked food in range");
         }
     }
@@ -180,15 +197,94 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out ChoppingBoard board) && board == currentBoard)
+        {
+            ToggleHighlight(board.gameObject, false);
             currentBoard = null;
+            return;
+        }
 
         if (other.TryGetComponent(out NPCInteractable npc) && npc == currentNPC)
+        {
             currentNPC = null;
+            return;
+        }
 
-        if (other.TryGetComponent(out Stove stove) && stove == currentStove)
-            currentStove = null;
+        if (other.TryGetComponent(out Stove stove))
+        {
+            // remove stove from nearby list
+            nearbyStoves.Remove(stove);
+
+            // turn off highlight for that stove
+            ToggleHighlight(stove.gameObject, false);
+
+            // update currentStove to the closest stove still nearby (or null)
+            currentStove = GetClosestStove();
+            return;
+        }
 
         if (other.gameObject == currentCookedFood)
+        {
+            ToggleHighlight(other.gameObject, false);
             currentCookedFood = null;
+        }
+    }
+
+
+
+    private void ToggleHighlight(GameObject obj, bool state)
+    {
+        if (obj == null) return;
+
+        var h = GetHighlighterForObject(obj);
+        if (h != null)
+            h.SetHighlight(state, gameObject.tag);
+    }
+
+    private OutlineHighlighter GetHighlighterForObject(GameObject obj)
+    {
+        if (obj == null) return null;
+
+        var h = obj.GetComponent<OutlineHighlighter>();
+        if (h != null) return h;
+
+        Transform t = obj.transform;
+        while (t.parent != null)
+        {
+            t = t.parent;
+            h = t.GetComponent<OutlineHighlighter>();
+            if (h != null) return h;
+        }
+
+        h = obj.GetComponentInChildren<OutlineHighlighter>();
+        if (h != null) return h;
+
+        return null;
+    }
+
+    private Stove GetClosestStove()
+    {
+        if (nearbyStoves.Count == 0) return null;
+
+        Stove closest = null;
+        float minDist = float.MaxValue;
+
+        for (int i = nearbyStoves.Count - 1; i >= 0; --i)
+        {
+            var s = nearbyStoves[i];
+            if (s == null)
+            {
+                nearbyStoves.RemoveAt(i);
+                continue;
+            }
+
+            float dist = Vector3.Distance(transform.position, s.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = s;
+            }
+        }
+
+        return closest;
     }
 }

@@ -17,10 +17,15 @@ public class Stove : MonoBehaviour
     public List<Recipe> recipes = new List<Recipe>();
     [Tooltip("Point where the cooked dish will appear.")]
     public Transform spawnPoint;
+    public Transform smokeSpawnPoint;
 
     private List<string> currentIngredients = new List<string>();
     private bool isCooking = false;
     [HideInInspector] public GameObject cookedFood;
+
+    [Header("Visual Effects")]
+    public GameObject smokePrefab;
+    private GameObject activeSmoke;  
 
     public void PlaceIngredient(string ingredientName, GameObject ingredientObject)
     {
@@ -29,6 +34,12 @@ public class Stove : MonoBehaviour
         currentIngredients.Add(ingredientName);
         Destroy(ingredientObject);
         Debug.Log("Placed ingredient: " + ingredientName);
+
+
+        activeSmoke = Instantiate(smokePrefab, smokeSpawnPoint.position, smokeSpawnPoint.rotation, smokeSpawnPoint);
+        var ps = activeSmoke.GetComponent<ParticleSystem>();
+        if (ps != null)
+            StartCoroutine(FadeInSmoke(ps, 5f));
 
         CheckCookingStart();
     }
@@ -133,6 +144,12 @@ public class Stove : MonoBehaviour
             cookedFood = null;
         }
 
+        if (activeSmoke != null)
+        {
+            Destroy(activeSmoke);
+            activeSmoke = null;
+        }
+
         Debug.Log("Stove cleared!");
     }
 
@@ -152,6 +169,14 @@ public class Stove : MonoBehaviour
             if (recipe.cookedDishPrefab != null && spawnPoint != null)
             {
                 cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, spawnPoint.rotation);
+
+                if (activeSmoke != null)
+                {
+                    var ps = activeSmoke.GetComponent<ParticleSystem>();
+                    if (ps != null)
+                        ps.Stop(); // Let existing particles finish
+                    Destroy(activeSmoke, 2f); // Give time for fade-out
+                }
 
                 // ✅ Add reference to prefab data
                 var refComp = cookedFood.AddComponent<DishReference>();
@@ -178,5 +203,24 @@ public class Stove : MonoBehaviour
 
         currentIngredients.Clear();
         isCooking = false;
+    }
+
+    private IEnumerator FadeInSmoke(ParticleSystem ps, float duration = 1.5f)
+    {
+        var emission = ps.emission;
+        float startRate = 0f;
+        float targetRate = emission.rateOverTime.constant;
+        emission.rateOverTime = startRate;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            emission.rateOverTime = Mathf.Lerp(startRate, targetRate, t);
+            yield return null;
+        }
+
+        emission.rateOverTime = targetRate;
     }
 }

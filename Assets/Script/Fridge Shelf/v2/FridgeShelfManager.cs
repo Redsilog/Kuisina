@@ -17,6 +17,21 @@ public class FridgeShelfManager : MonoBehaviour
     private PlayerInventory activePlayerInventory;
     private float reopenCooldown = 0f;
 
+    private OutlineHighlighter highlighter;
+    void Awake()
+    {
+        Transform current = transform;
+        while (current.parent != null)
+        {
+            current = current.parent;
+            highlighter = current.GetComponent<OutlineHighlighter>();
+            if (highlighter != null)
+                break;
+        }
+
+        if (highlighter == null)
+            Debug.LogWarning($"{name} could not find OutlineHighlighter in any parent.");
+    }
     void Update()
     {
         if (reopenCooldown > 0f)
@@ -104,6 +119,9 @@ public class FridgeShelfManager : MonoBehaviour
         if (!inv.nearbyFridges.Contains(this))
             inv.nearbyFridges.Add(this);
 
+        if (highlighter != null)
+            highlighter.SetHighlight(true, other.tag);
+
         Debug.Log($"{other.name} entered fridge: {gameObject.name}");
     }
 
@@ -116,6 +134,9 @@ public class FridgeShelfManager : MonoBehaviour
         if (inv == null) return;
 
         inv.nearbyFridges.Remove(this);
+
+        if (highlighter != null)
+            highlighter.SetHighlight(false, other.tag);
 
         // Close only if this was the active one
         if (inv.currentFridge == null)

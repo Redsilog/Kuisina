@@ -32,6 +32,8 @@ public class ChoppingBoard : MonoBehaviour
     private Animator playerAnimator;
     private PlayerInventory currentPlayer;
 
+    public bool IsChoppingActive() => isChopping;
+
     public float ChopProgress01 => chopTime <= 0f ? 0f : Mathf.Clamp01(chopProgress / chopTime);
 
     private void OnTriggerEnter(Collider other)
@@ -137,10 +139,10 @@ public class ChoppingBoard : MonoBehaviour
 
     private IEnumerator ChopWhileHeld(PlayerInventory player)
     {
-        float timer = 0f;
-        while (isChopping && timer < chopTime)
+        chopProgress = 0f;
+        while (isChopping && chopProgress < chopTime)
         {
-            timer += Time.deltaTime;
+            chopProgress += Time.deltaTime;
             yield return null;
         }
 

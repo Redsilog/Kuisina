@@ -10,11 +10,31 @@ public class NPCTimerUI : MonoBehaviour
 
     Canvas canvas;
     RectTransform rectTransform;
+    private Camera cam;
+    private Vector3 lastScreenPos;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+    }
+    void Start()
+    {
+        cam = Camera.main;
+        if (canvas == null)
+            canvas = GetComponentInParent<Canvas>();
+    }
+    
+    void LateUpdate()
+    {
+        if (followTarget == null || cam == null)
+            return;
+
+        // Convert world position (NPC's head) to screen position
+        Vector3 screenPos = cam.WorldToScreenPoint(followTarget.position + offset);
+
+        // Set the UI element’s position directly in screen space
+        transform.position = screenPos;
     }
 
     void Update()

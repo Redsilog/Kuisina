@@ -6,6 +6,7 @@ public class Pan : MonoBehaviour
     [Header("Cooking Settings")]
     public Transform cookPoint;
     public float cookTime = 3f;
+    public bool IsCookingActive() => isCooking;
 
     [Header("Cooked Ingredient Prefabs")]
     public GameObject cookedHotdogPrefab;

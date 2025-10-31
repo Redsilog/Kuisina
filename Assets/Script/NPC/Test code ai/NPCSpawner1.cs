@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;          // <-- added
 using UnityEngine;
 
 public class NPCSpawner1 : MonoBehaviour
@@ -17,123 +18,117 @@ public class NPCSpawner1 : MonoBehaviour
 
         [Header("Spawn Timing")]
         [Tooltip("Delay before this entry spawns (seconds).")]
-        public float spawnDelay = 0f; // float as requested
+        public float spawnDelay = 0f;
     }
 
-    [Header("Per-Route Entries (order controls spawn sequence on each route)")]
+    [Header("Per-Route Entries (these are cycled in shuffled order)")]
     public RouteEntry[] routeEntries;
 
     [Header("Spawner Settings")]
     public bool spawnOnStart = true;
-    [Tooltip("If true, routes loop back to their first entry after finishing the last.")]
-    public bool loopPerRoute = true;
-    [Tooltip("Prevent picking the exact same prefab twice in a row on the same route.")]
+    public bool reshuffleEveryCycle = true;
     public bool avoidConsecutivePrefabRepeat = true;
 
-    // --- Internal tracking per route ---
-    private readonly Dictionary<WaypointSet, List<RouteEntry>> _entriesByRoute = new();
-    private readonly Dictionary<WaypointSet, int> _nextIndexByRoute = new();
-    private readonly HashSet<WaypointSet> _routeHasActiveNPC = new();
+    [Header("Max Concurrency Per Route")]
+    [Min(1)] public int maxConcurrencyPerRoute = 3;
+
+    // --- Internal tracking ---
+    private readonly List<RouteEntry> _validEntries = new();
+    private readonly Dictionary<WaypointSet, int> _activeCountByRoute = new();
     private readonly Dictionary<WaypointSet, GameObject> _lastPrefabPerRoute = new();
 
-    // Per-route max concurrency (number of active NPCs allowed on each route at a time)
-    [Header("Max Concurrency Per Route")]
-    public int maxConcurrency = 3;  // Default max concurrency for all routes
-    private readonly Dictionary<WaypointSet, int> _activeNPCCountByRoute = new();
+    // NEW: only the very first cycle will prioritize the lowest delay first
+    private bool _isFirstCycle = true;
 
     void Start()
     {
-        BuildGroups();
-
-        if (spawnOnStart)
+        BuildValidEntries();
+        if (spawnOnStart && _validEntries.Count > 0)
         {
-            foreach (var route in _entriesByRoute.Keys)
+            StartCoroutine(CycleLoop());
+        }
+    }
+
+    private void BuildValidEntries()
+    {
+        _validEntries.Clear();
+        _activeCountByRoute.Clear();
+
+        foreach (var e in routeEntries)
+        {
+            if (e == null || e.route == null || e.spawnPoint == null) continue;
+            _validEntries.Add(e);
+            if (!_activeCountByRoute.ContainsKey(e.route))
+                _activeCountByRoute[e.route] = 0;
+        }
+    }
+
+    private IEnumerator CycleLoop()
+    {
+        var work = new List<RouteEntry>(_validEntries);
+
+        while (true)
+        {
+            if (reshuffleEveryCycle) FisherYatesShuffle(work);
+
+            // --- NEW: First cycle = force the lowest spawnDelay entry to index 0 ---
+            if (_isFirstCycle && work.Count > 1)
             {
-                StartCoroutine(SpawnWithDelay(route));
+                var fastest = work
+                    .Where(e => e != null)
+                    .OrderBy(e => e.spawnDelay)
+                    .FirstOrDefault();
+
+                if (fastest != null)
+                {
+                    // Move fastest to front; keep the rest in their (shuffled) order
+                    work.Remove(fastest);
+                    work.Insert(0, fastest);
+                }
             }
+
+            // One spawn attempt per entry (keeps “all routes get an NPC” per cycle)
+            for (int i = 0; i < work.Count; i++)
+            {
+                var entry = work[i];
+                if (entry == null) continue;
+
+                if (entry.spawnDelay > 0f)
+                    yield return new WaitForSeconds(entry.spawnDelay);
+
+                yield return StartCoroutine(WaitForFreeSlot(entry.route));
+                TrySpawn(entry);
+            }
+
+            // after finishing the first full pass, disable the “first cycle” rule
+            _isFirstCycle = false;
+
+            // Loop and (optionally) reshuffle again
         }
     }
 
-    private void BuildGroups()
+    private IEnumerator WaitForFreeSlot(WaypointSet route)
     {
-        _entriesByRoute.Clear();
-        _nextIndexByRoute.Clear();
-        _routeHasActiveNPC.Clear();
-        _activeNPCCountByRoute.Clear();
-
-        foreach (var entry in routeEntries)
-        {
-            if (entry == null || entry.route == null || entry.spawnPoint == null)
-                continue;
-
-            if (!_entriesByRoute.ContainsKey(entry.route))
-                _entriesByRoute[entry.route] = new List<RouteEntry>();
-
-            _entriesByRoute[entry.route].Add(entry);
-            _activeNPCCountByRoute[entry.route] = 0;  // Initialize NPC count for each route
-        }
-
-        foreach (var kv in _entriesByRoute)
-            _nextIndexByRoute[kv.Key] = 0;
+        if (route == null) yield break;
+        while (_activeCountByRoute.TryGetValue(route, out int count) && count >= maxConcurrencyPerRoute)
+            yield return null;
     }
 
-    private IEnumerator SpawnWithDelay(WaypointSet route)
+    private void TrySpawn(RouteEntry entry)
     {
-        if (route == null || !_entriesByRoute.ContainsKey(route)) yield break;
+        if (entry == null || entry.route == null || entry.spawnPoint == null) return;
+        if (_activeCountByRoute[entry.route] >= maxConcurrencyPerRoute) return;
 
-        var list = _entriesByRoute[route];
-        if (list == null || list.Count == 0) yield break;
-
-        int idx = _nextIndexByRoute[route];
-        if (!loopPerRoute && idx >= list.Count) yield break;
-        if (loopPerRoute && idx >= list.Count) idx = 0;
-
-        var entry = list[idx];
-
-        // Per-entry float delay
-        if (entry.spawnDelay > 0f)
-            yield return new WaitForSeconds(entry.spawnDelay);
-
-        TrySpawnNextForRoute(route);
-    }
-
-    private void TrySpawnNextForRoute(WaypointSet route)
-    {
-        if (route == null || !_entriesByRoute.ContainsKey(route)) return;
-
-        // Check the number of active NPCs for this route and compare to max concurrency
-        if (_activeNPCCountByRoute[route] >= maxConcurrency)
-        {
-            // Max concurrency reached, do not spawn another NPC for this route
-            return;
-        }
-
-        var list = _entriesByRoute[route];
-        if (list == null || list.Count == 0) return;
-
-        // Which entry (route config) to use next
-        int idx = _nextIndexByRoute[route];
-        if (!loopPerRoute && idx >= list.Count) return;
-        if (loopPerRoute && idx >= list.Count) idx = 0;
-        var entry = list[idx];
-
-        // Advance pointer for the next time
-        _nextIndexByRoute[route] = idx + 1;
-
-        // Pick a random prefab from the global pool
-        var prefab = PickRandomPrefabForRoute(route);
+        var prefab = PickRandomPrefabForRoute(entry.route);
         if (prefab == null)
         {
             Debug.LogWarning("[NPCSpawner1] No NPC prefabs assigned.");
             return;
         }
 
-        // Spawn
-        _routeHasActiveNPC.Add(route);
-        _activeNPCCountByRoute[route]++;
+        _activeCountByRoute[entry.route]++;
 
-        GameObject npcObj = Instantiate(prefab, entry.spawnPoint.position, entry.spawnPoint.rotation);
-
+        var npcObj = Instantiate(prefab, entry.spawnPoint.position, entry.spawnPoint.rotation);
         var move = npcObj.GetComponent<NPCMovement>();
         if (move != null)
             move.InitializeRoute(entry.route.waypoints, entry.waitIndex, this, entry.route);
@@ -152,28 +147,29 @@ public class NPCSpawner1 : MonoBehaviour
             return chosen;
         }
 
-        // Avoid repeating the last one if possible
-        GameObject last = _lastPrefabPerRoute[route];
-        GameObject chosenPrefab = last;
+        var last = _lastPrefabPerRoute[route];
+        var chosenPrefab = last;
         int safety = 20;
         while (chosenPrefab == last && safety-- > 0)
-        {
             chosenPrefab = npcPrefabs[Random.Range(0, npcPrefabs.Length)];
-        }
+
         _lastPrefabPerRoute[route] = chosenPrefab;
         return chosenPrefab;
     }
 
-    // Called by NPCMovement when an NPC finishes its route
     public void OnNPCCompletedRoute(NPCMovement npc, WaypointSet route)
     {
-        if (route != null && _routeHasActiveNPC.Contains(route))
-            _routeHasActiveNPC.Remove(route);
+        if (route == null) return;
+        if (!_activeCountByRoute.ContainsKey(route)) return;
+        _activeCountByRoute[route] = Mathf.Max(0, _activeCountByRoute[route] - 1);
+    }
 
-        // Decrease the active NPC count for this route
-        _activeNPCCountByRoute[route]--;
-
-        // Schedule the next spawn on that route using that entry's delay
-        StartCoroutine(SpawnWithDelay(route));
+    private void FisherYatesShuffle<T>(IList<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
     }
 }

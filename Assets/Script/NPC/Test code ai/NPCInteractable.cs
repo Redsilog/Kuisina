@@ -18,9 +18,9 @@ public class NPCInteractable : MonoBehaviour
 
     // Keep the dialogue lists HERE (NPCOrder1 no longer owns them)
     [Header("Dialog Lines (must match NPCOrder1.requestedItems)")]
-    public List<string> requestLines = new List<string>();
-    public List<string> thankLines = new List<string>();
-    public List<string> wrongItemLines = new List<string>();
+    private List<string> requestLines = new List<string>();
+    private List<string> thankLines = new List<string>();
+    private List<string> wrongItemLines = new List<string>();
 
     [Header("Fallback Texts")]
     [SerializeField] private string defaultRequestFormat = "I’d like {0}, please.";
@@ -44,6 +44,7 @@ public class NPCInteractable : MonoBehaviour
     private NPCTimerUI activeTimerUI;
     [SerializeField] private Canvas npcTimerCanvas;
 
+    public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
     void Awake()
     {
         var col = GetComponent<Collider>();
@@ -246,4 +247,5 @@ public class NPCInteractable : MonoBehaviour
             autoClearAfter
         );
     }
+
 }

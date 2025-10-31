@@ -148,4 +148,10 @@ public class FridgeShelfManager : MonoBehaviour
 
         Debug.Log($"{other.name} left fridge: {gameObject.name}");
     }
+
+    public bool IsOpenFor(PlayerInventory player)
+    {
+        return IsFridgeUIOpenFor(player);
+    }
+
 }

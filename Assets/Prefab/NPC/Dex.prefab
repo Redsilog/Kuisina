@@ -888,11 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  requestedItems: []
   orderDisplayPoint: {fileID: 0}
 --- !u!114 &8153805941879948859
 MonoBehaviour:
@@ -911,12 +907,9 @@ MonoBehaviour:
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 7265774285918251043}
   autoClearAfter: 2
-  requestLines: []
-  thankLines: []
-  wrongItemLines: []
   defaultRequestFormat: "I\u2019d like {0}, please."
   defaultThankFormat: Thank you!
-  defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
+  defaultWrongFormat: Di naman yan order ko, sabi ko  {0}.
   timeoutLine: "I\u2019ll come back later."
   interactCooldown: 1
   initialWaitTime: 120

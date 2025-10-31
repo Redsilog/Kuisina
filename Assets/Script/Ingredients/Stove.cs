@@ -36,10 +36,14 @@ public class Stove : MonoBehaviour
         Debug.Log("Placed ingredient: " + ingredientName);
 
 
-        activeSmoke = Instantiate(smokePrefab, smokeSpawnPoint.position, smokeSpawnPoint.rotation, smokeSpawnPoint);
-        var ps = activeSmoke.GetComponent<ParticleSystem>();
-        if (ps != null)
-            StartCoroutine(FadeInSmoke(ps, 5f));
+        if (activeSmoke == null)
+        {
+            activeSmoke = Instantiate(smokePrefab, smokeSpawnPoint.position, smokeSpawnPoint.rotation, smokeSpawnPoint);
+            
+            var ps = activeSmoke.GetComponent<ParticleSystem>();
+            if (ps != null)
+                StartCoroutine(FadeInSmoke(ps, 5f));
+        }
 
         CheckCookingStart();
     }

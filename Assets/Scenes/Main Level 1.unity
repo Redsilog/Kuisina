@@ -17346,6 +17346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   starsToNextLevel: 5
   currentStars: 0
+  levelTime: 120
 --- !u!1 &984058673
 GameObject:
   m_ObjectHideFlags: 0

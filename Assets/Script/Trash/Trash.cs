@@ -6,10 +6,49 @@ public class Trash : MonoBehaviour
     private float trashCooldown = 0f;
     [SerializeField] AudioClip trashClip;
 
+    private OutlineHighlighter highlighter;
+    private bool player1InRange = false;
+    private bool player2InRange = false;
+    
+    private void Awake()
+    {
+
+        highlighter = GetComponent<OutlineHighlighter>();
+        if (highlighter == null)
+            highlighter = GetComponentInParent<OutlineHighlighter>();
+    }
+
     private void Update()
     {
         if (trashCooldown > 0f)
             trashCooldown -= Time.deltaTime;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player1InRange = true;
+            highlighter?.SetHighlight(true, "Player");
+        }
+        else if (other.CompareTag("Player2"))
+        {
+            player2InRange = true;
+            highlighter?.SetHighlight(true, "Player2");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player1InRange = false;
+            highlighter?.SetHighlight(false, "Player");
+        }
+        else if (other.CompareTag("Player2"))
+        {
+            player2InRange = false;
+            highlighter?.SetHighlight(false, "Player2");
+        }
     }
 
     private void OnTriggerStay(Collider other)

@@ -186,6 +186,7 @@ public class PlayerController : MonoBehaviour
                 if (!inventory.IsHoldingItem())
                 {
                     inventory.PickUpIngredient(currentIngredientBox.ingredientName, currentIngredientBox.ingredientPrefab);
+                    ToggleHighlight(currentIngredientBox.gameObject, false);
                     currentIngredientBox = null;
                 }
             }

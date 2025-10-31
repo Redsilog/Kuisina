@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9064260411458140489}
   - component: {fileID: -7455028373554163793}
   - component: {fileID: 3081317313293622776}
-  - component: {fileID: -8518751665928888353}
   m_Layer: 0
   m_Name: Laing
   m_TagString: CookedFood
@@ -149,16 +148,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4787849, y: 0.50862914, z: 0.5121386}
   m_Center: {x: -0.00042770844, y: 0.0018244847, z: -0.040420085}
---- !u!114 &-8518751665928888353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2227652599799674470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 2227652599799674470}

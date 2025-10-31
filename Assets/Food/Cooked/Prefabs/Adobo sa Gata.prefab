@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5548972796326699388}
   - component: {fileID: 8793047612975688035}
   - component: {fileID: -3371341283704373702}
-  - component: {fileID: -3344037366468703775}
   m_Layer: 0
   m_Name: Adobo sa Gata
   m_TagString: CookedFood
@@ -154,16 +153,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.013430917, y: 0.015064216, z: 0.0056630657}
   m_Center: {x: -0.00009667312, y: 0.00024350155, z: -0.0010211336}
---- !u!114 &-3344037366468703775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251174177080548761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 1251174177080548761}

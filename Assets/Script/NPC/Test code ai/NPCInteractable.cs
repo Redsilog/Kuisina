@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class NPCInteractable : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private NPCOrder1 npcOrder;
+    [SerializeField] public NPCOrder1 npcOrder;
     [SerializeField] private NPCMovement npcMovement;
 
     [Header("Chat Bubble")]
@@ -119,9 +119,21 @@ public class NPCInteractable : MonoBehaviour
     {
         waitingForInteraction = false;
         ShowChat(BuildThankLine());
+
+        if (npcOrder?.DeliveredDish != null)
+        {
+            var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
+            if (dishRef != null)
+                LevelManager.Instance.AddStars(dishRef.starsEarned);
+
+            npcOrder.DeliveredDish = null;
+        }
+
         StartCoroutine(ThankAndLeave());
         RemoveTimerUI();
     }
+
+
 
     private IEnumerator ThankAndLeave()
     {

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2460400385221432614}
   - component: {fileID: -996890196441784283}
   - component: {fileID: -2446490545053709484}
-  - component: {fileID: 6928139235543458221}
   m_Layer: 0
   m_Name: Adobong Bisaya
   m_TagString: CookedFood
@@ -146,16 +145,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.090525135, y: 0.095205225, z: 0.03820475}
   m_Center: {x: 0.00016857125, y: -0.0018326084, z: -0.0015336454}
---- !u!114 &6928139235543458221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3812840457618248889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 3812840457618248889}

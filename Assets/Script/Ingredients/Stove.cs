@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -183,8 +183,11 @@ public class Stove : MonoBehaviour
                 }
 
                 // ✅ Add reference to prefab data
+                // ✅ Add this line after creating DishReference
                 var refComp = cookedFood.AddComponent<DishReference>();
                 refComp.prefab = recipe.cookedDishPrefab;
+                refComp.starsEarned = stars;
+
 
                 // ✅ Parent to stove spawn
                 cookedFood.transform.SetParent(spawnPoint, worldPositionStays: true);

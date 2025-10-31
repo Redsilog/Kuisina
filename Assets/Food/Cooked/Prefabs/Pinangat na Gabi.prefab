@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6429625379678371809}
   - component: {fileID: -1696715515873448301}
   - component: {fileID: 8912793516183611752}
-  - component: {fileID: -3815168852019307022}
   m_Layer: 0
   m_Name: Pinangat na Gabi
   m_TagString: CookedFood
@@ -147,16 +146,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.012536497, y: 0.0066947015, z: 0.0027153562}
   m_Center: {x: -0.00017826259, y: 0.00019598447, z: -0.0000828161}
---- !u!114 &-3815168852019307022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011776673750389983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 1011776673750389983}

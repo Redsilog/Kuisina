@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9181394601949974818}
   - component: {fileID: 7425684556263178394}
   - component: {fileID: 7923602950186946484}
-  - component: {fileID: -1258466448147050882}
   m_Layer: 0
   m_Name: Kinilaw sa Isda
   m_TagString: CookedFood
@@ -149,16 +148,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.21707949, y: 0.20930317, z: 0.101432905}
   m_Center: {x: -0.0022805668, y: 0.0027756803, z: -0.008937583}
---- !u!114 &-1258466448147050882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6664840034517157514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 6664840034517157514}

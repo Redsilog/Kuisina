@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1075584794420574380}
   - component: {fileID: 1433991976050071688}
   - component: {fileID: 6323415373039955630}
-  - component: {fileID: -4864673704364260663}
   m_Layer: 0
   m_Name: Lechon Bacolod
   m_TagString: CookedFood
@@ -163,16 +162,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.08764651, y: 0.029742949, z: 0.026126107}
   m_Center: {x: 0.003930272, y: -0.00014810174, z: 0.0063305534}
---- !u!114 &-4864673704364260663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7353109815256482310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 7353109815256482310}

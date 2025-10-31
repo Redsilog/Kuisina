@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1168623433229962883}
   - component: {fileID: 4075135580660533940}
   - component: {fileID: -5537718271584419042}
-  - component: {fileID: -3142149608178435545}
   m_Layer: 0
   m_Name: Chicken Sisig
   m_TagString: CookedFood
@@ -150,16 +149,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.11784285, y: 0.13958246, z: 0.036385432}
   m_Center: {x: -0.0003085857, y: 0.0017080213, z: -0.00651957}
---- !u!114 &-3142149608178435545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3889768368141422939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 3889768368141422939}

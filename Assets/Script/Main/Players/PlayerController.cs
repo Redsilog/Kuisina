@@ -61,7 +61,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (ctx.canceled)
+        if (ctx.started)
+        {
+            if (currentBoard != null && inventory != null && !inventory.IsHoldingItem())
+            {
+                currentBoard.StartChop(inventory);
+                return;
+            }
+        }
+
+        else if (ctx.canceled)
         {
             StopAllCoroutines(); // cancel hold if released early
 
@@ -109,13 +118,13 @@ public class PlayerController : MonoBehaviour
 
             if (currentStove != null && inventory != null && inventory.HasIngredient())
             {
-                if (inventory.heldIngredient == "trash bag") 
+                if (inventory.heldIngredient == "trash bag")
                 {
-                    currentStove.ClearStove(); 
+                    currentStove.ClearStove();
                     return;
                 }
 
-                if (inventory.heldIngredient == "rice") 
+                if (inventory.heldIngredient == "rice")
                 {
                     return;
                 }

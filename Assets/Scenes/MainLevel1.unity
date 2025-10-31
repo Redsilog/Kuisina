@@ -9340,7 +9340,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1027168800}
   smokeSpawnPoint: {fileID: 1578158538}
   cookedFood: {fileID: 0}
-  smokePrefab: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
+  smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
 --- !u!65 &503192803
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15551,7 +15551,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1671006584}
   smokeSpawnPoint: {fileID: 2025296404}
   cookedFood: {fileID: 0}
-  smokePrefab: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
+  smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
 --- !u!65 &909366145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27141,13 +27141,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578158537}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.169, y: 2.815, z: 10.355}
-  m_LocalScale: {x: 0.61023, y: 0.61023, z: 0.61023}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.169, y: 1.25, z: 10.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 486536486}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!65 &1578158539
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28695,7 +28695,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 179782157}
   smokeSpawnPoint: {fileID: 1738524407}
   cookedFood: {fileID: 0}
-  smokePrefab: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
+  smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
 --- !u!65 &1635110387
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30955,13 +30955,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1738524406}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.853, y: 2.82, z: 10.874}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.853, y: 1.25, z: 10.874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 12346585}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!65 &1738524408
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32555,13 +32555,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812371625}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.175, y: 2.793, z: 10.56}
-  m_LocalScale: {x: 0.66327006, y: 0.66327006, z: 0.66327006}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.175, y: 1.25, z: 10.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1071728193}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!65 &1812371627
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36654,13 +36654,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025296403}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.89, y: 2.772, z: 10.83}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.89, y: 1.25, z: 10.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 11345796}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!65 &2025296405
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41537,7 +41537,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1027168800}
   smokeSpawnPoint: {fileID: 1812371626}
   cookedFood: {fileID: 0}
-  smokePrefab: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
+  smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
 --- !u!65 &8567716999343194649
 BoxCollider:
   m_ObjectHideFlags: 0

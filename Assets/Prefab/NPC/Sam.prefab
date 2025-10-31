@@ -507,12 +507,9 @@ MonoBehaviour:
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 9077094529236986459}
   autoClearAfter: 2
-  requestLines: []
-  thankLines: []
-  wrongItemLines: []
   defaultRequestFormat: Pwede isang order ng {0}
   defaultThankFormat: Salamat!!!!
-  defaultWrongFormat: "That\u2019s not what I ordered. I asked for {0}."
+  defaultWrongFormat: Di naman yan order ko, sabi ko  {0}.
   timeoutLine: Bagal naman dito.
   interactCooldown: 1
   initialWaitTime: 120
@@ -532,11 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems:
-  - {fileID: 9169607984740651036, guid: 1d530a0e4f5522f4795584bffee03148, type: 3}
-  - {fileID: 4816417172275688324, guid: 357c36830c522564a946b950e9ad87b5, type: 3}
-  - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
-  - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
+  requestedItems: []
   orderDisplayPoint: {fileID: 0}
 --- !u!114 &3525728755951990675
 MonoBehaviour:

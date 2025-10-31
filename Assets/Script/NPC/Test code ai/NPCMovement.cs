@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(NPCInteractable))]
-[RequireComponent(typeof(Animator))]
+
 public class NPCMovement : MonoBehaviour
 {
     public enum NPCState { Moving, Sitting, Ordering, Thanking, Leaving }
@@ -24,7 +22,6 @@ public class NPCMovement : MonoBehaviour
     private float stateTimer;
     private const float arrivalEpsilon = 0.1f;
 
-    // NEW: back-refs for spawner and route
     private NPCSpawner1 spawnerRef;
     private WaypointSet routeRef;
 
@@ -45,23 +42,37 @@ public class NPCMovement : MonoBehaviour
 
         switch (CurrentState)
         {
-            case NPCState.Moving: HandleMoving(); break;
+            case NPCState.Moving:
+                HandleMoving();
+                break;
             case NPCState.Sitting:
-            case NPCState.Ordering: agent.isStopped = true; break;
-            case NPCState.Thanking: HandleThanking(); break;
-            case NPCState.Leaving: HandleLeaving(); break;
+            case NPCState.Ordering:
+                agent.isStopped = true;
+                break;
+            case NPCState.Thanking:
+                HandleThanking();
+                break;
+            case NPCState.Leaving:
+                HandleLeaving();
+                break;
         }
     }
 
     private void UpdateAnimation()
     {
-        bool isMoving = agent.velocity.magnitude > 0.1f && !agent.isStopped;
+        // 🟢 New fix: force movement animation OFF when interacting or sitting
+        bool isInteracting =
+            CurrentState == NPCState.Ordering ||
+            CurrentState == NPCState.Thanking ||
+            CurrentState == NPCState.Sitting;
+
+        bool isMoving = !isInteracting && agent.velocity.magnitude > 0.1f && !agent.isStopped;
         bool isSitting = (CurrentState == NPCState.Sitting || CurrentState == NPCState.Ordering);
+
         animator.SetBool("IsMoving", isMoving);
         animator.SetBool("IsSitting", isSitting);
     }
 
-    // Initialize now accepts spawner + routeRef
     public void InitializeRoute(Transform[] route, int sitWaypoint, NPCSpawner1 spawner, WaypointSet routeOwner)
     {
         if (route == null || route.Length == 0)
@@ -79,8 +90,6 @@ public class NPCMovement : MonoBehaviour
         routeReady = true;
         MoveTo(currentIndex);
         CurrentState = NPCState.Moving;
-
-
     }
 
     public void BeginOrdering()
@@ -94,8 +103,8 @@ public class NPCMovement : MonoBehaviour
     public void BeginThanking()
     {
         CurrentState = NPCState.Thanking;
-        stateTimer = 0f;
         agent.isStopped = true;
+        stateTimer = 0f;
         UpdateAnimation();
     }
 
@@ -133,7 +142,8 @@ public class NPCMovement : MonoBehaviour
     private void HandleThanking()
     {
         stateTimer += Time.deltaTime;
-        if (stateTimer >= thankYouDelay) StartLeaving();
+        if (stateTimer >= thankYouDelay)
+            StartLeaving();
     }
 
     private void HandleLeaving()
@@ -172,7 +182,8 @@ public class NPCMovement : MonoBehaviour
 
     private void FinishRoute()
     {
-        if (spawnerRef != null) spawnerRef.OnNPCCompletedRoute(this, routeRef);
+        if (spawnerRef != null)
+            spawnerRef.OnNPCCompletedRoute(this, routeRef);
         Destroy(gameObject);
     }
 }

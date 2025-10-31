@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4587407280310566049}
   - component: {fileID: -1037280676270208388}
   - component: {fileID: 2615058273355938825}
-  - component: {fileID: -8364156722795720866}
   m_Layer: 0
   m_Name: 'Traditional Karekare '
   m_TagString: CookedFood
@@ -151,16 +150,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1481168, y: 0.08132543, z: 0.13700067}
   m_Center: {x: 0.0018142574, y: 0.019511359, z: -0.0010125003}
---- !u!114 &-8364156722795720866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532100641193572136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 5532100641193572136}

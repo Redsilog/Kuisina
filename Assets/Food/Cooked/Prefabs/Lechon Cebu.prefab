@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9117010470418713981}
   - component: {fileID: 8499412929350457795}
   - component: {fileID: -2846043327118707978}
-  - component: {fileID: -2655762892228194221}
   m_Layer: 0
   m_Name: Lechon Cebu
   m_TagString: CookedFood
@@ -163,16 +162,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0852611, y: 0.039734658, z: 0.026664777}
   m_Center: {x: 0.0018548162, y: 0.00025144152, z: 0.007171077}
---- !u!114 &-2655762892228194221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4382007506090646352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 4382007506090646352}

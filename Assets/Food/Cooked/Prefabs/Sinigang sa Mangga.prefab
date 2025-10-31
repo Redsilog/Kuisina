@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3058065860489709433}
   - component: {fileID: -6657394706626032148}
   - component: {fileID: -4162373349056292113}
-  - component: {fileID: 3457254173737445771}
   m_Layer: 0
   m_Name: Sinigang sa Mangga
   m_TagString: CookedFood
@@ -157,16 +156,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20120725, y: 0.7892836, z: 0.14741342}
   m_Center: {x: 0.0004945483, y: 0.01512542, z: -0.03948734}
---- !u!114 &3457254173737445771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9169607984740651036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 9169607984740651036}

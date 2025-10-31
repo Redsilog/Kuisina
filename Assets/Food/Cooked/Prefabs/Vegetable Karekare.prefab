@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1248013696196183367}
   - component: {fileID: 949509880463626455}
   - component: {fileID: 7484577334861680949}
-  - component: {fileID: 6708812597491648550}
   m_Layer: 0
   m_Name: Vegetable Karekare
   m_TagString: CookedFood
@@ -149,16 +148,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.56241494, y: 0.591358, z: 1.8142484}
   m_Center: {x: -0.018416272, y: -0.040047716, z: -0.5740357}
---- !u!114 &6708812597491648550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014385047478437778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 1014385047478437778}

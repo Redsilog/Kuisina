@@ -63,30 +63,57 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.started)
         {
+            // Hold-start interactions (like chopping)
             if (currentBoard != null && inventory != null && !inventory.IsHoldingItem())
             {
                 currentBoard.StartChop(inventory);
                 return;
             }
         }
-
         else if (ctx.canceled)
         {
-            StopAllCoroutines(); // cancel hold if released early
+            // Cancel hold interactions
+            StopAllCoroutines();
 
             if (currentBoard != null)
                 currentBoard.PauseChop();
         }
-
-        // --- Single tap (performed) ---
         else if (ctx.performed)
         {
+            // --- PERFORMED (single tap) interactions ---
+
+            // 1. Serve dish to NPC if near one
+            if (currentNPC != null && currentCookedFood != null && inventory != null)
+            {
+                var npcOrder = currentNPC.npcOrder;
+                if (npcOrder != null)
+                {
+                    // Assign the delivered dish
+                    npcOrder.DeliveredDish = currentCookedFood;
+
+                    // Try to fulfill the order
+                    bool fulfilled = npcOrder.StartOrTryFulfill(inventory);
+
+                    if (fulfilled)
+                    {
+                        Debug.Log("Order fulfilled!");
+                    }
+                    else
+                    {
+                        Debug.Log("Dish doesn't match NPC order.");
+                    }
+                }
+                return;
+            }
+
+            // 2. Regular NPC interaction if no dish to serve
             if (currentNPC != null)
             {
                 currentNPC.OnInteract(ctx);
                 return;
             }
 
+            // 3. Pick up cooked food normally
             if (currentCookedFood != null && inventory != null)
             {
                 Vector3 worldPos = currentCookedFood.transform.position;
@@ -116,6 +143,7 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
+            // 4. Stove interaction
             if (currentStove != null && inventory != null && inventory.HasIngredient())
             {
                 if (inventory.heldIngredient == "trash bag")
@@ -126,6 +154,7 @@ public class PlayerController : MonoBehaviour
 
                 if (inventory.heldIngredient == "rice")
                 {
+                    // Optionally do nothing for rice
                     return;
                 }
 
@@ -134,31 +163,35 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
+            // 5. Chopping board interaction
             if (currentBoard != null && inventory != null)
             {
                 currentBoard.HandlePlayerInteract(inventory);
                 return;
             }
 
+            // 6. Fridge interaction
             if (inventory != null && inventory.currentFridge != null)
             {
                 if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
                     inventory.currentFridge.TryOpenOrCloseFridge(inventory);
                 else
                     Debug.Log("UI already open — ignoring Interact input.");
+                return;
             }
 
-            if (ctx.performed && currentIngredientBox != null && inventory != null)
+            // 7. Ingredient box pickup
+            if (currentIngredientBox != null && inventory != null)
             {
-                if (inventory.IsHoldingItem()) return;
-                // Pick up the ingredient
-                inventory.PickUpIngredient(currentIngredientBox.ingredientName, currentIngredientBox.ingredientPrefab);
-
-                // Clear the reference
-                currentIngredientBox = null;
+                if (!inventory.IsHoldingItem())
+                {
+                    inventory.PickUpIngredient(currentIngredientBox.ingredientName, currentIngredientBox.ingredientPrefab);
+                    currentIngredientBox = null;
+                }
             }
         }
     }
+
 
     private IEnumerator HoldToClearStove()
     {

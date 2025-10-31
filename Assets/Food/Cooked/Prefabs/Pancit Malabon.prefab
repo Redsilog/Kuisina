@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7566465069585199124}
   - component: {fileID: 2200831156344224607}
   - component: {fileID: -5553182437151952790}
-  - component: {fileID: -4379882873198289599}
   m_Layer: 0
   m_Name: Pancit Malabon
   m_TagString: CookedFood
@@ -143,16 +142,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02620496, y: 0.026860168, z: 0.028977556}
   m_Center: {x: -0.00004259124, y: 0.00014460458, z: -0.0047397153}
---- !u!114 &-4379882873198289599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3336605299608830592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd972cdbc9e86d146be5c047a4e0ca8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DishReference
-  prefab: {fileID: 3336605299608830592}

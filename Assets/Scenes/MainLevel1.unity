@@ -6905,61 +6905,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8e0b3e9acf61f184ba7a4fcbd0654042, type: 3}
   m_PrefabInstance: {fileID: 352992802}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &354318664
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 354318665}
-  - component: {fileID: 354318666}
-  m_Layer: 0
-  m_Name: AI Request Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &354318665
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354318664}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2070722170}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &354318666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354318664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21f1aec571ceb14caa0a2a84f91e368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RequestManager
-  levelPools:
-  - levelName: Main  Level 1
-    possibleRequests:
-    - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
-    - {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
-    - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
-  - levelName: Main Level 2
-    possibleRequests:
-    - {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
-    - {fileID: 9169607984740651036, guid: 1d530a0e4f5522f4795584bffee03148, type: 3}
-    - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
 --- !u!1001 &366293559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8474,14 +8419,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCSpawner1
   npcPrefabs:
-  - {fileID: 1918290237203441870, guid: 9abd26d40bb5f5e4e8896bc6cefee65c, type: 3}
-  - {fileID: 538464148702343494, guid: 50e65f0cc883655488c1883bef9a588d, type: 3}
-  - {fileID: 469679333988774096, guid: b25a2c8aabdd7a144a8f6281ca2090cd, type: 3}
-  - {fileID: 7927296470504479056, guid: 3d51b208c21b8e94094fc3ec137786cd, type: 3}
-  - {fileID: 2111230945047006159, guid: df7f7a496bba46341b05bfd992f404f1, type: 3}
-  - {fileID: 6912682432288383443, guid: db88894398bdab3479cbfd702b822b99, type: 3}
-  - {fileID: 1926056749503639539, guid: 049f0e655fcdb394bbdff55bfe4a4d70, type: 3}
-  - {fileID: 8236878944884220726, guid: 2327654a6d766ef4491e0a871cd65c19, type: 3}
+  - {fileID: 1918290237203441870, guid: dd90b0d01651d2b45854916860d64be6, type: 3}
+  - {fileID: 2111230945047006159, guid: 53b707f390f1d09419c78205e0af4614, type: 3}
+  - {fileID: 6912682432288383443, guid: d32e1b6abdc62804caad70f41488ea5c, type: 3}
+  - {fileID: 1926056749503639539, guid: c69d357bb9967fc4ab8f7d2ba1d315a6, type: 3}
+  - {fileID: 8236878944884220726, guid: 0dacfe53ccd324241aae92537e2f0bab, type: 3}
+  - {fileID: 538464148702343494, guid: dd36f5d7738135747a5af6e921507f3e, type: 3}
+  - {fileID: 469679333988774096, guid: 491b2c85ee10ef44d87e049a342ce1c1, type: 3}
+  - {fileID: 7927296470504479056, guid: 5da396ff2b79771449d5b38a7fb7cbe1, type: 3}
   routeEntries:
   - route: {fileID: 55422359}
     spawnPoint: {fileID: 55422358}
@@ -8491,10 +8436,6 @@ MonoBehaviour:
     spawnPoint: {fileID: 1923008502}
     waitIndex: 2
     spawnDelay: 30
-  - route: {fileID: 733210087}
-    spawnPoint: {fileID: 733210086}
-    waitIndex: 2
-    spawnDelay: 50
   - route: {fileID: 22253045}
     spawnPoint: {fileID: 22253044}
     waitIndex: 2
@@ -37171,7 +37112,6 @@ Transform:
   - {fileID: 458645337}
   - {fileID: 393612781}
   - {fileID: 1926233449}
-  - {fileID: 354318665}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2079479313

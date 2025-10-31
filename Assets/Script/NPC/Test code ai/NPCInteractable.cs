@@ -44,6 +44,7 @@ public class NPCInteractable : MonoBehaviour
     private NPCTimerUI activeTimerUI;
     [SerializeField] private Canvas npcTimerCanvas;
 
+    public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
     void Awake()
     {
         var col = GetComponent<Collider>();
@@ -246,4 +247,5 @@ public class NPCInteractable : MonoBehaviour
             autoClearAfter
         );
     }
+
 }

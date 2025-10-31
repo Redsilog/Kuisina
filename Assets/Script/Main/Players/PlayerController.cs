@@ -61,21 +61,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        // --- Hold down starts the timer for stove clearing ---
-        if (ctx.started)
-        {
-            if (currentStove != null && !inventory.HasIngredient())
-            {
-                StartCoroutine(HoldToClearStove());
-                return;
-            }
-
-            if (currentBoard != null && inventory != null)
-                currentBoard.StartChop(inventory);
-        }
-
-        // --- Released ---
-        else if (ctx.canceled)
+        if (ctx.canceled)
         {
             StopAllCoroutines(); // cancel hold if released early
 
@@ -123,6 +109,17 @@ public class PlayerController : MonoBehaviour
 
             if (currentStove != null && inventory != null && inventory.HasIngredient())
             {
+                if (inventory.heldIngredient == "trash bag") 
+                {
+                    currentStove.ClearStove(); 
+                    return;
+                }
+
+                if (inventory.heldIngredient == "rice") 
+                {
+                    return;
+                }
+
                 currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
                 inventory.ClearHeldItemDirect();
                 return;
@@ -144,6 +141,7 @@ public class PlayerController : MonoBehaviour
 
             if (ctx.performed && currentIngredientBox != null && inventory != null)
             {
+                if (inventory.IsHoldingItem()) return;
                 // Pick up the ingredient
                 inventory.PickUpIngredient(currentIngredientBox.ingredientName, currentIngredientBox.ingredientPrefab);
 

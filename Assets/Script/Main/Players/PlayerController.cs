@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private NPCInteractable currentNPC;
     private GameObject currentCookedFood;
     private PlayerInventory inventory;
+    private IngredientBox currentIngredientBox;
 
     private List<Stove> nearbyStoves = new List<Stove>();
 
@@ -140,6 +141,15 @@ public class PlayerController : MonoBehaviour
                 else
                     Debug.Log("UI already open — ignoring Interact input.");
             }
+
+            if (ctx.performed && currentIngredientBox != null && inventory != null)
+            {
+                // Pick up the ingredient
+                inventory.PickUpIngredient(currentIngredientBox.ingredientName, currentIngredientBox.ingredientPrefab);
+
+                // Clear the reference
+                currentIngredientBox = null;
+            }
         }
     }
 
@@ -172,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
         else if (other.TryGetComponent(out NPCInteractable npc))
             currentNPC = npc;
+            
 
         if (other.TryGetComponent(out Stove stove))
         {
@@ -191,6 +202,13 @@ public class PlayerController : MonoBehaviour
             currentCookedFood = other.gameObject;
             ToggleHighlight(currentCookedFood, true);
             Debug.Log("Cooked food in range");
+        }
+
+        if (other.TryGetComponent<IngredientBox>(out var box))
+        {
+            currentIngredientBox = box;
+            ToggleHighlight(box.gameObject, true);
+            Debug.Log("Ingredient box in range");
         }
     }
 
@@ -226,6 +244,12 @@ public class PlayerController : MonoBehaviour
         {
             ToggleHighlight(other.gameObject, false);
             currentCookedFood = null;
+        }
+
+        if (other.TryGetComponent<IngredientBox>(out var box) && currentIngredientBox == box)
+        {
+            currentIngredientBox = null;
+            ToggleHighlight(box.gameObject, false);
         }
     }
 

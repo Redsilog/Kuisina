@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
-  m_Name: Vegetables
+  m_Name: Radish
   m_EditorClassIdentifier: 
-  ingredientName: Vegetables
+  ingredientName: Radish
   ingredientIcon: {fileID: 21300000, guid: 128274a48d4771241b140fd0156f925e, type: 3}
   ingredientPrefab: {fileID: 7577837678311548170, guid: 697f431e619e0344b839e678bdd66bcb, type: 3}
   ingredientDescription: 

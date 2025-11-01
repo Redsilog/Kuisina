@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: Dried taro leaves
   m_EditorClassIdentifier: 
-  ingredientName: Dried taro leaves
+  ingredientName: Dried Taro leaves
   ingredientIcon: {fileID: 21300000, guid: f60e42d98ede75743b01308c32fcfb1e, type: 3}
   ingredientPrefab: {fileID: 6477186673802754283, guid: 1adc9341e144c8c47a767704f4fdfa4c, type: 3}
   ingredientDescription: 

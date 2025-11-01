@@ -2212,7 +2212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13
+      value: 13.967
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2232,11 +2232,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -6.789978
+      value: -6.465027
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -536.09
+      value: -536.381
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2269,6 +2269,10 @@ PrefabInstance:
     - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_ConstraintCount
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710962660902252362, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Name
+      value: IngredientContainer <- align with this
       objectReference: {fileID: 0}
     - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_Pivot.x
@@ -2368,7 +2372,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 284117967}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
 --- !u!224 &117068315 stripped
@@ -3916,6 +3923,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e0b3e9acf61f184ba7a4fcbd0654042, type: 3}
+--- !u!1 &206679851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 206679852}
+  - component: {fileID: 206679854}
+  - component: {fileID: 206679853}
+  m_Layer: 0
+  m_Name: remove if done aligning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &206679852
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206679851}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 997016595}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &206679853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206679851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &206679854
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206679851}
+  m_CullTransparentMesh: 1
 --- !u!1001 &212859468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4953,7 +5035,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6f2254a831d251c4f913896914d7d353, type: 2}
   - {fileID: 11400000, guid: f745a5ff72a2a3847aca4eac212cc9c8, type: 2}
   - {fileID: 11400000, guid: 5bbc94bd6ce32a748bb28324121353ed, type: 2}
-  - {fileID: 11400000, guid: f508626da8f6d31449c65ff4f609458f, type: 2}
   - {fileID: 11400000, guid: f4ddfa6da845026418bd6402c6b5f29e, type: 2}
   - {fileID: 11400000, guid: 615770fa3cccaa84d898eb0bcf66c86f, type: 2}
   - {fileID: 11400000, guid: 0038e075eb87561479edd2385edacac4, type: 2}
@@ -5829,6 +5910,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282161605}
+  m_CullTransparentMesh: 1
+--- !u!1 &284117966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 284117967}
+  - component: {fileID: 284117969}
+  - component: {fileID: 284117968}
+  m_Layer: 0
+  m_Name: remove if done aligning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &284117967
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284117966}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2102303862}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &284117968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284117966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &284117969
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284117966}
   m_CullTransparentMesh: 1
 --- !u!4 &287356101 stripped
 Transform:
@@ -6774,6 +6930,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43b38fee4a10bc044a1c11328f694976, type: 2}
   - {fileID: 11400000, guid: 9c57d4712b4ca88479308c90a819bae1, type: 2}
   - {fileID: 11400000, guid: 742d4b4c709ee07438a4a59fad4a766d, type: 2}
+  - {fileID: 11400000, guid: a334d094ac315b046a849ab8a231f9e7, type: 2}
   - {fileID: 11400000, guid: 1604805d8ae2e794e9b458e0d8b2bfb7, type: 2}
   - {fileID: 11400000, guid: 0a983aba0651a3d4c8199e58dc1f0275, type: 2}
   fridgeUI_Player1: {fileID: 1702717439}
@@ -10302,7 +10459,119 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1027168800}
   smokeSpawnPoint: {fileID: 1578158538}
-  ingredientIcons: []
+  ingredientIcons:
+  - ingredientName: Pepper
+    icon: {fileID: 21300000, guid: 8dd8c43c42c13ba4baf26cb4ee7f41e8, type: 3}
+  - ingredientName: Salt
+    icon: {fileID: 21300000, guid: 987b9c8afdba5654d9da91a2f008ecca, type: 3}
+  - ingredientName: Soy Sauce
+    icon: {fileID: 21300000, guid: 488a41e60954c5e43ac126ad70d59c79, type: 3}
+  - ingredientName: Vinegar
+    icon: {fileID: 21300000, guid: 5c0033f5aa88c514ca243c90f9e57087, type: 3}
+  - ingredientName: Beef
+    icon: {fileID: 21300000, guid: 9370c44a2740cb94b947fe9bdfeaa3c2, type: 3}
+  - ingredientName: raw chicken
+    icon: {fileID: 21300000, guid: 178a17a0cdaaa494fb8b0be018ab3b0c, type: 3}
+  - ingredientName: Crab
+    icon: {fileID: 21300000, guid: 5ed1ff2a2483f8a40882f507bf32293f, type: 3}
+  - ingredientName: Goat Meat
+    icon: {fileID: 21300000, guid: 151fa6fbc5f6aeb499cbcb8ebc268b1f, type: 3}
+  - ingredientName: Mackerel
+    icon: {fileID: 21300000, guid: 9151098d7a4ffba4c8a39a7b28e7899d, type: 3}
+  - ingredientName: Bangus
+    icon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
+  - ingredientName: Mussels
+    icon: {fileID: 21300000, guid: 8c363fd0f31c38546b058bdd8b4f94af, type: 3}
+  - ingredientName: Pork
+    icon: {fileID: 21300000, guid: 3b524ad8ae361ad4ca815b30fa1251b3, type: 3}
+  - ingredientName: Prawns
+    icon: {fileID: 21300000, guid: 9435b8700fb4f274ba9f69b3360eb22f, type: 3}
+  - ingredientName: Shrimp
+    icon: {fileID: 21300000, guid: f0669fcfab67ed4459d181b031c24d41, type: 3}
+  - ingredientName: Squid
+    icon: {fileID: 21300000, guid: cf792ebd7c371ec47aa08cd5f2138e74, type: 3}
+  - ingredientName: Tanigue
+    icon: {fileID: 21300000, guid: 27b03f35a5d16464ba20c10383fb23d0, type: 3}
+  - ingredientName: Tuna
+    icon: {fileID: 21300000, guid: 343650793b252734596a5fc509287834, type: 3}
+  - ingredientName: Whole Pig
+    icon: {fileID: 21300000, guid: d384a69369bfa6040bd18a4eeff677a2, type: 3}
+  - ingredientName: Banana Heart
+    icon: {fileID: 21300000, guid: 74d61e1599f6b644f8274e47cd6e94e9, type: 3}
+  - ingredientName: Calamansi
+    icon: {fileID: 21300000, guid: 75db3a5ab677737439ff0d28e7034052, type: 3}
+  - ingredientName: Carrot
+    icon: {fileID: 21300000, guid: 22f44a58bb3028f469d3090980eaefc9, type: 3}
+  - ingredientName: Chili
+    icon: {fileID: 21300000, guid: b49b83c07f2e25446b53b826bf1fb529, type: 3}
+  - ingredientName: Citrus
+    icon: {fileID: 21300000, guid: da27f05c606d84043ac379cea65b02cd, type: 3}
+  - ingredientName: Eggplant
+    icon: {fileID: 21300000, guid: a2d4a8b73f036c54889c274d46853098, type: 3}
+  - ingredientName: Eggs
+    icon: {fileID: 21300000, guid: 31c3a752bb503e84fb9b854744b30d7a, type: 3}
+  - ingredientName: Ginger
+    icon: {fileID: 21300000, guid: 798ec8de3309a9a4db24c64c7b5cd064, type: 3}
+  - ingredientName: Herbs
+    icon: {fileID: 21300000, guid: 57950a55eb24e9f4b875f55b94366421, type: 3}
+  - ingredientName: Kangkong
+    icon: {fileID: 21300000, guid: ba1238c990cc7d543a289f90f56825af, type: 3}
+  - ingredientName: Lemongrass
+    icon: {fileID: 21300000, guid: 46a96bd570365434382ba131dbf92dfa, type: 3}
+  - ingredientName: Mustard Leaves
+    icon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
+  - ingredientName: Onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
+  - ingredientName: Pechay
+    icon: {fileID: 21300000, guid: ca7b9e30c0cb2164c811d7899b65b725, type: 3}
+  - ingredientName: Radish
+    icon: {fileID: 21300000, guid: 128274a48d4771241b140fd0156f925e, type: 3}
+  - ingredientName: String Beans
+    icon: {fileID: 21300000, guid: 12b3a4d940c0a7444807088f418d1a6e, type: 3}
+  - ingredientName: Tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: Annatto Sauce
+    icon: {fileID: 21300000, guid: 4694f0087c3fe7940be253d441b8046b, type: 3}
+  - ingredientName: Atsuete
+    icon: {fileID: 21300000, guid: 811c211bfbc2bd245a0f10a8d08c10aa, type: 3}
+  - ingredientName: Bagoong
+    icon: {fileID: 21300000, guid: fedf2de80bd2f144c9cc5a9dc383bee9, type: 3}
+  - ingredientName: Batwan Fruit
+    icon: {fileID: 21300000, guid: 8e5a3c753031b70448b80fb54320b1a0, type: 3}
+  - ingredientName: Bay Leaf
+    icon: {fileID: 21300000, guid: e85e9d657efd00e43b70221d5a7d9e0d, type: 3}
+  - ingredientName: Coconut Milk
+    icon: {fileID: 21300000, guid: ecbebedffb42c5f4aaa4b95a205179b1, type: 3}
+  - ingredientName: Dried Taro Leaves
+    icon: {fileID: 21300000, guid: f60e42d98ede75743b01308c32fcfb1e, type: 3}
+  - ingredientName: Egg Noodles
+    icon: {fileID: 21300000, guid: 9da39e957c981a34c91c37cfa9e414cd, type: 3}
+  - ingredientName: Fresh Taro Leaves
+    icon: {fileID: 21300000, guid: 893fc1e2c44aded48a29dd0e4324c61e, type: 3}
+  - ingredientName: Garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: Green Mango
+    icon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
+  - ingredientName: Guava
+    icon: {fileID: 21300000, guid: 97aac4b7ad067f2409e8eb4aa31b0c7f, type: 3}
+  - ingredientName: Kamias
+    icon: {fileID: 21300000, guid: 7fcacb849b2e2a044888f671b8a85efd, type: 3}
+  - ingredientName: Liver Sauce
+    icon: {fileID: 21300000, guid: 51b2d54d49d6a2743a4bb14d4d84f048, type: 3}
+  - ingredientName: Miki Noodles
+    icon: {fileID: 21300000, guid: f92c96df1b440684694eeed790c8b2f6, type: 3}
+  - ingredientName: Peanut Sauce
+    icon: {fileID: 21300000, guid: bc4ec56b06ba01e4382711563bf11c72, type: 3}
+  - ingredientName: Tamarind
+    icon: {fileID: 21300000, guid: 8c5d70f9cf4b1d04f92895741674fba6, type: 3}
+  - ingredientName: Thick RIce Noodles
+    icon: {fileID: 21300000, guid: e1873ed7b755f0846b2f001c28198b68, type: 3}
+  - ingredientName: chopped garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: sliced tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: chopped onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
   isCooking: 0
   cookedFood: {fileID: 0}
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
@@ -15429,6 +15698,11 @@ Transform:
   - {fileID: 65451572}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &826811978 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+  m_PrefabInstance: {fileID: 2072417037046459397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &828976095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17160,54 +17434,124 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 488a41e60954c5e43ac126ad70d59c79, type: 3}
   - ingredientName: Vinegar
     icon: {fileID: 21300000, guid: 5c0033f5aa88c514ca243c90f9e57087, type: 3}
-  - ingredientName: 
+  - ingredientName: Beef
     icon: {fileID: 21300000, guid: 9370c44a2740cb94b947fe9bdfeaa3c2, type: 3}
-  - ingredientName: 
+  - ingredientName: raw chicken
     icon: {fileID: 21300000, guid: 178a17a0cdaaa494fb8b0be018ab3b0c, type: 3}
-  - ingredientName: 
+  - ingredientName: Crab
     icon: {fileID: 21300000, guid: 5ed1ff2a2483f8a40882f507bf32293f, type: 3}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
+  - ingredientName: Goat Meat
+    icon: {fileID: 21300000, guid: 151fa6fbc5f6aeb499cbcb8ebc268b1f, type: 3}
+  - ingredientName: Mackerel
+    icon: {fileID: 21300000, guid: 9151098d7a4ffba4c8a39a7b28e7899d, type: 3}
+  - ingredientName: Bangus
+    icon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
+  - ingredientName: Mussels
+    icon: {fileID: 21300000, guid: 8c363fd0f31c38546b058bdd8b4f94af, type: 3}
+  - ingredientName: Pork
+    icon: {fileID: 21300000, guid: 3b524ad8ae361ad4ca815b30fa1251b3, type: 3}
+  - ingredientName: Prawns
+    icon: {fileID: 21300000, guid: 9435b8700fb4f274ba9f69b3360eb22f, type: 3}
+  - ingredientName: Shrimp
+    icon: {fileID: 21300000, guid: f0669fcfab67ed4459d181b031c24d41, type: 3}
+  - ingredientName: Squid
+    icon: {fileID: 21300000, guid: cf792ebd7c371ec47aa08cd5f2138e74, type: 3}
+  - ingredientName: Tanigue
+    icon: {fileID: 21300000, guid: 27b03f35a5d16464ba20c10383fb23d0, type: 3}
+  - ingredientName: Tuna
+    icon: {fileID: 21300000, guid: 343650793b252734596a5fc509287834, type: 3}
+  - ingredientName: Whole Pig
+    icon: {fileID: 21300000, guid: d384a69369bfa6040bd18a4eeff677a2, type: 3}
+  - ingredientName: Banana Heart
+    icon: {fileID: 21300000, guid: 74d61e1599f6b644f8274e47cd6e94e9, type: 3}
+  - ingredientName: Calamansi
+    icon: {fileID: 21300000, guid: 75db3a5ab677737439ff0d28e7034052, type: 3}
+  - ingredientName: Carrot
+    icon: {fileID: 21300000, guid: 22f44a58bb3028f469d3090980eaefc9, type: 3}
+  - ingredientName: Chili
+    icon: {fileID: 21300000, guid: b49b83c07f2e25446b53b826bf1fb529, type: 3}
+  - ingredientName: Citrus
+    icon: {fileID: 21300000, guid: da27f05c606d84043ac379cea65b02cd, type: 3}
+  - ingredientName: Eggplant
+    icon: {fileID: 21300000, guid: a2d4a8b73f036c54889c274d46853098, type: 3}
+  - ingredientName: Eggs
+    icon: {fileID: 21300000, guid: 31c3a752bb503e84fb9b854744b30d7a, type: 3}
+  - ingredientName: Ginger
+    icon: {fileID: 21300000, guid: 798ec8de3309a9a4db24c64c7b5cd064, type: 3}
+  - ingredientName: Herbs
+    icon: {fileID: 21300000, guid: 57950a55eb24e9f4b875f55b94366421, type: 3}
+  - ingredientName: Kangkong
+    icon: {fileID: 21300000, guid: ba1238c990cc7d543a289f90f56825af, type: 3}
+  - ingredientName: Lemongrass
+    icon: {fileID: 21300000, guid: 46a96bd570365434382ba131dbf92dfa, type: 3}
+  - ingredientName: Mustard Leaves
+    icon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
+  - ingredientName: Onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
+  - ingredientName: Pechay
+    icon: {fileID: 21300000, guid: ca7b9e30c0cb2164c811d7899b65b725, type: 3}
+  - ingredientName: Radish
+    icon: {fileID: 21300000, guid: 128274a48d4771241b140fd0156f925e, type: 3}
+  - ingredientName: String Beans
+    icon: {fileID: 21300000, guid: 12b3a4d940c0a7444807088f418d1a6e, type: 3}
+  - ingredientName: Tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: Annatto Sauce
+    icon: {fileID: 21300000, guid: 4694f0087c3fe7940be253d441b8046b, type: 3}
+  - ingredientName: Atsuete
+    icon: {fileID: 21300000, guid: 811c211bfbc2bd245a0f10a8d08c10aa, type: 3}
+  - ingredientName: Bagoong
+    icon: {fileID: 21300000, guid: fedf2de80bd2f144c9cc5a9dc383bee9, type: 3}
+  - ingredientName: Batwan Fruit
+    icon: {fileID: 21300000, guid: 8e5a3c753031b70448b80fb54320b1a0, type: 3}
+  - ingredientName: Bay Leaf
+    icon: {fileID: 21300000, guid: e85e9d657efd00e43b70221d5a7d9e0d, type: 3}
+  - ingredientName: Coconut Milk
+    icon: {fileID: 21300000, guid: ecbebedffb42c5f4aaa4b95a205179b1, type: 3}
+  - ingredientName: Dried Taro Leaves
+    icon: {fileID: 21300000, guid: f60e42d98ede75743b01308c32fcfb1e, type: 3}
+  - ingredientName: Egg Noodles
+    icon: {fileID: 21300000, guid: 9da39e957c981a34c91c37cfa9e414cd, type: 3}
+  - ingredientName: Fresh Taro Leaves
+    icon: {fileID: 21300000, guid: 893fc1e2c44aded48a29dd0e4324c61e, type: 3}
+  - ingredientName: Garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: Green Mango
+    icon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
+  - ingredientName: Guava
+    icon: {fileID: 21300000, guid: 97aac4b7ad067f2409e8eb4aa31b0c7f, type: 3}
+  - ingredientName: Kamias
+    icon: {fileID: 21300000, guid: 7fcacb849b2e2a044888f671b8a85efd, type: 3}
+  - ingredientName: Liver Sauce
+    icon: {fileID: 21300000, guid: 51b2d54d49d6a2743a4bb14d4d84f048, type: 3}
+  - ingredientName: Miki Noodles
+    icon: {fileID: 21300000, guid: f92c96df1b440684694eeed790c8b2f6, type: 3}
+  - ingredientName: Peanut Sauce
+    icon: {fileID: 21300000, guid: bc4ec56b06ba01e4382711563bf11c72, type: 3}
+  - ingredientName: Tamarind
+    icon: {fileID: 21300000, guid: 8c5d70f9cf4b1d04f92895741674fba6, type: 3}
+  - ingredientName: Thick RIce Noodles
+    icon: {fileID: 21300000, guid: e1873ed7b755f0846b2f001c28198b68, type: 3}
+  - ingredientName: chopped garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: sliced tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: chopped onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
+  - ingredientName: Mustard Leaves Sliced
+    icon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
+  - ingredientName: Green Mango Sliced
+    icon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
+  - ingredientName: Tanigue Sliced
+    icon: {fileID: 21300000, guid: 27b03f35a5d16464ba20c10383fb23d0, type: 3}
+  - ingredientName: Kamias Sliced
+    icon: {fileID: 21300000, guid: 7fcacb849b2e2a044888f671b8a85efd, type: 3}
   isCooking: 0
   cookedFood: {fileID: 0}
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
-  burnTime: 35.86
+  burnTime: 10
 --- !u!65 &909366145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19049,7 +19393,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 58b84067283849c42876b2d2427f4be5, type: 2}
   - {fileID: 11400000, guid: 755965a2d205f8e4299e907695caa60c, type: 2}
   - {fileID: 11400000, guid: 6f2d693371bf4b742acb048be0ae25a4, type: 2}
-  - {fileID: 11400000, guid: a334d094ac315b046a849ab8a231f9e7, type: 2}
   - {fileID: 11400000, guid: dcda531ab7fd8b34e8817d114c5f7999, type: 2}
   - {fileID: 11400000, guid: 4daa5ebdc9affa34a83cb9f0ba298a7f, type: 2}
   - {fileID: 11400000, guid: ef8353b109f9eb44eac33c9e2615191d, type: 2}
@@ -19200,6 +19543,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993426576}
   m_CullTransparentMesh: 1
+--- !u!224 &997016595 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+  m_PrefabInstance: {fileID: 2003614232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1001676270
 GameObject:
   m_ObjectHideFlags: 0
@@ -20747,6 +21095,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2dc4e6d2ee32bc94999e0ddb0076620e, type: 3}
   m_PrefabInstance: {fileID: 1085926120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1092005091 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+  m_PrefabInstance: {fileID: 1482137476}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1099071776
 GameObject:
@@ -22512,6 +22865,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe65fec31a96cc49a3146a03f035c48, type: 3}
+--- !u!1 &1174339775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1174339776}
+  - component: {fileID: 1174339778}
+  - component: {fileID: 1174339777}
+  m_Layer: 0
+  m_Name: remove if done aligning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1174339776
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174339775}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1092005091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1174339777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174339775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1174339778
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174339775}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1179896386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27931,6 +28359,235 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7686192271523242370, guid: 935d5510087bf1744b0254a3a8d9cd96, type: 3}
   m_PrefabInstance: {fileID: 1465651261}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1482137476
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1740870605}
+    m_Modifications:
+    - target: {fileID: 1282061030137425434, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: targetStove
+      value: 
+      objectReference: {fileID: 503192802}
+    - target: {fileID: 3942320165133755270, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.592
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4939644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4939644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4939644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.932
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8535535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.1464466
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.2940063
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -536.288
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927545993266032189, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Name
+      value: StoveIngredientTrackerPanel (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_StartAxis
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Constraint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_StartCorner
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_ConstraintCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710962660902252362, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Name
+      value: IngredientContainer <- align with this
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1739452252}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -517595433
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1174339776}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+--- !u!224 &1482137477 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+  m_PrefabInstance: {fileID: 1482137476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1486629572
 GameObject:
   m_ObjectHideFlags: 0
@@ -31670,48 +32327,110 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 488a41e60954c5e43ac126ad70d59c79, type: 3}
   - ingredientName: Vinegar
     icon: {fileID: 21300000, guid: 5c0033f5aa88c514ca243c90f9e57087, type: 3}
-  - ingredientName: 
+  - ingredientName: Beef
     icon: {fileID: 21300000, guid: 9370c44a2740cb94b947fe9bdfeaa3c2, type: 3}
-  - ingredientName: 
+  - ingredientName: raw chicken
     icon: {fileID: 21300000, guid: 178a17a0cdaaa494fb8b0be018ab3b0c, type: 3}
-  - ingredientName: 
+  - ingredientName: Crab
     icon: {fileID: 21300000, guid: 5ed1ff2a2483f8a40882f507bf32293f, type: 3}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
-  - ingredientName: 
-    icon: {fileID: 0}
+  - ingredientName: Goat Meat
+    icon: {fileID: 21300000, guid: 151fa6fbc5f6aeb499cbcb8ebc268b1f, type: 3}
+  - ingredientName: Mackerel
+    icon: {fileID: 21300000, guid: 9151098d7a4ffba4c8a39a7b28e7899d, type: 3}
+  - ingredientName: Bangus
+    icon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
+  - ingredientName: Mussels
+    icon: {fileID: 21300000, guid: 8c363fd0f31c38546b058bdd8b4f94af, type: 3}
+  - ingredientName: Pork
+    icon: {fileID: 21300000, guid: 3b524ad8ae361ad4ca815b30fa1251b3, type: 3}
+  - ingredientName: Prawns
+    icon: {fileID: 21300000, guid: 9435b8700fb4f274ba9f69b3360eb22f, type: 3}
+  - ingredientName: Shrimp
+    icon: {fileID: 21300000, guid: f0669fcfab67ed4459d181b031c24d41, type: 3}
+  - ingredientName: Squid
+    icon: {fileID: 21300000, guid: cf792ebd7c371ec47aa08cd5f2138e74, type: 3}
+  - ingredientName: Tanigue
+    icon: {fileID: 21300000, guid: 27b03f35a5d16464ba20c10383fb23d0, type: 3}
+  - ingredientName: Tuna
+    icon: {fileID: 21300000, guid: 343650793b252734596a5fc509287834, type: 3}
+  - ingredientName: Whole Pig
+    icon: {fileID: 21300000, guid: d384a69369bfa6040bd18a4eeff677a2, type: 3}
+  - ingredientName: Banana Heart
+    icon: {fileID: 21300000, guid: 74d61e1599f6b644f8274e47cd6e94e9, type: 3}
+  - ingredientName: Calamansi
+    icon: {fileID: 21300000, guid: 75db3a5ab677737439ff0d28e7034052, type: 3}
+  - ingredientName: Carrot
+    icon: {fileID: 21300000, guid: 22f44a58bb3028f469d3090980eaefc9, type: 3}
+  - ingredientName: Chili
+    icon: {fileID: 21300000, guid: b49b83c07f2e25446b53b826bf1fb529, type: 3}
+  - ingredientName: Citrus
+    icon: {fileID: 21300000, guid: da27f05c606d84043ac379cea65b02cd, type: 3}
+  - ingredientName: Eggplant
+    icon: {fileID: 21300000, guid: a2d4a8b73f036c54889c274d46853098, type: 3}
+  - ingredientName: Eggs
+    icon: {fileID: 21300000, guid: 31c3a752bb503e84fb9b854744b30d7a, type: 3}
+  - ingredientName: Ginger
+    icon: {fileID: 21300000, guid: 798ec8de3309a9a4db24c64c7b5cd064, type: 3}
+  - ingredientName: Herbs
+    icon: {fileID: 21300000, guid: 57950a55eb24e9f4b875f55b94366421, type: 3}
+  - ingredientName: Kangkong
+    icon: {fileID: 21300000, guid: ba1238c990cc7d543a289f90f56825af, type: 3}
+  - ingredientName: Lemongrass
+    icon: {fileID: 21300000, guid: 46a96bd570365434382ba131dbf92dfa, type: 3}
+  - ingredientName: Mustard Leaves
+    icon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
+  - ingredientName: Onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
+  - ingredientName: Pechay
+    icon: {fileID: 21300000, guid: ca7b9e30c0cb2164c811d7899b65b725, type: 3}
+  - ingredientName: Radish
+    icon: {fileID: 21300000, guid: 128274a48d4771241b140fd0156f925e, type: 3}
+  - ingredientName: String Beans
+    icon: {fileID: 21300000, guid: 12b3a4d940c0a7444807088f418d1a6e, type: 3}
+  - ingredientName: Tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: Annatto Sauce
+    icon: {fileID: 21300000, guid: 4694f0087c3fe7940be253d441b8046b, type: 3}
+  - ingredientName: Atsuete
+    icon: {fileID: 21300000, guid: 811c211bfbc2bd245a0f10a8d08c10aa, type: 3}
+  - ingredientName: Bagoong
+    icon: {fileID: 21300000, guid: fedf2de80bd2f144c9cc5a9dc383bee9, type: 3}
+  - ingredientName: Batwan Fruit
+    icon: {fileID: 21300000, guid: 8e5a3c753031b70448b80fb54320b1a0, type: 3}
+  - ingredientName: Bay Leaf
+    icon: {fileID: 21300000, guid: e85e9d657efd00e43b70221d5a7d9e0d, type: 3}
+  - ingredientName: Coconut Milk
+    icon: {fileID: 21300000, guid: ecbebedffb42c5f4aaa4b95a205179b1, type: 3}
+  - ingredientName: Dried Taro Leaves
+    icon: {fileID: 21300000, guid: f60e42d98ede75743b01308c32fcfb1e, type: 3}
+  - ingredientName: Egg Noodles
+    icon: {fileID: 21300000, guid: 9da39e957c981a34c91c37cfa9e414cd, type: 3}
+  - ingredientName: Fresh Taro Leaves
+    icon: {fileID: 21300000, guid: 893fc1e2c44aded48a29dd0e4324c61e, type: 3}
+  - ingredientName: Garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: Green Mango
+    icon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
+  - ingredientName: Guava
+    icon: {fileID: 21300000, guid: 97aac4b7ad067f2409e8eb4aa31b0c7f, type: 3}
+  - ingredientName: Kamias
+    icon: {fileID: 21300000, guid: 7fcacb849b2e2a044888f671b8a85efd, type: 3}
+  - ingredientName: Liver Sauce
+    icon: {fileID: 21300000, guid: 51b2d54d49d6a2743a4bb14d4d84f048, type: 3}
+  - ingredientName: Miki Noodles
+    icon: {fileID: 21300000, guid: f92c96df1b440684694eeed790c8b2f6, type: 3}
+  - ingredientName: Peanut Sauce
+    icon: {fileID: 21300000, guid: bc4ec56b06ba01e4382711563bf11c72, type: 3}
+  - ingredientName: Tamarind
+    icon: {fileID: 21300000, guid: 8c5d70f9cf4b1d04f92895741674fba6, type: 3}
+  - ingredientName: Thick RIce Noodles
+    icon: {fileID: 21300000, guid: e1873ed7b755f0846b2f001c28198b68, type: 3}
+  - ingredientName: chopped garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: sliced tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: chopped onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
   isCooking: 0
   cookedFood: {fileID: 0}
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
@@ -32575,6 +33294,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659892446}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1660728145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1660728146}
+  - component: {fileID: 1660728148}
+  - component: {fileID: 1660728147}
+  m_Layer: 0
+  m_Name: remove if done aligning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1660728146
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660728145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 826811978}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1660728147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660728145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1660728148
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660728145}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1663167294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34661,6 +35455,8 @@ Transform:
   - {fileID: 914572595}
   - {fileID: 1056716278}
   - {fileID: 117068315}
+  - {fileID: 2003614233}
+  - {fileID: 1482137477}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1747119572
@@ -40025,7 +40821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1984122162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40370,6 +41166,235 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f32f6ada9f0534ba589daf39859053de, type: 3}
+--- !u!1001 &2003614232
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1740870605}
+    m_Modifications:
+    - target: {fileID: 1282061030137425434, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: targetStove
+      value: 
+      objectReference: {fileID: 8567716999343194648}
+    - target: {fileID: 3942320165133755270, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.592
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619395851444245160, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4939644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4939644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4939644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8535535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.1464466
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.257019
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -536.073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927545993266032189, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Name
+      value: StoveIngredientTrackerPanel (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_StartAxis
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Constraint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_StartCorner
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_ConstraintCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710962660902252362, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Name
+      value: IngredientContainer <- align with this
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1739452252}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -517595433
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492335698667325010, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 206679852}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+--- !u!224 &2003614233 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+  m_PrefabInstance: {fileID: 2003614232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2005721757
 GameObject:
   m_ObjectHideFlags: 0
@@ -42983,6 +44008,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e0b3e9acf61f184ba7a4fcbd0654042, type: 3}
+--- !u!224 &2102303862 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+  m_PrefabInstance: {fileID: 117068314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2102500495
 GameObject:
   m_ObjectHideFlags: 0
@@ -44317,7 +45347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.267
+      value: 14.43
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -44337,11 +45367,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -9.237
+      value: -8.47998
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -535.261
+      value: -535.92
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -44374,6 +45404,10 @@ PrefabInstance:
     - target: {fileID: 6295951580282411076, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_ConstraintCount
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710962660902252362, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      propertyPath: m_Name
+      value: IngredientContainer <- align with this
       objectReference: {fileID: 0}
     - target: {fileID: 7998435358287183989, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_Pivot.x
@@ -44473,7 +45507,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1660728146}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
 --- !u!1 &2076850631999682820
@@ -45391,6 +46428,10 @@ PrefabInstance:
     - target: {fileID: 1945941708038717925, guid: 8cecc2100eb8934408a50abc4ebc1e23, type: 3}
       propertyPath: m_Name
       value: trash bin decor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153381360105106443, guid: 8cecc2100eb8934408a50abc4ebc1e23, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7219230736307337302, guid: 8cecc2100eb8934408a50abc4ebc1e23, type: 3}
       propertyPath: m_Enabled
@@ -46821,7 +47862,119 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1674021886}
   smokeSpawnPoint: {fileID: 1812371626}
-  ingredientIcons: []
+  ingredientIcons:
+  - ingredientName: Pepper
+    icon: {fileID: 21300000, guid: 8dd8c43c42c13ba4baf26cb4ee7f41e8, type: 3}
+  - ingredientName: Salt
+    icon: {fileID: 21300000, guid: 987b9c8afdba5654d9da91a2f008ecca, type: 3}
+  - ingredientName: Soy Sauce
+    icon: {fileID: 21300000, guid: 488a41e60954c5e43ac126ad70d59c79, type: 3}
+  - ingredientName: Vinegar
+    icon: {fileID: 21300000, guid: 5c0033f5aa88c514ca243c90f9e57087, type: 3}
+  - ingredientName: Beef
+    icon: {fileID: 21300000, guid: 9370c44a2740cb94b947fe9bdfeaa3c2, type: 3}
+  - ingredientName: raw chicken
+    icon: {fileID: 21300000, guid: 178a17a0cdaaa494fb8b0be018ab3b0c, type: 3}
+  - ingredientName: Crab
+    icon: {fileID: 21300000, guid: 5ed1ff2a2483f8a40882f507bf32293f, type: 3}
+  - ingredientName: Goat Meat
+    icon: {fileID: 21300000, guid: 151fa6fbc5f6aeb499cbcb8ebc268b1f, type: 3}
+  - ingredientName: Mackerel
+    icon: {fileID: 21300000, guid: 9151098d7a4ffba4c8a39a7b28e7899d, type: 3}
+  - ingredientName: Bangus
+    icon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
+  - ingredientName: Mussels
+    icon: {fileID: 21300000, guid: 8c363fd0f31c38546b058bdd8b4f94af, type: 3}
+  - ingredientName: Pork
+    icon: {fileID: 21300000, guid: 3b524ad8ae361ad4ca815b30fa1251b3, type: 3}
+  - ingredientName: Prawns
+    icon: {fileID: 21300000, guid: 9435b8700fb4f274ba9f69b3360eb22f, type: 3}
+  - ingredientName: Shrimp
+    icon: {fileID: 21300000, guid: f0669fcfab67ed4459d181b031c24d41, type: 3}
+  - ingredientName: Squid
+    icon: {fileID: 21300000, guid: cf792ebd7c371ec47aa08cd5f2138e74, type: 3}
+  - ingredientName: Tanigue
+    icon: {fileID: 21300000, guid: 27b03f35a5d16464ba20c10383fb23d0, type: 3}
+  - ingredientName: Tuna
+    icon: {fileID: 21300000, guid: 343650793b252734596a5fc509287834, type: 3}
+  - ingredientName: Whole Pig
+    icon: {fileID: 21300000, guid: d384a69369bfa6040bd18a4eeff677a2, type: 3}
+  - ingredientName: Banana Heart
+    icon: {fileID: 21300000, guid: 74d61e1599f6b644f8274e47cd6e94e9, type: 3}
+  - ingredientName: Calamansi
+    icon: {fileID: 21300000, guid: 75db3a5ab677737439ff0d28e7034052, type: 3}
+  - ingredientName: Carrot
+    icon: {fileID: 21300000, guid: 22f44a58bb3028f469d3090980eaefc9, type: 3}
+  - ingredientName: Chili
+    icon: {fileID: 21300000, guid: b49b83c07f2e25446b53b826bf1fb529, type: 3}
+  - ingredientName: Citrus
+    icon: {fileID: 21300000, guid: da27f05c606d84043ac379cea65b02cd, type: 3}
+  - ingredientName: Eggplant
+    icon: {fileID: 21300000, guid: a2d4a8b73f036c54889c274d46853098, type: 3}
+  - ingredientName: Eggs
+    icon: {fileID: 21300000, guid: 31c3a752bb503e84fb9b854744b30d7a, type: 3}
+  - ingredientName: Ginger
+    icon: {fileID: 21300000, guid: 798ec8de3309a9a4db24c64c7b5cd064, type: 3}
+  - ingredientName: Herbs
+    icon: {fileID: 21300000, guid: 57950a55eb24e9f4b875f55b94366421, type: 3}
+  - ingredientName: Kangkong
+    icon: {fileID: 21300000, guid: ba1238c990cc7d543a289f90f56825af, type: 3}
+  - ingredientName: Lemongrass
+    icon: {fileID: 21300000, guid: 46a96bd570365434382ba131dbf92dfa, type: 3}
+  - ingredientName: Mustard Leaves
+    icon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
+  - ingredientName: Onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
+  - ingredientName: Pechay
+    icon: {fileID: 21300000, guid: ca7b9e30c0cb2164c811d7899b65b725, type: 3}
+  - ingredientName: Radish
+    icon: {fileID: 21300000, guid: 128274a48d4771241b140fd0156f925e, type: 3}
+  - ingredientName: String Beans
+    icon: {fileID: 21300000, guid: 12b3a4d940c0a7444807088f418d1a6e, type: 3}
+  - ingredientName: Tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: Annatto Sauce
+    icon: {fileID: 21300000, guid: 4694f0087c3fe7940be253d441b8046b, type: 3}
+  - ingredientName: Atsuete
+    icon: {fileID: 21300000, guid: 811c211bfbc2bd245a0f10a8d08c10aa, type: 3}
+  - ingredientName: Bagoong
+    icon: {fileID: 21300000, guid: fedf2de80bd2f144c9cc5a9dc383bee9, type: 3}
+  - ingredientName: Batwan Fruit
+    icon: {fileID: 21300000, guid: 8e5a3c753031b70448b80fb54320b1a0, type: 3}
+  - ingredientName: Bay Leaf
+    icon: {fileID: 21300000, guid: e85e9d657efd00e43b70221d5a7d9e0d, type: 3}
+  - ingredientName: Coconut Milk
+    icon: {fileID: 21300000, guid: ecbebedffb42c5f4aaa4b95a205179b1, type: 3}
+  - ingredientName: Dried Taro Leaves
+    icon: {fileID: 21300000, guid: f60e42d98ede75743b01308c32fcfb1e, type: 3}
+  - ingredientName: Egg Noodles
+    icon: {fileID: 21300000, guid: 9da39e957c981a34c91c37cfa9e414cd, type: 3}
+  - ingredientName: Fresh Taro Leaves
+    icon: {fileID: 21300000, guid: 893fc1e2c44aded48a29dd0e4324c61e, type: 3}
+  - ingredientName: Garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: Green Mango
+    icon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
+  - ingredientName: Guava
+    icon: {fileID: 21300000, guid: 97aac4b7ad067f2409e8eb4aa31b0c7f, type: 3}
+  - ingredientName: Kamias
+    icon: {fileID: 21300000, guid: 7fcacb849b2e2a044888f671b8a85efd, type: 3}
+  - ingredientName: Liver Sauce
+    icon: {fileID: 21300000, guid: 51b2d54d49d6a2743a4bb14d4d84f048, type: 3}
+  - ingredientName: Miki Noodles
+    icon: {fileID: 21300000, guid: f92c96df1b440684694eeed790c8b2f6, type: 3}
+  - ingredientName: Peanut Sauce
+    icon: {fileID: 21300000, guid: bc4ec56b06ba01e4382711563bf11c72, type: 3}
+  - ingredientName: Tamarind
+    icon: {fileID: 21300000, guid: 8c5d70f9cf4b1d04f92895741674fba6, type: 3}
+  - ingredientName: Thick RIce Noodles
+    icon: {fileID: 21300000, guid: e1873ed7b755f0846b2f001c28198b68, type: 3}
+  - ingredientName: chopped garlic
+    icon: {fileID: 21300000, guid: 09a535f488ce6354d88dda38298955ab, type: 3}
+  - ingredientName: sliced tomato
+    icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
+  - ingredientName: chopped onion
+    icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
   isCooking: 0
   cookedFood: {fileID: 0}
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}

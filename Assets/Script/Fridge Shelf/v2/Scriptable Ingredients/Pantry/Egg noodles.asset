@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: Egg noodles
   m_EditorClassIdentifier: 
-  ingredientName: Egg noodles
+  ingredientName: Egg Noodles
   ingredientIcon: {fileID: 21300000, guid: 9da39e957c981a34c91c37cfa9e414cd, type: 3}
   ingredientPrefab: {fileID: 8319923572625000268, guid: a36867da37d9adc4980280a5e75d30f3, type: 3}
   ingredientDescription: 

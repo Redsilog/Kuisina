@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: Thick rice noodles
   m_EditorClassIdentifier: 
-  ingredientName: Thick rice noodles
+  ingredientName: Thick Rice Noodles
   ingredientIcon: {fileID: 21300000, guid: e1873ed7b755f0846b2f001c28198b68, type: 3}
   ingredientPrefab: {fileID: 2080653902711340920, guid: a5471f5c3b70d354883e523621976b35, type: 3}
   ingredientDescription: 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: Coconut milk
   m_EditorClassIdentifier: 
-  ingredientName: Coconut milk
+  ingredientName: Coconut Milk
   ingredientIcon: {fileID: 21300000, guid: ecbebedffb42c5f4aaa4b95a205179b1, type: 3}
   ingredientPrefab: {fileID: 7867356682618465997, guid: 93c6c518c8cad8e4d8bfbb464924c0c3, type: 3}
   ingredientDescription: 

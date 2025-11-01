@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23288cbd465790540a9b28ffe7a23520, type: 3}
   m_Name: Liver sauce
   m_EditorClassIdentifier: 
-  ingredientName: Liver sauce
+  ingredientName: Liver Sauce
   ingredientIcon: {fileID: 21300000, guid: 51b2d54d49d6a2743a4bb14d4d84f048, type: 3}
   ingredientPrefab: {fileID: 7175906881538758118, guid: df4c4f2368c74644c8f90564e5ab2653, type: 3}
   ingredientDescription: 

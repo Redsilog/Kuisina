@@ -19,6 +19,13 @@ public class Stove : MonoBehaviour
     public Transform spawnPoint;
     public Transform smokeSpawnPoint;
 
+    [Header("Smoke Timing Settings")]
+    [Tooltip("How long the smoke takes to fade in when cooking starts.")]
+    public float smokeFadeInTime = 1f;
+
+    [Tooltip("How long the smoke takes to fade out when cooking ends.")]
+    public float smokeFadeOutTime = 2f;
+
     private List<string> currentIngredients = new List<string>();
 
     [Header("Ingredient Icons")]
@@ -86,7 +93,7 @@ public class Stove : MonoBehaviour
 
             var ps = activeSmoke.GetComponent<ParticleSystem>();
             if (ps != null)
-                StartCoroutine(FadeInSmoke(ps, 2f));
+                StartCoroutine(FadeInSmoke(ps, smokeFadeInTime));
 
             isSmokePermanent = true;
         }
@@ -235,9 +242,9 @@ public class Stove : MonoBehaviour
                     if (ps != null)
                     {
                         ps.Stop(); // stop emission
-                        StartCoroutine(FadeOutSmoke(ps, 2f));
+                        StartCoroutine(FadeOutSmoke(ps, smokeFadeOutTime));
                     }
-                    Destroy(activeSmoke, 3f); // delay actual destruction
+                    Destroy(activeSmoke, 2f); // delay actual destruction
                     activeSmoke = null;
                     isSmokePermanent = false;
                 }
@@ -272,7 +279,7 @@ public class Stove : MonoBehaviour
         isCooking = false;
     }
 
-    private IEnumerator FadeInSmoke(ParticleSystem ps, float duration = 1.5f)
+    private IEnumerator FadeInSmoke(ParticleSystem ps, float duration)
     {
         var emission = ps.emission;
         float startRate = 0f;

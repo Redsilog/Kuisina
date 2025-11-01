@@ -11,6 +11,7 @@ public class StoveTimerUI : MonoBehaviour
 
     private float burnTime;
     private float elapsed;
+    private Image fillImage;
 
     void Start()
     {
@@ -20,6 +21,10 @@ public class StoveTimerUI : MonoBehaviour
             timerSlider.value = 1f;
             if (timerText != null) timerText.text = "";
         }
+
+        // Cache fill image
+        if (timerSlider.fillRect != null)
+            fillImage = timerSlider.fillRect.GetComponent<Image>();
 
         // Hide UI elements at start
         SetUIVisible(false);
@@ -31,7 +36,7 @@ public class StoveTimerUI : MonoBehaviour
             return;
 
         bool hasIngredients = HasIngredients();
-        SetUIVisible(hasIngredients); // 🔥 toggle visibility, not GameObject
+        SetUIVisible(hasIngredients);
 
         if (!hasIngredients)
         {
@@ -45,6 +50,7 @@ public class StoveTimerUI : MonoBehaviour
         {
             SetSliderColor(Color.red);
             timerSlider.value = 0f;
+            if (fillImage != null) fillImage.enabled = false; // hide fill
             if (timerText != null)
                 timerText.text = "🔥 Burned!";
             return;
@@ -61,6 +67,20 @@ public class StoveTimerUI : MonoBehaviour
             elapsed += Time.deltaTime;
             float remaining = Mathf.Clamp01(1f - (elapsed / burnTime));
             timerSlider.value = remaining;
+
+            // Hide fill if empty
+            if (fillImage != null)
+                fillImage.enabled = remaining > 0f;
+
+            if (elapsed >= burnTime)
+            {
+                timerSlider.value = 0f;
+                if (fillImage != null) fillImage.enabled = false;
+                if (timerText != null)
+                    timerText.text = "🔥 Burned!";
+                SetSliderColor(Color.red);
+                return;
+            }
 
             if (timerText != null)
                 timerText.text = $"{(burnTime - elapsed):0.0}s";
@@ -95,16 +115,15 @@ public class StoveTimerUI : MonoBehaviour
         SetSliderColor(Color.green);
         if (timerText != null)
             timerText.text = "";
+
+        if (fillImage != null)
+            fillImage.enabled = true;
     }
 
     private void SetSliderColor(Color color)
     {
-        if (timerSlider.fillRect != null)
-        {
-            var fill = timerSlider.fillRect.GetComponent<Image>();
-            if (fill != null)
-                fill.color = color;
-        }
+        if (fillImage != null)
+            fillImage.color = color;
     }
 
     private void SetUIVisible(bool visible)

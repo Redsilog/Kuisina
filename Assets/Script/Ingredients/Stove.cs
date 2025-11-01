@@ -13,6 +13,8 @@ public class Recipe
 
 public class Stove : MonoBehaviour
 {
+    private float burnTimerElapsed;
+
     [Header("Cooking Settings")]
     public List<Recipe> recipes = new List<Recipe>();
     [Tooltip("Point where the cooked dish will appear.")]
@@ -77,10 +79,7 @@ public class Stove : MonoBehaviour
         Destroy(ingredientObject);
         Debug.Log("Placed ingredient: " + ingredientName);
 
-        if (burnTimerRoutine == null)
-        {
-            burnTimerRoutine = StartCoroutine(BurnTimer());
-        }
+        RestartBurnTimer();
 
         if (activeSmoke == null)
         {
@@ -274,8 +273,14 @@ public class Stove : MonoBehaviour
         {
             Debug.Log($"Cooking failed! No dish produced.");
         }
+        if (burnTimerRoutine != null)
+        {
+            StopCoroutine(burnTimerRoutine);
+            burnTimerRoutine = null;
+        }
 
         currentIngredients.Clear();
+        OnIngredientsChanged?.Invoke(currentIngredients);
         isCooking = false;
     }
 
@@ -313,17 +318,20 @@ public class Stove : MonoBehaviour
     }
     private IEnumerator BurnTimer()
     {
-        float elapsed = 0f;
+        burnTimerElapsed = 0f;
 
-        while (elapsed < burnTime && !isCooking)
+        while (burnTimerElapsed < burnTime)
         {
-            elapsed += Time.deltaTime;
+            burnTimerElapsed += Time.deltaTime;
             yield return null;
         }
 
-        if (!isCooking)
+        burnTimerElapsed = burnTime; 
+
+        if (!isBurned)
         {
             BurnIngredients();
+            Debug.Log("🔥 Stove burned due to timer!");
         }
     }
     private void BurnIngredients()
@@ -336,6 +344,8 @@ public class Stove : MonoBehaviour
         }
 
         Debug.Log("Ingredients burned! Must be cleared with trash bag.");
+        currentIngredients.Clear();
+        OnIngredientsChanged?.Invoke(currentIngredients);
         isCooking = false;
     }
 
@@ -380,5 +390,19 @@ public class Stove : MonoBehaviour
 
         Destroy(activeSmoke);
         activeSmoke = blackSmoke;
+    }
+    private void RestartBurnTimer()
+    {
+        if (burnTimerRoutine != null)
+            StopCoroutine(burnTimerRoutine);
+
+        burnTimerRoutine = StartCoroutine(BurnTimer());
+    }
+    public float GetBurnProgress()
+    {
+        if (burnTime <= 0f) return 0f;
+
+        // burnTimerElapsed is how long the stove has been burning
+        return Mathf.Clamp01(burnTimerElapsed / burnTime);
     }
 }

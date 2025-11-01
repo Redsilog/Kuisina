@@ -64,8 +64,8 @@ public class StoveTimerUI : MonoBehaviour
 
         if (stoveActive)
         {
-            elapsed += Time.deltaTime;
-            float remaining = Mathf.Clamp01(1f - (elapsed / burnTime));
+            float progress = targetStove.GetBurnProgress();
+            float remaining = Mathf.Clamp01(1f - progress);
             timerSlider.value = remaining;
 
             // Hide fill if empty

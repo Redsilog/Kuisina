@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
-
     [SerializeField] private Transform cameraTransform;
 
     private Animator animator;
@@ -22,7 +21,9 @@ public class PlayerController : MonoBehaviour
     private IngredientBox currentIngredientBox;
 
     private List<Stove> nearbyStoves = new List<Stove>();
-    private InGameRecipeBook currentRecipeBook;
+
+    // Interaction lock
+    private bool isInteracting = false;
 
     private void Start()
     {
@@ -34,8 +35,26 @@ public class PlayerController : MonoBehaviour
             rb.linearDamping = 0f;
     }
 
+    private void Update()
+    {
+        // Auto-unlock when fridge UI is closed
+        if (isInteracting && inventory != null)
+        {
+            var fridge = inventory.currentFridge;
+            bool fridgeOpen = fridge != null && fridge.IsFridgeUIOpenFor(inventory);
+        }
+    }
+
     private void FixedUpdate()
     {
+        // Hard stop while interacting
+        if (isInteracting)
+        {
+            rb.linearVelocity = Vector3.zero;
+            animator.SetBool("IsMoving", false);
+            return;
+        }
+
         Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
 
         if (inputDir.sqrMagnitude < 0.01f)
@@ -57,6 +76,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext ctx)
     {
+        // Ignore movement updates while interacting (fridge open, chopping, etc.)
+        if (isInteracting) return;
         moveInput = ctx.ReadValue<Vector2>();
     }
 
@@ -64,7 +85,9 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.started)
         {
-            // Hold-start interactions (like chopping)
+            BeginInteraction();
+
+            // --- HOLD interactions (e.g., chopping) ---
             if (currentBoard != null && inventory != null && !inventory.IsHoldingItem())
             {
                 currentBoard.StartChop(inventory);
@@ -73,55 +96,47 @@ public class PlayerController : MonoBehaviour
         }
         else if (ctx.canceled)
         {
-            // Cancel hold interactions
+            // Release for hold interactions
             StopAllCoroutines();
 
             if (currentBoard != null)
                 currentBoard.PauseChop();
+
+            EndInteraction();
         }
         else if (ctx.performed)
         {
-            // --- PERFORMED (single tap) interactions ---
+            // --- TAP interactions ---
 
-            // 1. Serve dish to NPC if near one
+            // 1) Serve NPC if holding cooked food
             if (currentNPC != null && currentCookedFood != null && inventory != null)
             {
                 var npcOrder = currentNPC.npcOrder;
                 if (npcOrder != null)
                 {
-                    // Assign the delivered dish
                     npcOrder.DeliveredDish = currentCookedFood;
-
-                    // Try to fulfill the order
                     bool fulfilled = npcOrder.StartOrTryFulfill(inventory);
-
-                    if (fulfilled)
-                    {
-                        Debug.Log("Order fulfilled!");
-                    }
-                    else
-                    {
-                        Debug.Log("Dish doesn't match NPC order.");
-                    }
+                    Debug.Log(fulfilled ? "Order fulfilled!" : "Dish doesn't match NPC order.");
                 }
+                currentCookedFood = null;
+                EndInteraction();
                 return;
             }
 
-            // 2. Regular NPC interaction if no dish to serve
+            // 2) NPC regular interaction
             if (currentNPC != null)
             {
                 currentNPC.OnInteract(ctx);
+                EndInteraction();
                 return;
             }
 
-            // 3. Pick up cooked food normally
+            // 3) Pick up cooked food
             if (currentCookedFood != null && inventory != null)
             {
-                Vector3 worldPos = currentCookedFood.transform.position;
-                Quaternion worldRot = currentCookedFood.transform.rotation;
                 Vector3 worldScale = currentCookedFood.transform.lossyScale;
 
-                currentCookedFood.transform.SetParent(inventory.holdPoint, worldPositionStays: false);
+                currentCookedFood.transform.SetParent(inventory.holdPoint, false);
                 currentCookedFood.transform.localPosition = Vector3.zero;
                 currentCookedFood.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
 
@@ -133,79 +148,93 @@ public class PlayerController : MonoBehaviour
                 );
 
                 if (currentCookedFood.TryGetComponent<Collider>(out var col)) col.enabled = false;
-                if (currentCookedFood.TryGetComponent<Rigidbody>(out var rb)) rb.isKinematic = true;
+                if (currentCookedFood.TryGetComponent<Rigidbody>(out var crb)) crb.isKinematic = true;
 
                 inventory.PickUpDish(currentCookedFood);
-
-                if (currentStove != null)
-                    currentStove.cookedFood = null;
+                if (currentStove != null) currentStove.cookedFood = null;
 
                 currentCookedFood = null;
+                EndInteraction();
                 return;
             }
 
-            // 4. Stove interaction
+            // 4) Stove interaction
             if (currentStove != null && inventory != null && inventory.HasIngredient())
             {
                 if (inventory.heldIngredient == "trash bag")
                 {
                     currentStove.ClearStove();
-                    return;
                 }
-
-                if (inventory.heldIngredient == "rice")
+                else if (inventory.heldIngredient != "rice")
                 {
-                    // Optionally do nothing for rice
-                    return;
+                    currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
+                    inventory.ClearHeldItemDirect();
                 }
-
-                currentStove.PlaceIngredient(inventory.heldIngredient, inventory.heldVisual);
-                inventory.ClearHeldItemDirect();
+                EndInteraction();
                 return;
             }
 
-            // 5. Chopping board interaction
+            // 5) Chopping board (tap)
             if (currentBoard != null && inventory != null)
             {
                 currentBoard.HandlePlayerInteract(inventory);
+                EndInteraction();
                 return;
             }
 
-            // 6. Fridge interaction
+            // 6) Fridge toggle
             if (inventory != null && inventory.currentFridge != null)
             {
-                if (!inventory.currentFridge.IsFridgeUIOpenFor(inventory))
-                    inventory.currentFridge.TryOpenOrCloseFridge(inventory);
-                else
-                    Debug.Log("UI already open — ignoring Interact input.");
-                return;
-            }
+                var fridge = inventory.currentFridge;
 
-            // 7. Ingredient box pickup
-            if (currentIngredientBox != null && inventory != null)
-            {
-                if (!inventory.IsHoldingItem())
+                // Open if closed; close if open. Movement remains locked while open.
+                if (!fridge.IsFridgeUIOpenFor(inventory))
                 {
-                    inventory.PickUpIngredient(currentIngredientBox.ingredientName, currentIngredientBox.ingredientPrefab);
-                    ToggleHighlight(currentIngredientBox.gameObject, false);
-                    currentIngredientBox = null;
+                    fridge.TryOpenOrCloseFridge(inventory); // opens
+                    // keep isInteracting true; Update() will auto-unlock when it closes
                 }
-            }
-
-            if (currentRecipeBook != null)
-            {
-                currentRecipeBook.ToggleBookExternally();
+                else
+                {
+                    fridge.TryOpenOrCloseFridge(inventory); // closes
+                    EndInteraction();
+                }
                 return;
             }
+
+            // 7) Ingredient box pickup
+            if (currentIngredientBox != null && inventory != null && !inventory.IsHoldingItem())
+            {
+                inventory.PickUpIngredient(currentIngredientBox.ingredientName, currentIngredientBox.ingredientPrefab);
+                ToggleHighlight(currentIngredientBox.gameObject, false);
+                currentIngredientBox = null;
+                EndInteraction();
+                return;
+            }
+
+            // Nothing to do -> unlock
+            EndInteraction();
         }
     }
 
+    private void BeginInteraction()
+    {
+        isInteracting = true;
+
+        // Hard reset movement immediately (fixes "IsMoving" stuck when holding W)
+        moveInput = Vector2.zero;
+        rb.linearVelocity = Vector3.zero;
+        animator.SetBool("IsMoving", false);
+    }
+
+    private void EndInteraction()
+    {
+        isInteracting = false;
+    }
 
     private IEnumerator HoldToClearStove()
     {
-        float holdTime = 1f; // how long player must hold to clear
+        float holdTime = 1f;
         float elapsed = 0f;
-
         while (elapsed < holdTime)
         {
             elapsed += Time.deltaTime;
@@ -213,12 +242,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (currentStove != null && !inventory.HasIngredient())
-        {
             currentStove.ClearStove();
-        }
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -227,20 +252,17 @@ public class PlayerController : MonoBehaviour
             currentBoard = board;
             ToggleHighlight(board.gameObject, true);
         }
-
         else if (other.TryGetComponent(out NPCInteractable npc))
+        {
             currentNPC = npc;
-            
+        }
 
         if (other.TryGetComponent(out Stove stove))
         {
             if (!nearbyStoves.Contains(stove))
                 nearbyStoves.Add(stove);
 
-            // highlight the stove you just entered
             ToggleHighlight(stove.gameObject, true);
-
-            // set currentStove to the closest available
             currentStove = GetClosestStove();
             return;
         }
@@ -257,13 +279,6 @@ public class PlayerController : MonoBehaviour
             currentIngredientBox = box;
             ToggleHighlight(box.gameObject, true);
             Debug.Log("Ingredient box in range");
-        }
-
-        if (other.TryGetComponent(out InGameRecipeBook book))
-        {
-            currentRecipeBook = book;
-            ToggleHighlight(book.gameObject, true);
-            Debug.Log("📖 Player near recipe book");
         }
     }
 
@@ -284,13 +299,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.TryGetComponent(out Stove stove))
         {
-            // remove stove from nearby list
             nearbyStoves.Remove(stove);
-
-            // turn off highlight for that stove
             ToggleHighlight(stove.gameObject, false);
-
-            // update currentStove to the closest stove still nearby (or null)
             currentStove = GetClosestStove();
             return;
         }
@@ -306,27 +316,7 @@ public class PlayerController : MonoBehaviour
             currentIngredientBox = null;
             ToggleHighlight(box.gameObject, false);
         }
-        
-        if (other.TryGetComponent(out InGameRecipeBook book) && book == currentRecipeBook)
-        {
-            ToggleHighlight(book.gameObject, false);
-
-            if (book != null)
-            {
-                var bookField = book.GetType().GetField("isBookOpen", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                bool isOpen = (bool)bookField.GetValue(book);
-                if (isOpen)
-                {
-                    book.ToggleBookExternally();
-                }
-            }
-
-            currentRecipeBook = null;
-            Debug.Log("📕 Player left recipe book (auto closed)");
-        }
     }
-
-
 
     private void ToggleHighlight(GameObject obj, bool state)
     {
@@ -353,9 +343,7 @@ public class PlayerController : MonoBehaviour
         }
 
         h = obj.GetComponentInChildren<OutlineHighlighter>();
-        if (h != null) return h;
-
-        return null;
+        return h;
     }
 
     private Stove GetClosestStove()

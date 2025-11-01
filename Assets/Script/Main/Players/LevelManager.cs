@@ -10,9 +10,9 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
 
     [Header("Level Settings")]
-    public string levelID = "Day1";       // Example: "Day1", "Day2"
-    public int starsToNextLevel = 15;     // Quota
-    public float levelTime = 120f;        // Level duration in seconds
+    public string levelID = "Day1";   // Example: "Day1", "Day2"
+    public int requiredStars = 3;     // number of stars needed to unlock the next level
+    public float levelTime = 120f;    // Time limit
 
     [Header("Runtime Data")]
     public int totalStars = 0;
@@ -21,11 +21,11 @@ public class LevelManager : MonoBehaviour
 
     [Header("UI References (TMP)")]
     public TextMeshProUGUI timerText;
-    public GameObject resultPanel;              // Your Level Complete panel
-    public TextMeshProUGUI resultTitleText;     // "LEVEL COMPLETE" / "LEVEL FAILED"
-    public TextMeshProUGUI levelNameText;       // e.g. "LEVEL 1"
-    public TextMeshProUGUI quotaText;           // "QUOTA TOTAL ="
-    public TextMeshProUGUI starsText;           // "STARS TOTAL ="
+    public GameObject resultPanel;
+    public TextMeshProUGUI resultTitleText;
+    public TextMeshProUGUI levelNameText;
+    public TextMeshProUGUI requirementText;   // was quotaText
+    public TextMeshProUGUI starsText;
 
     [Header("Buttons")]
     public Button returnButton;
@@ -47,9 +47,8 @@ public class LevelManager : MonoBehaviour
         StartLevel();
 
         if (resultPanel != null)
-            resultPanel.SetActive(false); // Hide panel at start
+            resultPanel.SetActive(false);
 
-        // Assign button listeners
         if (returnButton != null) returnButton.onClick.AddListener(ReturnToMenu);
         if (retryButton != null) retryButton.onClick.AddListener(RestartLevel);
         if (nextButton != null) nextButton.onClick.AddListener(GoToNextLevel);
@@ -74,15 +73,18 @@ public class LevelManager : MonoBehaviour
 
         if (!levelActive) yield break;
 
-        if (totalStars >= starsToNextLevel)
+        // When time runs out, check if enough stars reached
+        bool hasEnoughStars = totalStars >= requiredStars;
+
+        if (hasEnoughStars)
         {
-            Debug.Log($" Level Complete! You earned {totalStars} out of {starsToNextLevel}.");
+            Debug.Log($" Level Complete! Earned {totalStars} (Requirement: {requiredStars})");
             ShowResultPanel(true);
             OnStarsReached?.Invoke();
         }
         else
         {
-            Debug.Log($"Time's up! You failed the level with {totalStars}out of {starsToNextLevel}.");
+            Debug.Log($"Time's up! You only got {totalStars} out of {requiredStars} required.");
             ShowResultPanel(false);
             OnLevelFailed?.Invoke();
         }
@@ -98,15 +100,13 @@ public class LevelManager : MonoBehaviour
         timerText.text = $"{minutes}:{seconds:00}";
     }
 
-    //  Add stars
     public void AddStars(int amount)
     {
         totalStars += amount;
-        Debug.Log($"Earned {amount} | Total: {totalStars}/{starsToNextLevel}");
+        Debug.Log($"Earned {amount} | Total: {totalStars}/{requiredStars}");
         SaveStars();
     }
 
-    //  Show the result panel and fill in TMP texts
     private void ShowResultPanel(bool isComplete)
     {
         if (resultPanel == null) return;
@@ -114,14 +114,20 @@ public class LevelManager : MonoBehaviour
         resultPanel.SetActive(true);
         resultTitleText.text = isComplete ? "LEVEL COMPLETE" : "LEVEL FAILED";
         levelNameText.text = levelID;
-        quotaText.text = $"QUOTA TOTAL = {starsToNextLevel}";
-        starsText.text = $"STARS TOTAL = {totalStars}";
+
+        // display the requirement and total stars
+        requirementText.text = $"REQUIRED STARS = {requiredStars}";
+        starsText.text = $"STAR TOTAL = {totalStars}";
+
+        // show Next button only if enough stars
+        if (nextButton != null)
+            nextButton.gameObject.SetActive(isComplete);
     }
 
-    //  Button actions
+    // Buttons
     private void ReturnToMenu()
     {
-        SceneManager.LoadScene("MainMenu");  // Change scene name as needed
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void RestartLevel()
@@ -131,21 +137,19 @@ public class LevelManager : MonoBehaviour
 
     private void GoToNextLevel()
     {
-        SceneManager.LoadScene("NextLevel");  // Change this later when you know next scene name
+        SceneManager.LoadScene("NextLevel");
     }
 
-    //  Save / Load
+    // Save and Load
     public void SaveStars()
     {
         PlayerPrefs.SetInt($"{levelID}_TotalStars", totalStars);
         PlayerPrefs.Save();
-        Debug.Log($"[SAVE] {levelID} total stars = {totalStars}");
     }
 
     public void LoadStars()
     {
         totalStars = PlayerPrefs.GetInt($"{levelID}_TotalStars", 0);
-        Debug.Log($"[LOAD] {levelID} total stars = {totalStars}");
     }
 
     public void ResetStars()

@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class Trash : MonoBehaviour
 {
-
     private float trashCooldown = 0f;
     [SerializeField] AudioClip trashClip;
 
     private OutlineHighlighter highlighter;
     private bool player1InRange = false;
     private bool player2InRange = false;
-    
+
     private void Awake()
     {
-
         highlighter = GetComponent<OutlineHighlighter>();
         if (highlighter == null)
             highlighter = GetComponentInParent<OutlineHighlighter>();
@@ -23,6 +21,7 @@ public class Trash : MonoBehaviour
         if (trashCooldown > 0f)
             trashCooldown -= Time.deltaTime;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -54,17 +53,22 @@ public class Trash : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         PlayerInventory player = other.GetComponent<PlayerInventory>();
+        if (player == null) return;
+
+        if (!player.IsHoldingItem()) return;
 
         if (trashCooldown > 0f) return;
 
         bool pressed = false;
 
+        // Player 1 uses Space
         if (player.playerID == 1 && Input.GetKey(KeyCode.Space))
         {
             SoundFXManager.instance.PlaySoundFXClip(trashClip, transform, 1f);
             pressed = true;
         }
-            
+
+        // Player 2 uses Return (Enter)
         else if (player.playerID == 2 && Input.GetKey(KeyCode.Return))
         {
             SoundFXManager.instance.PlaySoundFXClip(trashClip, transform, 1f);
@@ -73,27 +77,15 @@ public class Trash : MonoBehaviour
 
         if (!pressed) return;
 
-        if (player.IsHoldingItem())
-        {
-            string itemName = player.heldIngredient != "" ? player.heldIngredient : player.heldDish;
-            Debug.Log($"Player {player.playerID} trashed: {itemName}");
+        string itemName = player.heldIngredient != "" ? player.heldIngredient : player.heldDish;
+        Debug.Log($"Player {player.playerID} trashed: {itemName}");
 
-            Destroy(player.heldVisual);
+        Destroy(player.heldVisual);
 
-            player.heldIngredient = "";
-            player.heldDish = "";
-            player.heldVisual = null;
+        player.heldIngredient = "";
+        player.heldDish = "";
+        player.heldVisual = null;
 
-            //player.leftArm.localRotation = Quaternion.Euler(player.leftArmDefaultRotation);
-            //player.rightArm.localRotation = Quaternion.Euler(player.rightArmDefaultRotation);
-
-            trashCooldown = 0.5f;
-        }
-
-        else
-        {
-            Debug.Log($"Player {player.playerID} didn't have anything.");
-            trashCooldown = 0.2f;
-        }
+        trashCooldown = 0.5f;
     }
 }

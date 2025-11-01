@@ -2324,7 +2324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.967
+      value: 13.92
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2344,11 +2344,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -6.465027
+      value: -4.4799805
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -536.381
+      value: -536.93
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6236,7 +6236,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284117966}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10860,6 +10860,8 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1027168800}
   smokeSpawnPoint: {fileID: 1578158538}
+  smokeFadeInTime: 1
+  smokeFadeOutTime: 2
   ingredientIcons:
   - ingredientName: Pepper
     icon: {fileID: 21300000, guid: 8dd8c43c42c13ba4baf26cb4ee7f41e8, type: 3}
@@ -16287,6 +16289,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94003b7125e74422ca360a45b57cf1ea, type: 3}
+--- !u!1 &834619601 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
+  m_PrefabInstance: {fileID: 1381387354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &840696831
 GameObject:
   m_ObjectHideFlags: 0
@@ -17904,6 +17911,8 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
   spawnPoint: {fileID: 1671006584}
   smokeSpawnPoint: {fileID: 2025296404}
+  smokeFadeInTime: 1
+  smokeFadeOutTime: 2
   ingredientIcons:
   - ingredientName: Pepper
     icon: {fileID: 21300000, guid: 8dd8c43c42c13ba4baf26cb4ee7f41e8, type: 3}
@@ -27239,43 +27248,47 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1622282931}
+    m_TransformParent: {fileID: 2458413486187755173}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 99.99948
+      value: 0.86264205
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 34.44747
+      value: 0.34447134
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1219079
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.368973
+      value: -0.09879801
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7165899
+      value: -0.0055529615
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.426888
+      value: 0.015810017
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.003785878
+      value: -0.0039619086
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.001817107
+      value: -0.0013921317
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.70673776
+      value: -0.000513047
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7074632
+      value: 0.99999106
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -27295,14 +27308,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1574347004}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1381387358}
   m_SourcePrefab: {fileID: 100100000, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
 --- !u!4 &1381387355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4ade2c084cb03fb4191f58b36a1f59a0, type: 3}
   m_PrefabInstance: {fileID: 1381387354}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1381387358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834619601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838afebcad98375419cc6ce1fed17389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlineHighlighter
+  player1Outline: {fileID: 2100000, guid: 7e76d4993584635478ff6473c2a7ca2d, type: 2}
+  player2Outline: {fileID: 2100000, guid: cf24483b04e00c347b52327428d04a6d, type: 2}
 --- !u!1001 &1381846129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31609,12 +31642,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574347003}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 1.0913936e-11, w: 1}
-  m_LocalPosition: {x: -0.103399985, y: -0.0071000094, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.0013921317, y: 0.000513047, z: -0.99999106, w: -0.0039619086}
+  m_LocalPosition: {x: 0.0053998698, y: 0.004431647, z: -0.12956952}
+  m_LocalScale: {x: 1.1592809, y: 2.902727, z: 8.202512}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2458413486187755173}
+  m_Father: {fileID: 1381387355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1574347005
 BoxCollider:
@@ -33133,7 +33166,6 @@ Transform:
   - {fileID: 402805910}
   - {fileID: 1508530302}
   - {fileID: 232876615}
-  - {fileID: 1381387355}
   - {fileID: 1392778479}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33370,6 +33402,8 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
   spawnPoint: {fileID: 179782157}
   smokeSpawnPoint: {fileID: 1738524407}
+  smokeFadeInTime: 1
+  smokeFadeOutTime: 2
   ingredientIcons:
   - ingredientName: Pepper
     icon: {fileID: 21300000, guid: 8dd8c43c42c13ba4baf26cb4ee7f41e8, type: 3}
@@ -46780,7 +46814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.43
+      value: 13.81
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46800,11 +46834,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8.47998
+      value: -5.88
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -535.92
+      value: -536.01
       objectReference: {fileID: 0}
     - target: {fileID: 4661739548674208729, guid: ec07392fc3faca84f8845c89e6490ee5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -47071,7 +47105,7 @@ Transform:
   m_LocalScale: {x: 115.92352, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1574347004}
+  - {fileID: 1381387355}
   - {fileID: 1221332345}
   - {fileID: 7518824577485364613}
   - {fileID: 4307796590137174257}
@@ -49296,6 +49330,8 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1674021886}
   smokeSpawnPoint: {fileID: 1812371626}
+  smokeFadeInTime: 1
+  smokeFadeOutTime: 2
   ingredientIcons:
   - ingredientName: Pepper
     icon: {fileID: 21300000, guid: 8dd8c43c42c13ba4baf26cb4ee7f41e8, type: 3}

@@ -27,6 +27,10 @@ public class InGameRecipeBook : MonoBehaviour
     public Key prevKey2 = Key.LeftBracket;
     public Key nextKey2 = Key.RightBracket;
 
+    [Header("Highlight Settings")]
+    public OutlineHighlighter highlighter;
+    public string player1Tag = "Player";
+    public string player2Tag = "Player2";
 
     private bool isBookOpen = false;
     private int currentPage = 1;
@@ -34,6 +38,8 @@ public class InGameRecipeBook : MonoBehaviour
     void Start()
     {
         HideAllPages();
+        if (highlighter == null)
+            highlighter = GetComponent<OutlineHighlighter>();
     }
 
     void Update()

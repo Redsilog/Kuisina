@@ -33,6 +33,8 @@ public class ChatBubble : MonoBehaviour
 
     [SerializeField] private Sprite dishIconSprite;
     [SerializeField] private IconType iconType;
+    [SerializeField] private Vector2 padding = new Vector2(0.7f, 0.3f);
+    [SerializeField] private float textYOffset = 0.05f;
 
     private SpriteRenderer backgroundSpriteRenderer;
     private SpriteRenderer iconSpriteRenderer;
@@ -91,10 +93,10 @@ public class ChatBubble : MonoBehaviour
 
         // spacing & padding
         float spacing = hasIcon ? 0.12f : 0f;
-        Vector2 padding = new Vector2(0.2f, 0.2f);
+        Vector2 currentPadding = padding;
 
-        float totalWidth = padding.x * 2f + iconWidth + spacing + textWidth;
-        float totalHeight = padding.y * 2f + textHeight;
+        float totalWidth = currentPadding.x * 2f + iconWidth + spacing + textWidth;
+        float totalHeight = currentPadding.y * 2f + textHeight;
         totalWidth = Mathf.Max(totalWidth, 0.3f); 
         totalHeight = Mathf.Max(totalHeight, 0.25f);
 
@@ -115,7 +117,7 @@ public class ChatBubble : MonoBehaviour
             iconSpriteRenderer.enabled = hasIcon;
         }
 
-        textMeshPro.transform.localPosition = new Vector3(xTextCenter, 0f, 0f);
+        textMeshPro.transform.localPosition = new Vector3(xTextCenter, textYOffset, 0f);
 
         textMeshPro.alignment = TextAlignmentOptions.Center;
 

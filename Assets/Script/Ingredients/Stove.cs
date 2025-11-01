@@ -20,7 +20,7 @@ public class Stove : MonoBehaviour
     public Transform smokeSpawnPoint;
 
     private List<string> currentIngredients = new List<string>();
-    private bool isCooking = false;
+    public bool isCooking = false;
     [HideInInspector] public GameObject cookedFood;
 
     [Header("Visual Effects")]

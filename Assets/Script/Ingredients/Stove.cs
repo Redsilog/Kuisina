@@ -25,24 +25,49 @@ public class Stove : MonoBehaviour
 
     [Header("Visual Effects")]
     public GameObject smokePrefab;
+    public Material smokeMaterialNormal;
+    public Material smokeMaterialBlack;
     private GameObject activeSmoke;  
+
+    [Header("Burn Settings")]
+    public float burnTime = 15f;
+    private Coroutine burnTimerRoutine;
+    private bool isBurned = false;
+    private bool isSmokePermanent = false;
 
     public void PlaceIngredient(string ingredientName, GameObject ingredientObject)
     {
         if (isCooking) return;
 
+        if (isBurned)
+        {
+            Debug.Log("Stove is burned! Clear it before using again.");
+            return;
+        }
+
         currentIngredients.Add(ingredientName);
         Destroy(ingredientObject);
         Debug.Log("Placed ingredient: " + ingredientName);
 
+        if (burnTimerRoutine == null)
+        {
+            burnTimerRoutine = StartCoroutine(BurnTimer());
+        }
 
         if (activeSmoke == null)
         {
             activeSmoke = Instantiate(smokePrefab, smokeSpawnPoint.position, smokeSpawnPoint.rotation, smokeSpawnPoint);
-            
+            var renderer = activeSmoke.GetComponent<ParticleSystemRenderer>();
+            if (renderer != null && smokeMaterialNormal != null)
+            {
+                renderer.material = smokeMaterialNormal;
+            }
+
             var ps = activeSmoke.GetComponent<ParticleSystem>();
             if (ps != null)
-                StartCoroutine(FadeInSmoke(ps, 5f));
+                StartCoroutine(FadeInSmoke(ps, 2f));
+
+            isSmokePermanent = true;
         }
 
         CheckCookingStart();
@@ -153,6 +178,14 @@ public class Stove : MonoBehaviour
             Destroy(activeSmoke);
             activeSmoke = null;
         }
+        
+        if (burnTimerRoutine != null)
+        {
+            StopCoroutine(burnTimerRoutine);
+            burnTimerRoutine = null;
+        }
+
+        isBurned = false;
 
         Debug.Log("Stove cleared!");
     }
@@ -174,12 +207,17 @@ public class Stove : MonoBehaviour
             {
                 cookedFood = Instantiate(recipe.cookedDishPrefab, spawnPoint.position, spawnPoint.rotation);
 
-                if (activeSmoke != null)
+                if (activeSmoke != null && isSmokePermanent)
                 {
                     var ps = activeSmoke.GetComponent<ParticleSystem>();
                     if (ps != null)
-                        ps.Stop(); // Let existing particles finish
-                    Destroy(activeSmoke, 2f); // Give time for fade-out
+                    {
+                        ps.Stop(); // stop emission
+                        StartCoroutine(FadeOutSmoke(ps, 2f));
+                    }
+                    Destroy(activeSmoke, 3f); // delay actual destruction
+                    activeSmoke = null;
+                    isSmokePermanent = false;
                 }
 
                 // ✅ Add reference to prefab data
@@ -229,5 +267,89 @@ public class Stove : MonoBehaviour
         }
 
         emission.rateOverTime = targetRate;
+    }
+    private IEnumerator FadeOutSmoke(ParticleSystem ps, float duration)
+    {
+        var main = ps.main;
+        Color startColor = main.startColor.color;
+        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            main.startColor = Color.Lerp(startColor, targetColor, elapsed / duration);
+            yield return null;
+        }
+    }
+    private IEnumerator BurnTimer()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < burnTime && !isCooking)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (!isCooking)
+        {
+            BurnIngredients();
+        }
+    }
+    private void BurnIngredients()
+    {
+        isBurned = true;
+
+        if (activeSmoke != null)
+        {
+            StartCoroutine(CrossfadeToBlackSmoke(2f)); // 2s transition
+        }
+
+        Debug.Log("Ingredients burned! Must be cleared with trash bag.");
+        isCooking = false;
+    }
+
+    private IEnumerator CrossfadeToBlackSmoke(float duration)
+    {
+        if (activeSmoke == null) yield break;
+
+        var lightSmoke = activeSmoke.GetComponent<ParticleSystem>();
+        var lightRenderer = activeSmoke.GetComponent<ParticleSystemRenderer>();
+        if (lightSmoke == null || lightRenderer == null)
+            yield break;
+
+        GameObject blackSmoke = Instantiate(smokePrefab, smokeSpawnPoint.position, smokeSpawnPoint.rotation, smokeSpawnPoint);
+        var blackRenderer = blackSmoke.GetComponent<ParticleSystemRenderer>();
+        var blackPS = blackSmoke.GetComponent<ParticleSystem>();
+
+        if (blackRenderer != null && smokeMaterialBlack != null)
+            blackRenderer.material = smokeMaterialBlack;
+
+        var blackMain = blackPS.main;
+        Color blackStart = blackRenderer.material.GetColor("_Color");
+        blackRenderer.material.SetColor("_Color", new Color(blackStart.r, blackStart.g, blackStart.b, 0f));
+
+        blackPS.Play();
+
+        float elapsed = 0f;
+        Material lightMat = lightRenderer.material;
+        Color lightStart = lightMat.GetColor("_Color");
+        Color lightEnd = new Color(lightStart.r, lightStart.g, lightStart.b, 0f);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            lightMat.SetColor("_Color", Color.Lerp(lightStart, lightEnd, t));
+
+            blackRenderer.material.SetColor("_Color", new Color(blackStart.r, blackStart.g, blackStart.b, t));
+
+            yield return null;
+        }
+
+        Destroy(activeSmoke);
+        activeSmoke = blackSmoke;
     }
 }

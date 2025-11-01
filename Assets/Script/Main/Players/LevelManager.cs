@@ -47,7 +47,6 @@ public class LevelManager : MonoBehaviour
         {
             remainingTime -= Time.deltaTime;
             UpdateTimerUI(); 
-            Debug.Log($"Time remaining: {remainingTime:F2} seconds");
             yield return null;
         }
 

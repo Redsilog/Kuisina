@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private IngredientBox currentIngredientBox;
 
     private List<Stove> nearbyStoves = new List<Stove>();
+    private InGameRecipeBook currentRecipeBook;
 
     private void Start()
     {
@@ -190,6 +191,12 @@ public class PlayerController : MonoBehaviour
                     currentIngredientBox = null;
                 }
             }
+
+            if (currentRecipeBook != null)
+            {
+                currentRecipeBook.ToggleBookExternally();
+                return;
+            }
         }
     }
 
@@ -251,6 +258,13 @@ public class PlayerController : MonoBehaviour
             ToggleHighlight(box.gameObject, true);
             Debug.Log("Ingredient box in range");
         }
+
+        if (other.TryGetComponent(out InGameRecipeBook book))
+        {
+            currentRecipeBook = book;
+            ToggleHighlight(book.gameObject, true);
+            Debug.Log("📖 Player near recipe book");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -291,6 +305,24 @@ public class PlayerController : MonoBehaviour
         {
             currentIngredientBox = null;
             ToggleHighlight(box.gameObject, false);
+        }
+        
+        if (other.TryGetComponent(out InGameRecipeBook book) && book == currentRecipeBook)
+        {
+            ToggleHighlight(book.gameObject, false);
+
+            if (book != null)
+            {
+                var bookField = book.GetType().GetField("isBookOpen", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                bool isOpen = (bool)bookField.GetValue(book);
+                if (isOpen)
+                {
+                    book.ToggleBookExternally();
+                }
+            }
+
+            currentRecipeBook = null;
+            Debug.Log("📕 Player left recipe book (auto closed)");
         }
     }
 

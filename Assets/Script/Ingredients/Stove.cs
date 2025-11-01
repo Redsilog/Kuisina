@@ -20,6 +20,24 @@ public class Stove : MonoBehaviour
     public Transform smokeSpawnPoint;
 
     private List<string> currentIngredients = new List<string>();
+
+    [Header("Ingredient Icons")]
+    public List<IngredientIcon> ingredientIcons = new List<IngredientIcon>();
+
+    [System.Serializable]
+    public class IngredientIcon
+    {
+        public string ingredientName;
+        public Sprite icon;
+    }
+
+    public Sprite GetIngredientIcon(string ingredientName)
+    {
+        var match = ingredientIcons.Find(i =>
+            i.ingredientName.Equals(ingredientName, System.StringComparison.OrdinalIgnoreCase));
+        return match != null ? match.icon : null;
+    }
+    
     public bool isCooking = false;
     [HideInInspector] public GameObject cookedFood;
 
@@ -35,6 +53,8 @@ public class Stove : MonoBehaviour
     private bool isBurned = false;
     private bool isSmokePermanent = false;
 
+    public System.Action<List<string>> OnIngredientsChanged;
+
     public void PlaceIngredient(string ingredientName, GameObject ingredientObject)
     {
         if (isCooking) return;
@@ -46,6 +66,7 @@ public class Stove : MonoBehaviour
         }
 
         currentIngredients.Add(ingredientName);
+        OnIngredientsChanged?.Invoke(currentIngredients);
         Destroy(ingredientObject);
         Debug.Log("Placed ingredient: " + ingredientName);
 
@@ -165,6 +186,7 @@ public class Stove : MonoBehaviour
     public void ClearStove()
     {
         currentIngredients.Clear();
+        OnIngredientsChanged?.Invoke(currentIngredients);
         isCooking = false;
 
         if (cookedFood != null)

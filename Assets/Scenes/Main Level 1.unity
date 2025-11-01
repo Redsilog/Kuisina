@@ -23261,8 +23261,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.03326441, y: 0.032495733, z: 0.02037961}
-  m_Center: {x: 0.01742033, y: -0.013251577, z: 0.00018980325}
+  m_Size: {x: 0.026294133, y: 0.032495733, z: 0.02037961}
+  m_Center: {x: 0.020905474, y: -0.013251577, z: 0.00018980325}
 --- !u!65 &1165085321
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34022,7 +34022,7 @@ GameObject:
   - component: {fileID: 1655391833}
   - component: {fileID: 1655391832}
   m_Layer: 0
-  m_Name: Rice Trigger (1)
+  m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

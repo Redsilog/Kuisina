@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Level Settings")]
     public string levelID = "Day1";   // Example: "Day1", "Day2"
-    public int requiredStars = 3;     // number of stars needed to unlock the next level
+    public int requiredStars = 3;     //  number of stars needed to unlock the next level
     public float levelTime = 120f;    // Time limit
 
     [Header("Runtime Data")]
@@ -127,7 +127,7 @@ public class LevelManager : MonoBehaviour
     // Buttons
     private void ReturnToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Main Menu");
     }
 
     private void RestartLevel()

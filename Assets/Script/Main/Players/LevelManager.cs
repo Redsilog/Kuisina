@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Level Settings")]
     public string levelID = "Day1";   // Example: "Day1", "Day2"
-    public int requiredStars = 3;     //  number of stars needed to unlock the next level
+    public int requiredStars = 3;     // Stars needed to unlock next level
     public float levelTime = 120f;    // Time limit
 
     [Header("Runtime Data")]
@@ -22,10 +22,13 @@ public class LevelManager : MonoBehaviour
     [Header("UI References (TMP)")]
     public TextMeshProUGUI timerText;
     public GameObject resultPanel;
-    public TextMeshProUGUI resultTitleText;
     public TextMeshProUGUI levelNameText;
-    public TextMeshProUGUI requirementText;   // was quotaText
+    public TextMeshProUGUI requirementText;
     public TextMeshProUGUI starsText;
+
+    [Header("Result Title Images")]
+    public GameObject levelCompleteImage;   //  Assign the "Level Complete" banner
+    public GameObject levelFailedImage;     //  Assign the "Level Failed" banner
 
     [Header("Buttons")]
     public Button returnButton;
@@ -48,6 +51,9 @@ public class LevelManager : MonoBehaviour
 
         if (resultPanel != null)
             resultPanel.SetActive(false);
+
+        if (levelCompleteImage != null) levelCompleteImage.SetActive(false);
+        if (levelFailedImage != null) levelFailedImage.SetActive(false);
 
         if (returnButton != null) returnButton.onClick.AddListener(ReturnToMenu);
         if (retryButton != null) retryButton.onClick.AddListener(RestartLevel);
@@ -73,7 +79,6 @@ public class LevelManager : MonoBehaviour
 
         if (!levelActive) yield break;
 
-        // When time runs out, check if enough stars reached
         bool hasEnoughStars = totalStars >= requiredStars;
 
         if (hasEnoughStars)
@@ -103,7 +108,7 @@ public class LevelManager : MonoBehaviour
     public void AddStars(int amount)
     {
         totalStars += amount;
-        Debug.Log($"Earned {amount} | Total: {totalStars}/{requiredStars}");
+        Debug.Log($"Earned {amount}  | Total: {totalStars}/{requiredStars}");
         SaveStars();
     }
 
@@ -112,19 +117,25 @@ public class LevelManager : MonoBehaviour
         if (resultPanel == null) return;
 
         resultPanel.SetActive(true);
-        resultTitleText.text = isComplete ? "LEVEL COMPLETE" : "LEVEL FAILED";
-        levelNameText.text = levelID;
 
-        // display the requirement and total stars
+        //  Show the correct image
+        if (levelCompleteImage != null)
+            levelCompleteImage.SetActive(isComplete);
+
+        if (levelFailedImage != null)
+            levelFailedImage.SetActive(!isComplete);
+
+        //  Update texts 
+        levelNameText.text = levelID;
         requirementText.text = $"REQUIRED STARS = {requiredStars}";
         starsText.text = $"STAR TOTAL = {totalStars}";
 
-        // show Next button only if enough stars
+        //  Only show "Next" button when complete
         if (nextButton != null)
             nextButton.gameObject.SetActive(isComplete);
     }
 
-    // Buttons
+    // Button actions
     private void ReturnToMenu()
     {
         SceneManager.LoadScene("Main Menu");

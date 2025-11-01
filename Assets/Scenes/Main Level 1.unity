@@ -5471,7 +5471,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 629305913822926575, guid: 189ae5de33939409db23b7bca44d5a94, type: 3}
   m_PrefabInstance: {fileID: 962440765}
   m_PrefabAsset: {fileID: 0}
-
 --- !u!1 &294407748
 GameObject:
   m_ObjectHideFlags: 0
@@ -5490,7 +5489,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!4 &294407749
 Transform:
   m_ObjectHideFlags: 0
@@ -5506,7 +5504,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 112943291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
 --- !u!114 &294407750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5520,7 +5517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trash
   trashClip: {fileID: 8300000, guid: 1766fa4318180c64cab983c2c3c8bfb7, type: 3}
-
 --- !u!65 &294407751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5542,9 +5538,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.044038534, y: 0.027945753, z: 0.030747896}
   m_Center: {x: 0.011632444, y: 0.00010273341, z: 0.0053233537}
-
-
-# Way 1
 --- !u!1 &295793238
 GameObject:
   m_ObjectHideFlags: 0
@@ -5561,7 +5554,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!4 &295793239
 Transform:
   m_ObjectHideFlags: 0
@@ -7442,23 +7434,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 567058955463836831, guid: df4c4f2368c74644c8f90564e5ab2653, type: 3}
   m_PrefabInstance: {fileID: 370689231}
   m_PrefabAsset: {fileID: 0}
-  #asdf
---- !u!114 &373566360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4521747450524513906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 838afebcad98375419cc6ce1fed17389, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineHighlighter
-  player1Outline: {fileID: 2100000, guid: 7e76d4993584635478ff6473c2a7ca2d, type: 2}
-  player2Outline: {fileID: 2100000, guid: cf24483b04e00c347b52327428d04a6d, type: 2}
-
-# Way 1 GameObject
 --- !u!1 &371251388
 GameObject:
   m_ObjectHideFlags: 0
@@ -7490,7 +7465,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1680351219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-#asdf
+--- !u!114 &373566360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4521747450524513906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838afebcad98375419cc6ce1fed17389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlineHighlighter
+  player1Outline: {fileID: 2100000, guid: 7e76d4993584635478ff6473c2a7ca2d, type: 2}
+  player2Outline: {fileID: 2100000, guid: cf24483b04e00c347b52327428d04a6d, type: 2}
 --- !u!1 &374750993
 GameObject:
   m_ObjectHideFlags: 0
@@ -17775,60 +17763,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe65fec31a96cc49a3146a03f035c48, type: 3}
-  #qwe
-# Level Manager
---- !u!1 &981725044
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 981725046}
-  - component: {fileID: 981725047}
-  m_Layer: 0
-  m_Name: Level Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
-
---- !u!4 &981725046
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981725044}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.0603, y: -0.26559, z: 10.71314}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
---- !u!114 &981725047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981725044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af328be82c0d03842ab44c325dd16547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  starsToNextLevel: 5
-  currentStars: 0
-  levelTime: 121
-  timerText: {fileID: 1384234487}
-
-# Path A
 --- !u!1 &977746759
 GameObject:
   m_ObjectHideFlags: 0
@@ -17846,7 +17780,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!4 &977746760
 Transform:
   m_ObjectHideFlags: 0
@@ -17864,7 +17797,6 @@ Transform:
   - {fileID: 1370884249}
   m_Father: {fileID: 506750067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
 --- !u!114 &977746761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17880,7 +17812,54 @@ MonoBehaviour:
   waypoints:
   - {fileID: 716366742}
   - {fileID: 1370884249}
-#qwe
+--- !u!1 &981725044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981725046}
+  - component: {fileID: 981725047}
+  m_Layer: 0
+  m_Name: Level Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &981725046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981725044}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.0603, y: -0.26559, z: 10.71314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &981725047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981725044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af328be82c0d03842ab44c325dd16547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  starsToNextLevel: 5
+  currentStars: 0
+  levelTime: 121
+  timerText: {fileID: 1384234487}
 --- !u!1 &984058673
 GameObject:
   m_ObjectHideFlags: 0
@@ -38037,7 +38016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1984122162
 MonoBehaviour:
   m_ObjectHideFlags: 0

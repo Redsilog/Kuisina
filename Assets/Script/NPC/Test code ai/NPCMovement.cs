@@ -60,7 +60,7 @@ public class NPCMovement : MonoBehaviour
 
     private void UpdateAnimation()
     {
-        // 🟢 New fix: force movement animation OFF when interacting or sitting
+        //  New fix: force movement animation OFF when interacting or sitting
         bool isInteracting =
             CurrentState == NPCState.Ordering ||
             CurrentState == NPCState.Thanking ||

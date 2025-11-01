@@ -18516,7 +18516,7 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
-  burnTime: 10
+  burnTime: 6
 --- !u!65 &909366145
 BoxCollider:
   m_ObjectHideFlags: 0

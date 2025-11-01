@@ -151,4 +151,8 @@ public class InGameRecipeBook : MonoBehaviour
         if (Page13) Page13.SetActive(false);
         if (Page14) Page14.SetActive(false);
     }
+    public void ToggleBookExternally()
+    {
+        ToggleBook();
+    }
 }

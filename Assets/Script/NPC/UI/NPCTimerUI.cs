@@ -43,7 +43,15 @@ public class NPCTimerUI : MonoBehaviour
 
         float remaining = npc.GetRemainingTime();
         float max = npc.GetMaxTime();
-        slider.value = (max <= 0f) ? 0f : Mathf.Clamp01(remaining / max);
+
+        // Hide or deactivate when timer ends
+        if (remaining <= 0f || max <= 0f)
+        {
+            slider.value = 0f;
+            return;
+        }
+
+        slider.value = Mathf.Clamp01(remaining / max);
 
         Vector3 worldPos = followTarget.position + offset;
 
@@ -55,8 +63,7 @@ public class NPCTimerUI : MonoBehaviour
 
         Vector3 screenPoint = cam.WorldToScreenPoint(worldPos);
         RectTransform canvasRect = canvas.transform as RectTransform;
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, (canvas.renderMode == RenderMode.ScreenSpaceCamera) ? cam : null, out localPoint);
-        rectTransform.anchoredPosition = localPoint;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, cam, out Vector2 localPoint))
+            rectTransform.anchoredPosition = localPoint;
     }
 }

@@ -21,6 +21,13 @@ public class Stove : MonoBehaviour
     public Transform spawnPoint;
     public Transform smokeSpawnPoint;
 
+    [Header("Cooking Duration")]
+    public float cookTime = 5f;
+
+    private float cookTimerElapsed;
+    public bool IsCooking => isCooking;
+
+
     [Header("Smoke Timing Settings")]
     [Tooltip("How long the smoke takes to fade in when cooking starts.")]
     public float smokeFadeInTime = 1f;
@@ -163,10 +170,14 @@ public class Stove : MonoBehaviour
                 OnRecipeMatched?.Invoke(dishIcon);
 
                 StartCoroutine(CookRoutine(matchedRecipe, starRating));
-            }
 
-            Debug.Log($"Cooking {matchedRecipe.dishName} with {starRating} stars (wrong order count: {wrongOrderCount})!");
-            StartCoroutine(CookRoutine(matchedRecipe, starRating));
+                Debug.Log($"Cooking {matchedRecipe.dishName} with {starRating} stars (wrong order count: {wrongOrderCount})!");
+            }
+            else
+            {
+                Debug.Log($"All ingredients are wrong! No dish for {matchedRecipe.dishName}.");
+                currentIngredients.Clear();
+            }
         }
         else
         {
@@ -216,7 +227,7 @@ public class Stove : MonoBehaviour
             Destroy(activeSmoke);
             activeSmoke = null;
         }
-        
+
         if (burnTimerRoutine != null)
         {
             StopCoroutine(burnTimerRoutine);
@@ -227,14 +238,31 @@ public class Stove : MonoBehaviour
 
         Debug.Log("Stove cleared!");
     }
-
+    
+    public float GetCookProgress()
+    {
+        if (!isCooking || cookTime <= 0f) return 0f;
+        return Mathf.Clamp01(cookTimerElapsed / cookTime);
+    }
 
     private IEnumerator CookRoutine(Recipe recipe, int stars)
     {
         isCooking = true;
         Debug.Log($"Cooking {recipe.dishName}... Please wait.");
 
-        yield return new WaitForSeconds(5f);
+        cookTimerElapsed = 0f;
+        while (cookTimerElapsed < cookTime)
+        {
+            cookTimerElapsed += Time.deltaTime;
+            yield return null;
+        }
+        cookTimerElapsed = cookTime;
+
+        if (burnTimerRoutine != null)
+        {
+            StopCoroutine(burnTimerRoutine);
+            burnTimerRoutine = null;
+        }
 
         if (stars > 0)
         {
@@ -292,6 +320,7 @@ public class Stove : MonoBehaviour
         currentIngredients.Clear();
         OnIngredientsChanged?.Invoke(currentIngredients);
         isCooking = false;
+        OnRecipeMatched?.Invoke(null);
     }
 
     private IEnumerator FadeInSmoke(ParticleSystem ps, float duration)

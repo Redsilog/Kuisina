@@ -6,6 +6,7 @@ public class MainMenuScript : MonoBehaviour
     public GameObject mainMenu;
     public GameObject optionsMenu;
     public GameObject recipeMenu;
+    public GameObject playerSelect;
 
     public void Options()
     {
@@ -26,5 +27,11 @@ public class MainMenuScript : MonoBehaviour
     {
         recipeMenu.SetActive(false);
         mainMenu.SetActive(true);
+    }
+
+    public void StartButton()
+    {
+        playerSelect.SetActive(true);
+        mainMenu.SetActive(false);
     }
 }

@@ -163,10 +163,14 @@ public class Stove : MonoBehaviour
                 OnRecipeMatched?.Invoke(dishIcon);
 
                 StartCoroutine(CookRoutine(matchedRecipe, starRating));
-            }
 
-            Debug.Log($"Cooking {matchedRecipe.dishName} with {starRating} stars (wrong order count: {wrongOrderCount})!");
-            StartCoroutine(CookRoutine(matchedRecipe, starRating));
+                Debug.Log($"Cooking {matchedRecipe.dishName} with {starRating} stars (wrong order count: {wrongOrderCount})!");
+            }
+            else
+            {
+                Debug.Log($"All ingredients are wrong! No dish for {matchedRecipe.dishName}.");
+                currentIngredients.Clear();
+            }
         }
         else
         {
@@ -236,6 +240,12 @@ public class Stove : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
+        if (burnTimerRoutine != null)
+        {
+            StopCoroutine(burnTimerRoutine);
+            burnTimerRoutine = null;
+        }
+
         if (stars > 0)
         {
             Debug.Log($"{recipe.dishName} is ready! Satisfaction: {stars} stars");
@@ -292,6 +302,7 @@ public class Stove : MonoBehaviour
         currentIngredients.Clear();
         OnIngredientsChanged?.Invoke(currentIngredients);
         isCooking = false;
+        OnRecipeMatched?.Invoke(null);
     }
 
     private IEnumerator FadeInSmoke(ParticleSystem ps, float duration)

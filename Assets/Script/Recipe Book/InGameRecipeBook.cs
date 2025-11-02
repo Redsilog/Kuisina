@@ -17,7 +17,6 @@ public class InGameRecipeBook : MonoBehaviour
     public GameObject Page11;
     public GameObject Page12;
     public GameObject Page13;
-    public GameObject Page14;
 
     [Header("Keys")]
     public Key openCloseKey = Key.Space;
@@ -34,6 +33,8 @@ public class InGameRecipeBook : MonoBehaviour
 
     private bool isBookOpen = false;
     private int currentPage = 1;
+    private const int MIN_PAGE = 1;
+    private const int MAX_PAGE = 13;
 
     void Start()
     {
@@ -92,22 +93,19 @@ public class InGameRecipeBook : MonoBehaviour
         }
     }
 
+
     private void NextPage()
     {
-        if (currentPage >= 14) return;
-
-        currentPage++;
+        currentPage = Mathf.Clamp(currentPage + 1, MIN_PAGE, MAX_PAGE);
         ShowOnly(currentPage);
-        Debug.Log($"➡️ Next Page: {currentPage}");
+        Debug.Log($"➡️ Page: {currentPage}");
     }
 
     private void PreviousPage()
     {
-        if (currentPage <= 1) return;
-
-        currentPage--;
+        currentPage = Mathf.Clamp(currentPage - 1, MIN_PAGE, MAX_PAGE);
         ShowOnly(currentPage);
-        Debug.Log($"⬅️ Previous Page: {currentPage}");
+        Debug.Log($"⬅️ Page: {currentPage}");
     }
 
     // Shows one page, hides the rest
@@ -130,7 +128,6 @@ public class InGameRecipeBook : MonoBehaviour
             case 11: if (Page11) Page11.SetActive(true); break;
             case 12: if (Page12) Page12.SetActive(true); break;
             case 13: if (Page13) Page13.SetActive(true); break;
-            case 14: if (Page14) Page14.SetActive(true); break;
         }
     }
 
@@ -149,7 +146,6 @@ public class InGameRecipeBook : MonoBehaviour
         if (Page11) Page11.SetActive(false);
         if (Page12) Page12.SetActive(false);
         if (Page13) Page13.SetActive(false);
-        if (Page14) Page14.SetActive(false);
     }
     public void ToggleBookExternally()
     {

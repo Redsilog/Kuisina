@@ -43692,7 +43692,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1984122162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51483,7 +51483,6 @@ MonoBehaviour:
   Page11: {fileID: 812482293}
   Page12: {fileID: 1546361476}
   Page13: {fileID: 2034223879}
-  Page14: {fileID: 0}
   openCloseKey: 39
   prevKey: 35
   nextKey: 23

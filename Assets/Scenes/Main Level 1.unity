@@ -19458,7 +19458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: Day1
   requiredStars: 5
-  levelTime: 121
+  levelTime: 135
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}

@@ -12,8 +12,8 @@ public class RecipeScript : MonoBehaviour
     public Button prevButton;             // Button to go back
 
     [Header("Audio Setup")]
-    public AudioSource audioSource;       // Audio source to play sound
-    public AudioClip pageTurnSound;       // Page flip sound effect
+    public AudioClip pageTurnSound;   // just the clip, no need for AudioSource
+    public float pageVolume = 0.5f;
 
     [Header("Optional Keyboard Input")]
     public Key nextKey = Key.RightArrow;
@@ -103,13 +103,12 @@ public class RecipeScript : MonoBehaviour
 
     private void PlayPageSound()
     {
-        if (audioSource != null && pageTurnSound != null)
+        if (pageTurnSound != null && SoundFXManager.instance != null)
         {
-            float volume = 0.5f;
-            audioSource.PlayOneShot(pageTurnSound, volume);
+            // use the SoundFXManager to play a one-shot sound
+            SoundFXManager.instance.PlaySoundFXClip(pageTurnSound, transform, pageVolume);
         }
     }
-
     private void ShowPage(int index)
     {
         displayImage.sprite = pages[index];

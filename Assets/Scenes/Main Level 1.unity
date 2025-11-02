@@ -19308,6 +19308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 953642806}
   - component: {fileID: 953642807}
+  - component: {fileID: 953642808}
   m_Layer: 5
   m_Name: Music
   m_TagString: Untagged
@@ -19401,6 +19402,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &953642808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953642805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40506be1b468f641be62e3b9265aa76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VolumeSlider
+  volumeType: 1
 --- !u!1001 &954525202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21672,6 +21686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1068169684}
   - component: {fileID: 1068169685}
+  - component: {fileID: 1068169686}
   m_Layer: 5
   m_Name: Sound Effects
   m_TagString: Untagged
@@ -21765,6 +21780,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1068169686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068169683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40506be1b468f641be62e3b9265aa76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VolumeSlider
+  volumeType: 2
 --- !u!1 &1071728192
 GameObject:
   m_ObjectHideFlags: 0
@@ -33934,8 +33962,8 @@ RectTransform:
   - {fileID: 831863858}
   - {fileID: 1218994535}
   - {fileID: 2005721758}
-  - {fileID: 1068169684}
   - {fileID: 953642806}
+  - {fileID: 1068169684}
   m_Father: {fileID: 1740870605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -43768,6 +43796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2005721758}
   - component: {fileID: 2005721759}
+  - component: {fileID: 2005721760}
   m_Layer: 5
   m_Name: Master
   m_TagString: Untagged
@@ -43848,19 +43877,20 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821650823}
-        m_TargetAssemblyTypeName: SoundMixerManager, Assembly-CSharp
-        m_MethodName: SetMasterVolume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &2005721760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005721757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40506be1b468f641be62e3b9265aa76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VolumeSlider
+  volumeType: 0
 --- !u!1001 &2006936803
 PrefabInstance:
   m_ObjectHideFlags: 0

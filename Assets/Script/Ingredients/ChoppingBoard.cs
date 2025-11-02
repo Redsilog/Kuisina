@@ -143,6 +143,10 @@ public class ChoppingBoard : MonoBehaviour
         while (isChopping && chopProgress < chopTime)
         {
             chopProgress += Time.deltaTime;
+
+            Vector3 lookPos = new Vector3(displayPoint.position.x, player.transform.position.y, displayPoint.position.z);
+            player.transform.rotation = Quaternion.LookRotation(lookPos - player.transform.position);
+
             yield return null;
         }
 
@@ -150,19 +154,21 @@ public class ChoppingBoard : MonoBehaviour
             FinishChop(player);
     }
 
-
-    // Called when player presses and holds interact
     public void StartChop(PlayerInventory player)
     {
-        if (stagedRawInstance == null) return; // nothing to chop
-        if (isChopping) return; // already chopping
+        if (stagedRawInstance == null) return; 
+        if (isChopping) return; 
 
         isChopping = true;
         playerAnimator = player.animator;
         if (playerAnimator != null) playerAnimator.SetBool("IsChopping", true);
 
+        if (displayPoint != null)
+            player.transform.LookAt(new Vector3(displayPoint.position.x, player.transform.position.y, displayPoint.position.z));
+
         StartCoroutine(ChopWhileHeld(player));
     }
+
 
     // Called when player releases interact
     public void PauseChop()

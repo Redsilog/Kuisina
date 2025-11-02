@@ -24,11 +24,21 @@ public class LevelManager : MonoBehaviour
     public GameObject resultPanel;
     public TextMeshProUGUI levelNameText;
     public TextMeshProUGUI requirementText;
-    public TextMeshProUGUI starsText;
 
-    [Header("Result Title Images")]
-    public GameObject levelCompleteImage;   //  Assign the "Level Complete" banner
-    public GameObject levelFailedImage;     //  Assign the "Level Failed" banner
+    [Header("Result Sprite Images")]
+    public Image resultImage;           // Image for Level Complete or Failed
+    public Sprite levelCompleteSprite;  // Sprite for "LEVEL COMPLETE"
+    public Sprite levelFailedSprite;    // Sprite for "LEVEL FAILED"
+
+    [Header("Star Images")]
+    public Image star1Image; // Image for Star 1
+    public Image star2Image; // Image for Star 2
+    public Image star3Image; // Image for Star 3
+    public Image star4Image; // Image for Star 4
+    public Image star5Image; // Image for Star 5
+
+    public Sprite filledStarSprite; // Sprite for filled star
+    public Sprite emptyStarSprite;  // Sprite for empty star
 
     [Header("Buttons")]
     public Button returnButton;
@@ -51,9 +61,6 @@ public class LevelManager : MonoBehaviour
 
         if (resultPanel != null)
             resultPanel.SetActive(false);
-
-        if (levelCompleteImage != null) levelCompleteImage.SetActive(false);
-        if (levelFailedImage != null) levelFailedImage.SetActive(false);
 
         if (returnButton != null) returnButton.onClick.AddListener(ReturnToMenu);
         if (retryButton != null) retryButton.onClick.AddListener(RestartLevel);
@@ -108,7 +115,7 @@ public class LevelManager : MonoBehaviour
     public void AddStars(int amount)
     {
         totalStars += amount;
-        Debug.Log($"Earned {amount}  | Total: {totalStars}/{requiredStars}");
+        Debug.Log($"Earned {amount} | Total: {totalStars}/{requiredStars}");
         SaveStars();
     }
 
@@ -118,24 +125,37 @@ public class LevelManager : MonoBehaviour
 
         resultPanel.SetActive(true);
 
-        //  Show the correct image
-        if (levelCompleteImage != null)
-            levelCompleteImage.SetActive(isComplete);
+        // Change sprite based on result
+        if (resultImage != null)
+        {
+            resultImage.sprite = isComplete ? levelCompleteSprite : levelFailedSprite;
+        }
 
-        if (levelFailedImage != null)
-            levelFailedImage.SetActive(!isComplete);
-
-        //  Update texts 
         levelNameText.text = levelID;
         requirementText.text = $"REQUIRED STARS = {requiredStars}";
-        starsText.text = $"STAR TOTAL = {totalStars}";
 
-        //  Only show "Next" button when complete
+        // Update the stars (fill or empty) based on the totalStars
+        UpdateStarImages();
+
+        // Only show "Next" button when player meets the requirement
         if (nextButton != null)
             nextButton.gameObject.SetActive(isComplete);
     }
 
-    // Button actions
+    // Update the star images based on the totalStars
+    private void UpdateStarImages()
+    {
+        // Get the filled and empty star sprites based on totalStars
+        Image[] stars = { star1Image, star2Image, star3Image, star4Image, star5Image };
+
+        for (int i = 0; i < stars.Length; i++)
+        {
+            // If totalStars is greater than i, show filled star, else show empty star
+            stars[i].sprite = (i < totalStars) ? filledStarSprite : emptyStarSprite;
+        }
+    }
+
+    //  Button actions
     private void ReturnToMenu()
     {
         SceneManager.LoadScene("Main Menu");
@@ -151,7 +171,7 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("NextLevel");
     }
 
-    // Save and Load
+    //  Save and Load
     public void SaveStars()
     {
         PlayerPrefs.SetInt($"{levelID}_TotalStars", totalStars);

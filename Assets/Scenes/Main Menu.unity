@@ -2109,8 +2109,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 84924330728c308418094cf64c0372c3, type: 3}
   nextButton: {fileID: 1903234743}
   prevButton: {fileID: 88028919}
-  audioSource: {fileID: 2100809608}
   pageTurnSound: {fileID: 8300000, guid: a72aa122268636348a2a4322594ac0b9, type: 3}
+  pageVolume: 0.5
   nextKey: 62
   prevKey: 61
   toggleBookKey: 1
@@ -3713,6 +3713,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VolumeSlider
   volumeType: 2
+--- !u!1 &1271257257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1271257258}
+  m_Layer: 0
+  m_Name: Player Mode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1271257258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271257257}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1007.3929, y: -741.9696, z: -6.53128}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1446469811
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,7 +3865,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2100809607}
   - {fileID: 1995948494}
   - {fileID: 801214106}
   m_Father: {fileID: 800018148}
@@ -5069,7 +5099,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1552438577}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1867417430844812495, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5115,21 +5145,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 3561352624722755884, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3561352624722755884, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2100809608}
   m_SourcePrefab: {fileID: 100100000, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
---- !u!4 &2100809607 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1867417430844812495, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
+--- !u!1 &2100809607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3561352624722755884, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
   m_PrefabInstance: {fileID: 2100809606}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &2100809608 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3955490655752554010, guid: 7f351e4b115cfea4faa7b0f21407b75f, type: 3}
-  m_PrefabInstance: {fileID: 2100809606}
+--- !u!114 &2100809608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100809607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b901ba66e840e540a312b27f3900bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicManager
+  menuMusic: {fileID: 8300000, guid: f32f4ea88ffcf96439adcea26398fe75, type: 3}
+  level1Music: {fileID: 8300000, guid: f32f4ea88ffcf96439adcea26398fe75, type: 3}
+  level2Music: {fileID: 0}
+  level3Music: {fileID: 0}
+  level4Music: {fileID: 0}
+  level5Music: {fileID: 0}
 --- !u!1 &2107820120
 GameObject:
   m_ObjectHideFlags: 0
@@ -5218,3 +5268,5 @@ SceneRoots:
   - {fileID: 800018148}
   - {fileID: 993318469}
   - {fileID: 902238699}
+  - {fileID: 2100809606}
+  - {fileID: 1271257258}

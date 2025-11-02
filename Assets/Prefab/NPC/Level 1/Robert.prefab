@@ -815,10 +815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
   requestedItems:
-  - {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
   - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
-  - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
-  orderDisplayPoint: {fileID: 0}
+  DeliveredDish: {fileID: 0}
 --- !u!114 &750206956557513461
 MonoBehaviour:
   m_ObjectHideFlags: 0

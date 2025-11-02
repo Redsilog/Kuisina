@@ -45,6 +45,10 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Canvas npcTimerCanvas;
 
     public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
+
+    // Flag to track if NPC is resting
+    private bool isResting = false;  // New variable to track resting state
+
     void Awake()
     {
         var col = GetComponent<Collider>();
@@ -80,14 +84,24 @@ public class NPCInteractable : MonoBehaviour
     // Called by NPCMovement when NPC reaches sit point
     public void StartWaitingForPlayer()
     {
+        isResting = true;  // Set NPC to resting state when waiting for player
         waitingForInteraction = true;
         interactionTimer = initialWaitTime;
         SpawnTimerUI();
     }
 
+    // Called by NPCMovement when NPC starts moving
+    public void StartMoving()
+    {
+        isResting = false;  // NPC is no longer resting when moving
+    }
+
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed || !playerInRange || currentInteractor == null) return;
+        // Check if NPC is resting before allowing interaction
+        if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting)
+            return;
+
         if (Time.time < nextAllowedTime) return;
         nextAllowedTime = Time.time + interactCooldown;
 
@@ -133,8 +147,6 @@ public class NPCInteractable : MonoBehaviour
         RemoveTimerUI();
     }
 
-
-
     private IEnumerator ThankAndLeave()
     {
         yield return new WaitForSeconds(thankYouDelay);
@@ -172,7 +184,6 @@ public class NPCInteractable : MonoBehaviour
     }
 
     // ---------- Dialogue builders ----------
-
     private string BuildRequestLine()
     {
         return FormatByIndex(
@@ -213,6 +224,7 @@ public class NPCInteractable : MonoBehaviour
 
         return line.Contains("{0}") ? string.Format(line, itemName) : line;
     }
+
     // timer
     public float GetRemainingTime()
     {
@@ -235,6 +247,7 @@ public class NPCInteractable : MonoBehaviour
         activeTimerUI.npc = this;
         activeTimerUI.followTarget = chatBubbleSpawnPoint;
     }
+
     private void RemoveTimerUI()
     {
         if (activeTimerUI != null)
@@ -245,7 +258,6 @@ public class NPCInteractable : MonoBehaviour
     }
 
     // ---------- Chat bubble helper ----------
-
     private void ShowChat(string text)
     {
         if (!chatBubblePrefab || !chatBubbleSpawnPoint || string.IsNullOrWhiteSpace(text)) return;
@@ -259,5 +271,4 @@ public class NPCInteractable : MonoBehaviour
             autoClearAfter
         );
     }
-
 }

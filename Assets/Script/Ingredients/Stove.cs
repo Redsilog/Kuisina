@@ -32,6 +32,7 @@ public class Stove : MonoBehaviour
 
     [Header("Ingredient Icons")]
     public List<IngredientIcon> ingredientIcons = new List<IngredientIcon>();
+    public System.Action<Sprite> OnRecipeMatched;
 
     [System.Serializable]
     public class IngredientIcon
@@ -153,6 +154,15 @@ public class Stove : MonoBehaviour
                 Debug.Log($"All ingredients are wrong! No dish for {matchedRecipe.dishName}.");
                 currentIngredients.Clear();
                 return;
+            }
+            
+            if (starRating > 0)
+            {
+                // ✅ Fire the event so the UI updates immediately
+                Sprite dishIcon = GetIngredientIcon(matchedRecipe.dishName); 
+                OnRecipeMatched?.Invoke(dishIcon);
+
+                StartCoroutine(CookRoutine(matchedRecipe, starRating));
             }
 
             Debug.Log($"Cooking {matchedRecipe.dishName} with {starRating} stars (wrong order count: {wrongOrderCount})!");

@@ -694,6 +694,7 @@ MonoBehaviour:
   - {fileID: 1597392909}
   - {fileID: 23307975}
   - {fileID: 220337106}
+  isWaypointOccupied: 
 --- !u!1 &23307974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,6 +1318,7 @@ MonoBehaviour:
   - {fileID: 1137021194}
   - {fileID: 1074876788}
   - {fileID: 1244890425}
+  isWaypointOccupied: 
 --- !u!1 &57519592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,7 +2775,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 959205432}
     m_Modifications:
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalScale.x
@@ -2789,15 +2791,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.37
+      value: -25.02
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2656002
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.24
+      value: -65.39
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2805,7 +2807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2813,7 +2815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10171,6 +10173,11 @@ MonoBehaviour:
     waypoints:
     - {fileID: 396677571}
     - {fileID: 389964027}
+--- !u!4 &439976371 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5789023325157284357, guid: dab3d93fd2764dc45988adf7d412c1b3, type: 3}
+  m_PrefabInstance: {fileID: 123988363}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &441921947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3291321414438362959, guid: 94003b7125e74422ca360a45b57cf1ea, type: 3}
@@ -15175,6 +15182,7 @@ MonoBehaviour:
   - {fileID: 2033399609}
   - {fileID: 1887507215}
   - {fileID: 488267402}
+  isWaypointOccupied: 
 --- !u!4 &736210387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8e0b3e9acf61f184ba7a4fcbd0654042, type: 3}
@@ -15468,6 +15476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaypointSet
   waypoints:
   - {fileID: 1024824800}
+  isWaypointOccupied: 
 --- !u!1 &771063742
 GameObject:
   m_ObjectHideFlags: 0
@@ -19114,6 +19123,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 439976371}
   - {fileID: 538718370}
   - {fileID: 1502996246}
   - {fileID: 1590709721}
@@ -19718,6 +19728,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 716366742}
   - {fileID: 1370884249}
+  isWaypointOccupied: 
 --- !u!1 &981725044
 GameObject:
   m_ObjectHideFlags: 0
@@ -33156,6 +33167,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1313314742}
   - {fileID: 1935241594}
+  isWaypointOccupied: 
 --- !u!1001 &1611152803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35691,6 +35703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaypointSet
   waypoints:
   - {fileID: 371251389}
+  isWaypointOccupied: 
 --- !u!1 &1681761732
 GameObject:
   m_ObjectHideFlags: 0
@@ -40403,6 +40416,7 @@ MonoBehaviour:
   - {fileID: 771063743}
   - {fileID: 2060549734}
   - {fileID: 1554070722}
+  isWaypointOccupied: 
 --- !u!1 &1923281004
 GameObject:
   m_ObjectHideFlags: 0
@@ -50235,7 +50249,6 @@ SceneRoots:
   - {fileID: 680694887}
   - {fileID: 154452186}
   - {fileID: 826435080}
-  - {fileID: 123988363}
   - {fileID: 959205432}
   - {fileID: 981725046}
   - {fileID: 112943291}

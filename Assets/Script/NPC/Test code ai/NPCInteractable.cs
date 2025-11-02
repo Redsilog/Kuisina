@@ -44,6 +44,8 @@ public class NPCInteractable : MonoBehaviour
     private NPCTimerUI activeTimerUI;
     [SerializeField] private Canvas npcTimerCanvas;
 
+    private bool inExtendedPhase = false;
+
     public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
 
     // Flag to track if NPC is resting
@@ -84,8 +86,9 @@ public class NPCInteractable : MonoBehaviour
     // Called by NPCMovement when NPC reaches sit point
     public void StartWaitingForPlayer()
     {
-        isResting = true;  // Set NPC to resting state when waiting for player
+        isResting = true;
         waitingForInteraction = true;
+        inExtendedPhase = false; // ✅ Mark initial wait
         interactionTimer = initialWaitTime;
         SpawnTimerUI();
     }
@@ -122,6 +125,7 @@ public class NPCInteractable : MonoBehaviour
         if (npcOrder.HasActiveOrder)
         {
             waitingForInteraction = true;
+            inExtendedPhase = true; // ✅ Switch to extended wait
             interactionTimer = extendedWaitTime;
 
             ShowChat(BuildRequestLine());
@@ -233,7 +237,7 @@ public class NPCInteractable : MonoBehaviour
 
     public float GetMaxTime()
     {
-        return waitingForInteraction ? extendedWaitTime : initialWaitTime;
+        return inExtendedPhase ? extendedWaitTime : initialWaitTime;
     }
 
     private void SpawnTimerUI()

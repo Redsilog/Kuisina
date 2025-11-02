@@ -816,12 +816,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
   requestedItems:
   - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
+  - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
   - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+  - {fileID: 9169607984740651036, guid: 1d530a0e4f5522f4795584bffee03148, type: 3}
   - {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
-  - {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
-  - {fileID: 1965620761376922558, guid: 45f08eea1beeaaf4e97cbc84248cf510, type: 3}
-  - {fileID: 6559265573489160435, guid: b1b5d92c704601740b937c5c77df3b40, type: 3}
-  orderDisplayPoint: {fileID: 0}
+  - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  DeliveredDish: {fileID: 0}
 --- !u!114 &750206956557513461
 MonoBehaviour:
   m_ObjectHideFlags: 0

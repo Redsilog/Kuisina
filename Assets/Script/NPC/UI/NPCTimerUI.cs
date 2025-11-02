@@ -8,6 +8,13 @@ public class NPCTimerUI : MonoBehaviour
     public Slider slider;
     public Vector3 offset;
 
+    //sprites
+    public Image emotionIcon;
+    public Sprite happySprite;
+    public Sprite neutralSprite;
+    public Sprite sadSprite;
+
+
     Canvas canvas;
     RectTransform rectTransform;
     private Camera cam;
@@ -48,10 +55,13 @@ public class NPCTimerUI : MonoBehaviour
         if (remaining <= 0f || max <= 0f)
         {
             slider.value = 0f;
+            emotionIcon.enabled = false;
             return;
         }
 
         slider.value = Mathf.Clamp01(remaining / max);
+
+        UpdateEmotionIcon();
 
         Vector3 worldPos = followTarget.position + offset;
 
@@ -65,5 +75,20 @@ public class NPCTimerUI : MonoBehaviour
         RectTransform canvasRect = canvas.transform as RectTransform;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, cam, out Vector2 localPoint))
             rectTransform.anchoredPosition = localPoint;
+    }
+    void UpdateEmotionIcon()
+    {
+        if (emotionIcon == null) return;
+
+        float ratio = npc.GetRemainingTime() / npc.GetMaxTime();
+
+        if (ratio > 0.7f)
+            emotionIcon.sprite = happySprite;
+        else if (ratio > 0.3f)
+            emotionIcon.sprite = neutralSprite;
+        else
+            emotionIcon.sprite = sadSprite;
+
+        emotionIcon.enabled = true;
     }
 }

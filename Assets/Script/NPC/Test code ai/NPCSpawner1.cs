@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;          // <-- added
+using System.Linq;          
 using UnityEngine;
 
 public class NPCSpawner1 : MonoBehaviour
@@ -63,6 +63,15 @@ public class NPCSpawner1 : MonoBehaviour
         }
     }
 
+    private bool IsRouteClearForSpawning(WaypointSet route)
+    {
+        if (_activeCountByRoute.ContainsKey(route))
+        {
+            return _activeCountByRoute[route] == 0; // Route is clear if no active NPCs are present
+        }
+        return true; // If route has no entries, consider it clear
+    }
+
     private IEnumerator CycleLoop()
     {
         var work = new List<RouteEntry>(_validEntries);
@@ -96,14 +105,18 @@ public class NPCSpawner1 : MonoBehaviour
                 if (entry.spawnDelay > 0f)
                     yield return new WaitForSeconds(entry.spawnDelay);
 
+                // Check if the route is clear for spawning a new NPC
+                if (!IsRouteClearForSpawning(entry.route))
+                {
+                    continue; // Skip spawning if route is not clear
+                }
+
                 yield return StartCoroutine(WaitForFreeSlot(entry.route));
                 TrySpawn(entry);
             }
 
             // after finishing the first full pass, disable the “first cycle” rule
             _isFirstCycle = false;
-
-            // Loop and (optionally) reshuffle again
         }
     }
 
@@ -163,7 +176,7 @@ public class NPCSpawner1 : MonoBehaviour
         if (!_activeCountByRoute.ContainsKey(route)) return;
         _activeCountByRoute[route] = Mathf.Max(0, _activeCountByRoute[route] - 1);
     }
-
+    
     private void FisherYatesShuffle<T>(IList<T> list)
     {
         for (int i = list.Count - 1; i > 0; i--)

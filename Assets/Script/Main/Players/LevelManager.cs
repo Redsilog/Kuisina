@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
-using TMPro;
+using TMPro;  // Import TMP
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
@@ -22,23 +22,9 @@ public class LevelManager : MonoBehaviour
     [Header("UI References (TMP)")]
     public TextMeshProUGUI timerText;
     public GameObject resultPanel;
-    public TextMeshProUGUI levelNameText;
-    public TextMeshProUGUI requirementText;
-
-    [Header("Result Sprite Images")]
-    public Image resultImage;           // Image for Level Complete or Failed
-    public Sprite levelCompleteSprite;  // Sprite for "LEVEL COMPLETE"
-    public Sprite levelFailedSprite;    // Sprite for "LEVEL FAILED"
-
-    [Header("Star Images")]
-    public Image star1Image; // Image for Star 1
-    public Image star2Image; // Image for Star 2
-    public Image star3Image; // Image for Star 3
-    public Image star4Image; // Image for Star 4
-    public Image star5Image; // Image for Star 5
-
-    public Sprite filledStarSprite; // Sprite for filled star
-    public Sprite emptyStarSprite;  // Sprite for empty star
+    public TextMeshProUGUI levelCompleteText;  // Added TMP text for result (Level Complete / Failed)
+    public TextMeshProUGUI earnedStarText;  // Added TMP text for earned stars (e.g., "3")
+    public TextMeshProUGUI requiredStarText;  // Added TMP text for required stars (e.g., "10")
 
     [Header("Buttons")]
     public Button returnButton;
@@ -90,7 +76,7 @@ public class LevelManager : MonoBehaviour
 
         if (hasEnoughStars)
         {
-            Debug.Log($" Level Complete! Earned {totalStars} (Requirement: {requiredStars})");
+            Debug.Log($"Level Complete! Earned {totalStars} (Requirement: {requiredStars})");
             ShowResultPanel(true);
             OnStarsReached?.Invoke();
         }
@@ -114,8 +100,9 @@ public class LevelManager : MonoBehaviour
 
     public void AddStars(int amount)
     {
-        totalStars += amount;
-        Debug.Log($"Earned {amount} | Total: {totalStars}/{requiredStars}");
+        // Each dish completed is worth 5 points
+        totalStars += amount * 5;
+        Debug.Log($"Earned {amount * 5} points | Total: {totalStars}/{requiredStars}");
         SaveStars();
     }
 
@@ -125,37 +112,30 @@ public class LevelManager : MonoBehaviour
 
         resultPanel.SetActive(true);
 
-        // Change sprite based on result
-        if (resultImage != null)
+        // Show level result text (Level Complete or Level Failed)
+        if (levelCompleteText != null)
         {
-            resultImage.sprite = isComplete ? levelCompleteSprite : levelFailedSprite;
+            levelCompleteText.text = isComplete ? "Level Complete" : "Level Failed";  // 1 for "Level Complete", 0 for "Level Failed"
         }
 
-        levelNameText.text = levelID;
-        requirementText.text = $"REQUIRED STARS = {requiredStars}";
+        // Update earned stars
+        if (earnedStarText != null)
+        {
+            earnedStarText.text = $"{totalStars}";  // Show only the earned stars number
+        }
 
-        // Update the stars (fill or empty) based on the totalStars
-        UpdateStarImages();
+        // Update required stars
+        if (requiredStarText != null)
+        {
+            requiredStarText.text = $"{requiredStars}";  // Show the required stars number
+        }
 
         // Only show "Next" button when player meets the requirement
         if (nextButton != null)
             nextButton.gameObject.SetActive(isComplete);
     }
 
-    // Update the star images based on the totalStars
-    private void UpdateStarImages()
-    {
-        // Get the filled and empty star sprites based on totalStars
-        Image[] stars = { star1Image, star2Image, star3Image, star4Image, star5Image };
-
-        for (int i = 0; i < stars.Length; i++)
-        {
-            // If totalStars is greater than i, show filled star, else show empty star
-            stars[i].sprite = (i < totalStars) ? filledStarSprite : emptyStarSprite;
-        }
-    }
-
-    //  Button actions
+    // Button actions
     private void ReturnToMenu()
     {
         SceneManager.LoadScene("Main Menu");
@@ -171,7 +151,7 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("NextLevel");
     }
 
-    //  Save and Load
+    // Save and Load
     public void SaveStars()
     {
         PlayerPrefs.SetInt($"{levelID}_TotalStars", totalStars);

@@ -47,14 +47,15 @@ public class StoveTimerUI : MonoBehaviour
         if (IsBurned())
         {
             fillImage.fillAmount = 0f;
-            if (timerText != null)
-                timerText.text = "🔥 Burned!";
             return;
         }
 
-        if (targetStove.isCooking)
+        if (targetStove.IsCooking)
         {
-            ResetUI();
+            float cookProgress = targetStove.GetCookProgress();
+            float remaining = Mathf.Clamp01(1f - cookProgress);
+            fillImage.fillAmount = remaining;
+
             return;
         }
 
@@ -63,10 +64,7 @@ public class StoveTimerUI : MonoBehaviour
             float progress = targetStove.GetBurnProgress();
             float remaining = Mathf.Clamp01(1f - progress);
 
-            fillImage.fillAmount = remaining; // ✅ drive fill amount, not slider value
-
-            if (timerText != null)
-                timerText.text = $"{(burnTime * remaining):0.0}s";
+            fillImage.fillAmount = remaining;
         }
     }
 

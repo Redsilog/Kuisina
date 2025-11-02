@@ -11014,6 +11014,7 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1027168800}
   smokeSpawnPoint: {fileID: 1578158538}
+  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -17925,6 +17926,7 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
   spawnPoint: {fileID: 1671006584}
   smokeSpawnPoint: {fileID: 2025296404}
+  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -33800,6 +33802,7 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
   spawnPoint: {fileID: 179782157}
   smokeSpawnPoint: {fileID: 1738524407}
+  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -49709,6 +49712,7 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1674021886}
   smokeSpawnPoint: {fileID: 1812371626}
+  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:

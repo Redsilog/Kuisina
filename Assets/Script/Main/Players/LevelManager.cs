@@ -23,7 +23,8 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public GameObject resultPanel;
     public TextMeshProUGUI levelCompleteText;  // Added TMP text for result (Level Complete / Failed)
-    public TextMeshProUGUI starText;  // Added TMP text for integer stars (earned / required)
+    public TextMeshProUGUI earnedStarText;  // Added TMP text for earned stars (e.g., "3")
+    public TextMeshProUGUI requiredStarText;  // Added TMP text for required stars (e.g., "10")
 
     [Header("Buttons")]
     public Button returnButton;
@@ -114,22 +115,24 @@ public class LevelManager : MonoBehaviour
         // Show level result text (Level Complete or Level Failed)
         if (levelCompleteText != null)
         {
-            levelCompleteText.text = isComplete ? "1" : "0";  // 1 for "Level Complete", 0 for "Level Failed"
+            levelCompleteText.text = isComplete ? "Level Complete" : "Level Failed";  // 1 for "Level Complete", 0 for "Level Failed"
         }
 
-        // Only show numeric stars (earned / required)
-        UpdateStarText();
+        // Update earned stars
+        if (earnedStarText != null)
+        {
+            earnedStarText.text = $"{totalStars}";  // Show only the earned stars number
+        }
+
+        // Update required stars
+        if (requiredStarText != null)
+        {
+            requiredStarText.text = $"{requiredStars}";  // Show the required stars number
+        }
 
         // Only show "Next" button when player meets the requirement
         if (nextButton != null)
             nextButton.gameObject.SetActive(isComplete);
-    }
-
-    // Update the star text as an integer value based on totalStars
-    private void UpdateStarText()
-    {
-        // Show the stars as numbers, e.g., "3 / 5"
-        starText.text = $"{totalStars} / {requiredStars}";
     }
 
     // Button actions

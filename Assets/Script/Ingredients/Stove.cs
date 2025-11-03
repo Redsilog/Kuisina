@@ -64,6 +64,14 @@ public class Stove : MonoBehaviour
     public Material smokeMaterialBlack;
     private GameObject activeSmoke;  
 
+    [Header("Cooking Sounds")]
+    [SerializeField] private AudioClip whileCookingClip;
+    [SerializeField] private AudioClip finishedCookingClip;
+    [SerializeField] private AudioClip burnedFoodClip;
+    [SerializeField] private float cookingVolume = 0.8f;
+    [SerializeField] private float finishedVolume = 1f;
+    [SerializeField] private float burnedVolume = 1f;
+
     [Header("Burn Settings")]
     public float burnTime = 15f;
     private Coroutine burnTimerRoutine;
@@ -71,6 +79,16 @@ public class Stove : MonoBehaviour
     private bool isSmokePermanent = false;
 
     public System.Action<List<string>> OnIngredientsChanged;
+
+    private void EnsureCookingSoundPlaying()
+    {
+        if (SoundFXManager.instance == null) return;
+
+        if (!SoundFXManager.instance.IsLoopingSoundActive())
+        {
+            StartCoroutine(SoundFXManager.instance.FadeInLoop(whileCookingClip, transform, cookingVolume, 1f));
+        }
+    }
 
     public void PlaceIngredient(string ingredientName, GameObject ingredientObject)
     {
@@ -81,6 +99,7 @@ public class Stove : MonoBehaviour
             Debug.Log("Stove is burned! Clear it before using again.");
             return;
         }
+        EnsureCookingSoundPlaying();
 
         currentIngredients.Add(ingredientName);
         OnIngredientsChanged?.Invoke(currentIngredients);
@@ -212,6 +231,8 @@ public class Stove : MonoBehaviour
 
     public void ClearStove()
     {
+        if (SoundFXManager.instance != null)
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.5f));
         currentIngredients.Clear();
         OnIngredientsChanged?.Invoke(currentIngredients);
         isCooking = false;
@@ -248,6 +269,7 @@ public class Stove : MonoBehaviour
     private IEnumerator CookRoutine(Recipe recipe, int stars)
     {
         isCooking = true;
+        SoundFXManager.instance.PlayLoopingSound(whileCookingClip, transform, cookingVolume);
         Debug.Log($"Cooking {recipe.dishName}... Please wait.");
 
         cookTimerElapsed = 0f;
@@ -266,6 +288,8 @@ public class Stove : MonoBehaviour
 
         if (stars > 0)
         {
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.5f));
+            SoundFXManager.instance.PlaySoundFXClip(finishedCookingClip, transform, finishedVolume);
             Debug.Log($"{recipe.dishName} is ready! Satisfaction: {stars} stars");
 
             // ✅ Instantiate dish only ONCE
@@ -376,6 +400,8 @@ public class Stove : MonoBehaviour
     private void BurnIngredients()
     {
         isBurned = true;
+        StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.5f));
+        SoundFXManager.instance.PlaySoundFXClip(burnedFoodClip, transform, burnedVolume);
 
         if (activeSmoke != null)
         {

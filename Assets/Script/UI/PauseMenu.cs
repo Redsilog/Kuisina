@@ -31,6 +31,11 @@ public class PauseMenu : MonoBehaviour
 
     public void home()
     {
+        if (SoundFXManager.instance != null)
+            SoundFXManager.instance.StopLoopingSound();
+
+        Time.timeScale = 1f;
+        
         SceneManager.LoadScene("Main Menu");
     }
 
@@ -40,6 +45,9 @@ public class PauseMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         Time.timeScale = 0f;
         isPaused = true;
+        
+        if (SoundFXManager.instance != null)
+            SoundFXManager.instance.PauseAllSounds();
     }
 
     public void Resume()
@@ -47,6 +55,9 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        if (SoundFXManager.instance != null)
+            SoundFXManager.instance.ResumeAllSounds();
     }
 
     public void Options()

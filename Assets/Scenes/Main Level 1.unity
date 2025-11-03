@@ -10892,6 +10892,12 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
+  whileCookingClip: {fileID: 8300000, guid: feb63c0e469d35346bfa41682280f534, type: 3}
+  finishedCookingClip: {fileID: 8300000, guid: e585fbc7831b018419af1d7887def8fe, type: 3}
+  burnedFoodClip: {fileID: 8300000, guid: 19668c83a60e7ba4db3903419ffdae16, type: 3}
+  cookingVolume: 0.8
+  finishedVolume: 1
+  burnedVolume: 1
   burnTime: 10
 --- !u!65 &503192803
 BoxCollider:
@@ -17925,6 +17931,12 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
+  whileCookingClip: {fileID: 8300000, guid: feb63c0e469d35346bfa41682280f534, type: 3}
+  finishedCookingClip: {fileID: 8300000, guid: e585fbc7831b018419af1d7887def8fe, type: 3}
+  burnedFoodClip: {fileID: 8300000, guid: 19668c83a60e7ba4db3903419ffdae16, type: 3}
+  cookingVolume: 1
+  finishedVolume: 1
+  burnedVolume: 1
   burnTime: 6
 --- !u!65 &909366145
 BoxCollider:
@@ -33519,6 +33531,12 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
+  whileCookingClip: {fileID: 8300000, guid: feb63c0e469d35346bfa41682280f534, type: 3}
+  finishedCookingClip: {fileID: 8300000, guid: e585fbc7831b018419af1d7887def8fe, type: 3}
+  burnedFoodClip: {fileID: 8300000, guid: 19668c83a60e7ba4db3903419ffdae16, type: 3}
+  cookingVolume: 0.8
+  finishedVolume: 1
+  burnedVolume: 1
   burnTime: 30
 --- !u!65 &1635110387
 BoxCollider:
@@ -49091,6 +49109,12 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
+  whileCookingClip: {fileID: 8300000, guid: feb63c0e469d35346bfa41682280f534, type: 3}
+  finishedCookingClip: {fileID: 8300000, guid: e585fbc7831b018419af1d7887def8fe, type: 3}
+  burnedFoodClip: {fileID: 8300000, guid: 19668c83a60e7ba4db3903419ffdae16, type: 3}
+  cookingVolume: 0.8
+  finishedVolume: 1
+  burnedVolume: 1
   burnTime: 10
 --- !u!65 &8567716999343194649
 BoxCollider:

@@ -29,17 +29,30 @@ public class SoundFXManager : MonoBehaviour
     //for simple loops
     public void PlayLoopingSound(AudioClip clip, Transform spawnTransform, float volume)
     {
-        if (loopingSource != null) return;
+        if (loopingSource != null)
+        {
+            if (loopingSource.isPlaying && loopingSource.clip == clip)
+                return;
+
+            StopLoopingSound();
+        }
+
         loopingSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        loopingSource.transform.SetParent(spawnTransform); 
         loopingSource.clip = clip;
         loopingSource.volume = volume;
         loopingSource.loop = true;
-        loopingSource.Play();
+        loopingSource.playOnAwake = false;
+        loopingSource.PlayScheduled(AudioSettings.dspTime + 0.05f);
+    }
+    
+    public bool IsLoopingSoundActive()
+    {
+        return loopingSource != null && loopingSource.isPlaying;
     }
 
     public void StopLoopingSound()
     {
-
         if (crossfadeCoroutine != null)
         {
             StopCoroutine(crossfadeCoroutine);
@@ -48,56 +61,111 @@ public class SoundFXManager : MonoBehaviour
 
         if (loopingSource != null)
         {
-            loopingSource.Stop();
+            if (loopingSource.isPlaying)
+                loopingSource.Stop();
+
             Destroy(loopingSource.gameObject);
             loopingSource = null;
         }
+    }
+    public IEnumerator FadeInLoop(AudioClip clip, Transform spawnTransform, float targetVolume, float fadeTime = 0.5f)
+    {
+        // Create a new looping source
+        PlayLoopingSound(clip, spawnTransform, 0f); // start muted
 
-        // foreach (var source in FindObjectsOfType<AudioSource>())
-        // {
-        //     if (source != null && source.gameObject.name.Contains("[Loop]"))
-        //     {
-        //         Destroy(source.gameObject);
-        //     }
-        // }
+        if (loopingSource == null) yield break;
+
+        float elapsed = 0f;
+        while (elapsed < fadeTime)
+        {
+            elapsed += Time.deltaTime;
+            loopingSource.volume = Mathf.Lerp(0f, targetVolume, elapsed / fadeTime);
+            yield return null;
+        }
+
+        loopingSource.volume = targetVolume;
     }
 
-    //for stuff that needs to be repeated over the clip length
-    public void PlayLoopWithCrossfade(AudioClip clip, Transform spawnTransform, float volume, float fadeTime)
+    public IEnumerator FadeOutAndStopLoop(float duration = 0.5f)
     {
-        if (crossfadeCoroutine != null) return;
-        crossfadeCoroutine = StartCoroutine(LoopWithCrossfade(clip, spawnTransform, volume, fadeTime));
-    }
+        if (loopingSource == null) yield break;
 
-    private IEnumerator LoopWithCrossfade(AudioClip clip, Transform spawnTransform, float volume, float fadeTime)
+        float startVol = loopingSource.volume;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            loopingSource.volume = Mathf.Lerp(startVol, 0, time / duration);
+            yield return null;
+        }
+
+        StopLoopingSound();
+    }
+    public IEnumerator CrossfadeLoop(AudioClip clip, Transform spawnTransform, float volume, float crossfadeTime = 0.1f)
     {
+        double nextStart = AudioSettings.dspTime + 0.1;
+        AudioSource a = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        a.clip = clip;
+        a.loop = false;
+        a.volume = volume;
+        a.transform.SetParent(spawnTransform);
+        a.PlayScheduled(nextStart);
+
         while (true)
         {
-            AudioSource a = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-            a.gameObject.name = soundFXObject.name + " [Loop]";
-            a.clip = clip;
-            a.volume = volume;
-            a.Play();
-
-            yield return new WaitForSeconds(clip.length - fadeTime);
+            nextStart += clip.length - crossfadeTime;
 
             AudioSource b = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-            b.gameObject.name = soundFXObject.name + " [Loop]";
             b.clip = clip;
-            b.volume = 0;
-            b.Play();
+            b.volume = 0f;
+            b.loop = false;
+            b.transform.SetParent(spawnTransform);
 
-            // crossfade
-            float t = 0f;
-            while (t < fadeTime)
-            {
-                t += Time.deltaTime;
-                b.volume = Mathf.Lerp(0, volume, t / fadeTime);
-                a.volume = Mathf.Lerp(volume, 0, t / fadeTime);
-                yield return null;
-            }
+            b.PlayScheduled(nextStart);
+
+            StartCoroutine(FadeVolume(b, 0f, volume, crossfadeTime));
+            StartCoroutine(FadeVolume(a, volume, 0f, crossfadeTime));
+
+            yield return new WaitForSeconds((float)(clip.length - crossfadeTime));
 
             Destroy(a.gameObject);
+            a = b;
+        }
+    }
+
+    private IEnumerator FadeVolume(AudioSource src, float from, float to, float time)
+    {
+        float t = 0f;
+        while (t < time)
+        {
+            t += Time.deltaTime;
+            src.volume = Mathf.Lerp(from, to, t / time);
+            yield return null;
+        }
+    }
+    public void PauseAllSounds()
+    {
+        if (loopingSource != null && loopingSource.isPlaying)
+            loopingSource.Pause();
+
+        // Optionally, pause all one-shot sounds too:
+        foreach (var src in FindObjectsOfType<AudioSource>())
+        {
+            if (src != loopingSource && src.isPlaying)
+                src.Pause();
+        }
+    }
+
+    public void ResumeAllSounds()
+    {
+        if (loopingSource != null)
+            loopingSource.UnPause();
+
+        foreach (var src in FindObjectsOfType<AudioSource>())
+        {
+            if (src != loopingSource)
+                src.UnPause();
         }
     }
 }

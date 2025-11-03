@@ -35,6 +35,14 @@ public class ChoppingBoard : MonoBehaviour
     public bool IsChoppingActive() => isChopping;
 
     public float ChopProgress01 => chopTime <= 0f ? 0f : Mathf.Clamp01(chopProgress / chopTime);
+    private float chopEndCooldown = 0f;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioClip choppingSound;
+    [SerializeField, Range(0f, 1f)] private float choppingVolume = 1f;
+    
+    [SerializeField] private AudioClip finishedChopSound; 
+    [SerializeField, Range(0f, 1f)] private float finishedVolume = 1f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -126,6 +134,8 @@ public class ChoppingBoard : MonoBehaviour
 
     public void BeginChop(PlayerInventory player)
     {
+        if (SoundFXManager.instance != null && choppingSound != null)
+            StartCoroutine(SoundFXManager.instance.FadeInLoop(choppingSound, transform, choppingVolume, 0.1f));
         if (stagedRawInstance == null) return;
 
         isChopping = true;
@@ -156,6 +166,8 @@ public class ChoppingBoard : MonoBehaviour
 
     public void StartChop(PlayerInventory player)
     {
+        if (SoundFXManager.instance != null && choppingSound != null)
+            StartCoroutine(SoundFXManager.instance.FadeInLoop(choppingSound, transform, choppingVolume, 0.1f));
         if (stagedRawInstance == null) return; 
         if (isChopping) return; 
 
@@ -173,6 +185,8 @@ public class ChoppingBoard : MonoBehaviour
     // Called when player releases interact
     public void PauseChop()
     {
+        if (SoundFXManager.instance != null)
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.1f));
         if (!isChopping) return;
         isChopping = false;
         if (playerAnimator != null) playerAnimator.SetBool("IsChopping", false);
@@ -180,6 +194,12 @@ public class ChoppingBoard : MonoBehaviour
 
     private void FinishChop(PlayerInventory player)
     {
+        if (SoundFXManager.instance != null)
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.1f));
+
+        if (SoundFXManager.instance != null && finishedChopSound != null)
+            SoundFXManager.instance.PlaySoundFXClip(finishedChopSound, transform, finishedVolume);
+
         var map = GetMapping(stagedRawName);
         lastChoppedPrefabRef = map != null ? map.outputPrefab : null;
 

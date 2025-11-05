@@ -69,7 +69,7 @@ public class Trash : MonoBehaviour
         }
 
         // Player 2 uses Return (Enter)
-        else if (player.playerID == 2 && Input.GetKey(KeyCode.Return))
+        else if (player.playerID == 2 && Input.GetKey(KeyCode.RightShift))
         {
             SoundFXManager.instance.PlaySoundFXClip(trashClip, transform, 1f);
             pressed = true;

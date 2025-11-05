@@ -7646,6 +7646,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6284508295627307637, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
     - target: {fileID: 6664445997175546063, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2
@@ -28292,6 +28296,10 @@ PrefabInstance:
     - target: {fileID: 254273713914403173, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 254273713914403173, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 634035806329504735, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_LocalScale.x
@@ -50179,12 +50187,12 @@ MonoBehaviour:
   Page11: {fileID: 812482293}
   Page12: {fileID: 1546361476}
   Page13: {fileID: 2034223879}
-  openCloseKey: 39
-  prevKey: 35
-  nextKey: 23
-  openCloseKey2: 45
-  prevKey2: 45
-  nextKey2: 45
+  openCloseKey2: 1
+  prevKey2: 31
+  nextKey2: 19
+  openCloseKey: 52
+  prevKey: 25
+  nextKey: 26
   highlighter: {fileID: 325151202}
   player1Tag: Player
   player2Tag: Player2

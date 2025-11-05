@@ -19715,7 +19715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: Day1
   requiredStars: 10
-  levelTime: 131
+  levelTime: 121
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}
@@ -19725,6 +19725,8 @@ MonoBehaviour:
   returnButton: {fileID: 848948589}
   retryButton: {fileID: 911539968}
   nextButton: {fileID: 409778385}
+  overrideStars: 0
+  debugStars: 0
 --- !u!1 &984058673
 GameObject:
   m_ObjectHideFlags: 0
@@ -30429,6 +30431,10 @@ MonoBehaviour:
   - inputName: Kamias
     inputPrefab: {fileID: 3595278982281106306, guid: 45ad1bab3dfb1954f92a54ba191269cd, type: 3}
     outputPrefab: {fileID: 6262278333677566324, guid: 00d0b1d9f301efc4db69ab0512e4b205, type: 3}
+  choppingSound: {fileID: 8300000, guid: b26357c43408bd74ab280ee8bd047fff, type: 3}
+  choppingVolume: 1
+  finishedChopSound: {fileID: 8300000, guid: e65e3fe5810c72549bc2a05095f1ffa0, type: 3}
+  finishedVolume: 1
 --- !u!1001 &1540442573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38498,7 +38504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6.017}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21, y: -122.08}
+  m_AnchoredPosition: {x: 10, y: -121}
   m_SizeDelta: {x: 502.2521, y: 160.1061}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1836478428
@@ -41028,7 +41034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1964808299
 RectTransform:
   m_ObjectHideFlags: 0

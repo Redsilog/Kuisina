@@ -84,7 +84,10 @@ public class Stove : MonoBehaviour
     {
         if (SoundFXManager.instance == null) return;
 
-        if (!SoundFXManager.instance.IsLoopingSoundActive())
+        // Check if this stove already has an active loop
+        bool hasActiveLoop = SoundFXManager.instance.HasActiveLoop(transform);
+
+        if (!hasActiveLoop)
         {
             StartCoroutine(SoundFXManager.instance.FadeInLoop(whileCookingClip, transform, cookingVolume, 1f));
         }
@@ -232,7 +235,7 @@ public class Stove : MonoBehaviour
     public void ClearStove()
     {
         if (SoundFXManager.instance != null)
-            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.5f));
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(transform, 0.5f));
         currentIngredients.Clear();
         OnIngredientsChanged?.Invoke(currentIngredients);
         isCooking = false;
@@ -288,7 +291,7 @@ public class Stove : MonoBehaviour
 
         if (stars > 0)
         {
-            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.5f));
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(transform, 0.5f));
             SoundFXManager.instance.PlaySoundFXClip(finishedCookingClip, transform, finishedVolume);
             Debug.Log($"{recipe.dishName} is ready! Satisfaction: {stars} stars");
 
@@ -400,7 +403,7 @@ public class Stove : MonoBehaviour
     private void BurnIngredients()
     {
         isBurned = true;
-        StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.5f));
+        StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(transform, 0.5f));
         SoundFXManager.instance.PlaySoundFXClip(burnedFoodClip, transform, burnedVolume);
 
         if (activeSmoke != null)

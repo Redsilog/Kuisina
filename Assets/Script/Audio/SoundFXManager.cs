@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 public class SoundFXManager : MonoBehaviour
 {
     public static SoundFXManager instance;
     [SerializeField] private AudioSource soundFXObject;
-    private AudioSource loopingSource;
+    private Dictionary<Transform, AudioSource> activeLoops = new Dictionary<Transform, AudioSource>();
+
     private Coroutine crossfadeCoroutine;
     void Awake()
     {
@@ -18,122 +19,91 @@ public class SoundFXManager : MonoBehaviour
 
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
+        if (audioClip == null || soundFXObject == null) return;
+
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
         audioSource.clip = audioClip;
         audioSource.volume = volume;
+        audioSource.loop = false;
         audioSource.Play();
-        float clipLength = audioSource.clip.length;
-        Destroy(audioSource.gameObject, clipLength);
+
+        Destroy(audioSource.gameObject, audioClip.length);
     }
+
 
     //for simple loops
     public void PlayLoopingSound(AudioClip clip, Transform spawnTransform, float volume)
     {
-        if (loopingSource != null)
+        if (clip == null || spawnTransform == null) return;
+
+        // Stop if same clip already looping for this transform
+        if (activeLoops.TryGetValue(spawnTransform, out AudioSource existing))
         {
-            if (loopingSource.isPlaying && loopingSource.clip == clip)
+            if (existing != null && existing.isPlaying && existing.clip == clip)
                 return;
 
-            StopLoopingSound();
+            StopLoopingSound(spawnTransform);
         }
 
-        loopingSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-        loopingSource.transform.SetParent(spawnTransform); 
-        loopingSource.clip = clip;
-        loopingSource.volume = volume;
-        loopingSource.loop = true;
-        loopingSource.playOnAwake = false;
-        loopingSource.PlayScheduled(AudioSettings.dspTime + 0.05f);
+        AudioSource src = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        src.clip = clip;
+        src.volume = volume;
+        src.loop = true;
+        src.playOnAwake = false;
+        src.transform.SetParent(spawnTransform);
+        src.Play();
+
+        activeLoops[spawnTransform] = src;
     }
-    
-    public bool IsLoopingSoundActive()
+        
+
+    public void StopLoopingSound(Transform spawnTransform)
     {
-        return loopingSource != null && loopingSource.isPlaying;
-    }
+        if (spawnTransform == null) return;
 
-    public void StopLoopingSound()
-    {
-        if (crossfadeCoroutine != null)
+        if (activeLoops.TryGetValue(spawnTransform, out AudioSource src))
         {
-            StopCoroutine(crossfadeCoroutine);
-            crossfadeCoroutine = null;
-        }
-
-        if (loopingSource != null)
-        {
-            if (loopingSource.isPlaying)
-                loopingSource.Stop();
-
-            Destroy(loopingSource.gameObject);
-            loopingSource = null;
+            if (src != null)
+            {
+                src.Stop();
+                Destroy(src.gameObject);
+            }
+            activeLoops.Remove(spawnTransform);
         }
     }
     public IEnumerator FadeInLoop(AudioClip clip, Transform spawnTransform, float targetVolume, float fadeTime = 0.5f)
     {
-        // Create a new looping source
-        PlayLoopingSound(clip, spawnTransform, 0f); // start muted
+        PlayLoopingSound(clip, spawnTransform, 0f);
 
-        if (loopingSource == null) yield break;
+        if (!activeLoops.TryGetValue(spawnTransform, out AudioSource src) || src == null) yield break;
 
         float elapsed = 0f;
         while (elapsed < fadeTime)
         {
             elapsed += Time.deltaTime;
-            loopingSource.volume = Mathf.Lerp(0f, targetVolume, elapsed / fadeTime);
+            src.volume = Mathf.Lerp(0f, targetVolume, elapsed / fadeTime);
             yield return null;
         }
 
-        loopingSource.volume = targetVolume;
+        src.volume = targetVolume;
     }
-
-    public IEnumerator FadeOutAndStopLoop(float duration = 0.5f)
+    public IEnumerator FadeOutAndStopLoop(Transform spawnTransform, float duration = 0.5f)
     {
-        if (loopingSource == null) yield break;
+        if (!activeLoops.TryGetValue(spawnTransform, out AudioSource src) || src == null) yield break;
 
-        float startVol = loopingSource.volume;
+        float startVol = src.volume;
         float time = 0f;
 
         while (time < duration)
         {
             time += Time.deltaTime;
-            loopingSource.volume = Mathf.Lerp(startVol, 0, time / duration);
+            if (src != null)
+                src.volume = Mathf.Lerp(startVol, 0, time / duration);
             yield return null;
         }
 
-        StopLoopingSound();
+        StopLoopingSound(spawnTransform);
     }
-    public IEnumerator CrossfadeLoop(AudioClip clip, Transform spawnTransform, float volume, float crossfadeTime = 0.1f)
-    {
-        double nextStart = AudioSettings.dspTime + 0.1;
-        AudioSource a = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-        a.clip = clip;
-        a.loop = false;
-        a.volume = volume;
-        a.transform.SetParent(spawnTransform);
-        a.PlayScheduled(nextStart);
-
-        while (true)
-        {
-            nextStart += clip.length - crossfadeTime;
-
-            AudioSource b = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
-            b.clip = clip;
-            b.volume = 0f;
-            b.loop = false;
-            b.transform.SetParent(spawnTransform);
-
-            b.PlayScheduled(nextStart);
-
-            StartCoroutine(FadeVolume(b, 0f, volume, crossfadeTime));
-            StartCoroutine(FadeVolume(a, volume, 0f, crossfadeTime));
-
-            yield return new WaitForSeconds((float)(clip.length - crossfadeTime));
-
-            Destroy(a.gameObject);
-            a = b;
-        }
-    }
-
     private IEnumerator FadeVolume(AudioSource src, float from, float to, float time)
     {
         float t = 0f;
@@ -146,26 +116,56 @@ public class SoundFXManager : MonoBehaviour
     }
     public void PauseAllSounds()
     {
-        if (loopingSource != null && loopingSource.isPlaying)
-            loopingSource.Pause();
+        // Pause active loops
+        foreach (var kvp in activeLoops)
+        {
+            if (kvp.Value != null && kvp.Value.isPlaying)
+                kvp.Value.Pause();
+        }
 
-        // Optionally, pause all one-shot sounds too:
+        // Optionally pause all other AudioSources in the scene
         foreach (var src in FindObjectsOfType<AudioSource>())
         {
-            if (src != loopingSource && src.isPlaying)
+            if (!activeLoops.ContainsValue(src) && src.isPlaying)
                 src.Pause();
         }
     }
 
     public void ResumeAllSounds()
     {
-        if (loopingSource != null)
-            loopingSource.UnPause();
+        // Resume loops
+        foreach (var kvp in activeLoops)
+        {
+            if (kvp.Value != null)
+                kvp.Value.UnPause();
+        }
 
+        // Resume one-shots
         foreach (var src in FindObjectsOfType<AudioSource>())
         {
-            if (src != loopingSource)
+            if (!activeLoops.ContainsValue(src))
                 src.UnPause();
         }
+    }
+    void LateUpdate()
+    {
+        List<Transform> toRemove = new List<Transform>();
+        foreach (var kvp in activeLoops)
+        {
+            if (kvp.Key == null || kvp.Value == null)
+                toRemove.Add(kvp.Key);
+        }
+
+        foreach (var t in toRemove)
+            activeLoops.Remove(t);
+    }
+    public bool HasActiveLoop(Transform t)
+    {
+        if (t == null) return false;
+        if (activeLoops.TryGetValue(t, out AudioSource src))
+        {
+            return src != null && src.isPlaying;
+        }
+        return false;
     }
 }

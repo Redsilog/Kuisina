@@ -32,13 +32,16 @@ public class PauseMenu : MonoBehaviour
     public void home()
     {
         if (SoundFXManager.instance != null)
-            SoundFXManager.instance.StopLoopingSound();
+        {
+            SoundFXManager.instance.PauseAllSounds();
+        }
 
         Time.timeScale = 1f;
-        
+        isPaused = false;
+
         SceneManager.LoadScene("Main Menu");
     }
-
+    
     public void Pause()
     {
         pauseMenu.SetActive(true);

@@ -186,7 +186,8 @@ public class ChoppingBoard : MonoBehaviour
     public void PauseChop()
     {
         if (SoundFXManager.instance != null)
-            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.1f));
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(transform, 0.1f));
+
         if (!isChopping) return;
         isChopping = false;
         if (playerAnimator != null) playerAnimator.SetBool("IsChopping", false);
@@ -195,7 +196,8 @@ public class ChoppingBoard : MonoBehaviour
     private void FinishChop(PlayerInventory player)
     {
         if (SoundFXManager.instance != null)
-            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(0.1f));
+            StartCoroutine(SoundFXManager.instance.FadeOutAndStopLoop(transform, 0.1f));
+
 
         if (SoundFXManager.instance != null && finishedChopSound != null)
             SoundFXManager.instance.PlaySoundFXClip(finishedChopSound, transform, finishedVolume);

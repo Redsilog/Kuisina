@@ -4,33 +4,23 @@ using UnityEngine.EventSystems;
 
 public class UIButtonToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [TextArea] public string tooltipMessage;                     // Text to display when hovering
-    [SerializeField] private TextMeshProUGUI tooltipText;        // Assign this in Inspector
-    [SerializeField] private Vector3 offset = new Vector3(0, -40, 0); // Adjust Y for placement under button
+    [TextArea] public string tooltipMessage; 
+    [SerializeField] private TextMeshProUGUI tooltipText;  
+    [SerializeField] private Vector3 offset = new Vector3(0, -40, 0);
 
     private RectTransform tooltipRect;
     private RectTransform buttonRect;
+    private static TextMeshProUGUI staticTooltipText;
 
     void Awake()
     {
-        // Get references
-        if (tooltipText == null)
-        {
-            var go = GameObject.Find("TooltipText");
-            if (go != null)
-                tooltipText = go.GetComponent<TextMeshProUGUI>();
-        }
-
-        if (tooltipText == null)
-        {
-            Debug.LogError("[UIButtonToolTip] No TooltipText assigned or found in scene.", this);
-            return;
-        }
-
         tooltipRect = tooltipText.GetComponent<RectTransform>();
         buttonRect = GetComponent<RectTransform>();
         tooltipText.gameObject.SetActive(false);
+
+        staticTooltipText = tooltipText;
     }
+    
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -39,15 +29,23 @@ public class UIButtonToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExit
         tooltipText.text = tooltipMessage;
         tooltipText.gameObject.SetActive(true);
 
-        // Position tooltip under the button
         tooltipRect.position = buttonRect.position + offset;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (tooltipText == null) return;
+        HideTooltip();
+    }
 
-        tooltipText.gameObject.SetActive(false);
-        tooltipText.text = "";
+    private void OnDisable()
+    {
+        HideTooltip();
+    }
+
+    public static void HideTooltip()
+    {
+        if (staticTooltipText == null) return;
+        staticTooltipText.gameObject.SetActive(false);
+        staticTooltipText.text = "";
     }
 }

@@ -42697,7 +42697,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4f6d920ad8b7b3248a6cb86b4481f88d, type: 2}
+  - {fileID: 2100000, guid: f2ae05dae66c3004e97bb8edf7c52131, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -50187,12 +50187,6 @@ MonoBehaviour:
   Page11: {fileID: 812482293}
   Page12: {fileID: 1546361476}
   Page13: {fileID: 2034223879}
-  openCloseKey2: 1
-  prevKey2: 31
-  nextKey2: 19
-  openCloseKey: 52
-  prevKey: 25
-  nextKey: 26
   highlighter: {fileID: 325151202}
   player1Tag: Player
   player2Tag: Player2

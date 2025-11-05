@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class RecipeScript : MonoBehaviour
 {
@@ -87,6 +88,8 @@ public class RecipeScript : MonoBehaviour
 
         PlayPageSound();
         ShowPage(currentPage);
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void PreviousPage()
@@ -99,6 +102,8 @@ public class RecipeScript : MonoBehaviour
 
         PlayPageSound();
         ShowPage(currentPage);
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void PlayPageSound()

@@ -26,6 +26,9 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI earnedStarText;  // Added TMP text for earned stars (e.g., "3")
     public TextMeshProUGUI requiredStarText;  // Added TMP text for required stars (e.g., "10")
 
+    [Header("In-Game UI")]
+    public TextMeshProUGUI starCounterText;
+    
     [Header("Buttons")]
     public Button returnButton;
     public Button retryButton;
@@ -47,6 +50,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         LoadStars();
+        UpdateStarCounterUI();
         StartLevel();
 
         if (resultPanel != null)
@@ -60,20 +64,33 @@ public class LevelManager : MonoBehaviour
     {
         if (overrideStars)
         {
+            debugStars = Mathf.Max(0, debugStars); // prevent negatives
+
             if (totalStars != debugStars)
             {
-                int difference = debugStars - totalStars;
-                AddStars(difference / 5); // Reuse AddStars() logic
-                Debug.Log($"[DEBUG] Simulated star gain to reach {totalStars}");
+                totalStars = debugStars;
+                SaveStars();
+                UpdateStarCounterUI();
+                Debug.Log($"[DEBUG] Forced star count to {totalStars}");
+
+                // ✅ Trigger win condition instantly when debugStars reach requirement
+                if (levelActive && totalStars >= requiredStars)
+                {
+                    levelActive = false;
+                    Debug.Log($"🎉 [DEBUG] Level Complete via Debug Mode! Earned {totalStars} (Requirement: {requiredStars})");
+                    ShowResultPanel(true);
+                    OnStarsReached?.Invoke();
+                }
             }
         }
     }
-
+    
     public void StartLevel()
     {
         remainingTime = levelTime;
         levelActive = true;
         UpdateTimerUI();
+        UpdateStarCounterUI();
         StartCoroutine(LevelTimer());
     }
 
@@ -116,10 +133,11 @@ public class LevelManager : MonoBehaviour
 
     public void AddStars(int amount)
     {
-        // Each dish completed is worth 5 points
-        totalStars += amount * 5;
-        Debug.Log($"Earned {amount * 5} points | Total: {totalStars}/{requiredStars}");
+        totalStars += amount; // ✅ remove *5
+        Debug.Log($"Earned {amount} stars | Total: {totalStars}/{requiredStars}");
         SaveStars();
+
+        UpdateStarCounterUI();
 
         if (totalStars >= requiredStars && levelActive)
         {
@@ -217,5 +235,12 @@ public class LevelManager : MonoBehaviour
 
         // Optional: give it a name for clarity
         shadowObj.name = originalText.name + "_Shadow";
+    }
+    private void UpdateStarCounterUI()
+    {
+        if (starCounterText != null)
+        {
+            starCounterText.text = $"{totalStars} / {requiredStars}";
+        }
     }
 }

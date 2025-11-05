@@ -11794,7 +11794,6 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1027168800}
   smokeSpawnPoint: {fileID: 1578158538}
-  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -11915,12 +11914,6 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
-  whileCookingClip: {fileID: 0}
-  finishedCookingClip: {fileID: 0}
-  burnedFoodClip: {fileID: 0}
-  cookingVolume: 0.8
-  finishedVolume: 1
-  burnedVolume: 1
   burnTime: 10
 --- !u!65 &503192803
 BoxCollider:
@@ -19487,7 +19480,6 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
   spawnPoint: {fileID: 1671006584}
   smokeSpawnPoint: {fileID: 2025296404}
-  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -19616,12 +19608,6 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
-  whileCookingClip: {fileID: 0}
-  finishedCookingClip: {fileID: 0}
-  burnedFoodClip: {fileID: 0}
-  cookingVolume: 0.8
-  finishedVolume: 1
-  burnedVolume: 1
   burnTime: 6
 --- !u!65 &909366145
 BoxCollider:
@@ -21557,15 +21543,21 @@ MonoBehaviour:
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}
-  levelCompleteText: {fileID: 0}
-  earnedStarText: {fileID: 0}
-  requiredStarText: {fileID: 0}
-  starCounterText: {fileID: 0}
+  levelNameText: {fileID: 1381754834}
+  requirementText: {fileID: 1453579763}
+  resultImage: {fileID: 352904346}
+  levelCompleteSprite: {fileID: 21300000, guid: 9ef406e0dd4810847bbe5de00ebed79d, type: 3}
+  levelFailedSprite: {fileID: 21300000, guid: ac888303e9a22b649800c27b7267aa0e, type: 3}
+  star1Image: {fileID: 1392031351}
+  star2Image: {fileID: 2136243762}
+  star3Image: {fileID: 1272728877}
+  star4Image: {fileID: 57519596}
+  star5Image: {fileID: 1005772389}
+  filledStarSprite: {fileID: 21300000, guid: 64933d38447a93e48aecea24d87b6326, type: 3}
+  emptyStarSprite: {fileID: 21300000, guid: 9c71f3e149475e14e8de4f71b2564b88, type: 3}
   returnButton: {fileID: 316142058}
   retryButton: {fileID: 2045226504}
   nextButton: {fileID: 1863462104}
-  overrideStars: 0
-  debugStars: 0
 --- !u!1 &984058673
 GameObject:
   m_ObjectHideFlags: 0
@@ -33997,10 +33989,6 @@ MonoBehaviour:
   - inputName: Kamias
     inputPrefab: {fileID: 3595278982281106306, guid: 45ad1bab3dfb1954f92a54ba191269cd, type: 3}
     outputPrefab: {fileID: 6262278333677566324, guid: 00d0b1d9f301efc4db69ab0512e4b205, type: 3}
-  choppingSound: {fileID: 0}
-  choppingVolume: 1
-  finishedChopSound: {fileID: 0}
-  finishedVolume: 1
 --- !u!1001 &1540442573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37064,7 +37052,6 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
   spawnPoint: {fileID: 179782157}
   smokeSpawnPoint: {fileID: 1738524407}
-  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -37185,12 +37172,6 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
-  whileCookingClip: {fileID: 0}
-  finishedCookingClip: {fileID: 0}
-  burnedFoodClip: {fileID: 0}
-  cookingVolume: 0.8
-  finishedVolume: 1
-  burnedVolume: 1
   burnTime: 10
 --- !u!65 &1635110387
 BoxCollider:
@@ -54501,7 +54482,6 @@ MonoBehaviour:
     cookedDishPrefab: {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   spawnPoint: {fileID: 1674021886}
   smokeSpawnPoint: {fileID: 1812371626}
-  cookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -54622,12 +54602,6 @@ MonoBehaviour:
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
   smokeMaterialNormal: {fileID: 2100000, guid: 97b0992f556aec841b9ed153bdf9c14b, type: 2}
   smokeMaterialBlack: {fileID: 2100000, guid: 69abc621cbe88824caf4f5e580ad68c7, type: 2}
-  whileCookingClip: {fileID: 0}
-  finishedCookingClip: {fileID: 0}
-  burnedFoodClip: {fileID: 0}
-  cookingVolume: 0.8
-  finishedVolume: 1
-  burnedVolume: 1
   burnTime: 10
 --- !u!65 &8567716999343194649
 BoxCollider:

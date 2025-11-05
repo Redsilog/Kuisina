@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using System;
-using System.Linq;
 
 [RequireComponent(typeof(Collider))]
 public class NPCInteractable : MonoBehaviour
@@ -18,14 +16,13 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Transform chatBubbleSpawnPoint;
     [SerializeField] private float autoClearAfter = 2f;
 
-    // Dialogue lists kept here; index-based lines are still supported.
+    // Keep the dialogue lists HERE (NPCOrder1 no longer owns them)
     [Header("Dialog Lines (must match NPCOrder1.requestedItems)")]
     private List<string> requestLines = new List<string>();
     private List<string> thankLines = new List<string>();
     private List<string> wrongItemLines = new List<string>();
 
-    [Header("Fallback Texts (supports multiple placeholders)")]
-    [Tooltip("Use placeholders like {0}, {1}, {2}. If there are more items than placeholders, extra items will be appended as ' + item'.")]
+    [Header("Fallback Texts")]
     [SerializeField] private string defaultRequestFormat = "I’d like {0}, please.";
     [SerializeField] private string defaultThankFormat = "Thank you!";
     [SerializeField] private string defaultWrongFormat = "That’s not what I ordered. I asked for {0}.";
@@ -48,9 +45,11 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Canvas npcTimerCanvas;
 
     private bool inExtendedPhase = false;
-    private bool isResting = false; // NPC is available only when resting
 
     public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
+
+    // Flag to track if NPC is resting
+    private bool isResting = false;  // New variable to track resting state
 
     void Awake()
     {
@@ -63,9 +62,7 @@ public class NPCInteractable : MonoBehaviour
         if (npcOrder != null)
             npcOrder.OnOrderFulfilled += HandleOrderFulfilled;
 
-        var canvasObj = GameObject.FindWithTag("NPCTimerCanvas");
-        if (canvasObj != null) npcTimerCanvas = canvasObj.GetComponent<Canvas>();
-
+        npcTimerCanvas = GameObject.FindWithTag("NPCTimerCanvas").GetComponent<Canvas>();
     }
 
     void OnDestroy()
@@ -91,23 +88,20 @@ public class NPCInteractable : MonoBehaviour
     {
         isResting = true;
         waitingForInteraction = true;
-        inExtendedPhase = false; // initial wait window
+        inExtendedPhase = false; // ✅ Mark initial wait
         interactionTimer = initialWaitTime;
         SpawnTimerUI();
-
-        // Announce request when seated, if any
-        if (npcOrder != null && npcOrder.HasActiveOrder)
-            ShowChat(BuildRequestLine());
     }
 
     // Called by NPCMovement when NPC starts moving
     public void StartMoving()
     {
-        isResting = false;
+        isResting = false;  // NPC is no longer resting when moving
     }
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
+        // Check if NPC is resting before allowing interaction
         if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting)
             return;
 
@@ -121,7 +115,7 @@ public class NPCInteractable : MonoBehaviour
 
         if (!acted)
         {
-            // Wrong item (active order but mismatch)
+            // Wrong item (active order, but mismatch)
             if (npcOrder && npcOrder.HasActiveOrder)
                 ShowChat(BuildWrongLine());
             return;
@@ -131,7 +125,7 @@ public class NPCInteractable : MonoBehaviour
         if (npcOrder.HasActiveOrder)
         {
             waitingForInteraction = true;
-            inExtendedPhase = true; // extended wait window
+            inExtendedPhase = true; // ✅ Switch to extended wait
             interactionTimer = extendedWaitTime;
 
             ShowChat(BuildRequestLine());
@@ -150,7 +144,7 @@ public class NPCInteractable : MonoBehaviour
             if (dishRef != null)
                 LevelManager.Instance.AddStars(dishRef.starsEarned);
 
-            npcOrder.DeliveredDish = null; // allowed: property has public setter
+            npcOrder.DeliveredDish = null;
         }
 
         StartCoroutine(ThankAndLeave());
@@ -193,104 +187,64 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // ---------- Dialogue builders (multi-placeholder aware) ----------
-
+    // ---------- Dialogue builders ----------
     private string BuildRequestLine()
     {
-        var names = SplitNames(npcOrder?.CurrentRequestName);
-        return FormatMulti(defaultRequestFormat, names);
+        return FormatByIndex(
+            requestLines,
+            npcOrder?.CurrentRequestIndex ?? -1,
+            defaultRequestFormat,
+            npcOrder?.CurrentRequestName ?? ""
+        );
     }
 
     private string BuildWrongLine()
     {
-        var names = SplitNames(npcOrder?.CurrentRequestName);
-        return FormatMulti(defaultWrongFormat, names);
+        return FormatByIndex(
+            wrongItemLines,
+            npcOrder?.CurrentRequestIndex ?? -1,
+            defaultWrongFormat,
+            npcOrder?.CurrentRequestName ?? ""
+        );
     }
 
     private string BuildThankLine()
     {
-        // Usually no names needed, but you can still reference {0}+ if you want.
-        var names = SplitNames(npcOrder?.CurrentRequestName);
-        return FormatMulti(defaultThankFormat, names);
+        return FormatByIndex(
+            thankLines,
+            npcOrder?.CurrentRequestIndex ?? -1,
+            defaultThankFormat,
+            npcOrder?.CurrentRequestName ?? ""
+        );
     }
 
-    private static List<string> SplitNames(string joined)
+    private static string FormatByIndex(List<string> list, int idx, string fallbackFmt, string itemName)
     {
-        if (string.IsNullOrWhiteSpace(joined)) return new List<string>();
-        // CurrentRequestName uses " + " as joiner; split back to parts:
-        return joined.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
-                     .Select(s => s.Trim())
-                     .ToList();
+        string line = null;
+        if (list != null && idx >= 0 && idx < list.Count)
+            line = list[idx];
+        if (string.IsNullOrWhiteSpace(line))
+            line = fallbackFmt;
+
+        return line.Contains("{0}") ? string.Format(line, itemName) : line;
     }
 
-    /// <summary>
-    /// If the template contains placeholders ({0},{1},...), we fill as many as exist.
-    /// If there are more names than placeholders, append " + name" to the end.
-    /// If there are no placeholders, we fall back to: "templatePrefix + joined names".
-    /// </summary>
-    private static string FormatMulti(string template, List<string> names)
+    // timer
+    public float GetRemainingTime()
     {
-        if (string.IsNullOrWhiteSpace(template))
-            return string.Join(" + ", names);
-
-        // Detect placeholders {0}..{N}
-        int maxIndex = MaxPlaceholderIndex(template);
-        if (maxIndex >= 0)
-        {
-            // Build args array sized to the number of placeholders we actually saw
-            object[] args = new object[maxIndex + 1];
-            for (int i = 0; i < args.Length; i++)
-                args[i] = (i < names.Count) ? names[i] : "";
-
-            string baseText = string.Format(template, args);
-
-            // If more names than placeholders, append extras as " + name"
-            if (names.Count > args.Length)
-            {
-                var extras = names.Skip(args.Length);
-                baseText += " " + string.Join(" + ", extras.Select(n => $"+ {n}"));
-            }
-            return baseText;
-        }
-
-        // No placeholders at all → simple fallback: append the joined list
-        if (names.Count == 0) return template;
-        return template + " " + string.Join(" + ", names);
+        return interactionTimer;
     }
 
-    private static int MaxPlaceholderIndex(string template)
+    public float GetMaxTime()
     {
-        int max = -1;
-        // tiny parser for {0},{1}...
-        for (int i = 0; i < template.Length; i++)
-        {
-            if (template[i] == '{')
-            {
-                int j = i + 1;
-                int val = 0;
-                bool any = false;
-                while (j < template.Length && char.IsDigit(template[j]))
-                {
-                    any = true;
-                    val = (val * 10) + (template[j] - '0');
-                    j++;
-                }
-                if (any && j < template.Length && template[j] == '}')
-                {
-                    if (val > max) max = val;
-                }
-            }
-        }
-        return max;
+        return inExtendedPhase ? extendedWaitTime : initialWaitTime;
     }
-
-    // ---------- Timer UI ----------
-    public float GetRemainingTime() => interactionTimer;
-    public float GetMaxTime() => inExtendedPhase ? extendedWaitTime : initialWaitTime;
 
     private void SpawnTimerUI()
     {
-        if (activeTimerUI != null || timerUIPrefab == null || npcTimerCanvas == null) return;
+        if (activeTimerUI != null) return;
+
+        Debug.Log("Spawning timer!");
 
         GameObject obj = Instantiate(timerUIPrefab, npcTimerCanvas.transform);
         activeTimerUI = obj.GetComponent<NPCTimerUI>();

@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Level Settings")]
     public string levelID = "Day1";   // Example: "Day1", "Day2"
-    public int requiredStars = 0;     // Stars needed to unlock next level
+    public int requiredStars = 3;     // Stars needed to unlock next level
     public float levelTime = 120f;    // Time limit
 
     [Header("Runtime Data")]

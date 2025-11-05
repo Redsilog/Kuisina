@@ -49,6 +49,8 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        totalStars = 0;
+        UpdateStarCounterUI();
         LoadStars();
         UpdateStarCounterUI();
         StartLevel();
@@ -72,15 +74,6 @@ public class LevelManager : MonoBehaviour
                 SaveStars();
                 UpdateStarCounterUI();
                 Debug.Log($"[DEBUG] Forced star count to {totalStars}");
-
-                // ✅ Trigger win condition instantly when debugStars reach requirement
-                if (levelActive && totalStars >= requiredStars)
-                {
-                    levelActive = false;
-                    Debug.Log($"🎉 [DEBUG] Level Complete via Debug Mode! Earned {totalStars} (Requirement: {requiredStars})");
-                    ShowResultPanel(true);
-                    OnStarsReached?.Invoke();
-                }
             }
         }
     }
@@ -138,14 +131,6 @@ public class LevelManager : MonoBehaviour
         SaveStars();
 
         UpdateStarCounterUI();
-
-        if (totalStars >= requiredStars && levelActive)
-        {
-            levelActive = false;
-            Debug.Log($"🎉 Level Complete Early! Earned {totalStars} (Requirement: {requiredStars})");
-            ShowResultPanel(true);
-            OnStarsReached?.Invoke();
-        }
     }
 
     private void ShowResultPanel(bool isComplete)

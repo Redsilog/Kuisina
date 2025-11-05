@@ -3903,6 +3903,9 @@ MonoBehaviour:
   exitButton: {fileID: 1844392878}
   onePlayerButton: {fileID: 1169366222}
   twoPlayersButton: {fileID: 2072760319}
+  optionsText: {fileID: 602673321}
+  helpText: {fileID: 1342416032}
+  recipesText: {fileID: 467212461}
 --- !u!4 &993318469
 Transform:
   m_ObjectHideFlags: 0

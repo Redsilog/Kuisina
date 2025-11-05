@@ -8,8 +8,10 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsPage;
     public GameObject recipePage;
     public GameObject playerSelectPage;
+    public GameObject helpPage;
     public Button startButton;
-    public Button mainsettingsButton, mainrecipeButton;
+    public Button mainSettingsButton, mainRecipeButton;
+    public Button mainHelpButton, backFromHelpButton;
     public Button backFromSettingsButton, backFromRecipesButton;
     public Button levelsBackButton;
     public Button exitButton;
@@ -20,8 +22,10 @@ public class MainMenu : MonoBehaviour
     {
         startButton.onClick.AddListener(StartButton);
         playerSelectPage.SetActive(false);
-        mainsettingsButton.onClick.AddListener(mainOptions);
-        mainrecipeButton.onClick.AddListener(Recipes);
+        mainSettingsButton.onClick.AddListener(mainOptions);
+        mainRecipeButton.onClick.AddListener(Recipes);
+        mainHelpButton.onClick.AddListener(Help);
+        backFromHelpButton.onClick.AddListener(BackFromHelp);
         backFromSettingsButton.onClick.AddListener(BackFromOptions);
         backFromRecipesButton.onClick.AddListener(BackFromRecipes);
         levelsBackButton.onClick.AddListener(levelsBack);
@@ -38,6 +42,16 @@ public class MainMenu : MonoBehaviour
     {
         mainMenu.SetActive(false);
         recipePage.SetActive(true);
+    }
+    public void Help()
+    {
+        mainMenu.SetActive(false);
+        helpPage.SetActive(true);
+    }
+    public void BackFromHelp()
+    {
+        helpPage.SetActive(false);
+        mainMenu.SetActive(true);
     }
     public void BackFromOptions()
     {

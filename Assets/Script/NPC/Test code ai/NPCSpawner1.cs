@@ -96,7 +96,7 @@ public class NPCSpawner1 : MonoBehaviour
                 }
             }
 
-            // One spawn attempt per entry (keeps “all routes get an NPC” per cycle)
+            // One spawn attempt per entry (keeps ï¿½all routes get an NPCï¿½ per cycle)
             for (int i = 0; i < work.Count; i++)
             {
                 var entry = work[i];
@@ -115,7 +115,7 @@ public class NPCSpawner1 : MonoBehaviour
                 TrySpawn(entry);
             }
 
-            // after finishing the first full pass, disable the “first cycle” rule
+            // after finishing the first full pass, disable the ï¿½first cycleï¿½ rule
             _isFirstCycle = false;
         }
     }
@@ -147,6 +147,19 @@ public class NPCSpawner1 : MonoBehaviour
             move.InitializeRoute(entry.route.waypoints, entry.waitIndex, this, entry.route);
         else
             Debug.LogWarning($"[NPCSpawner1] Spawned prefab {prefab.name} has no NPCMovement.");
+    }
+
+    public void TrySpawnTutorial()
+    {
+        if (_validEntries.Count == 0)
+        {
+            Debug.LogWarning("[NPCSpawner1] No valid RouteEntries to spawn from.");
+            return;
+        }
+
+        var entry = _validEntries[0];
+
+        TrySpawn(entry);
     }
 
     private GameObject PickRandomPrefabForRoute(WaypointSet route)

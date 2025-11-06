@@ -103,6 +103,7 @@ public class NPCInteractable : MonoBehaviour
         // Announce request when seated, if any
         if (npcOrder != null && npcOrder.HasActiveOrder)
             ShowChat(BuildRequestLine());
+
     }
 
     // Called by NPCMovement when NPC starts moving
@@ -113,6 +114,7 @@ public class NPCInteractable : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
+        TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.InteractCustomer);
         if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting)
             return;
 
@@ -129,6 +131,7 @@ public class NPCInteractable : MonoBehaviour
             // Wrong item (active order but mismatch)
             if (npcOrder && npcOrder.HasActiveOrder)
                 ShowChat(BuildWrongLine());
+
             return;
         }
 
@@ -142,11 +145,34 @@ public class NPCInteractable : MonoBehaviour
             ShowChat(BuildRequestLine());
             npcMovement?.BeginOrdering();
         }
+        
     }
 
     private void HandleOrderFulfilled()
     {
+        Debug.Log($"[NPC] Order fulfilled fired for {gameObject.name}");
+
+        if (npcOrder?.DeliveredDish == null)
+        {
+            Debug.LogWarning("[NPC] DeliveredDish is NULL! No stars awarded.");
+        }
+        else
+        {
+            Debug.Log($"[NPC] Delivered dish: {npcOrder.DeliveredDish.name}");
+
+            var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
+            if (dishRef == null)
+            {
+                Debug.LogError("[NPC] DeliveredDish is missing DishReference component!");
+            }
+            else
+            {
+                Debug.Log($"[NPC] Stars to add: {dishRef.starsEarned}");
+                LevelManager.Instance.AddStars(dishRef.starsEarned);
+            }
+        }
         waitingForInteraction = false;
+        TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.ServeDish);
         ShowChat(BuildThankLine());
 
         if (npcOrder?.DeliveredDish != null)
@@ -157,6 +183,7 @@ public class NPCInteractable : MonoBehaviour
 
             npcOrder.DeliveredDish = null; // allowed: property has public setter
         }
+        
 
         StartCoroutine(ThankAndLeave());
         RemoveTimerUI();

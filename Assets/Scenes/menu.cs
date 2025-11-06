@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Confirmation UI")]
+    public GameObject confirmationPanel;
+    public Button confirmYesButton;
+    public Button confirmNoButton;
     public Button newGameButton;
     public Button continueButton;
     public GameObject mainMenu;
@@ -23,9 +28,18 @@ public class MainMenu : MonoBehaviour
     public Button onePlayerButton, twoPlayersButton;
     public TextMeshProUGUI optionsText, helpText, recipesText;
 
+    [Header("Loading Screen")]
+    public GameObject loadingScreen;
+    public TextMeshProUGUI loadingText;
+    public float fadeDuration = 0.5f;
+
 
     void Start()
     {
+        //continue button testing
+        PlayerPrefs.SetString("LastLevel", "Main Level 1");
+        PlayerPrefs.Save();
+        
         startButton.onClick.AddListener(StartButton);
         playerSelectPage.SetActive(false);
         mainSettingsButton.onClick.AddListener(mainOptions);
@@ -41,6 +55,10 @@ public class MainMenu : MonoBehaviour
 
         newGameButton.onClick.AddListener(NewGame);
         continueButton.onClick.AddListener(ContinueGame);
+
+        confirmationPanel.SetActive(false);
+        confirmYesButton.onClick.AddListener(ConfirmNewGame);
+        confirmNoButton.onClick.AddListener(CancelNewGame);
 
         optionsText.gameObject.SetActive(false);
         helpText.gameObject.SetActive(false);
@@ -118,16 +136,58 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        PlayerPrefs.DeleteKey("LastLevel");  
+        if (PlayerPrefs.HasKey("LastLevel"))
+        {
+            if (confirmationPanel != null)
+                confirmationPanel.SetActive(true);
+            mainMenu.SetActive(false);
+        }
+        else
+        {
+            StartFreshGame();
+        }
+    }
+
+    private void ConfirmNewGame()
+    {
+        PlayerPrefs.DeleteKey("LastLevel");
         PlayerPrefs.DeleteKey("PlayerCount");
-        Debug.Log("Starting a new game...");
-        
+        PlayerPrefs.Save();
+        Debug.Log("🆕 Starting new game... Progress reset.");
+
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(false);
+
+        playerSelectPage.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    private void CancelNewGame()
+    {
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+    private void StartFreshGame()
+    {
+        PlayerPrefs.DeleteKey("LastLevel");
+        PlayerPrefs.DeleteKey("PlayerCount");
+        PlayerPrefs.Save();
+
+        Debug.Log("🎮 No previous save — starting a new game fresh.");
         playerSelectPage.SetActive(true);
         mainMenu.SetActive(false);
     }
 
     public void ContinueGame()
     {
+        if (confirmationPanel != null) confirmationPanel.SetActive(false);
+        if (playerSelectPage != null) playerSelectPage.SetActive(false);
+        if (mainMenu != null) mainMenu.SetActive(false);
+        if (optionsPage != null) optionsPage.SetActive(false);
+        if (recipePage != null) recipePage.SetActive(false);
+        if (helpPage != null) helpPage.SetActive(false);
+
         if (PlayerPrefs.HasKey("LastLevel"))
         {
             string lastLevel = PlayerPrefs.GetString("LastLevel");

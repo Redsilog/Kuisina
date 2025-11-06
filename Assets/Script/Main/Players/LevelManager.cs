@@ -129,6 +129,7 @@ public class LevelManager : MonoBehaviour
 
     public void AddStars(int amount)
     {
+        
         totalStars += amount; // ✅ remove *5
         Debug.Log($"Earned {amount} stars | Total: {totalStars}/{requiredStars}");
         SaveStars();

@@ -231,8 +231,9 @@ public class ChoppingBoard : MonoBehaviour
 
         if (player != null && player.animator != null)
             player.animator.SetBool("IsChopping", false);
-    }
 
+         TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.ChopIngredient);
+    }
 
     private ChopMapping GetMapping(string ingredientName)
     {

@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    public Button newGameButton;
+    public Button continueButton;
     public GameObject mainMenu;
     public GameObject optionsPage;
     public GameObject recipePage;
@@ -36,6 +38,9 @@ public class MainMenu : MonoBehaviour
         exitButton.onClick.AddListener(ExitGame);
         onePlayerButton.onClick.AddListener(OnePlayer);
         twoPlayersButton.onClick.AddListener(TwoPlayers);
+
+        newGameButton.onClick.AddListener(NewGame);
+        continueButton.onClick.AddListener(ContinueGame);
 
         optionsText.gameObject.SetActive(false);
         helpText.gameObject.SetActive(false);
@@ -111,6 +116,32 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
     }
 
+    public void NewGame()
+    {
+        PlayerPrefs.DeleteKey("LastLevel");  
+        PlayerPrefs.DeleteKey("PlayerCount");
+        Debug.Log("Starting a new game...");
+        
+        playerSelectPage.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    public void ContinueGame()
+    {
+        if (PlayerPrefs.HasKey("LastLevel"))
+        {
+            string lastLevel = PlayerPrefs.GetString("LastLevel");
+            int playerCount = PlayerPrefs.GetInt("PlayerCount", 1);
+
+            GameMode.Instance.SetPlayers(playerCount);
+            SceneManager.LoadScene(lastLevel);
+        }
+        else
+        {
+            Debug.Log("⚠ No saved game found — starting new game instead.");
+            NewGame();
+        }
+    }
     public void ExitGame()
     {
         Debug.Log("Game exited");

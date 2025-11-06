@@ -49,6 +49,8 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        totalStars = 0;
+        UpdateStarCounterUI();
         LoadStars();
         UpdateStarCounterUI();
         StartLevel();
@@ -72,15 +74,6 @@ public class LevelManager : MonoBehaviour
                 SaveStars();
                 UpdateStarCounterUI();
                 Debug.Log($"[DEBUG] Forced star count to {totalStars}");
-
-                // ✅ Trigger win condition instantly when debugStars reach requirement
-                if (levelActive && totalStars >= requiredStars)
-                {
-                    levelActive = false;
-                    Debug.Log($"🎉 [DEBUG] Level Complete via Debug Mode! Earned {totalStars} (Requirement: {requiredStars})");
-                    ShowResultPanel(true);
-                    OnStarsReached?.Invoke();
-                }
             }
         }
     }
@@ -112,6 +105,9 @@ public class LevelManager : MonoBehaviour
             Debug.Log($"Level Complete! Earned {totalStars} (Requirement: {requiredStars})");
             ShowResultPanel(true);
             OnStarsReached?.Invoke();
+
+            PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
+            PlayerPrefs.Save();
         }
         else
         {
@@ -133,19 +129,12 @@ public class LevelManager : MonoBehaviour
 
     public void AddStars(int amount)
     {
+        
         totalStars += amount; // ✅ remove *5
         Debug.Log($"Earned {amount} stars | Total: {totalStars}/{requiredStars}");
         SaveStars();
 
         UpdateStarCounterUI();
-
-        if (totalStars >= requiredStars && levelActive)
-        {
-            levelActive = false;
-            Debug.Log($"🎉 Level Complete Early! Earned {totalStars} (Requirement: {requiredStars})");
-            ShowResultPanel(true);
-            OnStarsReached?.Invoke();
-        }
     }
 
     private void ShowResultPanel(bool isComplete)
@@ -191,6 +180,9 @@ public class LevelManager : MonoBehaviour
 
     private void GoToNextLevel()
     {
+        PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
+        PlayerPrefs.Save();
+        
         SceneManager.LoadScene("NextLevel");
     }
 

@@ -19,12 +19,17 @@ public class InGameRecipeBook : MonoBehaviour
     public GameObject Page13;
 
     [Header("Keys")]
-    public Key openCloseKey = Key.Space;
-    public Key prevKey = Key.X;
-    public Key nextKey = Key.C;
-    public Key openCloseKey2 = Key.RightShift;
-    public Key prevKey2 = Key.LeftBracket;
-    public Key nextKey2 = Key.RightBracket;
+    private Key openCloseKey = Key.Space;
+    private Key prevKey = Key.Q;
+    private Key nextKey = Key.E;
+
+    private Key openCloseKey2 = Key.RightShift;
+    private Key prevKey2 = Key.Comma;
+    private Key nextKey2 = Key.Period;
+    private bool player1InRange = false;
+    private bool player2InRange = false;
+
+
 
     [Header("Highlight Settings")]
     public OutlineHighlighter highlighter;
@@ -46,12 +51,10 @@ public class InGameRecipeBook : MonoBehaviour
     void Update()
     {
         // --- PLAYER 1 controls ---
-        if (Keyboard.current[openCloseKey].wasPressedThisFrame)
-        {
+        if (player1InRange && Keyboard.current[openCloseKey].wasPressedThisFrame)
             ToggleBook();
-        }
 
-        if (isBookOpen)
+        if (player1InRange && isBookOpen)
         {
             if (Keyboard.current[nextKey].wasPressedThisFrame)
                 NextPage();
@@ -61,12 +64,10 @@ public class InGameRecipeBook : MonoBehaviour
         }
 
         // --- PLAYER 2 controls ---
-        if (Keyboard.current[openCloseKey2].wasPressedThisFrame)
-        {
+        if (player2InRange && Keyboard.current[openCloseKey2].wasPressedThisFrame)
             ToggleBook();
-        }
 
-        if (isBookOpen)
+        if (player2InRange && isBookOpen)
         {
             if (Keyboard.current[nextKey2].wasPressedThisFrame)
                 NextPage();
@@ -75,6 +76,30 @@ public class InGameRecipeBook : MonoBehaviour
                 PreviousPage();
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag(player1Tag))
+        player1InRange = true;
+
+    if (other.CompareTag(player2Tag))
+        player2InRange = true;
+}
+
+private void OnTriggerExit(Collider other)
+{
+    if (other.CompareTag(player1Tag))
+        player1InRange = false;
+
+    if (other.CompareTag(player2Tag))
+        player2InRange = false;
+
+    // Auto-close book if walking away
+    if (isBookOpen)
+        ToggleBook();
+}
+
+
 
     private void ToggleBook()
     {
@@ -85,6 +110,8 @@ public class InGameRecipeBook : MonoBehaviour
             currentPage = 1;
             ShowOnly(currentPage);
             Debug.Log("📘 Book opened (Page 1)");
+            TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.OpenRecipeBook);
+
         }
         else
         {

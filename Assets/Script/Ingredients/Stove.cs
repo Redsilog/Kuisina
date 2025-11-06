@@ -109,6 +109,8 @@ public class Stove : MonoBehaviour
         Destroy(ingredientObject);
         Debug.Log("Placed ingredient: " + ingredientName);
 
+        TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.AddIngredient);
+
         RestartBurnTimer();
 
         if (activeSmoke == null)

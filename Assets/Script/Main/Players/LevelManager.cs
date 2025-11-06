@@ -105,6 +105,9 @@ public class LevelManager : MonoBehaviour
             Debug.Log($"Level Complete! Earned {totalStars} (Requirement: {requiredStars})");
             ShowResultPanel(true);
             OnStarsReached?.Invoke();
+
+            PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
+            PlayerPrefs.Save();
         }
         else
         {
@@ -126,6 +129,7 @@ public class LevelManager : MonoBehaviour
 
     public void AddStars(int amount)
     {
+        
         totalStars += amount; // ✅ remove *5
         Debug.Log($"Earned {amount} stars | Total: {totalStars}/{requiredStars}");
         SaveStars();
@@ -176,6 +180,9 @@ public class LevelManager : MonoBehaviour
 
     private void GoToNextLevel()
     {
+        PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
+        PlayerPrefs.Save();
+        
         SceneManager.LoadScene("NextLevel");
     }
 

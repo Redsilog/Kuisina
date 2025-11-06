@@ -202,6 +202,25 @@ public class FridgeUI : MonoBehaviour
                 break;
         }
 
+        if (TutorialManager.IsTutorialActive)
+        {
+            switch (type)
+            {
+                case FridgeShelfManager.StorageType.Fridge:
+                    TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.OpenFridge);
+                    break;
+                case FridgeShelfManager.StorageType.Freezer:
+                    TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.OpenFreezer);
+                    break;
+                case FridgeShelfManager.StorageType.Pantry:
+                    TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.OpenPantry);
+                    break;
+                case FridgeShelfManager.StorageType.Condiments:
+                    TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.OpenCondiments);
+                    break;
+            }
+        }
+
         RefreshSlots();
         HighlightSlot(globalIndex);
 

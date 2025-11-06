@@ -49,6 +49,7 @@ public class NPCOrder1 : MonoBehaviour
     // =============================
     //  RANDOM ORDER
     // =============================
+    
     public void RandomizeOrder()
     {
         _pendingOrderNames.Clear();

@@ -110,6 +110,8 @@ private void OnTriggerExit(Collider other)
             currentPage = 1;
             ShowOnly(currentPage);
             Debug.Log("📘 Book opened (Page 1)");
+            TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.OpenRecipeBook);
+
         }
         else
         {

@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
     public Button startButton;
     public Button mainSettingsButton, mainRecipeButton;
     public Button mainHelpButton, backFromHelpButton;
-    public Button backFromSettingsButton, backFromRecipesButton;
+    public Button backFromSettingsButton, backFromRecipesButton, backFromConfirmation;
     public Button levelsBackButton;
     public Button exitButton;
     public Button onePlayerButton, twoPlayersButton;
@@ -123,6 +123,7 @@ public class MainMenu : MonoBehaviour
         helpText.gameObject.SetActive(false);
         recipesText.gameObject.SetActive(false);
     }
+
     public void StartButton()
     {
         playerSelectPage.SetActive(true);

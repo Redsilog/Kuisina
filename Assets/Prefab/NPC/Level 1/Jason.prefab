@@ -336,11 +336,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
   requestedItems: []
   prefabCombos:
-  - displayName: Adonong puti with rice
+  - displayName: Adobong Puti
     items:
     - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Adonong bisaya with rice
+  - displayName: Adobong Bisaya
     items:
     - {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
@@ -361,6 +361,43 @@ MonoBehaviour:
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 1639728488320555459}
   autoClearAfter: 2
+  customDialogues:
+  - dishName: Adobong Puti
+    requestLines:
+    - "Pahingi nga ng adobo na simple lang, \u2018yung walang toyo ha. Tsaka isang
+      kanin nga po."
+    - "Gusto ko \u2018yung adobo na maputi, maasim pero malinis ang lasa at pa-rice
+      nga isa lang."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Adobong Bisaya
+    requestLines:
+    - "Pa-adobo nga \u2018yung piniprito pa pagkatapos lutuin, \u2018yung may konting
+      lutong. One rice din po."
+    - "Gusto ko \u2018yung adobo na medyo crispy, parang pang biyahe. One rice din
+      po."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!

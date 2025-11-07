@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem; 
 
 public class TutorialManager : MonoBehaviour
 {
@@ -40,13 +41,11 @@ public class TutorialManager : MonoBehaviour
     public DialogueStep[] dialogueSteps;
 
     [Header("Player")]
-    public GameObject player; // assign in inspector
+    public GameObject player1;
+    public GameObject player2;
 
     [Header("Behaviour Settings")]
-    [Tooltip("Delay before the tutorial starts (seconds, real time).")]
     public float startDelay = 2.5f;
-    [Tooltip("Key the player presses to continue a 'requiresInput' step.")]
-    public KeyCode continueKey = KeyCode.Space;
 
     private int currentStep = 0;
     private bool isPlaying = false;
@@ -59,6 +58,13 @@ public class TutorialManager : MonoBehaviour
     [Header("NPC Spawner")]
     public NPCSpawner1 npcSpawner;
 
+    private PlayerInput input1;
+    private PlayerInput input2;
+    private bool player1ContinuePressed = false;
+    private bool player2ContinuePressed = false;
+
+    public static bool IsInteractionLocked { get; private set; } = false;
+
     public static void NotifyTrigger(TutorialTriggerType type)
     {
         latestTrigger = type;
@@ -67,7 +73,34 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        if (player1 != null) input1 = player1.GetComponent<PlayerInput>();
+        if (player2 != null) input2 = player2.GetComponent<PlayerInput>();
+
+        if (input1 != null)
+            input1.actions["Interact"].performed += OnPlayer1Continue;
+
+        if (input2 != null)
+            input2.actions["Interact"].performed += OnPlayer2Continue;
+
         StartCoroutine(StartAfterDelayRealtime(startDelay));
+    }
+    void OnDestroy()
+    {
+        if (input1 != null)
+            input1.actions["Interact"].performed -= OnPlayer1Continue;
+
+        if (input2 != null)
+            input2.actions["Interact"].performed -= OnPlayer2Continue;
+    }
+
+    private void OnPlayer1Continue(InputAction.CallbackContext context)
+    {
+        player1ContinuePressed = true;
+    }
+
+    private void OnPlayer2Continue(InputAction.CallbackContext context)
+    {
+        player2ContinuePressed = true;
     }
 
     IEnumerator StartAfterDelayRealtime(float delay)
@@ -83,19 +116,22 @@ public class TutorialManager : MonoBehaviour
 
         previousTimeScale = Time.timeScale;
         Time.timeScale = 0f;
+        IsInteractionLocked = true; 
 
         if (guidePanel != null)
             guidePanel.SetActive(true);
+
+        var controller1 = player1 != null ? player1.GetComponent<PlayerController>() : null;
+        var controller2 = player2 != null ? player2.GetComponent<PlayerController>() : null;
 
         currentStep = 0;
         while (currentStep < dialogueSteps.Length)
         {
             DialogueStep step = dialogueSteps[currentStep];
 
-            // ✅ Freeze or unfreeze game
             Time.timeScale = step.pauseDuringStep ? 0f : previousTimeScale;
+            IsInteractionLocked = step.pauseDuringStep;
 
-            // ✅ Update text
             if (guideText != null)
                 guideText.text = step.text;
 
@@ -109,8 +145,10 @@ public class TutorialManager : MonoBehaviour
             }
             else if (step.requiresInput)
             {
-                yield return new WaitForSecondsRealtime(0.12f);
-                while (!Input.GetKeyDown(continueKey))
+                player1ContinuePressed = false;
+                player2ContinuePressed = false;
+
+                while (!player1ContinuePressed && !player2ContinuePressed)
                     yield return null;
 
                 yield return new WaitForSecondsRealtime(0.08f);
@@ -126,9 +164,11 @@ public class TutorialManager : MonoBehaviour
             currentStep++;
         }
 
-        // ✅ End tutorial
         if (guidePanel != null)
             guidePanel.SetActive(false);
+
+        if (controller1 != null) controller1.enabled = true;
+        if (controller2 != null) controller2.enabled = true;
 
         Time.timeScale = previousTimeScale;
         IsTutorialActive = false;

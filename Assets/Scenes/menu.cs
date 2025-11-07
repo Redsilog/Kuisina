@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         //continue button testing
-        PlayerPrefs.SetString("LastLevel", "Main Level 1");
+        PlayerPrefs.SetString("LastLevel", "Main Level 2");
         PlayerPrefs.Save();
         
         startButton.onClick.AddListener(StartButton);
@@ -198,7 +198,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            Debug.Log("⚠ No saved game found — starting new game instead.");
+            Debug.Log("No saved game found — starting new game instead.");
             NewGame();
         }
     }

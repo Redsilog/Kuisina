@@ -4269,6 +4269,9 @@ MonoBehaviour:
   optionsText: {fileID: 602673321}
   helpText: {fileID: 1342416032}
   recipesText: {fileID: 467212461}
+  loadingScreen: {fileID: 0}
+  loadingText: {fileID: 0}
+  fadeDuration: 0.5
 --- !u!4 &993318469
 Transform:
   m_ObjectHideFlags: 0

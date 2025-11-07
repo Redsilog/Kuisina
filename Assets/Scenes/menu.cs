@@ -149,7 +149,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private void ConfirmNewGame()
+    public void ConfirmNewGame()
     {
         PlayerPrefs.DeleteKey("LastLevel");
         PlayerPrefs.DeleteKey("PlayerCount");

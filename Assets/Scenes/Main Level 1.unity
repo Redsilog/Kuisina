@@ -37319,6 +37319,7 @@ GameObject:
   - component: {fileID: 1739452251}
   - component: {fileID: 1739452254}
   - component: {fileID: 1739452255}
+  - component: {fileID: 1739452256}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -37461,6 +37462,32 @@ MonoBehaviour:
   noiseIntensity: 0.2
   rotationAmount: 0.8
   depthAmount: 0.15
+--- !u!114 &1739452256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739452250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5696c2d2d4fa8a341b4c12cbba117244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovableCamera
+  panSpeed: 20
+  edgePanThreshold: 10
+  allowEdgePan: 0
+  allowMouseDrag: 1
+  mouseDragButton: 1
+  mouseDragSpeed: 0.5
+  zoomSpeed: 50
+  minY: 5
+  maxY: 80
+  minOrthoSize: 2
+  maxOrthoSize: 40
+  allowRotation: 1
+  rotationSpeed: 100
+  smoothTime: 0.12
 --- !u!1 &1740870604
 GameObject:
   m_ObjectHideFlags: 0

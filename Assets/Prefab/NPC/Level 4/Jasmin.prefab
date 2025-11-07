@@ -380,7 +380,7 @@ MonoBehaviour:
   npcOrder: {fileID: 3050575705057502491}
   npcMovement: {fileID: 6403959119841765450}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
-  chatBubbleSpawnPoint: {fileID: 6486163730936838676}
+  chatBubbleSpawnPoint: {fileID: 1639728488320555459, guid: 54cd5c470db46a340a70fb80bd6f062a, type: 3}
   autoClearAfter: 2
   customDialogues:
   - dishName: Adobong Bisaya

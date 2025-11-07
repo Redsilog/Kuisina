@@ -335,7 +335,7 @@ MonoBehaviour:
   npcOrder: {fileID: 2450847243068917007}
   npcMovement: {fileID: 7490449047604490425}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
-  chatBubbleSpawnPoint: {fileID: 4665269520933724169}
+  chatBubbleSpawnPoint: {fileID: 1639728488320555459, guid: dd90b0d01651d2b45854916860d64be6, type: 3}
   autoClearAfter: 2
   customDialogues:
   - dishName: Adobong Puti

@@ -105,9 +105,6 @@ public class LevelManager : MonoBehaviour
             Debug.Log($"Level Complete! Earned {totalStars} (Requirement: {requiredStars})");
             ShowResultPanel(true);
             OnStarsReached?.Invoke();
-
-            PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
-            PlayerPrefs.Save();
         }
         else
         {
@@ -162,9 +159,33 @@ public class LevelManager : MonoBehaviour
             requiredStarText.text = $"{requiredStars}";  // Show the required stars number
         }
 
-        // Only show "Next" button when player meets the requirement
         if (nextButton != null)
-            nextButton.gameObject.SetActive(isComplete);
+        {
+            var nextImage = nextButton.GetComponent<Image>();
+
+            if (isComplete)
+            {
+                nextButton.interactable = true;
+
+                if (nextImage != null)
+                {
+                    Color c = nextImage.color;
+                    c.a = 1f;
+                    nextImage.color = c;
+                }
+            }
+            else
+            {
+                nextButton.interactable = false;
+
+                if (nextImage != null)
+                {
+                    Color c = nextImage.color;
+                    c.a = 0.9f;
+                    nextImage.color = c;
+                }
+            }
+        }
     }
 
     // Button actions
@@ -180,10 +201,22 @@ public class LevelManager : MonoBehaviour
 
     private void GoToNextLevel()
     {
-        PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
+        string currentLevel = SceneManager.GetActiveScene().name;
+        string nextLevel = "";
+
+        if (currentLevel == "Main Level 1") nextLevel = "Main Level 2";
+        else if (currentLevel == "Main Level 2") nextLevel = "Main Level 3";
+        else
+        {
+            Debug.Log("No further levels found — returning to main menu.");
+            SceneManager.LoadScene("Main Menu");
+            return;
+        }
+
+        PlayerPrefs.SetString("LastLevel", nextLevel);
         PlayerPrefs.Save();
-        
-        SceneManager.LoadScene("NextLevel");
+
+        SceneManager.LoadScene(nextLevel);
     }
 
     // Save and Load

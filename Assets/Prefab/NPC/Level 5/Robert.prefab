@@ -790,7 +790,7 @@ MonoBehaviour:
   npcOrder: {fileID: 3437981570604271810}
   npcMovement: {fileID: 750206956557513461}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
-  chatBubbleSpawnPoint: {fileID: 1639728488320555459, guid: dd90b0d01651d2b45854916860d64be6, type: 3}
+  chatBubbleSpawnPoint: {fileID: 1639728488320555459, guid: 54cd5c470db46a340a70fb80bd6f062a, type: 3}
   autoClearAfter: 2
   customDialogues:
   - dishName: Adobong Puti
@@ -811,12 +811,150 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
-  - dishName: Adobong Bisaya
+  - dishName: Adobo sa Gata
     requestLines:
-    - "Pa-adobo nga \u2018yung piniprito pa pagkatapos lutuin, \u2018yung may konting
-      lutong. One rice din po."
-    - "Gusto ko \u2018yung adobo na medyo crispy, parang pang biyahe. One rice din
-      po."
+    - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
+      kanin!
+    - "Gusto ko \u2018yung adobo na creamy at maanghang, may lasa ng niyog. Isang
+      rice na rin po."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: ' Sinigang sa Sampalok'
+    requestLines:
+    - "\u2018Yung sinigang na asim na asim, \u2018yung classic lang at pa-rice nga
+      isa lang."
+    - "Pa-sinigang nga \u2018yung parang galing pa sa bakuran na sampalok. Tapos
+      isang platong mainit na kanin!"
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Pancit Malabon
+    requestLines:
+    - "Pancit nga \u2018yung may seafood at kulay kahel na sauce."
+    - "Gusto ko \u2018yung pancit na amoy dagat, may hipon at sabaw ng pusit."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Lechon Cebu
+    requestLines:
+    - "Pa-lechon nga \u2018yung walang sauce pero lasang-lasa pa rin. Tapos isang
+      cup ng rice."
+    - "Gusto ko \u2018yung lechon na ma-herbs sa loob, parang Cebu style. Pahingi
+      rin pong kanin."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Vegetable Kare-Kare
+    requestLines:
+    - "Kare-Kare nga \u2018yung puro gulay lang, simple lang gusto ko. Isang kanin
+      din po."
+    - "Gusto ko \u2018yung kare-kare na walang karne, healthy lang. Tapos isang kanin
+      na muna."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Pork Sisig
+    requestLines:
+    - "Pa-sisig nga \u2018yung sizzling at medyo maanghang. Tapos isang kanin na
+      muna."
+    - "Gusto ko \u2018yung sisig na may calamansi sa ibabaw. Tapos pa-rice isa lang."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Vegetable Karekare
+    requestLines:
+    - 
+    - 
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Laing
+    requestLines:
+    - "Pa-ulam nga \u2018yung dahon lang pero ang sarap sa gata. Tapos isang kanin
+      po"
+    - "Gusto ko \u2018yung maanghang na may dahon at niyog. Isang kanin din po."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Pinangat na Gabi
+    requestLines:
+    - "Yung nakabalot sa dahon tapos may laman sa loob, \u2018yun gusto ko. Tapos
+      isang kanin po."
+    - "Gusto ko \u2018yung ulam na may gata pero may surprise sa gitna. Isang kanin
+      din po."
     wrongLines:
     - "Ay, parang mali yata \u2018to ah."
     - "Luh, hindi ito \u2018yung inorder ko."
@@ -837,8 +975,8 @@ MonoBehaviour:
   wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: Bagal naman dito.
   interactCooldown: 5
-  initialWaitTime: 120
-  extendedWaitTime: 120
+  initialWaitTime: 70
+  extendedWaitTime: 70
   thankYouDelay: 5
   timerUIPrefab: {fileID: 7473964165292485588, guid: 0341027f979279445920342dfb2b5ed4, type: 3}
   npcTimerCanvas: {fileID: 0}
@@ -854,15 +992,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems: []
+  requestedItems:
+  - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
+  - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
+  - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+  - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
+  - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
+  - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
+  - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
+  - {fileID: 2227652599799674470, guid: c0d19d94da616314ea7503d1042c1591, type: 3}
+  - {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
   prefabCombos:
-  - displayName: Adonong puti with rice
+  - displayName: Adobong Puti
     items:
     - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Adonong bisaya with rice
+  - displayName: Adobo sa Gata
     items:
-    - {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
+    - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Sinigang sa Sampalok
+    items:
+    - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: 
+    items: []
+  - displayName: Lechon Cebu
+    items:
+    - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Kinilaw na Isda
+    items:
+    - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Vegetable Kare-Kare
+    items:
+    - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Pork Sisig
+    items:
+    - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Laing
+    items:
+    - {fileID: 8738931886799024557, guid: 87286e67524d7b14eb03e13f1dce308d, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Pinangat na Gabi
+    items:
+    - {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
 --- !u!114 &750206956557513461
 MonoBehaviour:

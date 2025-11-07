@@ -18,13 +18,15 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Transform chatBubbleSpawnPoint;
     [SerializeField] private float autoClearAfter = 2f;
 
-    // Dialogue lists kept here; index-based lines are still supported.
-    [Header("Dialog Lines (must match NPCOrder1.requestedItems)")]
-    private List<string> requestLines = new List<string>();
-    private List<string> thankLines = new List<string>();
-    private List<string> wrongItemLines = new List<string>();
+    [Header("Custom Dialogue (Overrides Prefab Name)")]
+    [TextArea]
+    [SerializeField] private string customRequestLine; // 👈 new manual text field
+    [TextArea]
+    [SerializeField] private string customWrongLine;
+    [TextArea]
+    [SerializeField] private string customThankLine;
 
-    [Header("Fallback Texts")]
+    [Header("Fallback Texts (if no custom line provided)")]
     [SerializeField] private string requestSingleFormat = "Pwede isang order ng {0}?";
     [SerializeField] private string requestComboFormat = "Pwede isang order ng {0} at {1}?";
 
@@ -35,7 +37,6 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private string wrongComboFormat = "Di naman yan order ko, sabi ko {0} at {1}!";
 
     [SerializeField] private string timeoutLine = "Bagal naman dito.";
-
 
     [Header("Timers")]
     public float interactCooldown = 1.0f;
@@ -91,22 +92,18 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // Called by NPCMovement when NPC reaches sit point
     public void StartWaitingForPlayer()
     {
         isResting = true;
         waitingForInteraction = true;
-        inExtendedPhase = false; // initial wait window
+        inExtendedPhase = false;
         interactionTimer = initialWaitTime;
         SpawnTimerUI();
 
-        // Announce request when seated, if any
         if (npcOrder != null && npcOrder.HasActiveOrder)
             ShowChat(BuildRequestLine());
-
     }
 
-    // Called by NPCMovement when NPC starts moving
     public void StartMoving()
     {
         isResting = false;
@@ -128,24 +125,20 @@ public class NPCInteractable : MonoBehaviour
 
         if (!acted)
         {
-            // Wrong item (active order but mismatch)
             if (npcOrder && npcOrder.HasActiveOrder)
                 ShowChat(BuildWrongLine());
-
             return;
         }
 
-        // If we now have an active order, show the request and enter ordering state
         if (npcOrder.HasActiveOrder)
         {
             waitingForInteraction = true;
-            inExtendedPhase = true; // extended wait window
+            inExtendedPhase = true;
             interactionTimer = extendedWaitTime;
 
             ShowChat(BuildRequestLine());
             npcMovement?.BeginOrdering();
         }
-        
     }
 
     private void HandleOrderFulfilled()
@@ -158,32 +151,19 @@ public class NPCInteractable : MonoBehaviour
         }
         else
         {
-            Debug.Log($"[NPC] Delivered dish: {npcOrder.DeliveredDish.name}");
-
             var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
             if (dishRef == null)
-            {
                 Debug.LogError("[NPC] DeliveredDish is missing DishReference component!");
-            }
             else
-            {
-                Debug.Log($"[NPC] Stars to add: {dishRef.starsEarned}");
                 LevelManager.Instance.AddStars(dishRef.starsEarned);
-            }
         }
+
         waitingForInteraction = false;
         TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.ServeDish);
         ShowChat(BuildThankLine());
 
         if (npcOrder?.DeliveredDish != null)
-        {
-            var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
-            if (dishRef != null)
-                LevelManager.Instance.AddStars(dishRef.starsEarned);
-
-            npcOrder.DeliveredDish = null; // allowed: property has public setter
-        }
-        
+            npcOrder.DeliveredDish = null;
 
         StartCoroutine(ThankAndLeave());
         RemoveTimerUI();
@@ -225,12 +205,14 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // ---------- Dialogue builders (multi-placeholder aware) ----------
+    // ---------- Dialogue Builders ----------
 
     private string BuildRequestLine()
     {
-        var names = SplitNames(npcOrder?.CurrentRequestName);
+        if (!string.IsNullOrWhiteSpace(customRequestLine))
+            return customRequestLine; // 👈 use manual line if set
 
+        var names = SplitNames(npcOrder?.CurrentRequestName);
         if (names.Count <= 1)
             return string.Format(requestSingleFormat, names.Count > 0 ? names[0] : "");
         else
@@ -239,8 +221,10 @@ public class NPCInteractable : MonoBehaviour
 
     private string BuildWrongLine()
     {
-        var names = SplitNames(npcOrder?.CurrentRequestName);
+        if (!string.IsNullOrWhiteSpace(customWrongLine))
+            return customWrongLine; // 👈 use manual wrong line if set
 
+        var names = SplitNames(npcOrder?.CurrentRequestName);
         if (names.Count <= 1)
             return string.Format(wrongSingleFormat, names.Count > 0 ? names[0] : "");
         else
@@ -249,46 +233,38 @@ public class NPCInteractable : MonoBehaviour
 
     private string BuildThankLine()
     {
-        var names = SplitNames(npcOrder?.CurrentRequestName);
+        if (!string.IsNullOrWhiteSpace(customThankLine))
+            return customThankLine; // 👈 use manual thank line if set
 
+        var names = SplitNames(npcOrder?.CurrentRequestName);
         if (names.Count <= 1)
             return thankSingleFormat;
         else
             return FormatMulti(thankComboFormat, names);
     }
 
-
     private static List<string> SplitNames(string joined)
     {
         if (string.IsNullOrWhiteSpace(joined)) return new List<string>();
-        // CurrentRequestName uses " + " as joiner; split back to parts:
         return joined.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
                      .Select(s => s.Trim())
                      .ToList();
     }
 
-    /// <summary>
-    /// If the template contains placeholders ({0},{1},...), we fill as many as exist.
-    /// If there are more names than placeholders, append " + name" to the end.
-    /// If there are no placeholders, we fall back to: "templatePrefix + joined names".
-    /// </summary>
     private static string FormatMulti(string template, List<string> names)
     {
         if (string.IsNullOrWhiteSpace(template))
             return string.Join(" + ", names);
 
-        // Detect placeholders {0}..{N}
         int maxIndex = MaxPlaceholderIndex(template);
         if (maxIndex >= 0)
         {
-            // Build args array sized to the number of placeholders we actually saw
             object[] args = new object[maxIndex + 1];
             for (int i = 0; i < args.Length; i++)
                 args[i] = (i < names.Count) ? names[i] : "";
 
             string baseText = string.Format(template, args);
 
-            // If more names than placeholders, append extras as " + name"
             if (names.Count > args.Length)
             {
                 var extras = names.Skip(args.Length);
@@ -297,7 +273,6 @@ public class NPCInteractable : MonoBehaviour
             return baseText;
         }
 
-        // No placeholders at all → simple fallback: append the joined list
         if (names.Count == 0) return template;
         return template + " " + string.Join(" + ", names);
     }
@@ -305,7 +280,6 @@ public class NPCInteractable : MonoBehaviour
     private static int MaxPlaceholderIndex(string template)
     {
         int max = -1;
-        // tiny parser for {0},{1}...
         for (int i = 0; i < template.Length; i++)
         {
             if (template[i] == '{')
@@ -320,9 +294,7 @@ public class NPCInteractable : MonoBehaviour
                     j++;
                 }
                 if (any && j < template.Length && template[j] == '}')
-                {
                     if (val > max) max = val;
-                }
             }
         }
         return max;
@@ -351,7 +323,6 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // ---------- Chat bubble helper ----------
     private void ShowChat(string text)
     {
         if (!chatBubblePrefab || !chatBubbleSpawnPoint || string.IsNullOrWhiteSpace(text)) return;

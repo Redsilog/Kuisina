@@ -37,8 +37,9 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         //continue button testing
-        PlayerPrefs.SetString("LastLevel", "Main Level 2");
-        PlayerPrefs.Save();
+        //PlayerPrefs.SetString("LastLevel", "Main Level 2");
+        //PlayerPrefs.Save();
+        //PlayerPrefs.DeleteAll();
         
         startButton.onClick.AddListener(StartButton);
         playerSelectPage.SetActive(false);
@@ -67,6 +68,8 @@ public class MainMenu : MonoBehaviour
         AddHover(mainSettingsButton, optionsText);
         AddHover(mainRecipeButton, recipesText);
         AddHover(mainHelpButton, helpText);
+
+        UpdateContinueButtonState();
 
     }
 
@@ -161,6 +164,7 @@ public class MainMenu : MonoBehaviour
 
         playerSelectPage.SetActive(true);
         mainMenu.SetActive(false);
+        UpdateContinueButtonState();
     }
 
     private void CancelNewGame()
@@ -178,6 +182,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("🎮 No previous save — starting a new game fresh.");
         playerSelectPage.SetActive(true);
         mainMenu.SetActive(false);
+        UpdateContinueButtonState();
     }
 
     public void ContinueGame()
@@ -218,5 +223,17 @@ public class MainMenu : MonoBehaviour
     {
         GameMode.Instance.SetPlayers(2);
         SceneManager.LoadScene("Main Level 1");
+    }
+    private void UpdateContinueButtonState()
+    {
+        bool hasSave = PlayerPrefs.HasKey("LastLevel");
+
+        continueButton.interactable = hasSave;
+
+        CanvasGroup cg = continueButton.GetComponent<CanvasGroup>();
+        if (cg == null)
+            cg = continueButton.gameObject.AddComponent<CanvasGroup>();
+
+        cg.alpha = hasSave ? 1f : 0.9f;
     }
 }

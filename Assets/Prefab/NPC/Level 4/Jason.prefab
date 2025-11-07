@@ -396,30 +396,12 @@ MonoBehaviour:
   chatBubbleSpawnPoint: {fileID: 1639728488320555459, guid: 54cd5c470db46a340a70fb80bd6f062a, type: 3}
   autoClearAfter: 2
   customDialogues:
-  - dishName: Adobong Puti
+  - dishName: Adobong Bisaya
     requestLines:
-    - "Pahingi nga ng adobo na simple lang, \u2018yung walang toyo ha. Tsaka isang
-      kanin nga po."
-    - "Gusto ko \u2018yung adobo na maputi, maasim pero malinis ang lasa at pa-rice
-      nga isa lang."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-  - dishName: Adobong sa Gata
-    requestLines:
-    - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
-      kanin!
-    - "Gusto ko \u2018yung adobo na creamy at maanghang, may lasa ng niyog. Isang
-      rice na rin po."
+    - "Pa-adobo nga \u2018yung piniprito pa pagkatapos lutuin, \u2018yung may konting
+      lutong. One rice din po.\r\n"
+    - "Gusto ko \u2018yung adobo na medyo crispy, parang pang biyahe. One rice din
+      po."
     wrongLines:
     - "Ay, parang mali yata \u2018to ah."
     - "Luh, hindi ito \u2018yung inorder ko."
@@ -434,7 +416,8 @@ MonoBehaviour:
     - Thank you, sarap nito!
   - dishName: Sinigang sa Sampalok
     requestLines:
-    - Yung sinigang na asim na asim, yung classic lang at pa-rice nga isa lang.
+    - "\u2018Yung sinigang na asim na asim, \u2018yung classic lang at pa-rice nga
+      isa lang."
     - "Pa-sinigang nga \u2018yung parang galing pa sa bakuran na sampalok. Tapos
       isang platong mainit na kanin!"
     wrongLines:
@@ -449,79 +432,11 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
-  - dishName: Sinigang sa Mangga
+  - dishName: Kilinaw na Kambing
     requestLines:
-    - "Gusto ko \u2018yung sinigang na asim-fruity, parang hilaw na mangga tapos
-      isang kanin nga po."
-    - "\u2018Yung sinigang na kakaiba, may lasa ng hilaw na prutas. Pahingi rin pong
-      kanin."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-  - dishName: Panciit Cantont
-    requestLines:
-    - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
-    - Pancit na may toyo at gulay, parang pang hapunan.
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-  - dishName: Panciit Malabon
-    requestLines:
-    - "Pancit nga \u2018yung may seafood at kulay kahel na sauce"
-    - "Gusto ko \u2018yung pancit na amoy dagat, may hipon at sabaw ng pusit."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-  - dishName: Kinilaw sa Isda
-    requestLines:
-    - Pahingi nga ng kinilaw na malamig pa, parang bagong huli. Pahingi rin pong
-      kanin.
-    - "Gusto ko \u2018yung kinilaw na maasim at presko, walang luto-luto at pa-rice
-      nga isa lang."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-  - dishName: Kinilaw na may Gata
-    requestLines:
-    - "\u2018Yung kinilaw na creamy, hindi masyadong maasim ha, tapos isa ngang kanin."
-    - "Pa-kinilaw nga \u2018yung may gata, parang galing Mindanao. Pahingi rin pong
-      kanin."
+    - "Gusto ko \u2018yung kilawin na may suka at sibuyas, \u2018yung pang-inuman.
+      Isang kanin din po."
+    - "Pa-kilawin nga, \u2018yung may amoy kambing pero sarap! Tapos isa ngang kanin!"
     wrongLines:
     - "Ay, parang mali yata \u2018to ah."
     - "Luh, hindi ito \u2018yung inorder ko."
@@ -537,7 +452,7 @@ MonoBehaviour:
   - dishName: Lechon Cebu
     requestLines:
     - "Pa-lechon nga \u2018yung walang sauce pero lasang-lasa pa rin. Tapos isang
-      cup ng rice.\r\n"
+      cup ng rice."
     - "Gusto ko \u2018yung lechon na ma-herbs sa loob, parang Cebu style. Pahingi
       rin pong kanin."
     wrongLines:
@@ -552,11 +467,99 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
-  - dishName: Lechon Manila
+  - dishName: Lechon Bacolod
     requestLines:
-    - "\u2018Yung lechon na may liver sauce sa gilid, \u2018yun gusto ko. Tapos isang
-      kanin na muna."
-    - "Pa-lechon nga \u2018yung may sawsawang kulay brown. Tapos isang cup ng rice."
+    - "Gusto ko \u2018yung lechon na may konting asim, kakaiba ha. Isang kanin din
+      po."
+    - "Pa-lechon nga \u2018yung may prutas na maasim sa timpla. Tapos isang cup ng
+      rice"
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Traditional Karekare
+    requestLines:
+    - "Kare-Kare nga, \u2018yung may peanut sauce at bagoong sa gilid. Pa-rice din
+      isa."
+    - "Gusto ko \u2018yung kare-kare na pang handaan, may laman. Tapos isang kanin
+      na muna."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Seafood Karekare
+    requestLines:
+    - "Kare-Kare nga pero \u2018wag baboy, gusto ko \u2018yung may hipon. Isang kanin
+      din po."
+    - "Pa-kare-kare nga \u2018yung galing dagat ang laman. Tapos isang cup ng rice."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Vegetable Karekare
+    requestLines:
+    - "Kare-Kare nga \u2018yung puro gulay lang, simple lang gusto ko. Isang kanin
+      din po."
+    - "Gusto ko \u2018yung kare-kare na walang karne, healthy lang. Tapos isang kanin
+      na muna."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Squid Sisig
+    requestLines:
+    - "Sisig nga \u2018yung medyo chewy, lasang dagat. Tapos isang cup ng rice."
+    - "Gusto ko \u2018yung sisig na may pusit, \u2018yung kakaiba. Isang kanin din
+      po."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Pork Sisig
+    requestLines:
+    - "Pa-sisig nga \u2018yung sizzling at medyo maanghang. Tapos isang kanin na
+      muna."
+    - "Gusto ko \u2018yung sisig na may calamansi sa ibabaw. Tapos pa-rice isa lang.\r\n"
     wrongLines:
     - "Ay, parang mali yata \u2018to ah."
     - "Luh, hindi ito \u2018yung inorder ko."

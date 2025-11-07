@@ -335,8 +335,45 @@ MonoBehaviour:
   npcOrder: {fileID: 2450847243068917007}
   npcMovement: {fileID: 7490449047604490425}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
-  chatBubbleSpawnPoint: {fileID: 4665269520933724169}
+  chatBubbleSpawnPoint: {fileID: 1639728488320555459, guid: dd90b0d01651d2b45854916860d64be6, type: 3}
   autoClearAfter: 2
+  customDialogues:
+  - dishName: Adobong Puti
+    requestLines:
+    - "Pahingi nga ng adobo na simple lang, \u2018yung walang toyo ha. Tsaka isang
+      kanin nga po."
+    - "Gusto ko \u2018yung adobo na maputi, maasim pero malinis ang lasa at pa-rice
+      nga isa lang."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Adobong Bisaya
+    requestLines:
+    - "Pa-adobo nga \u2018yung piniprito pa pagkatapos lutuin, \u2018yung may konting
+      lutong. One rice din po."
+    - "Gusto ko \u2018yung adobo na medyo crispy, parang pang biyahe. One rice din
+      po."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
@@ -344,7 +381,7 @@ MonoBehaviour:
   wrongSingleFormat: Di naman yan order ko, sabi ko {0}!
   wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: Bagal naman dito.
-  interactCooldown: 1
+  interactCooldown: 5
   initialWaitTime: 120
   extendedWaitTime: 120
   thankYouDelay: 5

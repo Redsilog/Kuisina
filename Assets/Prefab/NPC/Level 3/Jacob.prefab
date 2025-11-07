@@ -245,9 +245,13 @@ MonoBehaviour:
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 4747248737069026235}
   autoClearAfter: 2
-  defaultRequestFormat: Pwede isang order ng {0}
-  defaultThankFormat: Salamat!!!!
-  defaultWrongFormat: Di naman yan order ko, sabi ko  {0}.
+  customDialogues: []
+  requestSingleFormat: Pwede isang order ng {0}?
+  requestComboFormat: Pwede isang order ng {0} at {1}?
+  thankSingleFormat: Salamat!
+  thankComboFormat: Salamat sa {0} at {1}!
+  wrongSingleFormat: Di naman yan order ko, sabi ko {0}!
+  wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: Bagal naman dito.
   interactCooldown: 1
   initialWaitTime: 120
@@ -278,7 +282,39 @@ MonoBehaviour:
   - {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
   - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
   - {fileID: 6559265573489160435, guid: b1b5d92c704601740b937c5c77df3b40, type: 3}
-  DeliveredDish: {fileID: 0}
+  prefabCombos:
+  - displayName: Adobong Puti
+    items:
+    - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Adobo sa Gata
+    items:
+    - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Sinigang sa Sampalok
+    items:
+    - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Sinigang sa Mangga
+    items:
+    - {fileID: 9169607984740651036, guid: 1d530a0e4f5522f4795584bffee03148, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Kinilaw sa Isda
+    items:
+    - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Kinilaw na may Gata
+    items:
+    - {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Lechon Cebu
+    items:
+    - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Lechon Manila
+    items:
+    - {fileID: 6559265573489160435, guid: b1b5d92c704601740b937c5c77df3b40, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
 --- !u!114 &9212604538420879108
 MonoBehaviour:
   m_ObjectHideFlags: 0

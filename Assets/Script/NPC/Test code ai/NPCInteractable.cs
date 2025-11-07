@@ -161,15 +161,6 @@ public class NPCInteractable : MonoBehaviour
             Debug.Log($"[NPC] Delivered dish: {npcOrder.DeliveredDish.name}");
 
             var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
-            if (dishRef == null)
-            {
-                Debug.LogError("[NPC] DeliveredDish is missing DishReference component!");
-            }
-            else
-            {
-                Debug.Log($"[NPC] Stars to add: {dishRef.starsEarned}");
-                LevelManager.Instance.AddStars(dishRef.starsEarned);
-            }
         }
         waitingForInteraction = false;
         TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.ServeDish);

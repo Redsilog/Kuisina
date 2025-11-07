@@ -20529,7 +20529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: Day1
   requiredStars: 10
-  levelTime: 121
+  levelTime: 5
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}
@@ -37772,7 +37772,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739452250}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5696c2d2d4fa8a341b4c12cbba117244, type: 3}
   m_Name: 

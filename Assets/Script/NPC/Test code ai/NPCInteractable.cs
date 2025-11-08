@@ -55,6 +55,7 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Canvas npcTimerCanvas;
     private bool inExtendedPhase = false;
     private bool isResting = false;
+    private bool isLeaving = false; // 🚫 NEW: prevents interaction during leave state
 
     private string selectedRequestLine;
     public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
@@ -95,6 +96,7 @@ public class NPCInteractable : MonoBehaviour
     public void StartWaitingForPlayer()
     {
         isResting = true;
+        isLeaving = false; // reset leave flag
         waitingForInteraction = true;
         inExtendedPhase = false;
         interactionTimer = initialWaitTime;
@@ -190,12 +192,14 @@ public class NPCInteractable : MonoBehaviour
     private IEnumerator ThankAndLeave()
     {
         yield return new WaitForSeconds(thankYouDelay);
+        isLeaving = true; // 🚫 Mark NPC as leaving — disable interaction
         npcMovement?.BeginThanking();
     }
 
     private void HandleTimeout()
     {
         ShowChat(timeoutLine);
+        isLeaving = true; // 🚫 Prevent interaction once NPC decides to leave
         npcMovement?.StartLeaving();
         RemoveTimerUI();
     }
@@ -277,7 +281,6 @@ public class NPCInteractable : MonoBehaviour
                 args[i] = (i < names.Count) ? names[i] : "";
 
             string baseText = string.Format(template, args);
-
             if (names.Count > args.Length)
             {
                 var extras = names.Skip(args.Length);

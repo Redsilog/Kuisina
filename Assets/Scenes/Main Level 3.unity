@@ -7828,7 +7828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284508295627307637, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6284508295627307637, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
       propertyPath: m_TagString
@@ -9959,63 +9959,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCSpawner1
   npcPrefabs:
-  - {fileID: 1918290237203441870, guid: dd90b0d01651d2b45854916860d64be6, type: 3}
-  - {fileID: 2111230945047006159, guid: 53b707f390f1d09419c78205e0af4614, type: 3}
-  - {fileID: 6912682432288383443, guid: d32e1b6abdc62804caad70f41488ea5c, type: 3}
-  - {fileID: 1926056749503639539, guid: c69d357bb9967fc4ab8f7d2ba1d315a6, type: 3}
-  - {fileID: 8236878944884220726, guid: 0dacfe53ccd324241aae92537e2f0bab, type: 3}
-  - {fileID: 538464148702343494, guid: dd36f5d7738135747a5af6e921507f3e, type: 3}
-  - {fileID: 469679333988774096, guid: 491b2c85ee10ef44d87e049a342ce1c1, type: 3}
-  - {fileID: 7927296470504479056, guid: 5da396ff2b79771449d5b38a7fb7cbe1, type: 3}
+  - {fileID: 7927296470504479056, guid: db6f8eaec4a285f49bea69e4bc36927b, type: 3}
+  - {fileID: 469679333988774096, guid: 2836b96e329d63c4d8660ea60367d3c1, type: 3}
+  - {fileID: 538464148702343494, guid: 937b370706750a546ada0c86b3b5f8ed, type: 3}
+  - {fileID: 1918290237203441870, guid: 3455d4d453470db48b8a176ae536069c, type: 3}
+  - {fileID: 2111230945047006159, guid: b4cbe9ebd01fb4e418ad44dea5b612b8, type: 3}
+  - {fileID: 6912682432288383443, guid: 0b847b20d0b5f5041a8086ac38e2d732, type: 3}
+  - {fileID: 1926056749503639539, guid: d716638b4a09f73448e8dfde0de4bfc8, type: 3}
+  - {fileID: 8236878944884220726, guid: e77c34790c5acb443ac9bf754032771e, type: 3}
   routeEntries:
   - route: {fileID: 55422359}
     spawnPoint: {fileID: 55422358}
     waitIndex: 2
-    spawnDelay: 40
+    spawnDelay: 30
   - route: {fileID: 1923008503}
     spawnPoint: {fileID: 1923008502}
     waitIndex: 2
-    spawnDelay: 30
+    spawnDelay: 60
   - route: {fileID: 733210087}
     spawnPoint: {fileID: 733210086}
     waitIndex: 2
-    spawnDelay: 20
+    spawnDelay: 0
   - route: {fileID: 22253045}
     spawnPoint: {fileID: 22253044}
     waitIndex: 2
     spawnDelay: 0
-  - route: {fileID: 733210087}
-    spawnPoint: {fileID: 733210086}
-    waitIndex: 2
-    spawnDelay: 65
-  - route: {fileID: 1119454219}
-    spawnPoint: {fileID: 1119454218}
-    waitIndex: 2
-    spawnDelay: 80
   - route: {fileID: 549488071}
     spawnPoint: {fileID: 549488070}
     waitIndex: 2
-    spawnDelay: 40
-  - route: {fileID: 1813867119}
-    spawnPoint: {fileID: 549488070}
+    spawnDelay: 0
+  - route: {fileID: 1119454219}
+    spawnPoint: {fileID: 1119454218}
     waitIndex: 2
-    spawnDelay: 45
+    spawnDelay: 50
+  - route: {fileID: 1148890192}
+    spawnPoint: {fileID: 1148890191}
+    waitIndex: 2
+    spawnDelay: 80
+  - route: {fileID: 1813867119}
+    spawnPoint: {fileID: 1813867118}
+    waitIndex: 2
+    spawnDelay: 100
   - route: {fileID: 1675183172}
     spawnPoint: {fileID: 1675183171}
     waitIndex: 2
     spawnDelay: 10
-  - route: {fileID: 549488071}
-    spawnPoint: {fileID: 549488070}
-    waitIndex: 2
-    spawnDelay: 40
-  - route: {fileID: 549488071}
-    spawnPoint: {fileID: 549488070}
-    waitIndex: 2
-    spawnDelay: 40
-  - route: {fileID: 549488071}
-    spawnPoint: {fileID: 549488070}
-    waitIndex: 2
-    spawnDelay: 40
   spawnOnStart: 1
   reshuffleEveryCycle: 1
   avoidConsecutivePrefabRepeat: 1

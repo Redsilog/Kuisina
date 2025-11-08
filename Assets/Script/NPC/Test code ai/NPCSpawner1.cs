@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;          
+using System.Linq;
 using UnityEngine;
 
 public class NPCSpawner1 : MonoBehaviour
@@ -37,7 +37,6 @@ public class NPCSpawner1 : MonoBehaviour
     private readonly Dictionary<WaypointSet, int> _activeCountByRoute = new();
     private readonly Dictionary<WaypointSet, GameObject> _lastPrefabPerRoute = new();
 
-    // NEW: only the very first cycle will prioritize the lowest delay first
     private bool _isFirstCycle = true;
 
     void Start()
@@ -45,6 +44,16 @@ public class NPCSpawner1 : MonoBehaviour
         BuildValidEntries();
         if (spawnOnStart && _validEntries.Count > 0)
         {
+            // 🔹 Spawn all 0-delay entries immediately
+            foreach (var entry in _validEntries)
+            {
+                if (entry.spawnDelay <= 0f && IsRouteClearForSpawning(entry.route))
+                {
+                    TrySpawn(entry);
+                }
+            }
+
+            // 🔹 Then continue the regular spawn cycle
             StartCoroutine(CycleLoop());
         }
     }
@@ -67,9 +76,9 @@ public class NPCSpawner1 : MonoBehaviour
     {
         if (_activeCountByRoute.ContainsKey(route))
         {
-            return _activeCountByRoute[route] == 0; // Route is clear if no active NPCs are present
+            return _activeCountByRoute[route] == 0;
         }
-        return true; // If route has no entries, consider it clear
+        return true;
     }
 
     private IEnumerator CycleLoop()
@@ -80,7 +89,7 @@ public class NPCSpawner1 : MonoBehaviour
         {
             if (reshuffleEveryCycle) FisherYatesShuffle(work);
 
-            // --- NEW: First cycle = force the lowest spawnDelay entry to index 0 ---
+            // 🔹 First cycle prioritizes lowest delay first
             if (_isFirstCycle && work.Count > 1)
             {
                 var fastest = work
@@ -90,32 +99,30 @@ public class NPCSpawner1 : MonoBehaviour
 
                 if (fastest != null)
                 {
-                    // Move fastest to front; keep the rest in their (shuffled) order
                     work.Remove(fastest);
                     work.Insert(0, fastest);
                 }
             }
 
-            // One spawn attempt per entry (keeps �all routes get an NPC� per cycle)
+            // 🔹 Spawn attempts per entry
             for (int i = 0; i < work.Count; i++)
             {
                 var entry = work[i];
                 if (entry == null) continue;
 
-                if (entry.spawnDelay > 0f)
-                    yield return new WaitForSeconds(entry.spawnDelay);
+                // Skip immediate spawns (already handled in Start)
+                if (entry.spawnDelay <= 0f)
+                    continue;
 
-                // Check if the route is clear for spawning a new NPC
+                yield return new WaitForSeconds(entry.spawnDelay);
+
                 if (!IsRouteClearForSpawning(entry.route))
-                {
-                    continue; // Skip spawning if route is not clear
-                }
+                    continue;
 
                 yield return StartCoroutine(WaitForFreeSlot(entry.route));
                 TrySpawn(entry);
             }
 
-            // after finishing the first full pass, disable the �first cycle� rule
             _isFirstCycle = false;
         }
     }
@@ -158,7 +165,6 @@ public class NPCSpawner1 : MonoBehaviour
         }
 
         var entry = _validEntries[0];
-
         TrySpawn(entry);
     }
 
@@ -189,7 +195,7 @@ public class NPCSpawner1 : MonoBehaviour
         if (!_activeCountByRoute.ContainsKey(route)) return;
         _activeCountByRoute[route] = Mathf.Max(0, _activeCountByRoute[route] - 1);
     }
-    
+
     private void FisherYatesShuffle<T>(IList<T> list)
     {
         for (int i = list.Count - 1; i > 0; i--)

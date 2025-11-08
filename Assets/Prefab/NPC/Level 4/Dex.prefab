@@ -758,7 +758,6 @@ GameObject:
   - component: {fileID: 8640886086461673830}
   - component: {fileID: 8153805941879948859}
   - component: {fileID: 3708950258913308442}
-  - component: {fileID: 7697540194351131832}
   m_Layer: 0
   m_Name: Dex
   m_TagString: Untagged
@@ -1161,24 +1160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
   thankYouDelay: 5
   HasReachedWaitIndex: 0
---- !u!114 &7697540194351131832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7927296470504479056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  prefabCombos: []
 --- !u!1 &8235922866452085474
 GameObject:
   m_ObjectHideFlags: 0

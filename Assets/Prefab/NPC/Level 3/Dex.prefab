@@ -758,7 +758,6 @@ GameObject:
   - component: {fileID: 8640886086461673830}
   - component: {fileID: 8153805941879948859}
   - component: {fileID: 3708950258913308442}
-  - component: {fileID: 7697540194351131832}
   m_Layer: 0
   m_Name: Dex
   m_TagString: Untagged
@@ -944,12 +943,185 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5aaae571475bcd428016c2e8ef4568a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
-  npcOrder: {fileID: 7697540194351131832}
+  npcOrder: {fileID: 0}
   npcMovement: {fileID: 3708950258913308442}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 7265774285918251043}
   autoClearAfter: 5
-  customDialogues: []
+  customDialogues:
+  - dishName: Adobong Puti
+    requestLines:
+    - "Pahingi nga ng adobo na simple lang, \u2018yung walang toyo ha. Tsaka isang
+      kanin nga po."
+    - "Gusto ko \u2018yung adobo na maputi, maasim pero malinis ang lasa at pa-rice
+      nga isa lang."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Adobong sa Gata
+    requestLines:
+    - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
+      kanin!
+    - "Gusto ko \u2018yung adobo na creamy at maanghang, may lasa ng niyog. Isang
+      rice na rin po."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Sinigang sa Sampalok
+    requestLines:
+    - Yung sinigang na asim na asim, yung classic lang at pa-rice nga isa lang.
+    - "Pa-sinigang nga \u2018yung parang galing pa sa bakuran na sampalok. Tapos
+      isang platong mainit na kanin!"
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Sinigang sa Mangga
+    requestLines:
+    - "Gusto ko \u2018yung sinigang na asim-fruity, parang hilaw na mangga tapos
+      isang kanin nga po."
+    - "\u2018Yung sinigang na kakaiba, may lasa ng hilaw na prutas. Pahingi rin pong
+      kanin."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Panciit Cantont
+    requestLines:
+    - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
+    - Pancit na may toyo at gulay, parang pang hapunan.
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Panciit Malabon
+    requestLines:
+    - "Pancit nga \u2018yung may seafood at kulay kahel na sauce"
+    - "Gusto ko \u2018yung pancit na amoy dagat, may hipon at sabaw ng pusit."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Kinilaw sa Isda
+    requestLines:
+    - Pahingi nga ng kinilaw na malamig pa, parang bagong huli. Pahingi rin pong
+      kanin.
+    - "Gusto ko \u2018yung kinilaw na maasim at presko, walang luto-luto at pa-rice
+      nga isa lang."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Kinilaw na may Gata
+    requestLines:
+    - "\u2018Yung kinilaw na creamy, hindi masyadong maasim ha, tapos isa ngang kanin."
+    - "Pa-kinilaw nga \u2018yung may gata, parang galing Mindanao. Pahingi rin pong
+      kanin."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Lechon Cebu
+    requestLines:
+    - "Pa-lechon nga \u2018yung walang sauce pero lasang-lasa pa rin. Tapos isang
+      cup ng rice.\r\n"
+    - "Gusto ko \u2018yung lechon na ma-herbs sa loob, parang Cebu style. Pahingi
+      rin pong kanin."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+  - dishName: Lechon Manila
+    requestLines:
+    - "\u2018Yung lechon na may liver sauce sa gilid, \u2018yun gusto ko. Tapos isang
+      kanin na muna."
+    - "Pa-lechon nga \u2018yung may sawsawang kulay brown. Tapos isang cup ng rice."
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
@@ -958,8 +1130,8 @@ MonoBehaviour:
   wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: "I\u2019ll come back later."
   interactCooldown: 1
-  initialWaitTime: 120
-  extendedWaitTime: 120
+  initialWaitTime: 70
+  extendedWaitTime: 70
   thankYouDelay: 5
   timerUIPrefab: {fileID: 7473964165292485588, guid: 0341027f979279445920342dfb2b5ed4, type: 3}
   npcTimerCanvas: {fileID: 0}
@@ -977,24 +1149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
   thankYouDelay: 5
   HasReachedWaitIndex: 0
---- !u!114 &7697540194351131832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7927296470504479056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  prefabCombos: []
 --- !u!1 &8235922866452085474
 GameObject:
   m_ObjectHideFlags: 0

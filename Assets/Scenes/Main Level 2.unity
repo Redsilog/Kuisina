@@ -10099,7 +10099,7 @@ MonoBehaviour:
   - route: {fileID: 55422359}
     spawnPoint: {fileID: 55422358}
     waitIndex: 2
-    spawnDelay: 40
+    spawnDelay: 1
   - route: {fileID: 1923008503}
     spawnPoint: {fileID: 1923008502}
     waitIndex: 2
@@ -10127,7 +10127,7 @@ MonoBehaviour:
   spawnOnStart: 1
   reshuffleEveryCycle: 1
   avoidConsecutivePrefabRepeat: 1
-  maxConcurrencyPerRoute: 3
+  maxConcurrencyPerRoute: 8
 --- !u!1 &458743629
 GameObject:
   m_ObjectHideFlags: 0
@@ -20260,7 +20260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af328be82c0d03842ab44c325dd16547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  levelID: Day2
+  levelID: Day1
   requiredStars: 25
   levelTime: 245
   totalStars: 0

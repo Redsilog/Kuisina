@@ -20747,8 +20747,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af328be82c0d03842ab44c325dd16547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  levelID: Day5
-  requiredStars: 60
+  levelID: 'Day1 '
+  requiredStars: 55
   levelTime: 503
   totalStars: 0
   timerText: {fileID: 1384234487}

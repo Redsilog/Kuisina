@@ -20619,8 +20619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af328be82c0d03842ab44c325dd16547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  levelID: Day4
-  requiredStars: 50
+  levelID: Day1
+  requiredStars: 45
   levelTime: 444
   totalStars: 0
   timerText: {fileID: 1384234487}
@@ -29345,7 +29345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 254273713914403173, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 254273713914403173, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
       propertyPath: m_TagString

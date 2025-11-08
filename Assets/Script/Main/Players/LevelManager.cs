@@ -49,8 +49,17 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        totalStars = 0;
-        UpdateStarCounterUI();
+        // Only reset if there’s no existing save for this level
+        string key = $"{levelID}_TotalStars";
+
+        if (!PlayerPrefs.HasKey(key))
+        {
+            PlayerPrefs.SetInt(key, 0);
+            PlayerPrefs.Save();
+            Debug.Log($"[LevelManager] Initialized {key} = 0 (new session)");
+        }
+
+        // Load saved stars (0 if just created)
         LoadStars();
         UpdateStarCounterUI();
         StartLevel();
@@ -62,6 +71,7 @@ public class LevelManager : MonoBehaviour
         if (retryButton != null) retryButton.onClick.AddListener(RestartLevel);
         if (nextButton != null) nextButton.onClick.AddListener(GoToNextLevel);
     }
+
     void Update()
     {
         if (overrideStars)
@@ -201,22 +211,26 @@ public class LevelManager : MonoBehaviour
 
     private void GoToNextLevel()
     {
-        string currentLevel = SceneManager.GetActiveScene().name;
-        string nextLevel = "";
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextIndex = currentIndex + 1;
 
-        if (currentLevel == "Main Level 1") nextLevel = "Main Level 2";
-        else if (currentLevel == "Main Level 2") nextLevel = "Main Level 3";
+        // Check if next index exists within the build settings
+        if (nextIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            string nextSceneName = System.IO.Path.GetFileNameWithoutExtension(
+                SceneUtility.GetScenePathByBuildIndex(nextIndex)
+            );
+
+            PlayerPrefs.SetString("LastLevel", nextSceneName);
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene(nextIndex);
+        }
         else
         {
             Debug.Log("No further levels found — returning to main menu.");
             SceneManager.LoadScene("Main Menu");
-            return;
         }
-
-        PlayerPrefs.SetString("LastLevel", nextLevel);
-        PlayerPrefs.Save();
-
-        SceneManager.LoadScene(nextLevel);
     }
 
     // Save and Load

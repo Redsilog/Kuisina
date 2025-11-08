@@ -179,7 +179,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.DeleteKey("PlayerCount");
         PlayerPrefs.Save();
 
-        Debug.Log("🎮 No previous save — starting a new game fresh.");
+        Debug.Log(" No previous save — starting a new game fresh.");
         playerSelectPage.SetActive(true);
         mainMenu.SetActive(false);
         UpdateContinueButtonState();

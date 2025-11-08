@@ -370,7 +370,7 @@ MonoBehaviour:
   npcMovement: {fileID: 7490449047604490425}
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 4665269520933724169}
-  autoClearAfter: 2
+  autoClearAfter: 5
   customDialogues: []
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?

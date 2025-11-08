@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class TutorialScreen : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TutorialScreen : MonoBehaviour
     [SerializeField] private Sprite[] tutorialPages;            // Tutorial pages as sprites
     [SerializeField] private Button nextButton;                 // Next page button
     [SerializeField] private Button prevButton;                 // Previous page button
+    [SerializeField] GameObject timer, starCount;
 
     [Header("Audio Setup")]
     [SerializeField] private AudioClip pageTurnSound;
@@ -24,6 +26,7 @@ public class TutorialScreen : MonoBehaviour
 
     private int currentPage = 0;
     private bool isTutorialOpen = false;
+    public GameObject start;
 
     private void Start()
     {
@@ -60,11 +63,18 @@ public class TutorialScreen : MonoBehaviour
 
         if (isTutorialOpen)
         {
+            timer.gameObject.SetActive(false);
+            starCount.gameObject.SetActive(false);
             if (Keyboard.current[nextKey].wasPressedThisFrame)
                 NextPage();
 
             if (Keyboard.current[prevKey].wasPressedThisFrame)
                 PreviousPage();
+            if (currentPage == tutorialPages.Length - 1)
+            {
+                start.SetActive(true);
+            }
+
         }
     }
 
@@ -80,6 +90,8 @@ public class TutorialScreen : MonoBehaviour
         tutorialScreenLevel1.SetActive(false);
         playLevel1.gameObject.SetActive(true);
         isTutorialOpen = false;
+        timer.gameObject.SetActive(true);
+        starCount.gameObject.SetActive(true);
     }
 
     public void NextPage()

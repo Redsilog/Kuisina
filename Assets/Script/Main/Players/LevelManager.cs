@@ -49,18 +49,15 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        // Only reset if there’s no existing save for this level
         string key = $"{levelID}_TotalStars";
 
-        if (!PlayerPrefs.HasKey(key))
-        {
-            PlayerPrefs.SetInt(key, 0);
-            PlayerPrefs.Save();
-            Debug.Log($"[LevelManager] Initialized {key} = 0 (new session)");
-        }
+        // Always reset stars at the start
+        totalStars = 0;
+        PlayerPrefs.SetInt(key, totalStars);
+        PlayerPrefs.Save();
+        Debug.Log($"[LevelManager] Reset {key} = 0");
 
-        // Load saved stars (0 if just created)
-        LoadStars();
+        // Update UI
         UpdateStarCounterUI();
         StartLevel();
 
@@ -71,6 +68,7 @@ public class LevelManager : MonoBehaviour
         if (retryButton != null) retryButton.onClick.AddListener(RestartLevel);
         if (nextButton != null) nextButton.onClick.AddListener(GoToNextLevel);
     }
+
 
     void Update()
     {
@@ -243,7 +241,9 @@ public class LevelManager : MonoBehaviour
     public void LoadStars()
     {
         totalStars = PlayerPrefs.GetInt($"{levelID}_TotalStars", 0);
+        UpdateStarCounterUI();
     }
+
 
     public void ResetStars()
     {

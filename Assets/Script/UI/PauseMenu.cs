@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] public GameObject pauseMenu;
     [SerializeField] public GameObject optionsMenu;
     [SerializeField] public GameObject helpMenu;
+    [SerializeField] GameObject starCounter, timer;
 
     private bool isPaused = false;
 
@@ -18,6 +19,8 @@ public class PauseMenu : MonoBehaviour
             {
                 optionsMenu.SetActive(false);
                 pauseMenu.SetActive(true);
+                starCounter.SetActive(false);
+                timer.SetActive(false);
             }
             else if (isPaused)
             {
@@ -48,6 +51,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         optionsMenu.SetActive(false);
         helpMenu.SetActive(false);
+        starCounter.SetActive(true);
+        timer.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
         

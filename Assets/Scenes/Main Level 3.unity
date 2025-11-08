@@ -38062,6 +38062,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 1545075830}
   optionsMenu: {fileID: 1618272282}
   helpMenu: {fileID: 258162988}
+  firstPauseButton: {fileID: 0}
 --- !u!1001 &1755319029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46809,50 +46810,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
   m_PrefabInstance: {fileID: 2093000846}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2093271523
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2093271524}
-  - component: {fileID: 2093271525}
-  m_Layer: 0
-  m_Name: TemporaryReset
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2093271524
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093271523}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.44099, y: -0.2656, z: 11.21899}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2093271525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093271523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97eea48c2b047694fb190981715b63b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneReloader
 --- !u!1001 &2094469347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51736,7 +51693,6 @@ SceneRoots:
   - {fileID: 1740870605}
   - {fileID: 476911754}
   - {fileID: 1923281007}
-  - {fileID: 2093271524}
   - {fileID: 1984122165}
   - {fileID: 680694887}
   - {fileID: 154452186}

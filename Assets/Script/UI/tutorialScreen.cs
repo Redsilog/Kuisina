@@ -74,6 +74,10 @@ public class TutorialScreen : MonoBehaviour
             {
                 start.SetActive(true);
             }
+            else
+            {
+                start.SetActive(false);
+            }
 
         }
     }

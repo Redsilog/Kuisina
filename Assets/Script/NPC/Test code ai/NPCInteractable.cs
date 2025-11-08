@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
-using System.Linq;
 
 [RequireComponent(typeof(Collider))]
 public class NPCInteractable : MonoBehaviour
@@ -17,12 +17,10 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Transform chatBubbleSpawnPoint;
     [SerializeField] private float autoClearAfter = 2f;
 
-    // 🧩 Per-dish dialogue sets (each can have multiple random lines)
     [System.Serializable]
     public class NPCDialogueSet
     {
         public string dishName;
-
         [Header("Random Lines")]
         [TextArea] public List<string> requestLines = new List<string>();
         [TextArea] public List<string> wrongLines = new List<string>();
@@ -32,7 +30,7 @@ public class NPCInteractable : MonoBehaviour
     [Header("Per-Dish Custom Dialogues")]
     [SerializeField] private List<NPCDialogueSet> customDialogues = new List<NPCDialogueSet>();
 
-    [Header("Fallback Texts (if no custom lines found)")]
+    [Header("Fallback Texts")]
     [SerializeField] private string requestSingleFormat = "Pwede isang order ng {0}?";
     [SerializeField] private string requestComboFormat = "Pwede isang order ng {0} at {1}?";
     [SerializeField] private string thankSingleFormat = "Salamat!";
@@ -52,17 +50,13 @@ public class NPCInteractable : MonoBehaviour
     private bool waitingForInteraction;
     private float nextAllowedTime;
     private float interactionTimer;
-
     [SerializeField] private GameObject timerUIPrefab;
     private NPCTimerUI activeTimerUI;
     [SerializeField] private Canvas npcTimerCanvas;
-
     private bool inExtendedPhase = false;
     private bool isResting = false;
 
-    // New variable to store the selected request line
     private string selectedRequestLine;
-
     public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
 
     void Awake()
@@ -98,7 +92,6 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // Called when NPC sits and starts waiting
     public void StartWaitingForPlayer()
     {
         isResting = true;
@@ -111,16 +104,13 @@ public class NPCInteractable : MonoBehaviour
             ShowChat(BuildRequestLine());
     }
 
-    // Called when NPC stands/moves away
     public void StartMoving()
     {
         isResting = false;
     }
 
-    // Called when player interacts (E button)
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.InteractCustomer);
         if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting)
             return;
 
@@ -134,86 +124,52 @@ public class NPCInteractable : MonoBehaviour
 
         if (!acted)
         {
-            // If the player gives the wrong prefab
             if (npcOrder && npcOrder.HasActiveOrder)
             {
-                if (IsWrongPrefab(playerInventory)) // Check if the prefab is wrong
-                {
-                    // Show the wrong order line when the order is incorrect
-                    ShowChat(BuildWrongLine());  // Wrong order line shown here
-                }
+                if (IsWrongPrefab(playerInventory))
+                    ShowChat(BuildWrongLine());
                 else
-                {
-                    // If no active order or the player is holding the correct prefab, repeat the request line
-                    ShowChat(selectedRequestLine); // Repeat the previously selected request line
-                }
+                    ShowChat(selectedRequestLine);
             }
             return;
         }
 
         if (npcOrder.HasActiveOrder)
         {
-            // Keep the dialogue going when there's an active order
             waitingForInteraction = true;
             inExtendedPhase = true;
-            interactionTimer = extendedWaitTime;
+            //interactionTimer = extendedWaitTime;
 
-            // On first interaction, randomize and store the request line
             if (string.IsNullOrEmpty(selectedRequestLine))
-            {
-                selectedRequestLine = BuildRequestLine(); // Randomize and store the line
-            }
-            ShowChat(selectedRequestLine); // Repeat the stored request line
+                selectedRequestLine = BuildRequestLine();
+
+            ShowChat(selectedRequestLine);
             npcMovement?.BeginOrdering();
         }
     }
 
-    // This method checks if the player is holding the wrong prefab
     private bool IsWrongPrefab(PlayerInventory playerInventory)
     {
-        // Ensure the player is holding an item
-        if (playerInventory.heldVisual == null)
-        {
-            return false; // If nothing is being held, return false (no wrong prefab)
-        }
+        if (playerInventory.heldVisual == null) return false;
 
-        // Check if the held item matches the NPC's current request (single item or combo)
         string heldItemName = CleanName(playerInventory.heldVisual.name);
 
-        // Compare against requested items (singles or combos)
         if (npcOrder != null && npcOrder.requestedItems.Count > 0)
         {
-            // For single requested items
             foreach (var requestedItem in npcOrder.requestedItems)
-            {
                 if (heldItemName.Equals(CleanName(requestedItem.name), StringComparison.OrdinalIgnoreCase))
-                {
-                    return false; // Correct item is being held
-                }
-            }
+                    return false;
 
-            // For combos
             foreach (var combo in npcOrder.prefabCombos)
-            {
                 foreach (var comboItem in combo.items)
-                {
                     if (heldItemName.Equals(CleanName(comboItem.name), StringComparison.OrdinalIgnoreCase))
-                    {
-                        return false; // Correct item is part of the combo
-                    }
-                }
-            }
+                        return false;
         }
 
-        // If no match is found, return true (wrong prefab)
         return true;
     }
 
-    private string CleanName(string name)
-    {
-        if (string.IsNullOrEmpty(name)) return "";
-        return name.Replace("(Clone)", "").Trim();
-    }
+    private string CleanName(string name) => string.IsNullOrEmpty(name) ? "" : name.Replace("(Clone)", "").Trim();
 
     private void HandleOrderFulfilled()
     {
@@ -225,9 +181,7 @@ public class NPCInteractable : MonoBehaviour
         }
 
         waitingForInteraction = false;
-        TutorialManager.NotifyTrigger(TutorialManager.TutorialTriggerType.ServeDish);
         ShowChat(BuildThankLine());
-
         npcOrder.DeliveredDish = null;
         StartCoroutine(ThankAndLeave());
         RemoveTimerUI();
@@ -246,10 +200,7 @@ public class NPCInteractable : MonoBehaviour
         RemoveTimerUI();
     }
 
-    private bool IsPlayerTag(Collider other)
-    {
-        return other.CompareTag("Player") || other.CompareTag("Player2");
-    }
+    private bool IsPlayerTag(Collider other) => other.CompareTag("Player") || other.CompareTag("Player2");
 
     private void OnTriggerEnter(Collider other)
     {
@@ -269,73 +220,54 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // ---------- Dialogue Builders ----------
-
+    // ---------------- Dialogue Builders ----------------
     private string BuildRequestLine()
     {
         var custom = GetDialogueSet();
-
-        // Randomly select a request line on the first interaction
-        if (custom != null && custom.requestLines != null && custom.requestLines.Count > 0)
+        if (custom != null && custom.requestLines?.Count > 0)
             return custom.requestLines[UnityEngine.Random.Range(0, custom.requestLines.Count)];
 
         var names = SplitNames(npcOrder?.CurrentRequestName);
-        if (names.Count <= 1)
-            return string.Format(requestSingleFormat, names.Count > 0 ? names[0] : "");
-        else
-            return FormatMulti(requestComboFormat, names);
+        return names.Count <= 1 ? string.Format(requestSingleFormat, names.Count > 0 ? names[0] : "")
+                                 : FormatMulti(requestComboFormat, names);
     }
 
     private string BuildWrongLine()
     {
         var custom = GetDialogueSet();
-
-        // If custom wrong lines are available, pick one randomly
-        if (custom != null && custom.wrongLines != null && custom.wrongLines.Count > 0)
+        if (custom != null && custom.wrongLines?.Count > 0)
             return custom.wrongLines[UnityEngine.Random.Range(0, custom.wrongLines.Count)];
 
         var names = SplitNames(npcOrder?.CurrentRequestName);
-        if (names.Count <= 1)
-            return string.Format(wrongSingleFormat, names.Count > 0 ? names[0] : "");
-        else
-            return FormatMulti(wrongComboFormat, names);
+        return names.Count <= 1 ? string.Format(wrongSingleFormat, names.Count > 0 ? names[0] : "")
+                                 : FormatMulti(wrongComboFormat, names);
     }
+
     private string BuildThankLine()
     {
         var custom = GetDialogueSet();
-
-        if (custom != null && custom.thankLines != null && custom.thankLines.Count > 0)
+        if (custom != null && custom.thankLines?.Count > 0)
             return custom.thankLines[UnityEngine.Random.Range(0, custom.thankLines.Count)];
 
         var names = SplitNames(npcOrder?.CurrentRequestName);
-        if (names.Count <= 1)
-            return thankSingleFormat;
-        else
-            return FormatMulti(thankComboFormat, names);
+        return names.Count <= 1 ? thankSingleFormat : FormatMulti(thankComboFormat, names);
     }
 
     private NPCDialogueSet GetDialogueSet()
     {
-        if (npcOrder == null || string.IsNullOrWhiteSpace(npcOrder.CurrentRequestName))
-            return null;
-
-        // Match any dish text found in CurrentRequestName
-        return customDialogues.FirstOrDefault(d =>
-            npcOrder.CurrentRequestName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
+        if (npcOrder == null || string.IsNullOrWhiteSpace(npcOrder.CurrentRequestName)) return null;
+        return customDialogues.FirstOrDefault(d => npcOrder.CurrentRequestName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
     }
 
     private static List<string> SplitNames(string joined)
     {
         if (string.IsNullOrWhiteSpace(joined)) return new List<string>();
-        return joined.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
-                     .Select(s => s.Trim())
-                     .ToList();
+        return joined.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
     }
 
     private static string FormatMulti(string template, List<string> names)
     {
-        if (string.IsNullOrWhiteSpace(template))
-            return string.Join(" + ", names);
+        if (string.IsNullOrWhiteSpace(template)) return string.Join(" + ", names);
 
         int maxIndex = MaxPlaceholderIndex(template);
         if (maxIndex >= 0)
@@ -351,6 +283,7 @@ public class NPCInteractable : MonoBehaviour
                 var extras = names.Skip(args.Length);
                 baseText += " " + string.Join(" + ", extras.Select(n => $"+ {n}"));
             }
+
             return baseText;
         }
 
@@ -365,8 +298,7 @@ public class NPCInteractable : MonoBehaviour
         {
             if (template[i] == '{')
             {
-                int j = i + 1;
-                int val = 0;
+                int j = i + 1, val = 0;
                 bool any = false;
                 while (j < template.Length && char.IsDigit(template[j]))
                 {
@@ -381,8 +313,7 @@ public class NPCInteractable : MonoBehaviour
         return max;
     }
 
-    // ---------- Timer UI ----------
-
+    // ---------------- Timer UI ----------------
     public float GetRemainingTime() => interactionTimer;
     public float GetMaxTime() => inExtendedPhase ? extendedWaitTime : initialWaitTime;
 

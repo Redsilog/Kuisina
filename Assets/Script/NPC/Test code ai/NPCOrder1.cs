@@ -6,10 +6,10 @@ using UnityEngine;
 /// <summary>
 /// Handles which items an NPC requests and tracks whether they have been fulfilled.
 /// Supports:
-///  - Single items (requestedItems)
-///  - Inspector-authored prefab combos (prefabCombos)
-///  - Forcing a combo by index or name
-///  - Randomizing from singles or combos
+/// - Single items (requestedItems)
+/// - Inspector-authored prefab combos (prefabCombos)
+/// - Forcing a combo by index or name
+/// - Randomizing from singles or combos
 /// </summary>
 public class NPCOrder1 : MonoBehaviour
 {
@@ -47,9 +47,8 @@ public class NPCOrder1 : MonoBehaviour
     public int CurrentRequestIndex => 0;
 
     // =============================
-    //  RANDOM ORDER
+    // RANDOM ORDER
     // =============================
-
     public void RandomizeOrder()
     {
         _pendingOrderNames.Clear();
@@ -65,9 +64,8 @@ public class NPCOrder1 : MonoBehaviour
             return;
         }
 
-        // 50/50 between combos and singles if both exist, else pick whichever exists
+        // 50/50 between combos and singles if both exist
         bool pickCombo = hasCombos && (!hasSingles || UnityEngine.Random.value < 0.5f);
-
         if (pickCombo)
         {
             var combo = prefabCombos[UnityEngine.Random.Range(0, prefabCombos.Count)];
@@ -83,7 +81,7 @@ public class NPCOrder1 : MonoBehaviour
     }
 
     // =============================
-    //  SPECIFIC ORDER (by string)
+    // SPECIFIC ORDER (by string)
     // =============================
     /// <summary>
     /// Force a specific order by name or combo, e.g. "Burger" or "Burger+Fries+Soda".
@@ -122,7 +120,7 @@ public class NPCOrder1 : MonoBehaviour
     }
 
     // =============================
-    //  SPECIFIC ORDER (by prefab combo index / name)
+    // SPECIFIC ORDER (by prefab combo index / name)
     // =============================
     public void SetOrderByComboIndex(int index)
     {
@@ -166,7 +164,7 @@ public class NPCOrder1 : MonoBehaviour
     }
 
     // =============================
-    //  INTERACTION / DELIVERY
+    // INTERACTION / DELIVERY
     // =============================
     /// <summary>
     /// Called by NPCInteractable when the player interacts.
@@ -175,15 +173,14 @@ public class NPCOrder1 : MonoBehaviour
     /// </summary>
     public bool StartOrTryFulfill(PlayerInventory player)
     {
-        // No order yet? Set one up (keeps original behavior).
+        // No order yet? Set one up
         if (!HasActiveOrder)
         {
             RandomizeOrder();
             return true; // NPC will show the request line
         }
 
-        if (player == null || player.heldVisual == null)
-            return false;
+        if (player == null || player.heldVisual == null) return false;
 
         string heldName = CleanName(player.heldVisual.name);
 
@@ -191,11 +188,10 @@ public class NPCOrder1 : MonoBehaviour
         int idx = _pendingOrderNames.FindIndex(n => n.Equals(heldName, StringComparison.OrdinalIgnoreCase));
         if (idx >= 0)
         {
-            //  correct item delivered
+            // Correct item delivered
             _pendingOrderNames.RemoveAt(idx);
-
-            DeliveredDish = player.heldVisual;     // hand reference so NPCInteractable can award stars
-            player.ClearHeldItemDirect();          // consume the player's held item
+            DeliveredDish = player.heldVisual; // hand reference so NPCInteractable can award stars
+            player.ClearHeldItemDirect();      // consume the player's held item
 
             if (_pendingOrderNames.Count == 0)
             {
@@ -207,22 +203,20 @@ public class NPCOrder1 : MonoBehaviour
             {
                 Debug.Log($"[NPCOrder1] Accepted '{heldName}'. Still needs: {CurrentRequestName}");
             }
-
             return true;
         }
 
-        //  wrong item
+        // Wrong item
         return false;
     }
 
     // =============================
-    //  HELPERS
+    // HELPERS
     // =============================
     private void ApplyCombo(OrderCombo combo)
     {
         _pendingOrderNames.Clear();
         if (combo == null || combo.items == null) return;
-
         foreach (var go in combo.items)
         {
             if (go == null) continue;
@@ -235,21 +229,12 @@ public class NPCOrder1 : MonoBehaviour
 
     private bool IsNameInAnyMenu(string cleanName)
     {
-        bool inSingles = requestedItems != null &&
-                         requestedItems.Any(go => go && CleanName(go.name).Equals(cleanName, StringComparison.OrdinalIgnoreCase));
-
-        bool inCombos = prefabCombos != null &&
-                        prefabCombos.Any(c => c != null && c.items != null &&
-                            c.items.Any(go => go && CleanName(go.name).Equals(cleanName, StringComparison.OrdinalIgnoreCase)));
-
+        bool inSingles = requestedItems != null && requestedItems.Any(go => go && CleanName(go.name).Equals(cleanName, StringComparison.OrdinalIgnoreCase));
+        bool inCombos = prefabCombos != null && prefabCombos.Any(c => c != null && c.items != null && c.items.Any(go => go && CleanName(go.name).Equals(cleanName, StringComparison.OrdinalIgnoreCase)));
         return inSingles || inCombos;
     }
 
-    private static string CleanName(string n)
-    {
-        if (string.IsNullOrEmpty(n)) return "";
-        return n.Replace("(Clone)", "").Trim();
-    }
+    private static string CleanName(string n) => string.IsNullOrEmpty(n) ? "" : n.Replace("(Clone)", "").Trim();
 }
 
 [Serializable]

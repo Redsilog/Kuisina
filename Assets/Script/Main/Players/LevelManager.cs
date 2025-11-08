@@ -213,17 +213,17 @@ public class LevelManager : MonoBehaviour
     }
 
     // Button actions
-    private void ReturnToMenu()
+    public void ReturnToMenu()
     {
         SceneManager.LoadScene("Main Menu");
     }
 
-    private void RestartLevel()
+    public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void GoToNextLevel()
+    public void GoToNextLevel()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         int nextIndex = currentIndex + 1;

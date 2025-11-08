@@ -40,7 +40,7 @@ public class music : MonoBehaviour
         }
         else
         {
-            string[] levelScenes = { "Intestine", "Main Level 1", "Lungs", "Brain", "Heart" };
+            string[] levelScenes = {"Main Level 1", "Main Level 2", "Main Level 3", "Main Level 4", "Main Level 5" };
 
             if (System.Array.Exists(levelScenes, level => level == scene.name))
             {
@@ -64,16 +64,16 @@ public class music : MonoBehaviour
             case "Main Level 1":
                 audioSource.clip = level1Music;
                 break;
-            case "Liver":
+            case "Main Level 2":
                 audioSource.clip = level2Music;
                 break;
-            case "Lungs":
+            case "Main Level 3":
                 audioSource.clip = level3Music;
                 break;
-            case "Brain":
+            case "Main Level 4":
                 audioSource.clip = level4Music;
                 break;
-            case "Heart":
+            case "Main Level 5":
                 audioSource.clip = level5Music;
                 break;
             default:

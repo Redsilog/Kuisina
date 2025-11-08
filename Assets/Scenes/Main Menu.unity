@@ -8535,10 +8535,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   menuMusic: {fileID: 8300000, guid: 7d8ecb852426d8548a35bad40d06cfee, type: 3}
   level1Music: {fileID: 8300000, guid: f21ea205401c48348957ae898de0fd32, type: 3}
-  level2Music: {fileID: 0}
-  level3Music: {fileID: 0}
-  level4Music: {fileID: 0}
-  level5Music: {fileID: 0}
+  level2Music: {fileID: 8300000, guid: b352630bec8283f4aaba2c38e89afb1a, type: 3}
+  level3Music: {fileID: 8300000, guid: 8dcc31bb7a25bdc4d801fddeb07e0231, type: 3}
+  level4Music: {fileID: 8300000, guid: 3aaa7d8c9d2fb434fb6070ec491cc029, type: 3}
+  level5Music: {fileID: 8300000, guid: 6fdbbdb1de757e24f83797b61ec332f6, type: 3}
 --- !u!1 &2107820120
 GameObject:
   m_ObjectHideFlags: 0

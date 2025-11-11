@@ -13,7 +13,6 @@ public class Recipe
 
 public class Stove : MonoBehaviour
 {
-    private float burnTimerElapsed;
 
     [Header("Cooking Settings")]
     public List<Recipe> recipes = new List<Recipe>();
@@ -23,7 +22,8 @@ public class Stove : MonoBehaviour
 
     [Header("Cooking Duration")]
     public float cookTime = 5f;
-
+    public float ingredientCookTime = 5f;
+    private float ingredientCookElapsed;
     private float cookTimerElapsed;
     public bool IsCooking => isCooking;
 
@@ -77,6 +77,7 @@ public class Stove : MonoBehaviour
     private Coroutine burnTimerRoutine;
     private bool isBurned = false;
     private bool isSmokePermanent = false;
+    private float burnTimerElapsed;
 
     public System.Action<List<string>> OnIngredientsChanged;
 
@@ -387,6 +388,19 @@ public class Stove : MonoBehaviour
     private IEnumerator BurnTimer()
     {
         burnTimerElapsed = 0f;
+        Debug.Log("⏱ Ingredient cooking timer started...");
+
+        while (ingredientCookElapsed  < ingredientCookTime)
+        {
+            ingredientCookElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Cooking complete
+        Debug.Log("✅ Ingredient finished cooking! Starting burn countdown...");
+        SoundFXManager.instance.PlaySoundFXClip(finishedCookingClip, transform, finishedVolume);
+
+        burnTimerElapsed = 0f;
 
         while (burnTimerElapsed < burnTime)
         {
@@ -394,12 +408,12 @@ public class Stove : MonoBehaviour
             yield return null;
         }
 
-        burnTimerElapsed = burnTime; 
+        burnTimerElapsed = burnTime;
 
         if (!isBurned)
         {
             BurnIngredients();
-            Debug.Log("🔥 Stove burned due to timer!");
+            Debug.Log("🔥 Ingredient burned after being cooked too long!");
         }
     }
     private void BurnIngredients()
@@ -410,7 +424,7 @@ public class Stove : MonoBehaviour
 
         if (activeSmoke != null)
         {
-            StartCoroutine(CrossfadeToBlackSmoke(2f)); // 2s transition
+            StartCoroutine(CrossfadeToBlackSmoke(2f));
         }
 
         Debug.Log("Ingredients burned! Must be cleared with trash bag.");
@@ -465,14 +479,20 @@ public class Stove : MonoBehaviour
     {
         if (burnTimerRoutine != null)
             StopCoroutine(burnTimerRoutine);
+            
+        ingredientCookElapsed = 0f;
+        burnTimerElapsed = 0f;
 
         burnTimerRoutine = StartCoroutine(BurnTimer());
+    }
+    public float GetIngredientCookProgress()
+    {
+        return Mathf.Clamp01(ingredientCookElapsed / ingredientCookTime);
     }
     public float GetBurnProgress()
     {
         if (burnTime <= 0f) return 0f;
 
-        // burnTimerElapsed is how long the stove has been burning
         return Mathf.Clamp01(burnTimerElapsed / burnTime);
     }
 }

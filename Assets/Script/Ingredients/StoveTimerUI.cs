@@ -9,22 +9,13 @@ public class StoveTimerUI : MonoBehaviour
     public Slider timerSlider;
     public TMP_Text timerText;
 
-    private float burnTime;
     private Image fillImage;
 
     void Start()
     {
-        if (targetStove != null)
-        {
-            burnTime = targetStove.burnTime;
-            if (timerText != null) timerText.text = "";
-        }
-
-        // Cache the image from the fill area
         if (timerSlider != null && timerSlider.fillRect != null)
             fillImage = timerSlider.fillRect.GetComponent<Image>();
 
-        // Make sure slider doesn’t mess with our image
         if (timerSlider != null)
             timerSlider.value = 1f;
 
@@ -41,37 +32,65 @@ public class StoveTimerUI : MonoBehaviour
 
         if (!hasIngredients)
             return;
-
-        bool stoveActive = targetStove.gameObject.activeSelf && !targetStove.isCooking && targetStove.burnTime > 0;
-
+            
+        //is burned
         if (IsBurned())
         {
             fillImage.fillAmount = 0f;
+            SetTimeText("Burned");
             return;
         }
 
+        //dish cooking timer
         if (targetStove.IsCooking)
         {
             float cookProgress = targetStove.GetCookProgress();
             float remaining = Mathf.Clamp01(1f - cookProgress);
             fillImage.fillAmount = remaining;
 
+            SetTimeTextFromProgress(remaining, targetStove.cookTime);
             return;
         }
 
-        if (stoveActive)
+        //ing cook timer
+        float ingredientProgress = targetStove.GetIngredientCookProgress();
+        if (ingredientProgress < 1f)
         {
-            float progress = targetStove.GetBurnProgress();
-            float remaining = Mathf.Clamp01(1f - progress);
-
+            float remaining = Mathf.Clamp01(1f - ingredientProgress);
             fillImage.fillAmount = remaining;
+
+            SetTimeTextFromProgress(remaining, targetStove.ingredientCookTime);
+            return;
         }
+
+        //burn timer
+        float burnProgress = targetStove.GetBurnProgress();
+        float burnRemaining = Mathf.Clamp01(1f - burnProgress);
+        fillImage.fillAmount = burnRemaining;
+
+        SetTimeTextFromProgress(burnRemaining, targetStove.burnTime);
+    }
+
+    private void SetTimeTextFromProgress(float normalizedRemaining, float totalTime)
+    {
+        if (timerText == null)
+            return;
+
+        float timeLeft = normalizedRemaining * totalTime;
+        timerText.text = timeLeft.ToString("0.0") + "s";
+    }
+
+    private void SetTimeText(string text)
+    {
+        if (timerText != null)
+            timerText.text = text;
     }
 
     private bool IsBurned()
     {
         var burnedField = targetStove.GetType().GetField("isBurned",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
         return burnedField != null && (bool)burnedField.GetValue(targetStove);
     }
 
@@ -79,21 +98,14 @@ public class StoveTimerUI : MonoBehaviour
     {
         var ingredientsField = targetStove.GetType().GetField("currentIngredients",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
         if (ingredientsField != null)
         {
             var list = ingredientsField.GetValue(targetStove) as System.Collections.ICollection;
             return list != null && list.Count > 0;
         }
+
         return false;
-    }
-
-    private void ResetUI()
-    {
-        if (fillImage != null)
-            fillImage.fillAmount = 1f;
-
-        if (timerText != null)
-            timerText.text = "";
     }
 
     private void SetUIVisible(bool visible)

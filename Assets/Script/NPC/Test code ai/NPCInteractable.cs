@@ -140,7 +140,7 @@ public class NPCInteractable : MonoBehaviour
         {
             waitingForInteraction = true;
             inExtendedPhase = true;
-            //interactionTimer = extendedWaitTime;
+            interactionTimer = extendedWaitTime;
 
             if (string.IsNullOrEmpty(selectedRequestLine))
                 selectedRequestLine = BuildRequestLine();

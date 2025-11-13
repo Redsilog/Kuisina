@@ -48,10 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a97d0e5f316aa4ea0880921595eb24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChatBubble
+  backgroundImage: {fileID: 0}
+  iconImage: {fileID: 0}
+  textMeshPro: {fileID: 0}
   dishIconSprite: {fileID: 0}
-  iconType: 0
   padding: {x: 0.7, y: 0.25}
-  textYOffset: 0.075
+  textYOffset: 0.1
 --- !u!95 &8901740943294997930
 Animator:
   serializedVersion: 7
@@ -152,7 +154,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -517595433
   m_SortingLayer: 2
-  m_SortingOrder: 10
+  m_SortingOrder: 1001
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -242,7 +244,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -644683761
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 21300000, guid: 15bce89eef3a99041b9974c6acaae9cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

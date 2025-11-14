@@ -52331,19 +52331,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4c8740a2b3a5946bcea75dbfa2c869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameRecipeBook
-  Page1: {fileID: 1802748420}
-  Page2: {fileID: 993426576}
-  Page3: {fileID: 1001676270}
-  Page4: {fileID: 1681761732}
-  Page5: {fileID: 1794595934}
-  Page6: {fileID: 514053180}
-  Page7: {fileID: 1770445327}
-  Page8: {fileID: 843546724}
-  Page9: {fileID: 850973453}
-  Page10: {fileID: 903369026}
-  Page11: {fileID: 812482293}
-  Page12: {fileID: 1546361476}
-  Page13: {fileID: 2034223879}
+  pages:
+  - {fileID: 1802748420}
+  - {fileID: 993426576}
+  - {fileID: 1001676270}
+  - {fileID: 1681761732}
+  - {fileID: 1794595934}
+  - {fileID: 514053180}
+  - {fileID: 1770445327}
+  - {fileID: 843546724}
+  - {fileID: 850973453}
+  - {fileID: 903369026}
+  - {fileID: 812482293}
+  - {fileID: 1546361476}
+  - {fileID: 2034223879}
   highlighter: {fileID: 325151202}
   player1Tag: Player
   player2Tag: Player2

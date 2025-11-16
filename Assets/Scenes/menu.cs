@@ -216,13 +216,15 @@ public class MainMenu : MonoBehaviour
     public void OnePlayer()
     {
         GameMode.Instance.SetPlayers(1);
-        SceneManager.LoadScene("Main Level 1");
+        SceneToLoad.nextScene = "Main Level 1";
+        SceneManager.LoadScene("Loading Screen");
     }
 
     public void TwoPlayers()
     {
         GameMode.Instance.SetPlayers(2);
-        SceneManager.LoadScene("Main Level 1");
+        SceneToLoad.nextScene = "Main Level 1";
+        SceneManager.LoadScene("Loading Screen");
     }
     private void UpdateContinueButtonState()
     {

@@ -493,7 +493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.5148902
+      value: 1.5700002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2963,7 +2963,7 @@ Transform:
   m_GameObject: {fileID: 124389687}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -3.941, y: 2.8755898, z: -6.1951103}
+  m_LocalPosition: {x: -3.941, y: 2.8755898, z: -8.23}
   m_LocalScale: {x: -0.30697054, y: -2.891093, z: -0.19165936}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4568,7 +4568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e10b334149a2dc43a9fd85800acae2d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.10146
+      value: 5.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e10b334149a2dc43a9fd85800acae2d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4576,7 +4576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e10b334149a2dc43a9fd85800acae2d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.31711
+      value: -7.51
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e10b334149a2dc43a9fd85800acae2d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6066,7 +6066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.48489
+      value: 5.8589997
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8018,7 +8018,7 @@ Transform:
   m_GameObject: {fileID: 348816372}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -8.18154, y: 2.65559, z: -6.35511}
+  m_LocalPosition: {x: -8.18154, y: 2.65559, z: -8.28511}
   m_LocalScale: {x: -0.4537967, y: -4.5980144, z: -0.2538866}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10703,6 +10703,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1027168800}
   smokeSpawnPoint: {fileID: 1578158538}
   cookTime: 5
+  ingredientCookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -11112,7 +11113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.4931097
+      value: -8.42311
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12382,7 +12383,7 @@ Transform:
   m_GameObject: {fileID: 567952517}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 5.84846, y: 2.53559, z: -5.3651094}
+  m_LocalPosition: {x: 5.84846, y: 2.53559, z: -6.7}
   m_LocalScale: {x: -0.11465247, y: -2.8910935, z: -0.15963629}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15746,7 +15747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.17516
+      value: 6.0436997
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15754,7 +15755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.09011
+      value: -7.283
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17180,7 +17181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.53489
+      value: 17.349998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18305,6 +18306,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1671006584}
   smokeSpawnPoint: {fileID: 2025296404}
   cookTime: 5
+  ingredientCookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -23865,7 +23867,7 @@ Transform:
   m_GameObject: {fileID: 1164117669}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 5.84846, y: 2.65559, z: 6.49489}
+  m_LocalPosition: {x: 5.84846, y: 2.65559, z: 5.869}
   m_LocalScale: {x: -0.39303368, y: -4.5980144, z: -0.2538866}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31194,7 +31196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2dc4e6d2ee32bc94999e0ddb0076620e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.25
+      value: -8.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2dc4e6d2ee32bc94999e0ddb0076620e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -33171,7 +33173,7 @@ Transform:
   m_GameObject: {fileID: 1591303247}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.21546, y: 0.0055900216, z: -3.06711}
+  m_LocalPosition: {x: 5.21546, y: 0.0055900216, z: -4.233}
   m_LocalScale: {x: 0.18503378, y: 0.43989477, z: 0.16143718}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34083,7 +34085,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2dc4e6d2ee32bc94999e0ddb0076620e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.25
+      value: -8.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2dc4e6d2ee32bc94999e0ddb0076620e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34382,6 +34384,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 179782157}
   smokeSpawnPoint: {fileID: 1738524407}
   cookTime: 5
+  ingredientCookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -34766,7 +34769,7 @@ Transform:
   m_GameObject: {fileID: 1640998505}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 5.84846, y: 2.65559, z: 2.5548902}
+  m_LocalPosition: {x: 5.84846, y: 2.65559, z: 1.61}
   m_LocalScale: {x: -0.39303368, y: -4.5980144, z: -0.2538866}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42851,7 +42854,7 @@ Transform:
   m_GameObject: {fileID: 1969892433}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.685, y: 2.65559, z: -6.35511}
+  m_LocalPosition: {x: 0.685, y: 2.65559, z: -8.28511}
   m_LocalScale: {x: -0.4537967, y: -4.5980144, z: -0.2538866}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42963,7 +42966,7 @@ Transform:
   m_GameObject: {fileID: 1976200084}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 5.84846, y: 2.65559, z: 17.544891}
+  m_LocalPosition: {x: 5.84846, y: 2.65559, z: 17.36}
   m_LocalScale: {x: -0.39303368, y: -4.5980144, z: -0.2538866}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45734,7 +45737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.4931097
+      value: -8.42311
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af248a20de2244321b36da2ffab2a575, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46439,7 +46442,7 @@ Transform:
   m_GameObject: {fileID: 2083943811}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.21546, y: 0.0055900216, z: -1.3161106}
+  m_LocalPosition: {x: 5.21546, y: 0.0055900216, z: -2.48}
   m_LocalScale: {x: 0.18503378, y: 0.43989477, z: 0.16143718}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46750,7 +46753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2241597
+      value: 6.0926995
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46758,7 +46761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.27011
+      value: -7.4630003
       objectReference: {fileID: 0}
     - target: {fileID: 4328292493000864058, guid: 26afff21809f327468a1991907da5aee, type: 3}
       propertyPath: m_LocalRotation.w
@@ -49212,7 +49215,7 @@ Transform:
   m_GameObject: {fileID: 8707273951440278885}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -4.439625, y: 0.23877744, z: -7.071892}
+  m_LocalPosition: {x: -4.439625, y: 0.23877744, z: -9}
   m_LocalScale: {x: 789.347, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49508,7 +49511,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -7.3851023, y: 0.79, z: 12.018911}
-  m_LocalScale: {x: 123.1287, y: 117.734085, z: 100}
+  m_LocalScale: {x: 123.1287, y: 123, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 32624098}
@@ -49882,7 +49885,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -12.848234, y: -0.75022906, z: 9.876986}
-  m_LocalScale: {x: 50, y: 1302.4298, z: 50}
+  m_LocalScale: {x: 50, y: 1390, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1622282931}
@@ -50645,8 +50648,8 @@ Transform:
   m_GameObject: {fileID: 2076850631999682820}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 6.517992, y: 0.23877744, z: 9.876986}
-  m_LocalScale: {x: 50, y: 1302.4298, z: 50}
+  m_LocalPosition: {x: 6.517992, y: 0.24, z: 9.26}
+  m_LocalScale: {x: 50, y: 1363, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1622282931}
@@ -51164,6 +51167,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1674021886}
   smokeSpawnPoint: {fileID: 1812371626}
   cookTime: 5
+  ingredientCookTime: 5
   smokeFadeInTime: 1
   smokeFadeOutTime: 2
   ingredientIcons:
@@ -51637,19 +51641,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4c8740a2b3a5946bcea75dbfa2c869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameRecipeBook
-  Page1: {fileID: 1802748420}
-  Page2: {fileID: 993426576}
-  Page3: {fileID: 1001676270}
-  Page4: {fileID: 1681761732}
-  Page5: {fileID: 1794595934}
-  Page6: {fileID: 514053180}
-  Page7: {fileID: 1770445327}
-  Page8: {fileID: 843546724}
-  Page9: {fileID: 850973453}
-  Page10: {fileID: 903369026}
-  Page11: {fileID: 812482293}
-  Page12: {fileID: 1546361476}
-  Page13: {fileID: 2034223879}
+  pages:
+  - {fileID: 1802748420}
+  - {fileID: 993426576}
+  - {fileID: 1001676270}
+  - {fileID: 1681761732}
+  - {fileID: 1794595934}
+  - {fileID: 514053180}
+  - {fileID: 1770445327}
+  - {fileID: 843546724}
+  - {fileID: 850973453}
+  - {fileID: 903369026}
+  - {fileID: 812482293}
+  - {fileID: 1546361476}
+  - {fileID: 2034223879}
   highlighter: {fileID: 325151202}
   player1Tag: Player
   player2Tag: Player2

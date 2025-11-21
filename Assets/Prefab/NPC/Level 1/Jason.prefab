@@ -380,6 +380,8 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Salamat, Kanin nalang po
   - dishName: Adobong Bisaya
     requestLines:
     - "Pa-adobo nga \u2018yung piniprito pa pagkatapos lutuin, \u2018yung may konting
@@ -398,6 +400,7 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines: []
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!

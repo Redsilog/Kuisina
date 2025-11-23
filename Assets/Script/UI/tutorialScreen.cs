@@ -34,12 +34,17 @@ public class TutorialScreen : MonoBehaviour
         if (playLevel1 != null)
             playLevel1.gameObject.SetActive(false);
 
-        // Show tutorial at start
+        // Show tutorial at start and PAUSE the game
         if (tutorialScreenLevel1 != null)
         {
             tutorialScreenLevel1.SetActive(true);
             isTutorialOpen = true;
+            Time.timeScale = 0f;   // <- NPCs & gameplay paused here
         }
+
+        // Hide gameplay UI at start
+        if (timer != null) timer.gameObject.SetActive(false);
+        if (starCount != null) starCount.gameObject.SetActive(false);
 
         // Hook up play button to start the level
         if (playLevel1 != null)
@@ -63,39 +68,65 @@ public class TutorialScreen : MonoBehaviour
 
         if (isTutorialOpen)
         {
-            timer.gameObject.SetActive(false);
-            starCount.gameObject.SetActive(false);
+            if (timer != null) timer.gameObject.SetActive(false);
+            if (starCount != null) starCount.gameObject.SetActive(false);
+
             if (Keyboard.current[nextKey].wasPressedThisFrame)
                 NextPage();
 
             if (Keyboard.current[prevKey].wasPressedThisFrame)
                 PreviousPage();
+
             if (currentPage == tutorialPages.Length - 1)
             {
-                start.SetActive(true);
+                if (start != null) start.SetActive(true);
             }
             else
             {
-                start.SetActive(false);
+                if (start != null) start.SetActive(false);
             }
-
         }
     }
 
     private void ToggleTutorial()
     {
         isTutorialOpen = !isTutorialOpen;
+
         if (tutorialScreenLevel1 != null)
             tutorialScreenLevel1.SetActive(isTutorialOpen);
+
+        if (isTutorialOpen)
+        {
+            // Open tutorial  pause game & hide HUD
+            Time.timeScale = 0f;
+            if (timer != null) timer.gameObject.SetActive(false);
+            if (starCount != null) starCount.gameObject.SetActive(false);
+        }
+        else
+        {
+            // Close tutorial  resume game & show HUD
+            Time.timeScale = 1f;   // <- NPCs resume here
+            if (timer != null) timer.gameObject.SetActive(true);
+            if (starCount != null) starCount.gameObject.SetActive(true);
+        }
     }
 
     public void StartLevel()
     {
-        tutorialScreenLevel1.SetActive(false);
-        playLevel1.gameObject.SetActive(true);
+        // Close tutorial
+        if (tutorialScreenLevel1 != null)
+            tutorialScreenLevel1.SetActive(false);
+
+        if (playLevel1 != null)
+            playLevel1.gameObject.SetActive(true);
+
         isTutorialOpen = false;
-        timer.gameObject.SetActive(true);
-        starCount.gameObject.SetActive(true);
+
+        // Show HUD and RESUME the game
+        if (timer != null) timer.gameObject.SetActive(true);
+        if (starCount != null) starCount.gameObject.SetActive(true);
+
+        Time.timeScale = 1f;       //  NPCs start moving again
     }
 
     public void NextPage()
@@ -108,7 +139,8 @@ public class TutorialScreen : MonoBehaviour
 
         PlayPageSound();
         ShowPage(currentPage);
-        EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void PreviousPage()
@@ -121,7 +153,8 @@ public class TutorialScreen : MonoBehaviour
 
         PlayPageSound();
         ShowPage(currentPage);
-        EventSystem.current.SetSelectedGameObject(null);
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void PlayPageSound()

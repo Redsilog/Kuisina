@@ -25,6 +25,7 @@ public class NPCInteractable : MonoBehaviour
         [TextArea] public List<string> requestLines = new List<string>();
         [TextArea] public List<string> wrongLines = new List<string>();
         [TextArea] public List<string> thankLines = new List<string>();
+        [TextArea] public List<string> midComboLines = new List<string>(); // NEW: lines after partial combo delivery
     }
 
     [Header("Per-Dish Custom Dialogues")]
@@ -55,7 +56,7 @@ public class NPCInteractable : MonoBehaviour
     [SerializeField] private Canvas npcTimerCanvas;
     private bool inExtendedPhase = false;
     private bool isResting = false;
-    private bool isLeaving = false; // 🚫 NEW: prevents interaction during leave state
+    private bool isLeaving = false; // prevents interaction during leave state
 
     private string selectedRequestLine;
     public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
@@ -69,7 +70,10 @@ public class NPCInteractable : MonoBehaviour
         npcMovement ??= GetComponent<NPCMovement>();
 
         if (npcOrder != null)
+        {
             npcOrder.OnOrderFulfilled += HandleOrderFulfilled;
+            npcOrder.OnItemAccepted += HandleItemAccepted; // NEW: per-item handler
+        }
 
         var canvasObj = GameObject.FindWithTag("NPCTimerCanvas");
         if (canvasObj != null) npcTimerCanvas = canvasObj.GetComponent<Canvas>();
@@ -78,7 +82,10 @@ public class NPCInteractable : MonoBehaviour
     void OnDestroy()
     {
         if (npcOrder != null)
+        {
             npcOrder.OnOrderFulfilled -= HandleOrderFulfilled;
+            npcOrder.OnItemAccepted -= HandleItemAccepted;
+        }
     }
 
     void Update()
@@ -136,7 +143,8 @@ public class NPCInteractable : MonoBehaviour
             return;
         }
 
-        if (npcOrder.HasActiveOrder)
+        // Only show the request line when a brand new order was created
+        if (npcOrder && npcOrder.LastInteractionResult == OrderInteractionResult.OrderCreated)
         {
             waitingForInteraction = true;
             inExtendedPhase = true;
@@ -192,14 +200,14 @@ public class NPCInteractable : MonoBehaviour
     private IEnumerator ThankAndLeave()
     {
         yield return new WaitForSeconds(thankYouDelay);
-        isLeaving = true; // 🚫 Mark NPC as leaving — disable interaction
+        isLeaving = true; // Mark NPC as leaving — disable interaction
         npcMovement?.BeginThanking();
     }
 
     private void HandleTimeout()
     {
         ShowChat(timeoutLine);
-        isLeaving = true; // 🚫 Prevent interaction once NPC decides to leave
+        isLeaving = true; // Prevent interaction once NPC decides to leave
         npcMovement?.StartLeaving();
         RemoveTimerUI();
     }
@@ -261,6 +269,14 @@ public class NPCInteractable : MonoBehaviour
     {
         if (npcOrder == null || string.IsNullOrWhiteSpace(npcOrder.CurrentRequestName)) return null;
         return customDialogues.FirstOrDefault(d => npcOrder.CurrentRequestName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
+    }
+
+    // NEW: Get dialogue set based on a specific delivered dish name
+    private NPCDialogueSet GetDialogueSetForName(string dishName)
+    {
+        if (string.IsNullOrWhiteSpace(dishName)) return null;
+        return customDialogues.FirstOrDefault(d =>
+            dishName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
     }
 
     private static List<string> SplitNames(string joined)
@@ -351,5 +367,33 @@ public class NPCInteractable : MonoBehaviour
             chatBubblePrefab,
             autoClearAfter
         );
+    }
+
+    // NEW: called every time a correct item is delivered
+    private void HandleItemAccepted(string deliveredName, bool isComplete)
+    {
+        // If order is already complete, let HandleOrderFulfilled handle the thank-you flow
+        if (isComplete) return;
+
+        if (npcOrder == null || npcOrder.OriginalOrderCount <= 1)
+            return; // Only care about combos
+
+        // Make sure we have a base request line to fall back to
+        if (string.IsNullOrEmpty(selectedRequestLine))
+            selectedRequestLine = BuildRequestLine();
+
+        var set = GetDialogueSetForName(deliveredName);
+
+        // If this dish has special mid-combo lines (e.g. main dish like Adobong Puti)
+        if (set != null && set.midComboLines != null && set.midComboLines.Count > 0)
+        {
+            string line = set.midComboLines[UnityEngine.Random.Range(0, set.midComboLines.Count)];
+            ShowChat(line);
+        }
+        else
+        {
+            // Side dish or no special mid-combo text → repeat the original order
+            ShowChat(selectedRequestLine);
+        }
     }
 }

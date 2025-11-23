@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum OrderInteractionResult
+{
+    None,
+    OrderCreated,
+    ItemAcceptedInProgress,
+    ItemAcceptedAndCompleted
+}
+
 /// <summary>
 /// Handles which items an NPC requests and tracks whether they have been fulfilled.
 /// Supports:
@@ -23,6 +31,12 @@ public class NPCOrder1 : MonoBehaviour
 
     /// <summary>Raised when the last required item has been delivered.</summary>
     public event Action OnOrderFulfilled;
+
+    /// <summary>
+    /// Raised whenever a correct item is delivered.
+    /// string = delivered item name, bool = isOrderComplete
+    /// </summary>
+    public event Action<string, bool> OnItemAccepted;
 
     // Internal state
     private readonly List<string> _pendingOrderNames = new List<string>();
@@ -46,6 +60,17 @@ public class NPCOrder1 : MonoBehaviour
     /// </summary>
     public int CurrentRequestIndex => 0;
 
+    /// <summary>
+    /// How many items were in the order when it was first created.
+    /// Used to detect combos vs single orders.
+    /// </summary>
+    public int OriginalOrderCount { get; private set; }
+
+    /// <summary>
+    /// Last result of StartOrTryFulfill, so callers can know what happened.
+    /// </summary>
+    public OrderInteractionResult LastInteractionResult { get; private set; }
+
     // =============================
     // RANDOM ORDER
     // =============================
@@ -53,6 +78,7 @@ public class NPCOrder1 : MonoBehaviour
     {
         _pendingOrderNames.Clear();
         _orderFulfilled = false;
+        OriginalOrderCount = 0;
 
         bool hasCombos = prefabCombos != null && prefabCombos.Count > 0;
         bool hasSingles = requestedItems != null && requestedItems.Count > 0;
@@ -78,6 +104,8 @@ public class NPCOrder1 : MonoBehaviour
             _pendingOrderNames.Add(CleanName(chosen.name));
             Debug.Log($"[NPCOrder1] Random single set: {CurrentRequestName}");
         }
+
+        OriginalOrderCount = _pendingOrderNames.Count;
     }
 
     // =============================
@@ -91,6 +119,7 @@ public class NPCOrder1 : MonoBehaviour
     {
         _pendingOrderNames.Clear();
         _orderFulfilled = false;
+        OriginalOrderCount = 0;
 
         if (string.IsNullOrWhiteSpace(namesPlusSeparated))
         {
@@ -115,6 +144,7 @@ public class NPCOrder1 : MonoBehaviour
         }
         else
         {
+            OriginalOrderCount = _pendingOrderNames.Count;
             Debug.Log($"[NPCOrder1] Order set: {CurrentRequestName}");
         }
     }
@@ -138,6 +168,7 @@ public class NPCOrder1 : MonoBehaviour
         _orderFulfilled = false;
         _pendingOrderNames.Clear();
         ApplyCombo(prefabCombos[index]);
+        OriginalOrderCount = _pendingOrderNames.Count;
         Debug.Log($"[NPCOrder1] Combo set by index: {CurrentRequestName}");
     }
 
@@ -160,6 +191,7 @@ public class NPCOrder1 : MonoBehaviour
         _orderFulfilled = false;
         _pendingOrderNames.Clear();
         ApplyCombo(combo);
+        OriginalOrderCount = _pendingOrderNames.Count;
         Debug.Log($"[NPCOrder1] Combo set by name: {CurrentRequestName}");
     }
 
@@ -173,10 +205,16 @@ public class NPCOrder1 : MonoBehaviour
     /// </summary>
     public bool StartOrTryFulfill(PlayerInventory player)
     {
+        LastInteractionResult = OrderInteractionResult.None;
+
         // No order yet? Set one up
         if (!HasActiveOrder)
         {
             RandomizeOrder();
+            if (HasActiveOrder)
+            {
+                LastInteractionResult = OrderInteractionResult.OrderCreated;
+            }
             return true; // NPC will show the request line
         }
 
@@ -193,7 +231,16 @@ public class NPCOrder1 : MonoBehaviour
             DeliveredDish = player.heldVisual; // hand reference so NPCInteractable can award stars
             player.ClearHeldItemDirect();      // consume the player's held item
 
-            if (_pendingOrderNames.Count == 0)
+            bool isComplete = _pendingOrderNames.Count == 0;
+
+            LastInteractionResult = isComplete
+                ? OrderInteractionResult.ItemAcceptedAndCompleted
+                : OrderInteractionResult.ItemAcceptedInProgress;
+
+            // Notify listeners for mid-combo / per-item dialogue
+            OnItemAccepted?.Invoke(heldName, isComplete);
+
+            if (isComplete)
             {
                 _orderFulfilled = true;
                 OnOrderFulfilled?.Invoke();
@@ -223,6 +270,7 @@ public class NPCOrder1 : MonoBehaviour
             _pendingOrderNames.Add(CleanName(go.name));
         }
 
+        OriginalOrderCount = _pendingOrderNames.Count;
         // If combo is empty, mark fulfilled
         _orderFulfilled = _pendingOrderNames.Count == 0;
     }

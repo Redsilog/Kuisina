@@ -369,6 +369,11 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isa ngang kanin.
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - Pa-rice nga isa lang.
   - dishName: Adobong sa Gata
     requestLines:
     - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
@@ -387,6 +392,11 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isa ngang kanin.
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - Pa-rice nga isa lang.
   - dishName: Sinigang sa Sampalok
     requestLines:
     - Yung sinigang na asim na asim, yung classic lang at pa-rice nga isa lang.
@@ -404,6 +414,11 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isa ngang kanin.
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - Pa-rice nga isa lang.
   - dishName: Sinigang sa Mangga
     requestLines:
     - "Gusto ko \u2018yung sinigang na asim-fruity, parang hilaw na mangga tapos
@@ -422,6 +437,11 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - 
+    - 
+    - 
+    - 
   - dishName: Panciit Cantont
     requestLines:
     - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
@@ -438,6 +458,11 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isa ngang kanin.
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - Pa-rice nga isa lang.
   - dishName: Panciit Malabon
     requestLines:
     - "Pancit nga \u2018yung may seafood at kulay kahel na sauce"
@@ -454,6 +479,11 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isa ngang kanin.
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - Pa-rice nga isa lang.
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!

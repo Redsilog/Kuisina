@@ -526,6 +526,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Adobong sa Gata
     requestLines:
     - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
@@ -544,6 +551,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Sinigang sa Sampalok
     requestLines:
     - Yung sinigang na asim na asim, yung classic lang at pa-rice nga isa lang.
@@ -561,6 +575,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Sinigang sa Mangga
     requestLines:
     - "Gusto ko \u2018yung sinigang na asim-fruity, parang hilaw na mangga tapos
@@ -579,6 +600,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Panciit Cantont
     requestLines:
     - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
@@ -595,6 +623,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Panciit Malabon
     requestLines:
     - "Pancit nga \u2018yung may seafood at kulay kahel na sauce"
@@ -611,6 +646,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Kinilaw sa Isda
     requestLines:
     - Pahingi nga ng kinilaw na malamig pa, parang bagong huli. Pahingi rin pong
@@ -629,6 +671,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Kinilaw na may Gata
     requestLines:
     - "\u2018Yung kinilaw na creamy, hindi masyadong maasim ha, tapos isa ngang kanin."
@@ -646,6 +695,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!

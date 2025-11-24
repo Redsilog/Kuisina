@@ -10678,7 +10678,7 @@ MonoBehaviour:
     - squid
     - peanut sauce
     - string beans
-    cookedDishPrefab: {fileID: 1537515693604730114, guid: a25b791e431643e40955d62f5c635bba, type: 3}
+    cookedDishPrefab: {fileID: 2291160985396561127, guid: 83f6e63373b1bd849be5cb1aed8a91f6, type: 3}
   - dishName: Vegetable Kare-kare
     requiredIngredients:
     - eggplant
@@ -10805,9 +10805,9 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
   - ingredientName: chopped onion
     icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
-  - ingredientName: Mustard Leaves Sliced
+  - ingredientName: sliced mustard leaves
     icon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
-  - ingredientName: Green Mango Sliced
+  - ingredientName: sliced green mango
     icon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
   - ingredientName: Tanigue Sliced
     icon: {fileID: 21300000, guid: 27b03f35a5d16464ba20c10383fb23d0, type: 3}
@@ -10863,8 +10863,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: eafeac0423a5a234ab1fd0fd28e356b0, type: 3}
   - ingredientName: Vegetable Kare-Kare
     icon: {fileID: 21300000, guid: 8309d7cca7a57b84e982271d318a2e1b, type: 3}
-  - ingredientName: test
-    icon: {fileID: 21300000, guid: 4da36aa3a4dc42a4d9e8d5455d954504, type: 3}
+  - ingredientName: sliced bangus
+    icon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
   isCooking: 0
   cookedFood: {fileID: 0}
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}
@@ -18080,10 +18080,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipes:
-  - dishName: test
-    requiredIngredients:
-    - soy sauce
-    cookedDishPrefab: {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
   - dishName: Pancit Malabon
     requiredIngredients:
     - Thick rice noodles
@@ -20193,7 +20189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: Day1
   requiredStars: 45
-  levelTime: 481
+  levelTime: 601
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}
@@ -34696,10 +34692,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipes:
-  - dishName: test
-    requiredIngredients:
-    - soy sauce
-    cookedDishPrefab: {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
   - dishName: Pancit Malabon
     requiredIngredients:
     - Thick rice noodles
@@ -51296,7 +51288,7 @@ MonoBehaviour:
     - squid
     - peanut sauce
     - string beans
-    cookedDishPrefab: {fileID: 1537515693604730114, guid: a25b791e431643e40955d62f5c635bba, type: 3}
+    cookedDishPrefab: {fileID: 2291160985396561127, guid: 83f6e63373b1bd849be5cb1aed8a91f6, type: 3}
   - dishName: Vegetable Kare-kare
     requiredIngredients:
     - eggplant
@@ -51423,9 +51415,9 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 29a248673fd97a246bfa9544543427e3, type: 3}
   - ingredientName: chopped onion
     icon: {fileID: 21300000, guid: 722de87fc474fd84e89b671fe5df5ff2, type: 3}
-  - ingredientName: Mustard Leaves Sliced
+  - ingredientName: sliced mustard leaves
     icon: {fileID: 21300000, guid: 12b608f4e98546b469b594d336025fc5, type: 3}
-  - ingredientName: Green Mango Sliced
+  - ingredientName: sliced green mango
     icon: {fileID: 21300000, guid: cf60d11e879d08d488ff7fc42e1f6054, type: 3}
   - ingredientName: Tanigue Sliced
     icon: {fileID: 21300000, guid: 27b03f35a5d16464ba20c10383fb23d0, type: 3}
@@ -51481,8 +51473,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: eafeac0423a5a234ab1fd0fd28e356b0, type: 3}
   - ingredientName: Vegetable Kare-Kare
     icon: {fileID: 21300000, guid: 8309d7cca7a57b84e982271d318a2e1b, type: 3}
-  - ingredientName: test
-    icon: {fileID: 21300000, guid: 4da36aa3a4dc42a4d9e8d5455d954504, type: 3}
+  - ingredientName: sliced bangus
+    icon: {fileID: 21300000, guid: 46d774e2a5bbb564ea7affc2eb38827d, type: 3}
   isCooking: 0
   cookedFood: {fileID: 0}
   smokePrefab: {fileID: 5122733620726638609, guid: 963ab64857656494db7e4f26e840fcd3, type: 3}

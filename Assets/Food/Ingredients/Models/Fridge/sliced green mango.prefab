@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6026656958184664158}
   - component: {fileID: 1269257188000058464}
   m_Layer: 0
-  m_Name: green mango sliced
+  m_Name: sliced green mango
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

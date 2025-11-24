@@ -3489,8 +3489,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.108592, y: 0.9621124, z: 1}
-  m_Center: {x: 0.027971745, y: 1.3401294, z: 0}
+  m_Size: {x: 0.9559612, y: 0.7101823, z: 0.45630145}
+  m_Center: {x: 0.5627556, y: 1.4660945, z: -0.27184927}
 --- !u!4 &154452186
 Transform:
   m_ObjectHideFlags: 0
@@ -20600,7 +20600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: Day1
   requiredStars: 10
-  levelTime: 120
+  levelTime: 181
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}

@@ -29,18 +29,14 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (optionsMenu.activeSelf || helpMenu.activeSelf)
+            if (isPaused)
             {
-                optionsMenu.SetActive(false);
-                helpMenu.SetActive(false);
-                pauseMenu.SetActive(true);
-                isPaused = true;
+                Resume();
             }
-            else if (!isPaused)
+            else
             {
-                Pause(); // Show cursor and pause game
+                Pause();
             }
-            // Do not resume with Escape
         }
     }
 

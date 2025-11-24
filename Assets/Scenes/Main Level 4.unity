@@ -3439,8 +3439,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.108592, y: 0.9621124, z: 1}
-  m_Center: {x: 0.027971745, y: 1.3401294, z: 0}
+  m_Size: {x: 0.9756131, y: 0.71251595, z: 0.41909242}
+  m_Center: {x: 0.55516744, y: 1.4649277, z: -0.2904538}
 --- !u!4 &154452186
 Transform:
   m_ObjectHideFlags: 0
@@ -20619,7 +20619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: Day1
   requiredStars: 45
-  levelTime: 444
+  levelTime: 481
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}
@@ -20627,9 +20627,9 @@ MonoBehaviour:
   earnedStarText: {fileID: 1335409502}
   requiredStarText: {fileID: 1836478429}
   starCounterText: {fileID: 1469564578}
-  returnButton: {fileID: 0}
-  retryButton: {fileID: 0}
-  nextButton: {fileID: 0}
+  returnButton: {fileID: 1359969881}
+  retryButton: {fileID: 630073536}
+  nextButton: {fileID: 1584782523}
   overrideStars: 0
   debugStars: 0
 --- !u!1 &984058673
@@ -32485,8 +32485,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.9785709, y: 1.1901202, z: 1.9400959}
-  m_Center: {x: 0.4183321, y: -0.37414527, z: 0.47004795}
+  m_Size: {x: 1.9785709, y: 1.1901202, z: 1.4604884}
+  m_Center: {x: 0.4183321, y: -0.37414527, z: 0.7098517}
 --- !u!114 &1549299832
 MonoBehaviour:
   m_ObjectHideFlags: 0

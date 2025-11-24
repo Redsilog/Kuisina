@@ -1034,7 +1034,7 @@ MonoBehaviour:
     - Isang kanin nga po.
     - Pahingi pong kanin.
     - Pa-rice nga isa lang.
-  - dishName: Adobong sa Gata
+  - dishName: Adobo sa Gata
     requestLines:
     - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
       kanin!
@@ -1102,28 +1102,7 @@ MonoBehaviour:
     - 
     - 
     - 
-  - dishName: Panciit Cantont
-    requestLines:
-    - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
-    - Pancit na may toyo at gulay, parang pang hapunan.
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-    midComboLines:
-    - Isa ngang kanin.
-    - Isang kanin nga po.
-    - Pahingi pong kanin.
-    - Pa-rice nga isa lang.
-  - dishName: Panciit Malabon
+  - dishName: Pancit Malabon
     requestLines:
     - "Pancit nga \u2018yung may seafood at kulay kahel na sauce"
     - "Gusto ko \u2018yung pancit na amoy dagat, may hipon at sabaw ng pusit."
@@ -1144,12 +1123,8 @@ MonoBehaviour:
     - Isang kanin nga po.
     - Pahingi pong kanin.
     - Pa-rice nga isa lang.
-  requestSingleFormat: Pwede isang order ng {0}?
-  requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
   thankComboFormat: Salamat sa {0} at {1}!
-  wrongSingleFormat: Di naman yan order ko, sabi ko {0}!
-  wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: Bagal naman dito.
   interactCooldown: 5
   initialWaitTime: 90
@@ -1184,7 +1159,7 @@ MonoBehaviour:
     items:
     - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Sinigang sa SAmpalok
+  - displayName: Sinigang sa Sampalok
     items:
     - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}

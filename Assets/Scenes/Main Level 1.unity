@@ -10652,12 +10652,6 @@ MonoBehaviour:
   npcPrefabs:
   - {fileID: 1918290237203441870, guid: dd90b0d01651d2b45854916860d64be6, type: 3}
   - {fileID: 2111230945047006159, guid: 53b707f390f1d09419c78205e0af4614, type: 3}
-  - {fileID: 6912682432288383443, guid: d32e1b6abdc62804caad70f41488ea5c, type: 3}
-  - {fileID: 1926056749503639539, guid: c69d357bb9967fc4ab8f7d2ba1d315a6, type: 3}
-  - {fileID: 8236878944884220726, guid: 0dacfe53ccd324241aae92537e2f0bab, type: 3}
-  - {fileID: 538464148702343494, guid: dd36f5d7738135747a5af6e921507f3e, type: 3}
-  - {fileID: 469679333988774096, guid: 491b2c85ee10ef44d87e049a342ce1c1, type: 3}
-  - {fileID: 7927296470504479056, guid: 5da396ff2b79771449d5b38a7fb7cbe1, type: 3}
   routeEntries:
   - route: {fileID: 55422359}
     spawnPoint: {fileID: 55422358}

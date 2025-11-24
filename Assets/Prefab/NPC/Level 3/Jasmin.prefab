@@ -401,6 +401,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Adobong sa Gata
     requestLines:
     - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
@@ -419,6 +426,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Sinigang sa Sampalok
     requestLines:
     - Yung sinigang na asim na asim, yung classic lang at pa-rice nga isa lang.
@@ -436,6 +450,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Sinigang sa Mangga
     requestLines:
     - "Gusto ko \u2018yung sinigang na asim-fruity, parang hilaw na mangga tapos
@@ -454,6 +475,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Panciit Cantont
     requestLines:
     - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
@@ -470,6 +498,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Panciit Malabon
     requestLines:
     - "Pancit nga \u2018yung may seafood at kulay kahel na sauce"
@@ -486,6 +521,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Kinilaw sa Isda
     requestLines:
     - Pahingi nga ng kinilaw na malamig pa, parang bagong huli. Pahingi rin pong
@@ -504,6 +546,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   - dishName: Kinilaw na may Gata
     requestLines:
     - "\u2018Yung kinilaw na creamy, hindi masyadong maasim ha, tapos isa ngang kanin."
@@ -521,41 +570,13 @@ MonoBehaviour:
     - Ay, salamat po!
     - Salamat, ang bilis mo ah!
     - Thank you, sarap nito!
-  - dishName: Lechon Cebu
-    requestLines:
-    - "Pa-lechon nga \u2018yung walang sauce pero lasang-lasa pa rin. Tapos isang
-      cup ng rice.\r\n"
-    - "Gusto ko \u2018yung lechon na ma-herbs sa loob, parang Cebu style. Pahingi
-      rin pong kanin."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-  - dishName: Lechon Manila
-    requestLines:
-    - "\u2018Yung lechon na may liver sauce sa gilid, \u2018yun gusto ko. Tapos isang
-      kanin na muna."
-    - "Pa-lechon nga \u2018yung may sawsawang kulay brown. Tapos isang cup ng rice."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
+    midComboLines:
+    - Isang kanin nga po.
+    - Pahingi pong kanin.
+    - 'Pa-rice nga isa lang.
+
+'
+    - Isa ngang kanin.
   requestSingleFormat: Pwede isang order ng {0}?
   requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
@@ -590,8 +611,6 @@ MonoBehaviour:
   - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
   - {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
-  - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
-  - {fileID: 6559265573489160435, guid: b1b5d92c704601740b937c5c77df3b40, type: 3}
   prefabCombos:
   - displayName: Adobong Puti
     items:
@@ -616,14 +635,6 @@ MonoBehaviour:
   - displayName: Kinilaw na may Gata
     items:
     - {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Lechon Cebu
-    items:
-    - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Lechon Manila
-    items:
-    - {fileID: 6559265573489160435, guid: b1b5d92c704601740b937c5c77df3b40, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
 --- !u!114 &6403959119841765450
 MonoBehaviour:

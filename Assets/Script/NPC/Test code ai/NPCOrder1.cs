@@ -71,6 +71,9 @@ public class NPCOrder1 : MonoBehaviour
     /// </summary>
     public OrderInteractionResult LastInteractionResult { get; private set; }
 
+    /// <summary>All items delivered so far for the current order.</summary>
+    public List<GameObject> DeliveredItems { get; private set; } = new List<GameObject>();
+
     // =============================
     // RANDOM ORDER
     // =============================
@@ -229,6 +232,7 @@ public class NPCOrder1 : MonoBehaviour
             // Correct item delivered
             _pendingOrderNames.RemoveAt(idx);
             DeliveredDish = player.heldVisual; // hand reference so NPCInteractable can award stars
+            DeliveredItems.Add(player.heldVisual);
             player.ClearHeldItemDirect();      // consume the player's held item
 
             bool isComplete = _pendingOrderNames.Count == 0;
@@ -236,6 +240,11 @@ public class NPCOrder1 : MonoBehaviour
             LastInteractionResult = isComplete
                 ? OrderInteractionResult.ItemAcceptedAndCompleted
                 : OrderInteractionResult.ItemAcceptedInProgress;
+
+            var dishRef = DeliveredDish.GetComponent<DishReference>();
+            if (dishRef != null)
+                LevelManager.Instance.AddStars(dishRef.starsEarned);
+
 
             // Notify listeners for mid-combo / per-item dialogue
             OnItemAccepted?.Invoke(heldName, isComplete);
@@ -245,6 +254,8 @@ public class NPCOrder1 : MonoBehaviour
                 _orderFulfilled = true;
                 OnOrderFulfilled?.Invoke();
                 Debug.Log("[NPCOrder1] Order complete!");
+
+                DeliveredItems.Clear();
             }
             else
             {

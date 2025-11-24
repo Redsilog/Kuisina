@@ -183,16 +183,17 @@ public class NPCInteractable : MonoBehaviour
 
     private void HandleOrderFulfilled()
     {
-        if (npcOrder?.DeliveredDish != null)
-        {
-            var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
-            if (dishRef != null)
-                LevelManager.Instance.AddStars(dishRef.starsEarned);
-        }
+        // if (npcOrder?.DeliveredDish != null)
+        // {
+        //     var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
+        //     if (dishRef != null)
+        //         LevelManager.Instance.AddStars(dishRef.starsEarned);
+        // }
 
         waitingForInteraction = false;
         ShowChat(BuildThankLine());
         npcOrder.DeliveredDish = null;
+        npcOrder.DeliveredItems.Clear();
         StartCoroutine(ThankAndLeave());
         RemoveTimerUI();
     }

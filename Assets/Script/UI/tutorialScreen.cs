@@ -96,6 +96,8 @@ public class TutorialScreen : MonoBehaviour
         isTutorialOpen = false;
         timer.gameObject.SetActive(true);
         starCount.gameObject.SetActive(true);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void NextPage()

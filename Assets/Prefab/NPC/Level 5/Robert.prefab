@@ -997,12 +997,8 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
-  requestSingleFormat: Pwede isang order ng {0}?
-  requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
   thankComboFormat: Salamat sa {0} at {1}!
-  wrongSingleFormat: Di naman yan order ko, sabi ko {0}!
-  wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: Bagal naman dito.
   interactCooldown: 5
   initialWaitTime: 70
@@ -1028,7 +1024,6 @@ MonoBehaviour:
   - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
   - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
-  - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
   - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
   - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
   - {fileID: 2227652599799674470, guid: c0d19d94da616314ea7503d1042c1591, type: 3}
@@ -1045,12 +1040,6 @@ MonoBehaviour:
   - displayName: Sinigang sa Sampalok
     items:
     - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: 
-    items: []
-  - displayName: Lechon Cebu
-    items:
-    - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
   - displayName: Kinilaw na Isda
     items:

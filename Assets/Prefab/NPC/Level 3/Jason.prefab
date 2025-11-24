@@ -485,7 +485,7 @@ MonoBehaviour:
 
 '
     - Isa ngang kanin.
-  - dishName: Panciit Cantont
+  - dishName: Pancit Canton
     requestLines:
     - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
     - Pancit na may toyo at gulay, parang pang hapunan.
@@ -508,7 +508,7 @@ MonoBehaviour:
 
 '
     - Isa ngang kanin.
-  - dishName: Panciit Malabon
+  - dishName: Pancit Malabon
     requestLines:
     - "Pancit nga \u2018yung may seafood at kulay kahel na sauce"
     - "Gusto ko \u2018yung pancit na amoy dagat, may hipon at sabaw ng pusit."
@@ -580,12 +580,8 @@ MonoBehaviour:
 
 '
     - Isa ngang kanin.
-  requestSingleFormat: Pwede isang order ng {0}?
-  requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
   thankComboFormat: Salamat sa {0} at {1}!
-  wrongSingleFormat: Di naman yan order ko, sabi ko {0}!
-  wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: Bagal naman dito.
   interactCooldown: 5
   initialWaitTime: 70

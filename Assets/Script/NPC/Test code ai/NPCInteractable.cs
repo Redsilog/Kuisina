@@ -31,13 +31,7 @@ public class NPCInteractable : MonoBehaviour
     [Header("Per-Dish Custom Dialogues")]
     [SerializeField] private List<NPCDialogueSet> customDialogues = new List<NPCDialogueSet>();
 
-    [Header("Fallback Texts")]
-    [SerializeField] private string requestSingleFormat = "Pwede isang order ng {0}?";
-    [SerializeField] private string requestComboFormat = "Pwede isang order ng {0} at {1}?";
-    [SerializeField] private string thankSingleFormat = "Salamat!";
-    [SerializeField] private string thankComboFormat = "Salamat sa {0} at {1}!";
-    [SerializeField] private string wrongSingleFormat = "Di naman yan order ko, sabi ko {0}!";
-    [SerializeField] private string wrongComboFormat = "Di naman yan order ko, sabi ko {0} at {1}!";
+    [Header("Fallback Texts (Timeout Only)")]
     [SerializeField] private string timeoutLine = "Bagal naman dito.";
 
     [Header("Timers")]
@@ -120,7 +114,7 @@ public class NPCInteractable : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting)
+        if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting || isLeaving)
             return;
 
         if (Time.time < nextAllowedTime) return;
@@ -232,43 +226,48 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // ---------------- Dialogue Builders ----------------
+    // ---------------- Dialogue Builders (NO FALLBACKS) ----------------
     private string BuildRequestLine()
     {
         var custom = GetDialogueSet();
-        if (custom != null && custom.requestLines?.Count > 0)
+        if (custom != null && custom.requestLines != null && custom.requestLines.Count > 0)
+        {
             return custom.requestLines[UnityEngine.Random.Range(0, custom.requestLines.Count)];
+        }
 
-        var names = SplitNames(npcOrder?.CurrentRequestName);
-        return names.Count <= 1 ? string.Format(requestSingleFormat, names.Count > 0 ? names[0] : "")
-                                 : FormatMulti(requestComboFormat, names);
+        // No custom line → no text (no chat bubble)
+        return null;
     }
 
     private string BuildWrongLine()
     {
         var custom = GetDialogueSet();
-        if (custom != null && custom.wrongLines?.Count > 0)
+        if (custom != null && custom.wrongLines != null && custom.wrongLines.Count > 0)
+        {
             return custom.wrongLines[UnityEngine.Random.Range(0, custom.wrongLines.Count)];
+        }
 
-        var names = SplitNames(npcOrder?.CurrentRequestName);
-        return names.Count <= 1 ? string.Format(wrongSingleFormat, names.Count > 0 ? names[0] : "")
-                                 : FormatMulti(wrongComboFormat, names);
+        // No custom line → no text
+        return null;
     }
 
     private string BuildThankLine()
     {
         var custom = GetDialogueSet();
-        if (custom != null && custom.thankLines?.Count > 0)
+        if (custom != null && custom.thankLines != null && custom.thankLines.Count > 0)
+        {
             return custom.thankLines[UnityEngine.Random.Range(0, custom.thankLines.Count)];
+        }
 
-        var names = SplitNames(npcOrder?.CurrentRequestName);
-        return names.Count <= 1 ? thankSingleFormat : FormatMulti(thankComboFormat, names);
+        // No custom line → no text
+        return null;
     }
 
     private NPCDialogueSet GetDialogueSet()
     {
         if (npcOrder == null || string.IsNullOrWhiteSpace(npcOrder.CurrentRequestName)) return null;
-        return customDialogues.FirstOrDefault(d => npcOrder.CurrentRequestName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
+        return customDialogues.FirstOrDefault(d =>
+            npcOrder.CurrentRequestName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
     }
 
     // NEW: Get dialogue set based on a specific delivered dish name
@@ -277,59 +276,6 @@ public class NPCInteractable : MonoBehaviour
         if (string.IsNullOrWhiteSpace(dishName)) return null;
         return customDialogues.FirstOrDefault(d =>
             dishName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
-    }
-
-    private static List<string> SplitNames(string joined)
-    {
-        if (string.IsNullOrWhiteSpace(joined)) return new List<string>();
-        return joined.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
-    }
-
-    private static string FormatMulti(string template, List<string> names)
-    {
-        if (string.IsNullOrWhiteSpace(template)) return string.Join(" + ", names);
-
-        int maxIndex = MaxPlaceholderIndex(template);
-        if (maxIndex >= 0)
-        {
-            object[] args = new object[maxIndex + 1];
-            for (int i = 0; i < args.Length; i++)
-                args[i] = (i < names.Count) ? names[i] : "";
-
-            string baseText = string.Format(template, args);
-            if (names.Count > args.Length)
-            {
-                var extras = names.Skip(args.Length);
-                baseText += " " + string.Join(" + ", extras.Select(n => $"+ {n}"));
-            }
-
-            return baseText;
-        }
-
-        if (names.Count == 0) return template;
-        return template + " " + string.Join(" + ", names);
-    }
-
-    private static int MaxPlaceholderIndex(string template)
-    {
-        int max = -1;
-        for (int i = 0; i < template.Length; i++)
-        {
-            if (template[i] == '{')
-            {
-                int j = i + 1, val = 0;
-                bool any = false;
-                while (j < template.Length && char.IsDigit(template[j]))
-                {
-                    any = true;
-                    val = (val * 10) + (template[j] - '0');
-                    j++;
-                }
-                if (any && j < template.Length && template[j] == '}')
-                    if (val > max) max = val;
-            }
-        }
-        return max;
     }
 
     // ---------------- Timer UI ----------------
@@ -378,7 +324,7 @@ public class NPCInteractable : MonoBehaviour
         if (npcOrder == null || npcOrder.OriginalOrderCount <= 1)
             return; // Only care about combos
 
-        // Make sure we have a base request line to fall back to
+        // Make sure we have a base request line to fall back to (custom only)
         if (string.IsNullOrEmpty(selectedRequestLine))
             selectedRequestLine = BuildRequestLine();
 
@@ -392,7 +338,7 @@ public class NPCInteractable : MonoBehaviour
         }
         else
         {
-            // Side dish or no special mid-combo text → repeat the original order
+            // Side dish or no special mid-combo text → repeat the original order (if any)
             ShowChat(selectedRequestLine);
         }
     }

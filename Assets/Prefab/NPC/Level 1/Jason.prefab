@@ -412,12 +412,8 @@ MonoBehaviour:
 
 '
     - Isa ngang kanin.
-  requestSingleFormat: Pwede isang order ng {0}?
-  requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
-  thankComboFormat: Salamat sa {0} at {1}!
-  wrongSingleFormat: Di naman yan order ko, sabi ko {0}!
-  wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
+  thankComboFormat: Salamat!!
   timeoutLine: Bagal naman dito.
   interactCooldown: 5
   initialWaitTime: 120

@@ -21,17 +21,21 @@ public class NPCInteractable : MonoBehaviour
     public class NPCDialogueSet
     {
         public string dishName;
+
         [Header("Random Lines")]
         [TextArea] public List<string> requestLines = new List<string>();
         [TextArea] public List<string> wrongLines = new List<string>();
         [TextArea] public List<string> thankLines = new List<string>();
-        [TextArea] public List<string> midComboLines = new List<string>(); // NEW: lines after partial combo delivery
+        [TextArea] public List<string> midComboLines = new List<string>(); // lines after partial combo delivery
     }
 
     [Header("Per-Dish Custom Dialogues")]
     [SerializeField] private List<NPCDialogueSet> customDialogues = new List<NPCDialogueSet>();
 
-    [Header("Fallback Texts (Timeout Only)")]
+    [Header("Fallback Texts")]
+    // Fallbacks removed for request & wrong; only thank + timeout kept
+    [SerializeField] private string thankSingleFormat = "Salamat!";
+    [SerializeField] private string thankComboFormat = "Salamat sa {0} at {1}!";
     [SerializeField] private string timeoutLine = "Bagal naman dito.";
 
     [Header("Timers")]
@@ -66,7 +70,7 @@ public class NPCInteractable : MonoBehaviour
         if (npcOrder != null)
         {
             npcOrder.OnOrderFulfilled += HandleOrderFulfilled;
-            npcOrder.OnItemAccepted += HandleItemAccepted; // NEW: per-item handler
+            npcOrder.OnItemAccepted += HandleItemAccepted; // per-item handler
         }
 
         var canvasObj = GameObject.FindWithTag("NPCTimerCanvas");
@@ -114,7 +118,7 @@ public class NPCInteractable : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting || isLeaving)
+        if (!ctx.performed || !playerInRange || currentInteractor == null || !isResting)
             return;
 
         if (Time.time < nextAllowedTime) return;
@@ -173,21 +177,21 @@ public class NPCInteractable : MonoBehaviour
         return true;
     }
 
-    private string CleanName(string name) => string.IsNullOrEmpty(name) ? "" : name.Replace("(Clone)", "").Trim();
+    private string CleanName(string name) =>
+        string.IsNullOrEmpty(name) ? "" : name.Replace("(Clone)", "").Trim();
 
     private void HandleOrderFulfilled()
     {
-        // if (npcOrder?.DeliveredDish != null)
-        // {
-        //     var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
-        //     if (dishRef != null)
-        //         LevelManager.Instance.AddStars(dishRef.starsEarned);
-        // }
+        if (npcOrder?.DeliveredDish != null)
+        {
+            var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
+            if (dishRef != null)
+                LevelManager.Instance.AddStars(dishRef.starsEarned);
+        }
 
         waitingForInteraction = false;
         ShowChat(BuildThankLine());
         npcOrder.DeliveredDish = null;
-        npcOrder.DeliveredItems.Clear();
         StartCoroutine(ThankAndLeave());
         RemoveTimerUI();
     }
@@ -207,7 +211,8 @@ public class NPCInteractable : MonoBehaviour
         RemoveTimerUI();
     }
 
-    private bool IsPlayerTag(Collider other) => other.CompareTag("Player") || other.CompareTag("Player2");
+    private bool IsPlayerTag(Collider other) =>
+        other.CompareTag("Player") || other.CompareTag("Player2");
 
     private void OnTriggerEnter(Collider other)
     {
@@ -227,56 +232,116 @@ public class NPCInteractable : MonoBehaviour
         }
     }
 
-    // ---------------- Dialogue Builders (NO FALLBACKS) ----------------
+    // ---------------- Dialogue Builders ----------------
     private string BuildRequestLine()
     {
         var custom = GetDialogueSet();
-        if (custom != null && custom.requestLines != null && custom.requestLines.Count > 0)
-        {
+        if (custom != null && custom.requestLines?.Count > 0)
             return custom.requestLines[UnityEngine.Random.Range(0, custom.requestLines.Count)];
-        }
 
-        // No custom line → no text (no chat bubble)
+        // No custom request → no bubble
         return null;
     }
 
     private string BuildWrongLine()
     {
         var custom = GetDialogueSet();
-        if (custom != null && custom.wrongLines != null && custom.wrongLines.Count > 0)
-        {
+        if (custom != null && custom.wrongLines?.Count > 0)
             return custom.wrongLines[UnityEngine.Random.Range(0, custom.wrongLines.Count)];
-        }
 
-        // No custom line → no text
+        // No custom wrong-line → no bubble
         return null;
     }
 
     private string BuildThankLine()
     {
         var custom = GetDialogueSet();
-        if (custom != null && custom.thankLines != null && custom.thankLines.Count > 0)
-        {
+        if (custom != null && custom.thankLines?.Count > 0)
             return custom.thankLines[UnityEngine.Random.Range(0, custom.thankLines.Count)];
-        }
 
-        // No custom line → no text
-        return null;
+        // Fallback: still keep THANK YOU using formats
+        var names = SplitNames(npcOrder?.CurrentRequestName);
+        return names.Count <= 1
+            ? thankSingleFormat
+            : FormatMulti(thankComboFormat, names);
     }
 
     private NPCDialogueSet GetDialogueSet()
     {
-        if (npcOrder == null || string.IsNullOrWhiteSpace(npcOrder.CurrentRequestName)) return null;
+        if (npcOrder == null || string.IsNullOrWhiteSpace(npcOrder.CurrentRequestName))
+            return null;
+
         return customDialogues.FirstOrDefault(d =>
             npcOrder.CurrentRequestName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
     }
 
-    // NEW: Get dialogue set based on a specific delivered dish name
+    // Get dialogue set based on a specific delivered dish name
     private NPCDialogueSet GetDialogueSetForName(string dishName)
     {
         if (string.IsNullOrWhiteSpace(dishName)) return null;
+
         return customDialogues.FirstOrDefault(d =>
             dishName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
+    }
+
+    private static List<string> SplitNames(string joined)
+    {
+        if (string.IsNullOrWhiteSpace(joined)) return new List<string>();
+
+        return joined
+            .Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.Trim())
+            .ToList();
+    }
+
+    private static string FormatMulti(string template, List<string> names)
+    {
+        if (string.IsNullOrWhiteSpace(template))
+            return string.Join(" + ", names);
+
+        int maxIndex = MaxPlaceholderIndex(template);
+        if (maxIndex >= 0)
+        {
+            object[] args = new object[maxIndex + 1];
+            for (int i = 0; i < args.Length; i++)
+                args[i] = (i < names.Count) ? names[i] : "";
+
+            string baseText = string.Format(template, args);
+
+            if (names.Count > args.Length)
+            {
+                var extras = names.Skip(args.Length);
+                baseText += " " + string.Join(" + ", extras.Select(n => $"+ {n}"));
+            }
+
+            return baseText;
+        }
+
+        if (names.Count == 0) return template;
+
+        return template + " " + string.Join(" + ", names);
+    }
+
+    private static int MaxPlaceholderIndex(string template)
+    {
+        int max = -1;
+        for (int i = 0; i < template.Length; i++)
+        {
+            if (template[i] == '{')
+            {
+                int j = i + 1, val = 0;
+                bool any = false;
+                while (j < template.Length && char.IsDigit(template[j]))
+                {
+                    any = true;
+                    val = (val * 10) + (template[j] - '0');
+                    j++;
+                }
+                if (any && j < template.Length && template[j] == '}')
+                    if (val > max) max = val;
+            }
+        }
+        return max;
     }
 
     // ---------------- Timer UI ----------------
@@ -316,7 +381,7 @@ public class NPCInteractable : MonoBehaviour
         );
     }
 
-    // NEW: called every time a correct item is delivered
+    // called every time a correct item is delivered
     private void HandleItemAccepted(string deliveredName, bool isComplete)
     {
         // If order is already complete, let HandleOrderFulfilled handle the thank-you flow
@@ -339,7 +404,7 @@ public class NPCInteractable : MonoBehaviour
         }
         else
         {
-            // Side dish or no special mid-combo text → repeat the original order (if any)
+            // Side dish or no special mid-combo text → repeat the original order
             ShowChat(selectedRequestLine);
         }
     }

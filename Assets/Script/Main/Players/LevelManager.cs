@@ -164,6 +164,9 @@ public class LevelManager : MonoBehaviour
 
         resultPanel.SetActive(true);
 
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         // Show level result text (Level Complete or Level Failed)
         if (levelCompleteText != null)
         {

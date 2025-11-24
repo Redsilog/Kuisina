@@ -108,7 +108,11 @@ public class NPCInteractable : MonoBehaviour
         SpawnTimerUI();
 
         if (npcOrder != null && npcOrder.HasActiveOrder)
-            ShowChat(BuildRequestLine());
+        {
+            // Build and store the request line so we can reuse it later
+            selectedRequestLine = BuildRequestLine();
+            ShowChat(selectedRequestLine);
+        }
     }
 
     public void StartMoving()
@@ -129,14 +133,26 @@ public class NPCInteractable : MonoBehaviour
 
         bool acted = npcOrder && npcOrder.StartOrTryFulfill(playerInventory);
 
+        // If no state change happened (no item delivered / no new order)
         if (!acted)
         {
             if (npcOrder && npcOrder.HasActiveOrder)
             {
                 if (IsWrongPrefab(playerInventory))
+                {
                     ShowChat(BuildWrongLine());
+                }
                 else
+                {
+                    // make sure we have a request line to repeat
+                    if (string.IsNullOrWhiteSpace(selectedRequestLine))
+                    {
+                        Debug.Log($"[{name}] OnInteract: selectedRequestLine was empty, rebuilding.");
+                        selectedRequestLine = BuildRequestLine();
+                    }
+
                     ShowChat(selectedRequestLine);
+                }
             }
             return;
         }
@@ -148,8 +164,11 @@ public class NPCInteractable : MonoBehaviour
             inExtendedPhase = true;
             interactionTimer = extendedWaitTime;
 
-            if (string.IsNullOrEmpty(selectedRequestLine))
+            if (string.IsNullOrWhiteSpace(selectedRequestLine))
+            {
+                Debug.Log($"[{name}] OrderCreated: selectedRequestLine was empty, rebuilding.");
                 selectedRequestLine = BuildRequestLine();
+            }
 
             ShowChat(selectedRequestLine);
             npcMovement?.BeginOrdering();
@@ -235,11 +254,27 @@ public class NPCInteractable : MonoBehaviour
     // ---------------- Dialogue Builders ----------------
     private string BuildRequestLine()
     {
-        var custom = GetDialogueSet();
-        if (custom != null && custom.requestLines?.Count > 0)
-            return custom.requestLines[UnityEngine.Random.Range(0, custom.requestLines.Count)];
+        Debug.Log($"[{name}] BuildRequestLine: CurrentRequestName = '{npcOrder?.CurrentRequestName}'");
 
-        // No custom request → no bubble
+        var custom = GetDialogueSet();
+
+        if (custom == null)
+        {
+            Debug.LogWarning($"[{name}] BuildRequestLine: NO dialogue set found.");
+            return null;
+        }
+
+        Debug.Log($"[{name}] BuildRequestLine: using set '{custom.dishName}', reqCount={custom.requestLines?.Count}");
+
+        if (custom.requestLines != null && custom.requestLines.Count > 0)
+        {
+            int index = UnityEngine.Random.Range(0, custom.requestLines.Count);
+            string line = custom.requestLines[index];
+            Debug.Log($"[{name}] Picked request line [{index}]: {line}");
+            return line;
+        }
+
+        Debug.LogWarning($"[{name}] BuildRequestLine: dialogue set has 0 request lines.");
         return null;
     }
 
@@ -247,9 +282,15 @@ public class NPCInteractable : MonoBehaviour
     {
         var custom = GetDialogueSet();
         if (custom != null && custom.wrongLines?.Count > 0)
-            return custom.wrongLines[UnityEngine.Random.Range(0, custom.wrongLines.Count)];
+        {
+            int index = UnityEngine.Random.Range(0, custom.wrongLines.Count);
+            string line = custom.wrongLines[index];
+            Debug.Log($"[{name}] BuildWrongLine picked [{index}]: {line}");
+            return line;
+        }
 
         // No custom wrong-line → no bubble
+        Debug.LogWarning($"[{name}] BuildWrongLine: no wrong lines or no set.");
         return null;
     }
 
@@ -257,31 +298,65 @@ public class NPCInteractable : MonoBehaviour
     {
         var custom = GetDialogueSet();
         if (custom != null && custom.thankLines?.Count > 0)
-            return custom.thankLines[UnityEngine.Random.Range(0, custom.thankLines.Count)];
+        {
+            int index = UnityEngine.Random.Range(0, custom.thankLines.Count);
+            string line = custom.thankLines[index];
+            Debug.Log($"[{name}] BuildThankLine picked [{index}]: {line}");
+            return line;
+        }
 
         // Fallback: still keep THANK YOU using formats
         var names = SplitNames(npcOrder?.CurrentRequestName);
-        return names.Count <= 1
+        string fallback = names.Count <= 1
             ? thankSingleFormat
             : FormatMulti(thankComboFormat, names);
+
+        Debug.Log($"[{name}] BuildThankLine using fallback: {fallback}");
+        return fallback;
     }
 
     private NPCDialogueSet GetDialogueSet()
     {
         if (npcOrder == null || string.IsNullOrWhiteSpace(npcOrder.CurrentRequestName))
+        {
+            Debug.LogWarning($"[{name}] GetDialogueSet: npcOrder or CurrentRequestName is null/empty.");
             return null;
+        }
 
-        return customDialogues.FirstOrDefault(d =>
-            npcOrder.CurrentRequestName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
+        string nameToMatch = npcOrder.CurrentRequestName;
+        Debug.Log($"[{name}] GetDialogueSet: trying to match '{nameToMatch}'");
+
+        var set = customDialogues.FirstOrDefault(d =>
+            nameToMatch.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
+
+        if (set == null)
+            Debug.LogWarning($"[{name}] GetDialogueSet: no match found.");
+        else
+            Debug.Log($"[{name}] GetDialogueSet: matched '{set.dishName}'");
+
+        return set;
     }
 
     // Get dialogue set based on a specific delivered dish name
     private NPCDialogueSet GetDialogueSetForName(string dishName)
     {
-        if (string.IsNullOrWhiteSpace(dishName)) return null;
+        if (string.IsNullOrWhiteSpace(dishName))
+        {
+            Debug.LogWarning($"[{name}] GetDialogueSetForName: dishName is null/empty.");
+            return null;
+        }
 
-        return customDialogues.FirstOrDefault(d =>
+        Debug.Log($"[{name}] GetDialogueSetForName: trying to match '{dishName}'");
+
+        var set = customDialogues.FirstOrDefault(d =>
             dishName.IndexOf(d.dishName, StringComparison.OrdinalIgnoreCase) >= 0);
+
+        if (set == null)
+            Debug.LogWarning($"[{name}] GetDialogueSetForName: no match found.");
+        else
+            Debug.Log($"[{name}] GetDialogueSetForName: matched '{set.dishName}'");
+
+        return set;
     }
 
     private static List<string> SplitNames(string joined)
@@ -369,7 +444,13 @@ public class NPCInteractable : MonoBehaviour
 
     private void ShowChat(string text)
     {
-        if (!chatBubblePrefab || !chatBubbleSpawnPoint || string.IsNullOrWhiteSpace(text)) return;
+        Debug.Log($"[{name}] ShowChat called with: '{text}'");
+
+        if (!chatBubblePrefab || !chatBubbleSpawnPoint || string.IsNullOrWhiteSpace(text))
+        {
+            Debug.LogWarning($"[{name}] ShowChat: ABORT (prefab/spawn missing or text empty).");
+            return;
+        }
 
         ChatBubble.Create(
             chatBubbleSpawnPoint,
@@ -392,14 +473,19 @@ public class NPCInteractable : MonoBehaviour
 
         // Make sure we have a base request line to fall back to (custom only)
         if (string.IsNullOrEmpty(selectedRequestLine))
+        {
+            Debug.Log($"[{name}] HandleItemAccepted: selectedRequestLine was empty, rebuilding.");
             selectedRequestLine = BuildRequestLine();
+        }
 
         var set = GetDialogueSetForName(deliveredName);
 
         // If this dish has special mid-combo lines (e.g. main dish like Adobong Puti)
         if (set != null && set.midComboLines != null && set.midComboLines.Count > 0)
         {
-            string line = set.midComboLines[UnityEngine.Random.Range(0, set.midComboLines.Count)];
+            int index = UnityEngine.Random.Range(0, set.midComboLines.Count);
+            string line = set.midComboLines[index];
+            Debug.Log($"[{name}] HandleItemAccepted mid-combo line [{index}]: {line}");
             ShowChat(line);
         }
         else

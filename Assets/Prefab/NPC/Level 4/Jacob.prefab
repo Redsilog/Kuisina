@@ -292,7 +292,7 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
-  - dishName: Kilinaw na Kambing
+  - dishName: Kilawin na Kambing
     requestLines:
     - "Gusto ko \u2018yung kilawin na may suka at sibuyas, \u2018yung pang-inuman.
       Isang kanin din po."
@@ -414,6 +414,23 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
+  - dishName: Pancit Canton
+    requestLines:
+    - "Gusto ko \u2018yung pancit na lutong wok, amoy toyo agad."
+    - Pancit na may toyo at gulay, parang pang hapunan.
+    wrongLines:
+    - "Ay, parang mali yata \u2018to ah."
+    - "Luh, hindi ito \u2018yung inorder ko."
+    - "Teka, iba \u2018to ah."
+    - "Uy, parang kulang \u2018yung order ko."
+    - "Hmm, baka napagpalit lang \u2018yan?"
+    thankLines:
+    - Salamat ha!
+    - Thank you po!
+    - Ay, salamat po!
+    - Salamat, ang bilis mo ah!
+    - Thank you, sarap nito!
+    midComboLines: []
   thankSingleFormat: Salamat!
   thankComboFormat: Salamat sa {0} at {1}!
   timeoutLine: Bagal naman dito.

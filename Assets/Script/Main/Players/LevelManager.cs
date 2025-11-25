@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        string currentSceneName = SceneManager.GetActiveScene().name; 
 
         if (currentSceneName == "Main Level 1")
         {
@@ -62,10 +62,16 @@ public class LevelManager : MonoBehaviour
         }
         
     }
+
+    public void hideCursor()
+    {
+        Cursor.visible = false;          
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     
     void startLevel()
     {
-        string key = $"{levelID}_TotalStars";
+        string key = $"{levelID}_TotalStars"; 
 
         // Always reset stars at the start
         totalStars = 0;
@@ -104,6 +110,7 @@ public class LevelManager : MonoBehaviour
     
     public void StartLevel()
     {
+        hideCursor();
         remainingTime = levelTime;
         levelActive = true;
         UpdateTimerUI();

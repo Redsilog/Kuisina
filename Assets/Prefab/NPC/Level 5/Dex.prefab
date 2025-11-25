@@ -814,7 +814,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7927296470504479056}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.65
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -887,49 +887,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  requestedItems:
-  - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
-  - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
-  - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
-  - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
-  - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
-  - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
-  - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
-  - {fileID: 2227652599799674470, guid: c0d19d94da616314ea7503d1042c1591, type: 3}
-  - {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
-  prefabCombos:
-  - displayName: Adobong Puti
-    items:
-    - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Adobo sa Gata
-    items:
-    - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Sinigang sa Sampalok
-    items:
-    - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Kinilaw na Isda
-    items:
-    - {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Vegetable Kare-Kare
-    items:
-    - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Pork Sisig
-    items:
-    - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Laing
-    items:
-    - {fileID: 8738931886799024557, guid: 87286e67524d7b14eb03e13f1dce308d, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Pinangat na Gabi
-    items:
-    - {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  menuData: {fileID: 11400000, guid: 2535e17718497454daa727840c5ba44d, type: 2}
+  requestedItems: []
+  prefabCombos: []
 --- !u!114 &8153805941879948859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,7 +950,7 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
-  - dishName: ' Sinigang sa Sampalok'
+  - dishName: Sinigang sa Sampalok
     requestLines:
     - "\u2018Yung sinigang na asim na asim, \u2018yung classic lang at pa-rice nga
       isa lang."
@@ -1030,28 +990,7 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
-  - dishName: Lechon Cebu
-    requestLines:
-    - "Pa-lechon nga \u2018yung walang sauce pero lasang-lasa pa rin. Tapos isang
-      cup ng rice."
-    - "Gusto ko \u2018yung lechon na ma-herbs sa loob, parang Cebu style. Pahingi
-      rin pong kanin."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-    midComboLines:
-    - Isang kanin nga po.
-    - Pahingi pong kanin.
-  - dishName: Vegetable Kare-Kare
+  - dishName: Vegetable Karekare
     requestLines:
     - "Kare-Kare nga \u2018yung puro gulay lang, simple lang gusto ko. Isang kanin
       din po."

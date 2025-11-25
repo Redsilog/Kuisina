@@ -433,12 +433,8 @@ MonoBehaviour:
 
 '
     - Isa ngang kanin.
-  requestSingleFormat: Pwede isang order ng {0}?
-  requestComboFormat: Pwede isang order ng {0} at {1}?
   thankSingleFormat: Salamat!
   thankComboFormat: Salamat sa {0} at {1}!
-  wrongSingleFormat: Di naman yan order ko, sabi ko {0}!
-  wrongComboFormat: Di naman yan order ko, sabi ko {0} at {1}!
   timeoutLine: Bagal naman dito.
   interactCooldown: 5
   initialWaitTime: 120
@@ -458,16 +454,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
+  menuData: {fileID: 11400000, guid: 709aee37d5a86584cae25c5c5f6807d4, type: 2}
   requestedItems: []
-  prefabCombos:
-  - displayName: Adonong puti with rice
-    items:
-    - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Adonong bisaya with rice
-    items:
-    - {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
-    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  prefabCombos: []
 --- !u!114 &6403959119841765450
 MonoBehaviour:
   m_ObjectHideFlags: 0

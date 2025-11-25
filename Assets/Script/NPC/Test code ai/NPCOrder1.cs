@@ -11,11 +11,16 @@ public enum OrderInteractionResult
     ItemAcceptedAndCompleted
 }
 
+/// <summary>
+/// Handles which items an NPC requests and tracks whether they have been fulfilled.
+/// Supports:
+/// - Single items (requestedItems)
+/// - Inspector-authored prefab combos (prefabCombos)
+/// - Forcing a combo by index or name
+/// - Randomizing from singles or combos
+/// </summary>
 public class NPCOrder1 : MonoBehaviour
 {
-    [Header("Menu Source")]
-    public NPCMenuData menuData;   
-
     [Header("Menu Items (Single)")]
     [Tooltip("All valid single dishes this NPC can request. Names must match delivered GameObject names (case-insensitive; '(Clone)' ignored).")]
     public List<GameObject> requestedItems = new List<GameObject>();
@@ -24,63 +29,50 @@ public class NPCOrder1 : MonoBehaviour
     [Tooltip("Prefab-defined combos. Each combo is a list of prefabs that must be delivered one-by-one, in any order.")]
     public List<OrderCombo> prefabCombos = new List<OrderCombo>();
 
-    // Events
+    /// <summary>Raised when the last required item has been delivered.</summary>
     public event Action OnOrderFulfilled;
+
+    /// <summary>
+    /// Raised whenever a correct item is delivered.
+    /// string = delivered item name, bool = isOrderComplete
+    /// </summary>
     public event Action<string, bool> OnItemAccepted;
 
     // Internal state
     private readonly List<string> _pendingOrderNames = new List<string>();
     private bool _orderFulfilled;
 
+    /// <summary>
+    /// The last delivered GameObject (set when a correct item is handed over).
+    /// NPCInteractable reads this to award stars, then sets it back to null.
+    /// </summary>
     public GameObject DeliveredDish { get; set; }
+
+    /// <summary>True if there is an active order and items are still missing.</summary>
     public bool HasActiveOrder => _pendingOrderNames.Count > 0 && !_orderFulfilled;
+
+    /// <summary>A friendly string like "Burger + Fries + Soda".</summary>
     public string CurrentRequestName => _pendingOrderNames.Count == 0 ? string.Empty : string.Join(" + ", _pendingOrderNames);
+
+    /// <summary>
+    /// Kept for backward compatibility with code that formats by index.
+    /// For combos this returns 0; dialogue should use CurrentRequestName for accurate text.
+    /// </summary>
     public int CurrentRequestIndex => 0;
+
+    /// <summary>
+    /// How many items were in the order when it was first created.
+    /// Used to detect combos vs single orders.
+    /// </summary>
     public int OriginalOrderCount { get; private set; }
+
+    /// <summary>
+    /// Last result of StartOrTryFulfill, so callers can know what happened.
+    /// </summary>
     public OrderInteractionResult LastInteractionResult { get; private set; }
+
+    /// <summary>All items delivered so far for the current order.</summary>
     public List<GameObject> DeliveredItems { get; private set; } = new List<GameObject>();
-
-    // DEBUG: log what this NPC can order
-    void Start()
-    {
-        Debug.Log($"[NPCOrder1:{name}] Menu at Start:");
-
-        if (requestedItems != null)
-        {
-            foreach (var go in requestedItems)
-            {
-                if (go != null)
-                    Debug.Log($"  Single: {go.name}");
-            }
-        }
-
-        if (prefabCombos != null)
-        {
-            foreach (var combo in prefabCombos)
-            {
-                if (combo == null) continue;
-                Debug.Log($"  Combo: {combo.displayName}");
-                if (combo.items != null)
-                {
-                    foreach (var go in combo.items)
-                    {
-                        if (go != null)
-                            Debug.Log($"    - {go.name}");
-                    }
-                }
-            }
-        }
-    }
-
-    void Awake()
-    {
-        // Load from menuData so this NPC is locked to that menu
-        if (menuData != null)
-        {
-            requestedItems = new List<GameObject>(menuData.singleItems);
-            prefabCombos = new List<OrderCombo>(menuData.prefabCombos);
-        }
-    }
 
     // =============================
     // RANDOM ORDER
@@ -102,6 +94,7 @@ public class NPCOrder1 : MonoBehaviour
             return;
         }
 
+        // 50/50 between combos and singles if both exist
         bool pickCombo = hasCombos && (!hasSingles || UnityEngine.Random.value < 0.5f);
         if (pickCombo)
         {
@@ -123,6 +116,10 @@ public class NPCOrder1 : MonoBehaviour
     // =============================
     // SPECIFIC ORDER (by string)
     // =============================
+    /// <summary>
+    /// Force a specific order by name or combo, e.g. "Burger" or "Burger+Fries+Soda".
+    /// Names are case-insensitive; "(Clone)" ignored. Any unknown names are skipped with a warning.
+    /// </summary>
     public void SetOrderByName(string namesPlusSeparated)
     {
         _pendingOrderNames.Clear();
@@ -147,7 +144,7 @@ public class NPCOrder1 : MonoBehaviour
 
         if (_pendingOrderNames.Count == 0)
         {
-            _orderFulfilled = true;
+            _orderFulfilled = true; // nothing valid; treat as completed
             Debug.LogWarning("[NPCOrder1] No valid items in order; marked fulfilled.");
         }
         else
@@ -189,9 +186,7 @@ public class NPCOrder1 : MonoBehaviour
             return;
         }
 
-        var combo = prefabCombos.FirstOrDefault(c =>
-            string.Equals(c.displayName, comboName.Trim(), StringComparison.OrdinalIgnoreCase));
-
+        var combo = prefabCombos.FirstOrDefault(c => string.Equals(c.displayName, comboName.Trim(), StringComparison.OrdinalIgnoreCase));
         if (combo == null)
         {
             Debug.LogWarning($"[NPCOrder1] No combo found with name '{comboName}'.");
@@ -208,32 +203,39 @@ public class NPCOrder1 : MonoBehaviour
     // =============================
     // INTERACTION / DELIVERY
     // =============================
+    /// <summary>
+    /// Called by NPCInteractable when the player interacts.
+    /// If no active order, we randomize once (keeps original behavior).
+    /// If the player is holding a correct item, consume it and progress the combo.
+    /// </summary>
     public bool StartOrTryFulfill(PlayerInventory player)
     {
         LastInteractionResult = OrderInteractionResult.None;
 
+        // No order yet? Set one up
         if (!HasActiveOrder)
         {
             RandomizeOrder();
             if (HasActiveOrder)
+            {
                 LastInteractionResult = OrderInteractionResult.OrderCreated;
-
-            return true;
+            }
+            return true; // NPC will show the request line
         }
 
         if (player == null || player.heldVisual == null) return false;
 
         string heldName = CleanName(player.heldVisual.name);
 
-        int idx = _pendingOrderNames.FindIndex(n =>
-            n.Equals(heldName, StringComparison.OrdinalIgnoreCase));
-
+        // Is the held item part of the remaining combo?
+        int idx = _pendingOrderNames.FindIndex(n => n.Equals(heldName, StringComparison.OrdinalIgnoreCase));
         if (idx >= 0)
         {
+            // Correct item delivered
             _pendingOrderNames.RemoveAt(idx);
-            DeliveredDish = player.heldVisual;
+            DeliveredDish = player.heldVisual; // hand reference so NPCInteractable can award stars
             DeliveredItems.Add(player.heldVisual);
-            player.ClearHeldItemDirect();
+            player.ClearHeldItemDirect();      // consume the player's held item
 
             bool isComplete = _pendingOrderNames.Count == 0;
 
@@ -241,10 +243,12 @@ public class NPCOrder1 : MonoBehaviour
                 ? OrderInteractionResult.ItemAcceptedAndCompleted
                 : OrderInteractionResult.ItemAcceptedInProgress;
 
-            var dishRef = DeliveredDish.GetComponent<DishReference>();
-            if (dishRef != null)
-                LevelManager.Instance.AddStars(dishRef.starsEarned);
+            //var dishRef = DeliveredDish.GetComponent<DishReference>();
+            //if (dishRef != null)
+            //   LevelManager.Instance.AddStars(dishRef.starsEarned);
 
+
+            // Notify listeners for mid-combo / per-item dialogue
             OnItemAccepted?.Invoke(heldName, isComplete);
 
             if (isComplete)
@@ -252,6 +256,7 @@ public class NPCOrder1 : MonoBehaviour
                 _orderFulfilled = true;
                 OnOrderFulfilled?.Invoke();
                 Debug.Log("[NPCOrder1] Order complete!");
+
                 DeliveredItems.Clear();
             }
             else
@@ -272,7 +277,6 @@ public class NPCOrder1 : MonoBehaviour
     {
         _pendingOrderNames.Clear();
         if (combo == null || combo.items == null) return;
-
         foreach (var go in combo.items)
         {
             if (go == null) continue;
@@ -280,26 +284,26 @@ public class NPCOrder1 : MonoBehaviour
         }
 
         OriginalOrderCount = _pendingOrderNames.Count;
+        // If combo is empty, mark fulfilled
         _orderFulfilled = _pendingOrderNames.Count == 0;
     }
 
     private bool IsNameInAnyMenu(string cleanName)
     {
-        bool inSingles = requestedItems != null &&
-                         requestedItems.Any(go =>
-                             go && CleanName(go.name)
-                                 .Equals(cleanName, StringComparison.OrdinalIgnoreCase));
-
-        bool inCombos = prefabCombos != null &&
-                        prefabCombos.Any(c =>
-                            c != null && c.items != null &&
-                            c.items.Any(go =>
-                                go && CleanName(go.name)
-                                    .Equals(cleanName, StringComparison.OrdinalIgnoreCase)));
-
+        bool inSingles = requestedItems != null && requestedItems.Any(go => go && CleanName(go.name).Equals(cleanName, StringComparison.OrdinalIgnoreCase));
+        bool inCombos = prefabCombos != null && prefabCombos.Any(c => c != null && c.items != null && c.items.Any(go => go && CleanName(go.name).Equals(cleanName, StringComparison.OrdinalIgnoreCase)));
         return inSingles || inCombos;
     }
 
-    private static string CleanName(string n) =>
-        string.IsNullOrEmpty(n) ? "" : n.Replace("(Clone)", "").Trim();
+    private static string CleanName(string n) => string.IsNullOrEmpty(n) ? "" : n.Replace("(Clone)", "").Trim();
+}
+
+[Serializable]
+public class OrderCombo
+{
+    [Tooltip("Optional label for this combo (used by SetOrderByComboName).")]
+    public string displayName;
+
+    [Tooltip("Prefabs that make up this combo (names must match delivered GameObjects).")]
+    public List<GameObject> items = new List<GameObject>();
 }

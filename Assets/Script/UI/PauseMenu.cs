@@ -31,7 +31,8 @@ public class PauseMenu : MonoBehaviour
         {
             if (isPaused)
             {
-                Resume();
+                return;
+
             }
             else
             {

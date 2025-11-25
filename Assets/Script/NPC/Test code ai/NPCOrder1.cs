@@ -297,13 +297,3 @@ public class NPCOrder1 : MonoBehaviour
 
     private static string CleanName(string n) => string.IsNullOrEmpty(n) ? "" : n.Replace("(Clone)", "").Trim();
 }
-
-[Serializable]
-public class OrderCombo
-{
-    [Tooltip("Optional label for this combo (used by SetOrderByComboName).")]
-    public string displayName;
-
-    [Tooltip("Prefabs that make up this combo (names must match delivered GameObjects).")]
-    public List<GameObject> items = new List<GameObject>();
-}

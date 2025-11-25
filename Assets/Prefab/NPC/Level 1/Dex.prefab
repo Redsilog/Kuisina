@@ -887,7 +887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  menuData: {fileID: 0}
+  menuData: {fileID: 11400000, guid: 709aee37d5a86584cae25c5c5f6807d4, type: 2}
   requestedItems: []
   prefabCombos: []
 --- !u!114 &8153805941879948859

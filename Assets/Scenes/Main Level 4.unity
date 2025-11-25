@@ -9945,7 +9945,7 @@ MonoBehaviour:
   - route: {fileID: 55422359}
     spawnPoint: {fileID: 55422358}
     waitIndex: 2
-    spawnDelay: 0
+    spawnDelay: 5
   - route: {fileID: 1923008503}
     spawnPoint: {fileID: 1923008502}
     waitIndex: 2
@@ -9961,7 +9961,7 @@ MonoBehaviour:
   - route: {fileID: 549488071}
     spawnPoint: {fileID: 549488070}
     waitIndex: 2
-    spawnDelay: 0
+    spawnDelay: 10
   - route: {fileID: 1119454219}
     spawnPoint: {fileID: 1119454218}
     waitIndex: 2
@@ -9981,7 +9981,7 @@ MonoBehaviour:
   - route: {fileID: 42692259}
     spawnPoint: {fileID: 42692258}
     waitIndex: 2
-    spawnDelay: 0
+    spawnDelay: 4
   - route: {fileID: 818971697}
     spawnPoint: {fileID: 818971696}
     waitIndex: 2

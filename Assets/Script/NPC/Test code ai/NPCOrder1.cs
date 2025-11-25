@@ -96,7 +96,8 @@ public class NPCOrder1 : MonoBehaviour
 
         if (!hasCombos && !hasSingles)
         {
-            Debug.LogWarning("[NPCOrder1] No singles or combos set to randomize from.");
+            //  ONLY here, when the menu is really empty
+            Debug.LogWarning($"[NPCOrder1:{name}] No singles or combos set to randomize from.");
             _orderFulfilled = true;
             return;
         }
@@ -117,6 +118,7 @@ public class NPCOrder1 : MonoBehaviour
 
         OriginalOrderCount = _pendingOrderNames.Count;
     }
+
 
     // =============================
     // SPECIFIC ORDER (by string)

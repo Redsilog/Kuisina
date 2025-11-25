@@ -245,57 +245,7 @@ MonoBehaviour:
   chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
   chatBubbleSpawnPoint: {fileID: 4747248737069026235}
   autoClearAfter: 5
-  customDialogues:
-  - dishName: Adobong Puti
-    requestLines:
-    - "Pahingi nga ng adobo na simple lang, \u2018yung walang toyo ha. Tsaka isang
-      kanin nga po."
-    - "Gusto ko \u2018yung adobo na maputi, maasim pero malinis ang lasa at pa-rice
-      nga isa lang."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-    midComboLines:
-    - Isang kanin nga po.
-    - Pahingi pong kanin.
-    - 'Pa-rice nga isa lang.
-
-'
-    - Isa ngang kanin.
-  - dishName: Adobong Bisaya
-    requestLines:
-    - "Pa-adobo nga \u2018yung piniprito pa pagkatapos lutuin, \u2018yung may konting
-      lutong. One rice din po."
-    - "Gusto ko \u2018yung adobo na medyo crispy, parang pang biyahe. One rice din
-      po."
-    wrongLines:
-    - "Ay, parang mali yata \u2018to ah."
-    - "Luh, hindi ito \u2018yung inorder ko."
-    - "Teka, iba \u2018to ah."
-    - "Uy, parang kulang \u2018yung order ko."
-    - "Hmm, baka napagpalit lang \u2018yan?"
-    thankLines:
-    - Salamat ha!
-    - Thank you po!
-    - Ay, salamat po!
-    - Salamat, ang bilis mo ah!
-    - Thank you, sarap nito!
-    midComboLines:
-    - Isang kanin nga po.
-    - Pahingi pong kanin.
-    - 'Pa-rice nga isa lang.
-
-'
-    - Isa ngang kanin.
+  customDialogues: []
   thankSingleFormat: Salamat!
   thankComboFormat: Salamat sa {0} at {1}!
   timeoutLine: Bagal naman dito.

@@ -6,13 +6,12 @@ using UnityEngine;
 public class NPCMenuData : ScriptableObject
 {
     [Header("Single Items")]
-    public List<GameObject> singleItems = new List<GameObject>();
+    public List<GameObject> singleItems = new List<GameObject>();   //  IMPORTANT: new List<>
 
     [Header("Prefab Combos")]
-    public List<OrderCombo> prefabCombos = new List<OrderCombo>();
+    public List<OrderCombo> prefabCombos = new List<OrderCombo>();  //  also initialised
 }
 
-// You already have this in NPCOrder1:
 [Serializable]
 public class OrderCombo
 {

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eaacec0f3b16747a3106e7a71dc93e, type: 3}
   m_Name: Menu_Level4
   m_EditorClassIdentifier: Assembly-CSharp::NPCMenuData
-  singleItems: []
+  singleItems:
+  - {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
   prefabCombos:
   - displayName: Adobong Bisaya
     items:

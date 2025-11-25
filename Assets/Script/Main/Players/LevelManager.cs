@@ -26,9 +26,11 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI earnedStarText;  // Added TMP text for earned stars (e.g., "3")
     public TextMeshProUGUI requiredStarText;  // Added TMP text for required stars (e.g., "10")
 
+
     [Header("In-Game UI")]
     public TextMeshProUGUI starCounterText;
-    
+    public TextMeshProUGUI requiredStarInGameText;
+
     [Header("Buttons")]
     public Button returnButton;
     public Button retryButton;

@@ -26,8 +26,8 @@ TagManager:
   - UI
   - ignorePart
   - BackGroundUI
-  - 
-  - 
+  - PlayerBlock
+  - NonPlayerBlock
   - 
   - 
   - 

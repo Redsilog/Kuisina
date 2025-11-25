@@ -305,7 +305,7 @@ public class LevelManager : MonoBehaviour
     {
         if (starCounterText != null)
         {
-            starCounterText.text = $"{totalStars} / {requiredStars}";
+            starCounterText.text = $"{totalStars}";
         }
     }
 }

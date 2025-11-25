@@ -59,7 +59,6 @@ public class NPCInteractable : MonoBehaviour
     private string selectedRequestLine;
     public bool IsTalking => waitingForInteraction || npcOrder?.HasActiveOrder == true;
 
-
     void Awake()
     {
         var col = GetComponent<Collider>();

@@ -435,9 +435,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
-  menuData: {fileID: 11400000, guid: 170503f37f912674d954254107a99b55, type: 2}
-  requestedItems: []
-  prefabCombos: []
+  requestedItems:
+  - {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
+  - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+  - {fileID: 1965620761376922558, guid: 45f08eea1beeaaf4e97cbc84248cf510, type: 3}
+  - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
+  - {fileID: 2060069828839427841, guid: 7bf88337495987a45a46046f04e298e4, type: 3}
+  - {fileID: 2291160985396561127, guid: 83f6e63373b1bd849be5cb1aed8a91f6, type: 3}
+  - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
+  - {fileID: 5532100641193572136, guid: bebc2612a782be44281773398f910ca2, type: 3}
+  prefabCombos:
+  - displayName: Adobong Bisaya
+    items:
+    - {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Sinigang sa Sampalok
+    items:
+    - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Kilawin na Kambing
+    items:
+    - {fileID: 1965620761376922558, guid: 45f08eea1beeaaf4e97cbc84248cf510, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Pork Sisig
+    items:
+    - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Squid Sisig
+    items:
+    - {fileID: 2060069828839427841, guid: 7bf88337495987a45a46046f04e298e4, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Seafood Karekare
+    items:
+    - {fileID: 2291160985396561127, guid: 83f6e63373b1bd849be5cb1aed8a91f6, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Vegetable KareKare
+    items:
+    - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Traditional Karekare
+    items:
+    - {fileID: 5532100641193572136, guid: bebc2612a782be44281773398f910ca2, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
 --- !u!114 &9212604538420879108
 MonoBehaviour:
   m_ObjectHideFlags: 0

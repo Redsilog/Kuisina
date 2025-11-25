@@ -216,6 +216,10 @@ public class MainMenu : MonoBehaviour
     public void OnePlayer()
     {
         GameMode.Instance.SetPlayers(1);
+
+        PlayerPrefs.SetInt("PlayerCount", 1);
+        PlayerPrefs.Save();
+
         SceneToLoad.nextScene = "Main Level 1";
         SceneManager.LoadScene("Loading Screen");
     }
@@ -223,6 +227,10 @@ public class MainMenu : MonoBehaviour
     public void TwoPlayers()
     {
         GameMode.Instance.SetPlayers(2);
+
+        PlayerPrefs.SetInt("PlayerCount", 2);
+        PlayerPrefs.Save();
+
         SceneToLoad.nextScene = "Main Level 1";
         SceneManager.LoadScene("Loading Screen");
     }

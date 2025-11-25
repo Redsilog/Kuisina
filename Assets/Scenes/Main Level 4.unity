@@ -20399,7 +20399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: Day1
-  requiredStars: 45
+  requiredStars: 35
   levelTime: 601
   totalStars: 0
   timerText: {fileID: 1384234487}
@@ -46711,7 +46711,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 45
+  m_text: 35
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d79cd4e1771bb2246b66a52df90f96a5, type: 2}
   m_sharedMaterial: {fileID: -4574653794582544283, guid: d79cd4e1771bb2246b66a52df90f96a5, type: 2}

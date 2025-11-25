@@ -201,19 +201,14 @@ public class NPCInteractable : MonoBehaviour
 
     private void HandleOrderFulfilled()
     {
-        if (npcOrder?.DeliveredDish != null)
-        {
-            var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
-            if (dishRef != null)
-                LevelManager.Instance.AddStars(dishRef.starsEarned);
-        }
-
         waitingForInteraction = false;
         ShowChat(BuildThankLine());
         npcOrder.DeliveredDish = null;
+
         StartCoroutine(ThankAndLeave());
         RemoveTimerUI();
     }
+
 
     private IEnumerator ThankAndLeave()
     {
@@ -463,35 +458,38 @@ public class NPCInteractable : MonoBehaviour
     }
 
     // called every time a correct item is delivered
-    private void HandleItemAccepted(string deliveredName, bool isComplete)
+   private void HandleItemAccepted(string deliveredName, bool isComplete)
     {
-        // If order is already complete, let HandleOrderFulfilled handle the thank-you flow
-        if (isComplete) return;
+        if (npcOrder == null) return;
 
-        if (npcOrder == null || npcOrder.OriginalOrderCount <= 1)
-            return; // Only care about combos
-
-        // Make sure we have a base request line to fall back to (custom only)
-        if (string.IsNullOrEmpty(selectedRequestLine))
+        // Award stars for this delivered item
+        if (npcOrder.DeliveredDish != null)
         {
-            Debug.Log($"[{name}] HandleItemAccepted: selectedRequestLine was empty, rebuilding.");
-            selectedRequestLine = BuildRequestLine();
+            var dishRef = npcOrder.DeliveredDish.GetComponent<DishReference>();
+            if (dishRef != null)
+            {
+                LevelManager.Instance.AddStars(dishRef.starsEarned);
+                Debug.Log($"[{name}] Added {dishRef.starsEarned} stars for {deliveredName}");
+            }
         }
 
-        var set = GetDialogueSetForName(deliveredName);
+        // Show mid-combo dialogue
+        if (!isComplete && npcOrder.OriginalOrderCount > 1)
+        {
+            if (string.IsNullOrEmpty(selectedRequestLine))
+                selectedRequestLine = BuildRequestLine();
 
-        // If this dish has special mid-combo lines (e.g. main dish like Adobong Puti)
-        if (set != null && set.midComboLines != null && set.midComboLines.Count > 0)
-        {
-            int index = UnityEngine.Random.Range(0, set.midComboLines.Count);
-            string line = set.midComboLines[index];
-            Debug.Log($"[{name}] HandleItemAccepted mid-combo line [{index}]: {line}");
-            ShowChat(line);
-        }
-        else
-        {
-            // Side dish or no special mid-combo text → repeat the original order
-            ShowChat(selectedRequestLine);
+            var set = GetDialogueSetForName(deliveredName);
+            if (set != null && set.midComboLines?.Count > 0)
+            {
+                int index = UnityEngine.Random.Range(0, set.midComboLines.Count);
+                ShowChat(set.midComboLines[index]);
+            }
+            else
+            {
+                ShowChat(selectedRequestLine);
+            }
         }
     }
+
 }

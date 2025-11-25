@@ -241,9 +241,9 @@ public class NPCOrder1 : MonoBehaviour
                 ? OrderInteractionResult.ItemAcceptedAndCompleted
                 : OrderInteractionResult.ItemAcceptedInProgress;
 
-            var dishRef = DeliveredDish.GetComponent<DishReference>();
-            if (dishRef != null)
-                LevelManager.Instance.AddStars(dishRef.starsEarned);
+            //var dishRef = DeliveredDish.GetComponent<DishReference>();
+            //if (dishRef != null)
+            //   LevelManager.Instance.AddStars(dishRef.starsEarned);
 
 
             // Notify listeners for mid-combo / per-item dialogue

@@ -6,7 +6,7 @@ using System.Collections;
 
 public class ChatBubble : MonoBehaviour
 {
-    public static GameObject chatBubblePrefab;
+    public GameObject chatBubblePrefab;
 
     public static void Create(Transform parent, Vector3 localPosition, IconType iconType, string text, GameObject prefab, float lifetime = 2f)
     {

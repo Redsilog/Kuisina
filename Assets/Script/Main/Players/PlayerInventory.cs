@@ -12,6 +12,9 @@ public class PlayerInventory : MonoBehaviour
 
     public int playerID = 1;
 
+    public GameObject chatBubblePrefab;
+    public Transform chatBubbleSpawnPoint;
+
     [Header("Animation")]
     public Animator animator;
     public Rigidbody playerRigidbody; // reference to player's Rigidbody for movement detection
@@ -137,6 +140,15 @@ public class PlayerInventory : MonoBehaviour
 
         Debug.Log("Picked up: " + dish.name);
 
+        ChatBubble.Create(
+            parent: chatBubbleSpawnPoint,
+            localPosition: new Vector3(0, 3f, 0f), // adjust height as needed
+            iconType: ChatBubble.IconType.Dish,
+            text: GetDishDescription(dish),
+            prefab: chatBubblePrefab,
+            lifetime: 5f
+        );
+
         UpdateHoldingAnimation();
     }
 
@@ -179,6 +191,16 @@ public class PlayerInventory : MonoBehaviour
             animator.SetBool("IsHoldingStill", false);
         }
     }
+    private string GetDishDescription(GameObject dish)
+    {
+        if (dish.TryGetComponent<DishReference>(out var info))
+        {
+            return string.IsNullOrEmpty(info.description) 
+                ? "A delicious dish!" 
+                : info.description;
+        }
 
+        return "Picked up a dish!";
+    }
 
 }

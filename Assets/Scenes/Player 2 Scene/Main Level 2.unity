@@ -211,6 +211,8 @@ MonoBehaviour:
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 666936579}
   playerID: 2
+  chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
+  chatBubbleSpawnPoint: {fileID: 347448504}
   animator: {fileID: 347448501}
   playerRigidbody: {fileID: 347448502}
   walkThreshold: 0.1
@@ -7779,6 +7781,11 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 2575324619265472830, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
   m_PrefabInstance: {fileID: 347448500}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &347448504 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4183800450452775262, guid: 4003e65057db0494787ef45cbf8b2c90, type: 3}
+  m_PrefabInstance: {fileID: 347448500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &348073207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6476529798019570804, guid: 0fe65fec31a96cc49a3146a03f035c48, type: 3}
@@ -10721,6 +10728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stove
   recipes:
   - dishName: Adobong Puti
+    description: Adobong Puti galing Ilocos! Walang toyo kasi limited ang trade noon.
     requiredIngredients:
     - raw chicken
     - vinegar
@@ -10729,6 +10737,8 @@ MonoBehaviour:
     - salt
     cookedDishPrefab: {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
   - dishName: Adobong Bisaya
+    description: Adobong Bisaya galing Cebu! Piniprito pa para tumagal sa mainit
+      na panahon.
     requiredIngredients:
     - pork
     - vinegar
@@ -10737,6 +10747,8 @@ MonoBehaviour:
     - pepper
     cookedDishPrefab: {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
   - dishName: Adobo sa Pula
+    description: "Adobo sa Pula galing Batangas! Pula dahil sa atsuete, Batangue\xF1o
+      style!"
     requiredIngredients:
     - pork
     - soy sauce
@@ -10745,6 +10757,7 @@ MonoBehaviour:
     - annatto sauce
     cookedDishPrefab: {fileID: 424874754770490518, guid: 134012646f15bcb4985da1460a36d3ac, type: 3}
   - dishName: Adobo sa Gata
+    description: Adobo sa Gata galing Bicol! Gata at sili sa lahat, yan ang Bicolano!
     requiredIngredients:
     - pork
     - coconut milk
@@ -10753,6 +10766,8 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
   - dishName: Sinigang sa Sampalok
+    description: Sinigang sa Sampalok galing Luzon! May sampalok sa bakuran, free
+      na!
     requiredIngredients:
     - pork
     - tamarind
@@ -10761,6 +10776,7 @@ MonoBehaviour:
     - kangkong
     cookedDishPrefab: {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
   - dishName: Sinigang sa Kamias
+    description: Sinigang sa Kamias galing Batangas! Mas maasim pa sa sampalok 'to!
     requiredIngredients:
     - sliced bangus
     - kamias sliced
@@ -10769,6 +10785,7 @@ MonoBehaviour:
     - kangkong
     cookedDishPrefab: {fileID: 1565593403924046379, guid: 7dd9a9c555dd7c44a8db290013dc6f6a, type: 3}
   - dishName: Sinigang sa Bayabas
+    description: Sinigang sa Bayabas galing Central Luzon! May tamis, pambata-friendly!
     requiredIngredients:
     - sliced bangus
     - guava
@@ -10777,6 +10794,7 @@ MonoBehaviour:
     - sliced mustard leaves
     cookedDishPrefab: {fileID: 6759702254672916274, guid: a9c7c051cfc13c340bbc07eb02be8bba, type: 3}
   - dishName: Sinigang sa Mangga
+    description: Sinigang sa Mangga galing Visayas! Hilaw na mangga, perfect sa sabaw!
     requiredIngredients:
     - pork
     - sliced green mango
@@ -10785,6 +10803,7 @@ MonoBehaviour:
     - sliced mustard leaves
     cookedDishPrefab: {fileID: 9169607984740651036, guid: 1d530a0e4f5522f4795584bffee03148, type: 3}
   - dishName: Lechon Cebu
+    description: 
     requiredIngredients:
     - lemongrass
     - chopped garlic
@@ -10793,6 +10812,7 @@ MonoBehaviour:
     - whole pig
     cookedDishPrefab: {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
   - dishName: Lechon Manila
+    description: 
     requiredIngredients:
     - salt
     - pepper
@@ -10800,6 +10820,7 @@ MonoBehaviour:
     - whole pig
     cookedDishPrefab: {fileID: 6559265573489160435, guid: b1b5d92c704601740b937c5c77df3b40, type: 3}
   - dishName: Lechon Bacolod
+    description: 
     requiredIngredients:
     - chopped garlic
     - salt
@@ -10808,6 +10829,8 @@ MonoBehaviour:
     - whole pig
     cookedDishPrefab: {fileID: 7353109815256482310, guid: 82b1b5f6f757a5e46a1bb8ebeea6092f, type: 3}
   - dishName: Traditional Kare-kare
+    description: Traditional Kare-Kare galing Manila! Pang-fiesta, huwag kalimutan
+      ang bagoong!
     requiredIngredients:
     - beef
     - peanut sauce
@@ -10815,6 +10838,7 @@ MonoBehaviour:
     - pechay
     cookedDishPrefab: {fileID: 5532100641193572136, guid: bebc2612a782be44281773398f910ca2, type: 3}
   - dishName: Seafood Kare-kare
+    description: Seafood Kare-Kare galing Pampanga! Coastal kaya seafood, hindi beef!
     requiredIngredients:
     - crab
     - prawns
@@ -10823,6 +10847,8 @@ MonoBehaviour:
     - string beans
     cookedDishPrefab: {fileID: 2291160985396561127, guid: 83f6e63373b1bd849be5cb1aed8a91f6, type: 3}
   - dishName: Vegetable Kare-kare
+    description: Vegetable Kare-Kare galing rural Tagalog! Gulay lang, simple pero
+      busog!
     requiredIngredients:
     - eggplant
     - banana heart
@@ -17799,6 +17825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipes:
   - dishName: Pancit Malabon
+    description: Pancit Malabon! Fishing city kasi, puro seafood ang toppings!
     requiredIngredients:
     - Thick rice noodles
     - Shrimp
@@ -17807,6 +17834,8 @@ MonoBehaviour:
     - Annatto sauce
     cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   - dishName: Pancit Habhab
+    description: Pancit Habhab galing Lucban! Kain sa dahon, walang plato, fiesta
+      style!
     requiredIngredients:
     - Miki noodles
     - Pork
@@ -17815,6 +17844,7 @@ MonoBehaviour:
     - pechay
     cookedDishPrefab: {fileID: 1512458914046312837, guid: eaa644229b526c34ba92116e3a6651f9, type: 3}
   - dishName: Pancit Canton
+    description: Pancit Canton! Chinese traders dala 'to, naging Pinoy na rin!
     requiredIngredients:
     - Egg noodles
     - Pork
@@ -17823,6 +17853,7 @@ MonoBehaviour:
     - pechay
     cookedDishPrefab: {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
   - dishName: Kinilaw na Isda
+    description: Kinilaw na Isda galing Visayas! Bagong huli, suka lang, walang luto!
     requiredIngredients:
     - tanigue sliced
     - calamansi
@@ -17830,7 +17861,9 @@ MonoBehaviour:
     - chili
     - ginger
     cookedDishPrefab: {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
-  - dishName: Kinilaw na Kambing
+  - dishName: Kilawin na Kambing
+    description: Kilawin na Kambing galing Ilocos! Kambing kasi walang dagat, suka
+      naman marami!
     requiredIngredients:
     - goat meat
     - vinegar
@@ -17839,6 +17872,7 @@ MonoBehaviour:
     - ginger
     cookedDishPrefab: {fileID: 1965620761376922558, guid: 45f08eea1beeaaf4e97cbc84248cf510, type: 3}
   - dishName: Kinilaw na may Gata
+    description: Kinilaw na may Gata galing Mindanao! Coconut belt eh, may gata pa!
     requiredIngredients:
     - tanigue sliced
     - vinegar
@@ -17847,6 +17881,8 @@ MonoBehaviour:
     - ginger
     cookedDishPrefab: {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
   - dishName: Pork Sisig
+    description: Pork Sisig galing Pampanga! galing US base pig heads, naging legit
+      na ulam!
     requiredIngredients:
     - pork
     - chopped onion
@@ -17854,6 +17890,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
   - dishName: Bangus Sisig
+    description: Bangus Sisig galing Dagupan! Bangus capital kasi, syempre may sisig!
     requiredIngredients:
     - bangus
     - chopped onion
@@ -17861,6 +17898,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 2801310890732738640, guid: 132f55829b7352244bffeefb381e7d00, type: 3}
   - dishName: Squid Sisig
+    description: Squid Sisig galing coastal areas! Pusit version, pang-bar favorite!
     requiredIngredients:
     - Squid
     - chopped onion
@@ -17868,6 +17906,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 2060069828839427841, guid: 7bf88337495987a45a46046f04e298e4, type: 3}
   - dishName: Laing
+    description: Laing galing Bicol! Tuyo na dahon, maanghang na gata, perfect combo!
     requiredIngredients:
     - Dried taro leaves
     - coconut milk
@@ -17875,6 +17914,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 2227652599799674470, guid: c0d19d94da616314ea7503d1042c1591, type: 3}
   - dishName: Pinangat na Gabi
+    description: Pinangat galing Bicol! Fresh na dahon, may laman sa loob, surprise!
     requiredIngredients:
     - shrimp
     - bagoong
@@ -28667,6 +28707,8 @@ MonoBehaviour:
   heldVisual: {fileID: 0}
   holdPoint: {fileID: 11159770}
   playerID: 1
+  chatBubblePrefab: {fileID: 861604141854158598, guid: 9a05d4354c59f944f9a57bfa72655404, type: 3}
+  chatBubbleSpawnPoint: {fileID: 1412132938}
   animator: {fileID: 1396141570}
   playerRigidbody: {fileID: 1396141572}
   walkThreshold: 0.1
@@ -29293,6 +29335,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1396141576}
   m_SourcePrefab: {fileID: 100100000, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+--- !u!4 &1412132938 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3601255156056209268, guid: eb08d9ae11ec88742aec612c534cfa21, type: 3}
+  m_PrefabInstance: {fileID: 1412132937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1415156157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34328,6 +34375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipes:
   - dishName: Pancit Malabon
+    description: Pancit Malabon! Fishing city kasi, puro seafood ang toppings!
     requiredIngredients:
     - Thick rice noodles
     - Shrimp
@@ -34336,6 +34384,8 @@ MonoBehaviour:
     - Annatto sauce
     cookedDishPrefab: {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
   - dishName: Pancit Habhab
+    description: Pancit Habhab galing Lucban! Kain sa dahon, walang plato, fiesta
+      style!
     requiredIngredients:
     - Miki noodles
     - Pork
@@ -34344,6 +34394,7 @@ MonoBehaviour:
     - pechay
     cookedDishPrefab: {fileID: 1512458914046312837, guid: eaa644229b526c34ba92116e3a6651f9, type: 3}
   - dishName: Pancit Canton
+    description: Pancit Canton! Chinese traders dala 'to, naging Pinoy na rin!
     requiredIngredients:
     - Egg noodles
     - Pork
@@ -34352,6 +34403,7 @@ MonoBehaviour:
     - pechay
     cookedDishPrefab: {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
   - dishName: Kinilaw na Isda
+    description: Kinilaw na Isda galing Visayas! Bagong huli, suka lang, walang luto!
     requiredIngredients:
     - tanigue sliced
     - calamansi
@@ -34359,7 +34411,9 @@ MonoBehaviour:
     - chili
     - ginger
     cookedDishPrefab: {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
-  - dishName: Kinilaw na Kambing
+  - dishName: Kilawin na Kambing
+    description: Kilawin na Kambing galing Ilocos! Kambing kasi walang dagat, suka
+      naman marami!
     requiredIngredients:
     - goat meat
     - vinegar
@@ -34368,6 +34422,7 @@ MonoBehaviour:
     - ginger
     cookedDishPrefab: {fileID: 1965620761376922558, guid: 45f08eea1beeaaf4e97cbc84248cf510, type: 3}
   - dishName: Kinilaw na may Gata
+    description: Kinilaw na may Gata galing Mindanao! Coconut belt eh, may gata pa!
     requiredIngredients:
     - tanigue sliced
     - vinegar
@@ -34376,6 +34431,8 @@ MonoBehaviour:
     - ginger
     cookedDishPrefab: {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
   - dishName: Pork Sisig
+    description: Pork Sisig galing Pampanga! galing US base pig heads, naging legit
+      na ulam!
     requiredIngredients:
     - pork
     - chopped onion
@@ -34383,6 +34440,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
   - dishName: Bangus Sisig
+    description: Bangus Sisig galing Dagupan! Bangus capital kasi, syempre may sisig!
     requiredIngredients:
     - bangus
     - chopped onion
@@ -34390,6 +34448,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 2801310890732738640, guid: 132f55829b7352244bffeefb381e7d00, type: 3}
   - dishName: Squid Sisig
+    description: Squid Sisig galing coastal areas! Pusit version, pang-bar favorite!
     requiredIngredients:
     - Squid
     - chopped onion
@@ -34397,6 +34456,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 2060069828839427841, guid: 7bf88337495987a45a46046f04e298e4, type: 3}
   - dishName: Laing
+    description: Laing galing Bicol! Tuyo na dahon, maanghang na gata, perfect combo!
     requiredIngredients:
     - Dried taro leaves
     - coconut milk
@@ -34404,6 +34464,7 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 2227652599799674470, guid: c0d19d94da616314ea7503d1042c1591, type: 3}
   - dishName: Pinangat na Gabi
+    description: Pinangat galing Bicol! Fresh na dahon, may laman sa loob, surprise!
     requiredIngredients:
     - shrimp
     - bagoong
@@ -50490,6 +50551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stove
   recipes:
   - dishName: Adobong Puti
+    description: Adobong Puti galing Ilocos! Walang toyo kasi limited ang trade noon.
     requiredIngredients:
     - raw chicken
     - vinegar
@@ -50498,6 +50560,8 @@ MonoBehaviour:
     - salt
     cookedDishPrefab: {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
   - dishName: Adobong Bisaya
+    description: Adobong Bisaya galing Cebu! Piniprito pa para tumagal sa mainit
+      na panahon.
     requiredIngredients:
     - pork
     - vinegar
@@ -50506,6 +50570,8 @@ MonoBehaviour:
     - pepper
     cookedDishPrefab: {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
   - dishName: Adobo sa Pula
+    description: "Adobo sa Pula galing Batangas! Pula dahil sa atsuete, Batangue\xF1o
+      style!"
     requiredIngredients:
     - pork
     - soy sauce
@@ -50514,6 +50580,7 @@ MonoBehaviour:
     - annatto sauce
     cookedDishPrefab: {fileID: 424874754770490518, guid: 134012646f15bcb4985da1460a36d3ac, type: 3}
   - dishName: Adobo sa Gata
+    description: Adobo sa Gata galing Bicol! Gata at sili sa lahat, yan ang Bicolano!
     requiredIngredients:
     - pork
     - coconut milk
@@ -50522,6 +50589,8 @@ MonoBehaviour:
     - chili
     cookedDishPrefab: {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
   - dishName: Sinigang sa Sampalok
+    description: Sinigang sa Sampalok galing Luzon! May sampalok sa bakuran, free
+      na!
     requiredIngredients:
     - pork
     - tamarind
@@ -50530,6 +50599,7 @@ MonoBehaviour:
     - kangkong
     cookedDishPrefab: {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
   - dishName: Sinigang sa Kamias
+    description: Sinigang sa Kamias galing Batangas! Mas maasim pa sa sampalok 'to!
     requiredIngredients:
     - sliced bangus
     - kamias sliced
@@ -50538,6 +50608,7 @@ MonoBehaviour:
     - kangkong
     cookedDishPrefab: {fileID: 1565593403924046379, guid: 7dd9a9c555dd7c44a8db290013dc6f6a, type: 3}
   - dishName: Sinigang sa Bayabas
+    description: Sinigang sa Bayabas galing Central Luzon! May tamis, pambata-friendly!
     requiredIngredients:
     - sliced bangus
     - guava
@@ -50546,6 +50617,7 @@ MonoBehaviour:
     - sliced mustard leaves
     cookedDishPrefab: {fileID: 6759702254672916274, guid: a9c7c051cfc13c340bbc07eb02be8bba, type: 3}
   - dishName: Sinigang sa Mangga
+    description: Sinigang sa Mangga galing Visayas! Hilaw na mangga, perfect sa sabaw!
     requiredIngredients:
     - pork
     - sliced green mango
@@ -50554,6 +50626,7 @@ MonoBehaviour:
     - sliced mustard leaves
     cookedDishPrefab: {fileID: 9169607984740651036, guid: 1d530a0e4f5522f4795584bffee03148, type: 3}
   - dishName: Lechon Cebu
+    description: 
     requiredIngredients:
     - lemongrass
     - chopped garlic
@@ -50562,6 +50635,7 @@ MonoBehaviour:
     - whole pig
     cookedDishPrefab: {fileID: 4382007506090646352, guid: ec1ff8cfa3cf5b34086f2e34d1732a5d, type: 3}
   - dishName: Lechon Manila
+    description: 
     requiredIngredients:
     - salt
     - pepper
@@ -50569,6 +50643,7 @@ MonoBehaviour:
     - whole pig
     cookedDishPrefab: {fileID: 6559265573489160435, guid: b1b5d92c704601740b937c5c77df3b40, type: 3}
   - dishName: Lechon Bacolod
+    description: 
     requiredIngredients:
     - chopped garlic
     - salt
@@ -50577,6 +50652,8 @@ MonoBehaviour:
     - whole pig
     cookedDishPrefab: {fileID: 7353109815256482310, guid: 82b1b5f6f757a5e46a1bb8ebeea6092f, type: 3}
   - dishName: Traditional Kare-kare
+    description: Traditional Kare-Kare galing Manila! Pang-fiesta, huwag kalimutan
+      ang bagoong!
     requiredIngredients:
     - beef
     - peanut sauce
@@ -50584,6 +50661,7 @@ MonoBehaviour:
     - pechay
     cookedDishPrefab: {fileID: 5532100641193572136, guid: bebc2612a782be44281773398f910ca2, type: 3}
   - dishName: Seafood Kare-kare
+    description: Seafood Kare-Kare galing Pampanga! Coastal kaya seafood, hindi beef!
     requiredIngredients:
     - crab
     - prawns
@@ -50592,6 +50670,8 @@ MonoBehaviour:
     - string beans
     cookedDishPrefab: {fileID: 2291160985396561127, guid: 83f6e63373b1bd849be5cb1aed8a91f6, type: 3}
   - dishName: Vegetable Kare-kare
+    description: Vegetable Kare-Kare galing rural Tagalog! Gulay lang, simple pero
+      busog!
     requiredIngredients:
     - eggplant
     - banana heart

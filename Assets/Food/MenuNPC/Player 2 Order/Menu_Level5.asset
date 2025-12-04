@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04eaacec0f3b16747a3106e7a71dc93e, type: 3}
+  m_Name: Menu_Level5
+  m_EditorClassIdentifier: Assembly-CSharp::NPCMenuData
+  singleItems:
+  - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  prefabCombos:
+  - displayName: Adobong Puti
+    items:
+    - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Adobo sa Gata
+    items:
+    - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Sinigang sa Sampalok
+    items:
+    - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Kinilaw sa Isda
+    items:
+    - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Vegetable Karekare
+    items:
+    - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Pork Sisig
+    items:
+    - {fileID: 1575714879232823158, guid: 60e9f6ef28c72fb439717142e821cffe, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Laing
+    items:
+    - {fileID: 2227652599799674470, guid: c0d19d94da616314ea7503d1042c1591, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Pinangat na Gabi
+    items:
+    - {fileID: 1011776673750389983, guid: 5b22278b80f7830428dd60e9aa20c49c, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}

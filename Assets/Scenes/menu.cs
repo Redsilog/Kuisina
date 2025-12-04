@@ -157,7 +157,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.DeleteKey("LastLevel");
         PlayerPrefs.DeleteKey("PlayerCount");
         PlayerPrefs.Save();
-        Debug.Log("🆕 Starting new game... Progress reset.");
+        Debug.Log(" Starting new game... Progress reset.");
 
         if (confirmationPanel != null)
             confirmationPanel.SetActive(false);
@@ -220,7 +220,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("PlayerCount", 1);
         PlayerPrefs.Save();
 
-        SceneToLoad.nextScene = "Main Level 1";
+        SceneToLoad.nextScene = "Player Level 1";
         SceneManager.LoadScene("Loading Screen");
     }
 

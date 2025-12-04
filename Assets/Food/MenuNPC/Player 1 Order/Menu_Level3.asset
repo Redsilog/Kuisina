@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04eaacec0f3b16747a3106e7a71dc93e, type: 3}
+  m_Name: Menu_Level3
+  m_EditorClassIdentifier: Assembly-CSharp::NPCMenuData
+  singleItems:
+  - {fileID: 4794482946225722980, guid: 1465b46eefa8d7549a068944c9ea1b09, type: 3}
+  - {fileID: 3336605299608830592, guid: 214272aaa4c95fe4d884e56797ea7cde, type: 3}
+  - {fileID: 1512458914046312837, guid: eaa644229b526c34ba92116e3a6651f9, type: 3}
+  prefabCombos:
+  - displayName: Adobo sa Gata
+    items:
+    - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Sinigang sa Sampalok
+    items:
+    - {fileID: 6450572241212895298, guid: cb733e7f74a564e4886ba06253deb458, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Sinigang sa Kamias
+    items:
+    - {fileID: 1565593403924046379, guid: 7dd9a9c555dd7c44a8db290013dc6f6a, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Kinilaw sa Isda
+    items:
+    - {fileID: 6664840034517157514, guid: aafd78afab54d224dbbb3b5d9c08c3d8, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
+  - displayName: Kinilaw na may Gata
+    items:
+    - {fileID: 7471765686567236948, guid: b07f9b4e25c2b054b8e4520295b0b4f4, type: 3}
+    - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}

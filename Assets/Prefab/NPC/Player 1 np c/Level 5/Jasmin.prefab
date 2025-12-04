@@ -608,6 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de617eed94631b645af0860aeb0527d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCOrder1
+  menuData: {fileID: 11400000, guid: 2e842d595d76f144ea20e408514d2111, type: 2}
   requestedItems:
   - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
   - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}

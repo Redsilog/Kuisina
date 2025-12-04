@@ -7,6 +7,7 @@ using System.Linq;
 public class Recipe
 {
     public string dishName;
+    [TextArea] public string description;
     public List<string> requiredIngredients = new List<string>();
     public GameObject cookedDishPrefab;
 }
@@ -321,7 +322,8 @@ public class Stove : MonoBehaviour
                 var refComp = cookedFood.AddComponent<DishReference>();
                 refComp.prefab = recipe.cookedDishPrefab;
                 refComp.starsEarned = stars;
-
+                refComp.description = recipe.description;
+                Debug.Log(recipe.description);
 
                 // ✅ Parent to stove spawn
                 cookedFood.transform.SetParent(spawnPoint, worldPositionStays: true);

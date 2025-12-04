@@ -5,4 +5,5 @@ public class DishReference : MonoBehaviour
 {
     public GameObject prefab;
     public int starsEarned;
+    public string description; 
 }

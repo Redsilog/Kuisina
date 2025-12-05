@@ -51,18 +51,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name; 
-
-        if (currentSceneName == "Main Level 1")
-        {
-            return;
-        }
-
-        else
-        {
-            startLevel();
-        }
-        
+        startLevel();
     }
 
     public void hideCursor()

@@ -40,6 +40,9 @@ public class TutorialScreen : MonoBehaviour
             tutorialScreenLevel1.SetActive(true);
             isTutorialOpen = true;
             Time.timeScale = 0f;   // <- NPCs & gameplay paused here
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         // Hide gameplay UI at start
@@ -85,6 +88,9 @@ public class TutorialScreen : MonoBehaviour
             {
                 if (start != null) start.SetActive(false);
             }
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -127,6 +133,8 @@ public class TutorialScreen : MonoBehaviour
         if (starCount != null) starCount.gameObject.SetActive(true);
 
         Time.timeScale = 1f;       //  NPCs start moving again
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void NextPage()

@@ -345,7 +345,7 @@ MonoBehaviour:
     items:
     - {fileID: 2291160985396561127, guid: 83f6e63373b1bd849be5cb1aed8a91f6, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Vegetable KareKare
+  - displayName: Vegetable Karekare
     items:
     - {fileID: 1014385047478437778, guid: f68512eecaa786e4c990e1b20e33c55a, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}

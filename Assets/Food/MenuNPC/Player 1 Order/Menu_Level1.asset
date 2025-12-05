@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCMenuData
   singleItems: []
   prefabCombos:
-  - displayName: Adobo sa  Gata
+  - displayName: Adobo sa Gata
     items:
     - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}

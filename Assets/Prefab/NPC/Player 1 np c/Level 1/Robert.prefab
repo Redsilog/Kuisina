@@ -818,7 +818,7 @@ MonoBehaviour:
 
 '
     - Isa ngang kanin.
-  - dishName: Adobo sa  Pula
+  - dishName: Adobo sa Pula
     requestLines:
     - "Adobo nga \u2018yung medyo mapula, parang may atsuete at pa-rice nga isa lang.
       Isang rice na rin po."
@@ -867,13 +867,13 @@ MonoBehaviour:
   menuData: {fileID: 11400000, guid: c06e7f42f75ff4a4a9e86839118fbe09, type: 2}
   requestedItems: []
   prefabCombos:
-  - displayName: Adonong puti with rice
+  - displayName: Adobo sa Gata
     items:
-    - {fileID: 4749921419878231217, guid: ed465a5f5ececea4f9b0c3d362b60b0f, type: 3}
+    - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
-  - displayName: Adonong bisaya with rice
+  - displayName: Adobo sa Pula
     items:
-    - {fileID: 3812840457618248889, guid: 99001aafa2e9d2448ab0e575ca3f647e, type: 3}
+    - {fileID: 424874754770490518, guid: 134012646f15bcb4985da1460a36d3ac, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
 --- !u!114 &750206956557513461
 MonoBehaviour:

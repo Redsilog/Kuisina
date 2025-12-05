@@ -288,7 +288,7 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
-  - dishName: ' Sinigang sa Sampalok'
+  - dishName: Sinigang sa Sampalok
     requestLines:
     - "\u2018Yung sinigang na asim na asim, \u2018yung classic lang at pa-rice nga
       isa lang."

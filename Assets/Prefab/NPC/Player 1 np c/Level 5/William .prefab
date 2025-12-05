@@ -1053,7 +1053,7 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
-  - dishName: ' Sinigang sa Sampalok'
+  - dishName: Sinigang sa Sampalok
     requestLines:
     - "\u2018Yung sinigang na asim na asim, \u2018yung classic lang at pa-rice nga
       isa lang."
@@ -1114,7 +1114,7 @@ MonoBehaviour:
     midComboLines:
     - Isang kanin nga po.
     - Pahingi pong kanin.
-  - dishName: Vegetable Kare-Kare
+  - dishName: Vegetable Karekare
     requestLines:
     - "Kare-Kare nga \u2018yung puro gulay lang, simple lang gusto ko. Isang kanin
       din po."

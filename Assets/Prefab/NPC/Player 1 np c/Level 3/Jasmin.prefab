@@ -383,7 +383,7 @@ MonoBehaviour:
   chatBubbleSpawnPoint: {fileID: 6486163730936838676}
   autoClearAfter: 5
   customDialogues:
-  - dishName: Adobong sa Gata
+  - dishName: Adobo sa Gata
     requestLines:
     - Adobo nga na may gata at konting anghang, pang Bicol style! Pahingi rin pong
       kanin!

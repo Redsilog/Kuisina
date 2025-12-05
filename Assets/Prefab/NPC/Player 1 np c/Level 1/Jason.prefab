@@ -337,7 +337,7 @@ MonoBehaviour:
   menuData: {fileID: 11400000, guid: c06e7f42f75ff4a4a9e86839118fbe09, type: 2}
   requestedItems: []
   prefabCombos:
-  - displayName: Adobong Gata
+  - displayName: Adobo sa Gata
     items:
     - {fileID: 1251174177080548761, guid: d668924be0cb221439a17b24fc2ade62, type: 3}
     - {fileID: 9156443983301338517, guid: 642f837e56284b3478493ebe88184546, type: 3}
@@ -388,7 +388,7 @@ MonoBehaviour:
 
 '
     - Isa ngang kanin.
-  - dishName: Adobo sa  Pula
+  - dishName: Adobo sa Pula
     requestLines:
     - "Adobo nga \u2018yung medyo mapula, parang may atsuete at pa-rice nga isa lang.
       Isang rice na rin po."

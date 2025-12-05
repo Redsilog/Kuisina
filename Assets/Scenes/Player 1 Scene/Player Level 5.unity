@@ -20822,7 +20822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelID: 'Day1 '
   requiredStars: 45
-  levelTime: 721
+  levelTime: 901
   totalStars: 0
   timerText: {fileID: 1384234487}
   resultPanel: {fileID: 595533861}

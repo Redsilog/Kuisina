@@ -62,17 +62,23 @@ public class LevelManager : MonoBehaviour
     
     void startLevel()
     {
-        string key = $"{levelID}_TotalStars"; 
+        
+        hideCursor();
 
         // Always reset stars at the start
         totalStars = 0;
+        string key = $"{levelID}_TotalStars"; 
         PlayerPrefs.SetInt(key, totalStars);
         PlayerPrefs.Save();
         Debug.Log($"[LevelManager] Reset {key} = 0");
 
+        remainingTime = levelTime;
+        levelActive = true;
+        UpdateTimerUI();
+        StartCoroutine(LevelTimer());
+
         // Update UI
         UpdateStarCounterUI();
-        StartLevel();
 
         if (resultPanel != null)
             resultPanel.SetActive(false);
@@ -97,16 +103,6 @@ public class LevelManager : MonoBehaviour
                 Debug.Log($"[DEBUG] Forced star count to {totalStars}");
             }
         }
-    }
-    
-    public void StartLevel()
-    {
-        hideCursor();
-        remainingTime = levelTime;
-        levelActive = true;
-        UpdateTimerUI();
-        UpdateStarCounterUI();
-        StartCoroutine(LevelTimer());
     }
 
     private IEnumerator LevelTimer()
